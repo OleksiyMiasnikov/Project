@@ -40,16 +40,16 @@ public class ContextListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
-        logger.info("Added context attribute (" + event.getName() + "=" + event.getValue() + ")");
+        //logger.info("Added context attribute (" + event.getName() + "=" + event.getValue() + ")");
     }
 
     @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
-        logger.info("Removed context attribute (" + event.getName() + "=" + event.getValue() + ")");
+      //  logger.info("Removed context attribute (" + event.getName() + "=" + event.getValue() + ")");
     }
 
     @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
-        logger.info("Replaced context attribute (" + event.getName() + "=" + event.getValue() + ")");
+       // logger.info("Replaced context attribute (" + event.getName() + "=" + event.getValue() + ")");
     }
 }

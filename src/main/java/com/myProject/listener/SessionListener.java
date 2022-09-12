@@ -14,35 +14,35 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     private static final Logger logger = (Logger) LogManager.getLogger(SessionListener.class);
     @Override
     public void attributeAdded(HttpSessionBindingEvent event) {
-        logger.info("Added session attribute (Session: "
+/*        logger.info("Added session attribute (Session: "
                 + event.getSession()
                 + ", attribute "
                 + event.getName()
                 + "="
                 + event.getValue()
-                + ")");
+                + ")");*/
     }
 
     @Override
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        logger.info("Removed session attribute (Session: "
+/*        logger.info("Removed session attribute (Session: "
                 + event.getSession()
                 + ", attribute "
                 + event.getName()
                 + "="
                 + event.getValue()
-                + ")");
+                + ")");*/
     }
 
     @Override
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        logger.info("Replaced session attribute (Session: "
+        /*logger.info("Replaced session attribute (Session: "
                 + event.getSession()
                 + ", attribute "
                 + event.getName()
                 + "="
                 + event.getValue()
-                + ")");
+                + ")");*/
     }
 
     @Override
@@ -54,6 +54,6 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         logger.info("Session destroyed: "
-                + se.getSession());
+                + se.getSession() + "-" + se.getSession().getAttribute("Employee") + "-" + se.getSession().getAttribute("Login"));
     }
 }

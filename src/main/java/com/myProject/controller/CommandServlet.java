@@ -18,7 +18,11 @@ public class CommandServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String button = req.getParameter("menuButton");
         logger.info(button + " was pressed");
-
-        resp.sendRedirect("menu");
+        if ("Log out".equals(button)) {
+            req.getSession().invalidate();
+            req.getRequestDispatcher("index.html").forward(req, resp);
+        }
+        // need to implement command execute
+        //resp.sendRedirect("menu");
     }
 }

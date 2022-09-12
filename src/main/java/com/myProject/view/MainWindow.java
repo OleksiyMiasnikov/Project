@@ -1,6 +1,6 @@
 package com.myProject.view;
 
-import com.myProject.dao.entitie.User;
+import com.myProject.employee.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 @WebServlet("/main")
 public class MainWindow extends HttpServlet {
@@ -21,24 +19,15 @@ public class MainWindow extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=UTF-8");
         HttpSession session = req.getSession();
-        logger.info("View layer. Session: " + session.getId());
-        Arrays.stream(req.getCookies()).forEach(cookie -> logger.info("Cookie = " + cookie.getName() + ": " + cookie.getValue()));
-        User user = (User) session.getAttribute("CurrentUser");
+        Employee employee = (Employee) session.getAttribute("Employee");
 
-        List<String> menuItems = new ArrayList<>();
-        menuItems.add("New goods");
-        menuItems.add("New incoming");
-        menuItems.add("New outgoing");
-        menuItems.add("Reports");
-
-        session.setAttribute("menuItems", menuItems);
-        session.setAttribute("menuTitle", "--Commodity expert menu--");
+        session.setAttribute("menuItems", employee.getMenuItems());
+        session.setAttribute("menuTitle", employee.getUser().getRole().getName());
         session.setAttribute("result", "User: "
-                                            + user.getLogin()
+                                            + employee.getUser().getLogin()
                                             + "<br>Has role: "
-                                            + user.getRole().getName());
-        req.getRequestDispatcher("WEB-INF/Pages/commodityExpert.jsp").forward(req, resp);
+                                            + employee.getUser().getRole().getName());
+        req.getRequestDispatcher("WEB-INF/Pages/mainWindow.jsp").forward(req, resp);
     }
 }

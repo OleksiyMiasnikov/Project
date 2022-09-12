@@ -1,5 +1,7 @@
 package com.myProject.controller;
 
+import com.myProject.dao.entitie.User;
+import com.myProject.employee.Employee;
 import com.myProject.exception.DbException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 
 @WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
@@ -32,20 +33,23 @@ public class AuthorizationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         logger.info("login is \"" + login + "\".");
-        StringBuilder message = new StringBuilder("Login \"" + login + "\" is ");
-        boolean loginValid;
         try {
-            loginValid = userManager.isValid(login, password);
-            if (loginValid) {
+            User user = userManager.findUser(login, password);
+            if (user != null) {
                 HttpSession session = req.getSession();
                 if (session.isNew()) {
                     logger.info("New session: " + session.getId());
                 } else {
                     logger.info("Existing session: " + session.getId());
                 }
-                session.setAttribute("CurrentUser", userManager.getCurrentUser());
-                logger.info("Service layer. Session: " + session.getId());
-                resp.addCookie(new Cookie("myCookie", "Success"));
+                Employee employee = Employee.createEmployee(user);
+                session.setAttribute("Employee", employee);
+                logger.info("Session: "
+                            + session.getId()
+                            + ". Current user:"
+                            + employee.getUser().getLogin()
+                            + ". Role: "
+                            + employee.getUser().getRole());
                 resp.sendRedirect("main");
             } else {
                 resp.setContentType("text/html");

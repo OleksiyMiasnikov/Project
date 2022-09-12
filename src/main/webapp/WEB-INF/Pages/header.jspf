@@ -18,7 +18,8 @@
                 overflow: auto;
             }
             .sideBar input {
-                margin: 50 px;
+                margin: 10px;
+                padding 10px;
                 align: center;
                 width: 120px;
                 background-color: #04AA6D;
@@ -39,11 +40,14 @@
 
         <form class="sideBar" action="menuCommand" method="post">
             <c:forEach items="${sessionScope.menuItems}" var="item">
-               <input type="submit" value='${item}' name="menuButton">
-               <br>
-               <br>
+                <input type="submit" value='${item}' name="menuButton">
+                <br>
             </c:forEach>
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="Log out" name="menuButton">
         </form>
-
     </body>
 </html>

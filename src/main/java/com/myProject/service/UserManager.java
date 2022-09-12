@@ -36,16 +36,16 @@ public class UserManager {
         this.currentUser = currentUser;
     }
 
-    public boolean isValid(String login, String password) throws DbException {
+    public User findUser(String login, String password) throws DbException {
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
             User user = userDao.findUser(con, login);
             if (user != null && password.equals(user.getPassword())) {
                 UserManager.getInstance(userDao).currentUser = user;
-                return true;
+                return currentUser;
             }
-            return false;
+            return null;
         } finally {
             try {
                 if (con != null) con.close();
