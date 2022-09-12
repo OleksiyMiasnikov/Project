@@ -3,7 +3,7 @@ package com.myProject.dao;
 import com.myProject.dao.mysql.MySqlDaoFactory;
 
 public abstract class DaoFactory {
-    private static DaoFactory instance = new MySqlDaoFactory();
+    private final static DaoFactory instance = new MySqlDaoFactory();
     public static DaoFactory getInstance() {
         return instance;
     }

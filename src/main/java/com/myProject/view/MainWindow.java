@@ -1,6 +1,5 @@
 package com.myProject.view;
 
-import com.myProject.dao.entitie.User;
 import com.myProject.employee.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
+
 
 
 @WebServlet("/main")
@@ -34,7 +33,7 @@ public class MainWindow extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        logger.info("main doPost");
         req.getRequestDispatcher("WEB-INF/Pages/listWindow.jsp").forward(req, resp);
 
     }

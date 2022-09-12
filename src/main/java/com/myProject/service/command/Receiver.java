@@ -11,16 +11,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.myProject.dao.Constants.*;
+
 public class Receiver {
     private static final Logger logger = (Logger) LogManager.getLogger(Receiver.class);
     Map<String, Command> commandMap;
     public Receiver() {
         this.commandMap = new HashMap<>();
-        commandMap.put("Add user", new AddUser());
-        commandMap.put("Show users", new ShowUsers());
-        commandMap.put("Delete user", new DeleteUser());
+        commandMap.put(COMMAND_ADD_USER, new AddUser());
+        commandMap.put(COMMAND_SHOW_USERS, new ShowUsers());
+        commandMap.put(COMMAND_DELETE_USER, new DeleteUser());
     }
-    public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName) throws DbException, ServletException, IOException {
+    public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
+            throws DbException, ServletException, IOException {
+        logger.info("runCommand executed");
         commandMap.get(buttonName).execute(req, resp);
     }
 }

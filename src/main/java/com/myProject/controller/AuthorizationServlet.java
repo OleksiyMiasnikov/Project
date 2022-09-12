@@ -23,7 +23,7 @@ public class AuthorizationServlet extends HttpServlet {
 
     private UserManager userManager;
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) {
         ServletContext servletContext = config.getServletContext();
         userManager = (UserManager) servletContext.getAttribute("UserManager");
     }

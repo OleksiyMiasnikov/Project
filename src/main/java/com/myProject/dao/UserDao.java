@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface UserDao {
-    public User findUser(Connection con, String login) throws DbException;
+    User findUser(Connection con, String login) throws DbException;
 
-    public List<User> findAllUsers(Connection con) throws DbException;
+    List<User> findAllUsers(Connection con) throws DbException;
 }

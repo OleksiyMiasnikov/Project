@@ -24,7 +24,7 @@ public abstract class Employee {
         return menuItems;
     }
 
-    public Employee(User user, String [] items) {
+    public Employee(User user, String ... items) {
         this.user = user;
         this.menuItems = new ArrayList<>(Arrays.asList(items));
     }

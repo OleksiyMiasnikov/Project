@@ -1,6 +1,7 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.exception.DbException;
+import static com.myProject.dao.Constants.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -28,10 +29,10 @@ public class MySqlConnectionPool {
 
     public Connection getConnection() throws DbException {
         Context context;
-        Connection connection = null;
+        Connection connection;
         try {
             context = new InitialContext();
-            DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/projectConnectionPool");
+            DataSource dataSource = (DataSource) context.lookup(CONTEXT_NAME);
             connection = dataSource.getConnection();
         } catch (NamingException | SQLException e) {
             logger.error("Can not get connection");
