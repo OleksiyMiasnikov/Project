@@ -27,6 +27,9 @@ public class MenuServlet extends HttpServlet {
         req.setAttribute("menuTitle", "Commodity expert menu");
         this.getServletConfig().getServletContext().setAttribute("menuItems", menuItems);
         this.getServletConfig().getServletContext().setAttribute("menuTitle", "--Commodity expert menu--");
+
+
+
         req.getRequestDispatcher("WEB-INF/Pages/menuBar.jsp").forward(req, resp);
         logger.info("Finish");
     }

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @WebServlet("/main")
 public class MainWindow extends HttpServlet {
@@ -24,10 +26,19 @@ public class MainWindow extends HttpServlet {
         logger.info("View layer. Session: " + session.getId());
         Arrays.stream(req.getCookies()).forEach(cookie -> logger.info("Cookie = " + cookie.getName() + ": " + cookie.getValue()));
         User user = (User) session.getAttribute("CurrentUser");
+
+        List<String> menuItems = new ArrayList<>();
+        menuItems.add("New goods");
+        menuItems.add("New incoming");
+        menuItems.add("New outgoing");
+        menuItems.add("Reports");
+
+        session.setAttribute("menuItems", menuItems);
+        session.setAttribute("menuTitle", "--Commodity expert menu--");
         session.setAttribute("result", "User: "
                                             + user.getLogin()
                                             + "<br>Has role: "
                                             + user.getRole().getName());
-        req.getRequestDispatcher("WEB-INF/Pages/page.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/Pages/commodityExpert.jsp").forward(req, resp);
     }
 }

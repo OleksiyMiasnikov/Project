@@ -5,44 +5,45 @@
     <head>
         <style>
             body {
-                margin: 0;
+                margin: 50;
             }
-            ul {
+            .sideBar {
                 list-style-type: none;
                 margin: 0;
-                padding: 0;
+                padding: 20px;
                 width: 15%;
                 background-color: #f1f1f1;
                 position: fixed;
                 height: 100%;
                 overflow: auto;
             }
-
-            li a {
-                display: block;
-                color: #000;
-                padding: 8px 16px;
-                text-decoration: none;
-            }
-
-            li a.active {
+            .sideBar input {
+                margin: 50 px;
+                align: center;
+                width: 120px;
                 background-color: #04AA6D;
                 color: white;
+                font-size: 16px;
+                font-weight: 100;
+                border: 1px solid #a7a8a8;
+                border-radius: 5px 5px 5px 5px;
             }
+            .sideBar input:hover {
+                 background: #047e51;
+             }
 
-            li a:hover:not(.active) {
-                background-color: #555;
-                color: white;
-            }
         </style>
     </head>
 
     <body>
-        <ul>
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
+
+        <form class="sideBar" action="menuCommand" method="post">
+            <c:forEach items="${sessionScope.menuItems}" var="item">
+               <input type="submit" value='${item}' name="menuButton">
+               <br>
+               <br>
+            </c:forEach>
+        </form>
+
     </body>
 </html>
