@@ -21,7 +21,7 @@
                 margin: 10px;
                 padding 10px;
                 align: center;
-                width: 120px;
+                width: 140px;
                 background-color: #04AA6D;
                 color: white;
                 font-size: 16px;

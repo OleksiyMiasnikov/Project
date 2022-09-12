@@ -11,7 +11,6 @@
                 <br>
                 ${sessionScope.menuTitle}
             </h2>
-            ${sessionScope.result}
         </div>
     </body>
 </html>

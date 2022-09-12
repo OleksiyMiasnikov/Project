@@ -11,7 +11,11 @@
                 <br>
                 ${sessionScope.menuTitle}
             </h2>
-            ${sessionScope.result}
+            <ul>
+                <c:forEach var="user" items="${result}">
+                    <li>${user.getLogin()} : ${user.getRole().getName()} </li>
+                </c:forEach>
+            </ul>
         </div>
     </body>
 </html>

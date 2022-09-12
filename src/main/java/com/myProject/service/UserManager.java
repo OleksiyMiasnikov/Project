@@ -9,6 +9,7 @@ import org.apache.logging.log4j.core.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class UserManager {
@@ -46,6 +47,23 @@ public class UserManager {
                 return currentUser;
             }
             return null;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+
+    public List<User> findAllUsers() throws DbException{
+        logger.info("Start finding all users");
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            List<User> userList = userDao.findAllUsers(con);
+            return userList;
         } finally {
             try {
                 if (con != null) con.close();

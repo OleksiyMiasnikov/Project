@@ -6,15 +6,15 @@ import com.myProject.exception.DbException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySqlUserDao implements UserDao {
     private static final Logger logger = (Logger) LogManager.getLogger(MySqlDaoFactory.class);
 
     private static final String SELECT_USER = "SELECT `users`.`id`, `login`, `password`, `email`, `roles_id`, `name` as role_name FROM `users` JOIN `roles` ON `users`.`roles_id` = `roles`.`id` WHERE `login`= ?";
+    private static final String SELECT_ALL_USERS = "SELECT `users`.`id`, `login`, `password`, `email`, `roles_id`, `name` as role_name FROM `users` JOIN `roles` ON `users`.`roles_id` = `roles`.`id`";
     public User findUser(Connection con, String login) throws DbException {
         try (PreparedStatement pstmt = con.prepareStatement(SELECT_USER)) {
             pstmt.setString(1, login);
@@ -26,8 +26,22 @@ public class MySqlUserDao implements UserDao {
                 return null;
             }
         } catch (SQLException e) {
-            throw new DbException("Cannot make searching! ", e);
+            throw new DbException("Cannot make search user by login! ", e);
         }
     }
 
+    @Override
+    public List<User> findAllUsers(Connection con) throws DbException{
+        try (Statement stmt = con.createStatement()) {
+            stmt.executeQuery(SELECT_ALL_USERS);
+            ResultSet resultSet = stmt.getResultSet();
+            List<User> userList = new ArrayList<>();
+            while (resultSet.next()) {
+                userList.add(User.newInstance(resultSet));
+            }
+            return userList;
+        } catch (SQLException e) {
+            throw new DbException("Cannot make search all users! ", e);
+        }
+    }
 }

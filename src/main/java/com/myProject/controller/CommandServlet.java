@@ -1,5 +1,7 @@
 package com.myProject.controller;
 
+import com.myProject.exception.DbException;
+import com.myProject.service.command.Receiver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -21,8 +23,14 @@ public class CommandServlet extends HttpServlet {
         if ("Log out".equals(button)) {
             req.getSession().invalidate();
             req.getRequestDispatcher("index.html").forward(req, resp);
+            return;
         }
-        // need to implement command execute
-        //resp.sendRedirect("menu");
+        Receiver receiver = new Receiver();
+        try {
+            receiver.runCommand(req, resp, button);
+        } catch (DbException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
     }
 }
