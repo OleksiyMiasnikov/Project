@@ -10,24 +10,25 @@
                 <hr>
             </h2>
             <form action="addUser" method="post">
-                  Login <input name="login" required>
+                  Login
+                  <input name="newLogin" value="" required>
                   <br>
-                  Password <input type="password" name="password" required>
+                  Password
+                  <input type="newPassword" value="" name="password" required>
                   <br>
-                  Email <input name="email">
+                  Email
+                  <input name="newEmail" value="" >
                   <br>
-                  Role <input name="role" required>
-                  <hr>
-                  <select id="distribute_type"  class="textbox combo" name="distribute_type" >
-                           <Опциональное значение = ""> Пожалуйста, выберите </ Опция>
-                       <c:forEach items="${distribution }" var="diss">
-                           <option value="${diss.DISTRIBUTIONTYPE }">${diss.DISTRIBUTIONTYPE }</option>
-                       </c:forEach>
+                  Role
+                  <select name="newRole" required>
+                        <option disabled selected value> -- select an option -- </option>
+                        <c:forEach var="item" items="${roles }">
+                            <option value="${item.getName() }">${item.getName() }</option>
+                        </c:forEach>
                    </select>
                   <hr>
                   <br>
                   <input type="submit" value="Create user">
-                  <br>
                   <input type="submit" value="Cancel">
                </div>
             </form>

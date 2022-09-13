@@ -20,11 +20,13 @@ public class Receiver {
         this.commandMap = new HashMap<>();
         commandMap.put(COMMAND_ADD_USER, new AddUser());
         commandMap.put(COMMAND_SHOW_USERS, new ShowUsers());
+        commandMap.put(COMMAND_UPDATE_USER, new UpdateUser());
         commandMap.put(COMMAND_DELETE_USER, new DeleteUser());
         commandMap.put(COMMAND_NEW_ORDER, new NewOrder());
         commandMap.put(COMMAND_REPORTS, new Reports());
         commandMap.put(COMMAND_NEW_GOODS, new NewGoods());
         commandMap.put(COMMAND_INCOME, new Income());
+
     }
     public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
             throws DbException, ServletException, IOException {

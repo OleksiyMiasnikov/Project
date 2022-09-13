@@ -4,12 +4,21 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
     private long id;
     private String login;
     private String password;
     private String email;
     private Role role;
+
+    public User(String login, String password, String email, Role role) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+    public User() {
+    }
 
     public static User newInstance(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -59,5 +68,10 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.login.compareTo(o.getLogin());
     }
 }

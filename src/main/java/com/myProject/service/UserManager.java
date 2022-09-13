@@ -1,5 +1,6 @@
 package com.myProject.service;
 
+import com.myProject.dao.entitie.Role;
 import com.myProject.dao.mysql.MySqlConnectionPool;
 import com.myProject.dao.UserDao;
 import com.myProject.exception.DbException;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.core.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -64,6 +66,46 @@ public class UserManager {
             con = MySqlConnectionPool.getInstance().getConnection();
             List<User> userList = userDao.findAllUsers(con);
             return userList;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+
+
+    public List<Role> findAllRoles() throws DbException {
+        logger.info("Start finding all roles");
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            List<Role> rolesList = userDao.findAllRoles(con);
+            logger.info("Finish finding all roles");
+            return rolesList;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+
+    public boolean addUser(User newUser) throws DbException {
+        logger.info("Start adding user " + newUser.getLogin());
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            newUser.getRole().setId(userDao.getIdRole(con, newUser.getRole().getName()));
+            if (userDao.addUser(con, newUser)) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             try {
                 if (con != null) con.close();
