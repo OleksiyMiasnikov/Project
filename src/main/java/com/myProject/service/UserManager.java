@@ -10,13 +10,11 @@ import org.apache.logging.log4j.core.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 
 public class UserManager {
     private static final Logger logger = (Logger) LogManager.getLogger(UserManager.class);
-    private User currentUser;
     private static UserManager instance;
     private final UserDao userDao;
 
@@ -31,24 +29,11 @@ public class UserManager {
         this.userDao = userDao;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public User findUser(String login, String password) throws DbException {
+    public User findUser(String login) throws DbException {
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
-            User user = userDao.findUser(con, login);
-            if (user != null && password.equals(user.getPassword())) {
-                UserManager.getInstance(userDao).currentUser = user;
-                return currentUser;
-            }
-            return null;
+            return userDao.findUser(con, login);
         } finally {
             try {
                 if (con != null) con.close();
@@ -100,12 +85,59 @@ public class UserManager {
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
-            newUser.getRole().setId(userDao.getIdRole(con, newUser.getRole().getName()));
-            if (userDao.addUser(con, newUser)) {
-                return true;
-            } else {
-                return false;
+            return userDao.addUser(con, newUser);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
             }
+        }
+    }
+
+    public User deleteUser(String userLogin) throws DbException {
+        logger.info("Start deleting user " + userLogin);
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            User user = userDao.findUser(con, userLogin);
+            if (userDao.deleteUser(con, userLogin)) {
+                return user;
+            } else {
+                return null;
+            }
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+
+    public void updateUser(User user) throws DbException {
+        logger.info("Start updating user " + user.getLogin() + ", id: " + user.getId());
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            userDao.updateUser(con, user);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+    public Long getIdRole(String role) throws DbException {
+        logger.info("Start getting id of " + role);
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            return userDao.getIdRole(con, role);
         } finally {
             try {
                 if (con != null) con.close();

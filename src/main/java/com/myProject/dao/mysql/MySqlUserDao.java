@@ -43,6 +43,7 @@ public class MySqlUserDao implements UserDao {
                 userList.add(User.newInstance(resultSet));
             }
             Collections.sort(userList);
+            resultSet.close();
             return userList;
         } catch (SQLException e) {
             logger.error("Unable to find all users! " + e);
@@ -71,8 +72,8 @@ public class MySqlUserDao implements UserDao {
     public boolean addUser(Connection con, User newUser) {
         try (PreparedStatement pstmt = con.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, newUser.getLogin());
-            pstmt.setString(2, newUser.getEmail());
-            pstmt.setString(3, newUser.getPassword());
+            pstmt.setString(2, newUser.getPassword());
+            pstmt.setString(3, newUser.getEmail());
             pstmt.setLong(4, newUser.getRole().getId());
             pstmt.executeUpdate();
             ResultSet resultSet = pstmt.getGeneratedKeys();
@@ -103,6 +104,31 @@ public class MySqlUserDao implements UserDao {
         } catch (SQLException e) {
             logger.error("Cannot finde role id! " + e);
             throw new DbException("Cannot finde role id! ", e);
+        }
+    }
+
+    @Override
+    public boolean deleteUser(Connection con, String userLogin) {
+        try (PreparedStatement pstmt = con.prepareStatement(DELETE_USER)) {
+            pstmt.setString(1, userLogin);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void updateUser(Connection con, User user) {
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_USER)) {
+            pstmt.setString(1, user.getLogin());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setLong(4, user.getRole().getId());
+            pstmt.setLong(5, user.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -74,4 +74,15 @@ public class User implements Serializable, Comparable<User> {
     public int compareTo(User o) {
         return this.login.compareTo(o.getLogin());
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

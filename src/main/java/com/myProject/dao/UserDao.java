@@ -17,4 +17,8 @@ public interface UserDao {
     boolean addUser(Connection con, User newUser);
 
     long getIdRole(Connection con, String name) throws DbException;
+
+    boolean deleteUser(Connection con, String userLogin);
+
+    void updateUser(Connection con, User userLogin);
 }

@@ -1,6 +1,7 @@
 package com.myProject.service.command;
 
 import com.myProject.dao.entitie.Role;
+import com.myProject.dao.entitie.User;
 import com.myProject.exception.DbException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -21,12 +22,8 @@ public class AddUser implements Command{
         try {
             List<Role> rolesList = userManager.findAllRoles();
             req.setAttribute("roles", rolesList);
-            req.getRequestDispatcher("WEB-INF/Pages/addUser.jsp").forward(req, resp);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (DbException e) {
+            req.getRequestDispatcher("Jsp/userDetails.jsp").forward(req, resp);
+        } catch (ServletException | DbException | IOException e) {
             throw new RuntimeException(e);
         }
     }

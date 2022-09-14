@@ -34,8 +34,8 @@ public class AuthorizationServlet extends HttpServlet {
         String password = req.getParameter("password");
         logger.info("login is \"" + login + "\".");
         try {
-            User user = userManager.findUser(login, password);
-            if (user != null) {
+            User user = userManager.findUser(login);
+            if (user != null && password.equals(user.getPassword())) {
                 HttpSession session = req.getSession();
                 if (session.isNew()) {
                     logger.info("New session: " + session.getId());
@@ -64,6 +64,5 @@ public class AuthorizationServlet extends HttpServlet {
             logger.error("LOG.error");
             e.printStackTrace();
         }
-
     }
 }

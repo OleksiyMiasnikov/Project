@@ -6,6 +6,6 @@ import static com.myProject.dao.Constants.*;
 
 public class Admin extends Employee{
     public Admin(User user) {
-        super(user, COMMAND_SHOW_USERS, COMMAND_ADD_USER, COMMAND_UPDATE_USER, COMMAND_DELETE_USER);
+        super(user, COMMAND_ADD_USER, COMMAND_UPDATE_USER, COMMAND_DELETE_USER);
     }
 }

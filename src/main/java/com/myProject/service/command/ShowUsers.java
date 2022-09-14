@@ -22,6 +22,5 @@ public class ShowUsers implements Command {
         req.setAttribute("result", userList);
         logger.info("Finish execute command  -ShowUsers-");
         req.getRequestDispatcher("main").forward(req, resp);
-        //resp.sendRedirect("main");
     }
 }

@@ -34,13 +34,20 @@
              }
 
         </style>
+
     </head>
 
     <body>
+        <script>
+            function submitFunction() {
+                if (document.getElementById("Delete user") != null ) {alert("Delete pressed");}//<%session.setAttribute("qqq", "4444");%>;
+                console.log(document.getElementById("Delete user"));
+            }
+        </script>
 
         <form class="sideBar" action="menuCommand" method="post">
             <c:forEach items="${sessionScope.menuItems}" var="item">
-                <input type="submit" value='${item}' name="menuButton">
+                <input type="submit" value='${item}' id='${item}' onclick="submitFunction()" name="menuButton">
                 <br>
             </c:forEach>
             <br>
