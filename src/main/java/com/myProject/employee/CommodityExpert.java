@@ -22,7 +22,7 @@ public class CommodityExpert extends Employee {
 
 
         try {
-            req.getRequestDispatcher("Jsp/commodityExpertWindow.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/commodityExpertWindow.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

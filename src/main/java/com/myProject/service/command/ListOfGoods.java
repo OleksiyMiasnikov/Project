@@ -22,7 +22,7 @@ public class ListOfGoods implements Command {
         List<Goods> goodsList = userManager.findAllGoods();
         req.setAttribute("result", goodsList);
         logger.info("Finish execute command  -ListOfGoods-");
-        req.setAttribute("Window", "Jsp/commodityExpertWindow.jsp");
+        req.setAttribute("Window", "jsp/commodityExpertWindow.jsp");
         req.getRequestDispatcher("main").forward(req, resp);
     }
 }

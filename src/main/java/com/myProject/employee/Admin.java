@@ -25,7 +25,7 @@ public class Admin extends Employee{
         userList = userManager.findAllUsers();
         req.setAttribute("result", userList);
         try {
-            req.getRequestDispatcher("Jsp/adminWindow.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/adminWindow.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
