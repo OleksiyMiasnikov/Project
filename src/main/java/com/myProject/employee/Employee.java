@@ -6,6 +6,8 @@ import com.myProject.exception.DbException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,4 +43,5 @@ public abstract class Employee {
             }
         }
     }
+    public abstract void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DbException;
 }

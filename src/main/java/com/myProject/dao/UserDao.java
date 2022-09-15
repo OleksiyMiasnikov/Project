@@ -1,5 +1,6 @@
 package com.myProject.dao;
 
+import com.myProject.dao.entitie.Goods;
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
 import com.myProject.exception.DbException;
@@ -21,4 +22,6 @@ public interface UserDao {
     boolean deleteUser(Connection con, String userLogin);
 
     void updateUser(Connection con, User userLogin);
+
+    List<Goods> findAllGoods(Connection con) throws DbException;
 }

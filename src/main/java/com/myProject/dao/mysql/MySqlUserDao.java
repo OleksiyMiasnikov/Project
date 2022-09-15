@@ -1,6 +1,7 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.UserDao;
+import com.myProject.dao.entitie.Goods;
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
 import com.myProject.exception.DbException;
@@ -129,6 +130,24 @@ public class MySqlUserDao implements UserDao {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Goods> findAllGoods(Connection con) throws DbException {
+        try (Statement stmt = con.createStatement()) {
+            stmt.executeQuery(SELECT_ALL_GOODS);
+            ResultSet resultSet = stmt.getResultSet();
+            List<Goods> goodsList = new ArrayList<>();
+            while (resultSet.next()) {
+                goodsList.add(Goods.newInstance(resultSet));
+            }
+            Collections.sort(goodsList);
+            resultSet.close();
+            return goodsList;
+        } catch (SQLException e) {
+            logger.error("Unable to find all goods! " + e);
+            throw new DbException("Unable to find all goods! ", e);
         }
     }
 }

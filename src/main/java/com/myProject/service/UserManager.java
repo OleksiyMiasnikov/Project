@@ -1,5 +1,6 @@
 package com.myProject.service;
 
+import com.myProject.dao.entitie.Goods;
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.mysql.MySqlConnectionPool;
 import com.myProject.dao.UserDao;
@@ -39,7 +40,6 @@ public class UserManager {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
@@ -49,14 +49,12 @@ public class UserManager {
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
-            List<User> userList = userDao.findAllUsers(con);
-            return userList;
+            return userDao.findAllUsers(con);
         } finally {
             try {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
@@ -75,13 +73,13 @@ public class UserManager {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
 
     public boolean addUser(User newUser) throws DbException {
         logger.info("Start adding user " + newUser.getLogin());
+        logger.info(newUser);
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
@@ -91,7 +89,6 @@ public class UserManager {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
@@ -112,7 +109,6 @@ public class UserManager {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
@@ -128,7 +124,6 @@ public class UserManager {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
             }
         }
     }
@@ -137,13 +132,29 @@ public class UserManager {
         Connection con = null;
         try {
             con = MySqlConnectionPool.getInstance().getConnection();
-            return userDao.getIdRole(con, role);
+            long id = userDao.getIdRole(con, role);
+            logger.info(role + " has id: " + id);
+            return id;
         } finally {
             try {
                 if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
-                throw new DbException("Can not close connection!", e);
+            }
+        }
+    }
+
+    public List<Goods> findAllGoods() throws DbException {
+        logger.info("Start finding all goods");
+        Connection con = null;
+        try {
+            con = MySqlConnectionPool.getInstance().getConnection();
+            return userDao.findAllGoods(con);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
             }
         }
     }

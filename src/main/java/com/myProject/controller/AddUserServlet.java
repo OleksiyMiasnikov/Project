@@ -37,6 +37,7 @@ public class AddUserServlet extends HttpServlet {
         try {
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
             User newUser = new User(login, password, email, new Role(userManager.getIdRole(role), role));
+            logger.info(newUser);
             if (id == 0L) {
                 if (userManager.addUser(newUser)){
                     logger.info(login + " added");
