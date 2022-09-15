@@ -1,7 +1,7 @@
 package com.myProject.employee;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import com.myProject.service.UserManager;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ public class Admin extends Employee{
     }
 
     @Override
-    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DbException {
+    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         List<User> userList = null;
         userList = userManager.findAllUsers();

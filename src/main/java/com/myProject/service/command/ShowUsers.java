@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DbException, ServletException, IOException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ShowUsers-");
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         List<User> userList = userManager.findAllUsers();

@@ -6,7 +6,7 @@ public class Constants {
     public static final String SELECT_ALL_GOODS = "SELECT `id`, `name`, `price`, `unit` FROM `goods`";
     public static final String SELECT_ALL_ROLES  = "SELECT `id`, `name` FROM `roles`";
     public static final String INSERT_USER = "INSERT INTO users VALUES (default, ?, ?, ?, ?)";
-    public static final String DELETE_USER = "DELETE FROM users WHERE login = ?";
+    public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
     public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, email = ?, roles_id = ? WHERE id = ?";
     public static final String GET_ROLE_ID = "SELECT `id` FROM `roles` WHERE `name` = ?";
     public static final String CONTEXT_NAME = "java:comp/env/jdbc/projectConnectionPool";

@@ -3,12 +3,24 @@ package com.myProject.dao.entitie;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Goods implements Serializable, Comparable<Goods>{
     private long id;
     private String name;
     private double price;
     private String unit;
+
+    public Goods() {
+    }
+
+    public Goods(long id, String name, double price, String unit) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.unit = unit;
+    }
+
 
     public static Goods newInstance(ResultSet resultSet) throws SQLException {
         Goods goods = new Goods();
@@ -49,6 +61,19 @@ public class Goods implements Serializable, Comparable<Goods>{
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goods goods = (Goods) o;
+        return id == goods.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

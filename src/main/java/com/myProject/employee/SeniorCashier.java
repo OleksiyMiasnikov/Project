@@ -1,7 +1,7 @@
 package com.myProject.employee;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ public class SeniorCashier extends Employee{
     }
 
     @Override
-    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DbException {
+    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
 
     }
 }

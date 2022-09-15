@@ -1,7 +1,8 @@
 package com.myProject.listener;
 
 import com.myProject.dao.DaoFactory;
-import com.myProject.dao.UserDao;
+import com.myProject.service.GoodsManager;
+import com.myProject.service.RoleManager;
 import com.myProject.service.UserManager;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,9 +23,13 @@ public class ContextListener implements ServletContextListener, ServletContextAt
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("Context \"UserManager\" added");
-        UserDao userDao = DaoFactory.getInstance().getUserDao();
-        UserManager userManager = UserManager.getInstance(userDao);
+        //UserDao userDao = DaoFactory.getInstance().getUserDao();
+        UserManager userManager = UserManager.getInstance(DaoFactory.getInstance().getUserDao());
         sce.getServletContext().setAttribute("UserManager", userManager);
+        RoleManager roleManager = RoleManager.getInstance(DaoFactory.getInstance().getRoleDao());
+        sce.getServletContext().setAttribute("RoleManager", roleManager);
+        GoodsManager goodsManager = GoodsManager.getInstance(DaoFactory.getInstance().getGoodsDao());
+        sce.getServletContext().setAttribute("GoodsManager", goodsManager);
     }
 
     @Override

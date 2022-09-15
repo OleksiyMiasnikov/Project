@@ -3,6 +3,7 @@ package com.myProject.dao.entitie;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class User implements Serializable, Comparable<User> {
     private long id;
@@ -17,18 +18,7 @@ public class User implements Serializable, Comparable<User> {
         this.email = email;
         this.role = role;
     }
-    public User() {
-    }
-
-    public static User newInstance(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong(1));
-        user.setLogin(resultSet.getString(2));
-        user.setPassword(resultSet.getString(3));
-        user.setEmail(resultSet.getString(4));
-        user.setRole(new Role(resultSet.getInt(5), resultSet.getString(6)));
-        return user;
-    }
+    public User() {  }
 
     public long getId() {
         return id;
@@ -68,6 +58,19 @@ public class User implements Serializable, Comparable<User> {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

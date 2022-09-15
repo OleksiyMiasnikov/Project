@@ -2,7 +2,7 @@ package com.myProject.controller;
 
 import com.myProject.dao.entitie.User;
 import com.myProject.employee.Employee;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -60,7 +60,7 @@ public class AuthorizationServlet extends HttpServlet {
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.html");
                 requestDispatcher.include(req, resp);
             }
-        } catch (DbException e) {
+        } catch (DaoException e) {
             logger.error("LOG.error");
             e.printStackTrace();
         }

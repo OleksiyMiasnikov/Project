@@ -1,7 +1,7 @@
 package com.myProject.view;
 
 import com.myProject.employee.Employee;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -26,7 +26,7 @@ public class MainWindow extends HttpServlet {
         String employeeRole = employee.getUser().getRole().getName();
         try {
             employee.initWindow(req, resp);
-        } catch (DbException e) {
+        } catch (DaoException e) {
             throw new RuntimeException(e);
         }
 

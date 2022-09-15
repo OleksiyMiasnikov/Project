@@ -2,7 +2,8 @@ package com.myProject.controller;
 
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
+import com.myProject.service.RoleManager;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -36,10 +37,11 @@ public class AddUserServlet extends HttpServlet {
         if (strId != null && strId != "") id = Long.parseLong(strId);
         try {
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-            User newUser = new User(login, password, email, new Role(userManager.getIdRole(role), role));
+            RoleManager roleManager = (RoleManager) req.getSession().getServletContext().getAttribute("RoleManager");
+            User newUser = new User(login, password, email, new Role(roleManager.getIdRole(role), role));
             logger.info(newUser);
             if (id == 0L) {
-                if (userManager.addUser(newUser)){
+                if (userManager.addUser(newUser) != null){
                     logger.info(login + " added");
                 } else {
                     logger.info("Unable to add user " + login);
@@ -50,7 +52,7 @@ public class AddUserServlet extends HttpServlet {
                 logger.info(login + " updated");
             }
             resp.sendRedirect("main");
-        } catch (DbException | IOException e) {
+        } catch (DaoException | IOException e) {
             throw new RuntimeException(e);
         }
     }

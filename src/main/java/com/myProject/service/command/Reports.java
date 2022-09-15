@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Reports implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Reports.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DbException, ServletException, IOException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- Reports ---");
     }
 }

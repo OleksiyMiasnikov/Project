@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -30,7 +30,7 @@ public class Receiver {
 
     }
     public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
-            throws DbException, ServletException, IOException {
+            throws DaoException, ServletException, IOException {
         logger.info("runCommand executed");
         commandMap.get(buttonName).execute(req, resp);
     }

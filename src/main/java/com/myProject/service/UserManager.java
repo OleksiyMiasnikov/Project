@@ -1,10 +1,8 @@
 package com.myProject.service;
 
-import com.myProject.dao.entitie.Goods;
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.mysql.MySqlConnectionPool;
+import com.myProject.util.ConnectionPool;
 import com.myProject.dao.UserDao;
-import com.myProject.exception.DbException;
+import com.myProject.exception.DaoException;
 import com.myProject.dao.entitie.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -30,11 +28,11 @@ public class UserManager {
         this.userDao = userDao;
     }
 
-    public User findUser(String login) throws DbException {
+    public User findUser(String login) throws DaoException {
         Connection con = null;
         try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            return userDao.findUser(con, login);
+            con = ConnectionPool.getInstance().getConnection();
+            return userDao.findByName(con, login);
         } finally {
             try {
                 if (con != null) con.close();
@@ -44,12 +42,12 @@ public class UserManager {
         }
     }
 
-    public List<User> findAllUsers() throws DbException{
+    public List<User> findAllUsers() throws DaoException {
         logger.info("Start finding all users");
         Connection con = null;
         try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            return userDao.findAllUsers(con);
+            con = ConnectionPool.getInstance().getConnection();
+            return userDao.findAll(con);
         } finally {
             try {
                 if (con != null) con.close();
@@ -59,31 +57,13 @@ public class UserManager {
         }
     }
 
-
-    public List<Role> findAllRoles() throws DbException {
-        logger.info("Start finding all roles");
-        Connection con = null;
-        try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            List<Role> rolesList = userDao.findAllRoles(con);
-            logger.info("Finish finding all roles");
-            return rolesList;
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public boolean addUser(User newUser) throws DbException {
+    public User addUser(User newUser) throws DaoException {
         logger.info("Start adding user " + newUser.getLogin());
         logger.info(newUser);
         Connection con = null;
         try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            return userDao.addUser(con, newUser);
+            con = ConnectionPool.getInstance().getConnection();
+            return userDao.create(con, newUser);
         } finally {
             try {
                 if (con != null) con.close();
@@ -93,17 +73,13 @@ public class UserManager {
         }
     }
 
-    public User deleteUser(String userLogin) throws DbException {
+    public boolean deleteUser(String userLogin) throws DaoException {
         logger.info("Start deleting user " + userLogin);
         Connection con = null;
         try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            User user = userDao.findUser(con, userLogin);
-            if (userDao.deleteUser(con, userLogin)) {
-                return user;
-            } else {
-                return null;
-            }
+            con = ConnectionPool.getInstance().getConnection();
+            User user = userDao.findByName(con, userLogin);
+            return userDao.delete(con, user.getId());
         } finally {
             try {
                 if (con != null) con.close();
@@ -113,43 +89,12 @@ public class UserManager {
         }
     }
 
-    public void updateUser(User user) throws DbException {
+    public void updateUser(User user) throws DaoException {
         logger.info("Start updating user " + user.getLogin() + ", id: " + user.getId());
         Connection con = null;
         try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            userDao.updateUser(con, user);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-    public Long getIdRole(String role) throws DbException {
-        logger.info("Start getting id of " + role);
-        Connection con = null;
-        try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            long id = userDao.getIdRole(con, role);
-            logger.info(role + " has id: " + id);
-            return id;
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public List<Goods> findAllGoods() throws DbException {
-        logger.info("Start finding all goods");
-        Connection con = null;
-        try {
-            con = MySqlConnectionPool.getInstance().getConnection();
-            return userDao.findAllGoods(con);
+            con = ConnectionPool.getInstance().getConnection();
+            userDao.update(con, user);
         } finally {
             try {
                 if (con != null) con.close();
