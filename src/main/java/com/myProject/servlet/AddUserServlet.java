@@ -1,4 +1,4 @@
-package com.myProject.controller;
+package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
@@ -34,11 +34,11 @@ public class AddUserServlet extends HttpServlet {
         String email = req.getParameter("newEmail");
         String role = req.getParameter("newRole");
         String strId = req.getParameter("id");
-        if (strId != null && strId != "") id = Long.parseLong(strId);
+        if (strId != null && !strId.equals("")) id = Long.parseLong(strId);
         try {
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
             RoleManager roleManager = (RoleManager) req.getSession().getServletContext().getAttribute("RoleManager");
-            User newUser = new User(login, password, email, new Role(roleManager.getIdRole(role), role));
+            User newUser = new User(id, login, password, email, new Role(roleManager.getIdRole(role), role));
             logger.info(newUser);
             if (id == 0L) {
                 if (userManager.addUser(newUser) != null){
@@ -47,7 +47,6 @@ public class AddUserServlet extends HttpServlet {
                     logger.info("Unable to add user " + login);
                 }
             } else {
-                newUser.setId(id);
                 userManager.updateUser(newUser);
                 logger.info(login + " updated");
             }

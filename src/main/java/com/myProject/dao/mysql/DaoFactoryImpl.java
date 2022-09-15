@@ -10,6 +10,7 @@ public class DaoFactoryImpl extends DaoFactory {
     private final UserDao userDao = new UserDaoImpl();
     private final RoleDao roleDao = new RoleDaoImpl();
     private final GoodsDao goodsDao = new GoodsDaoImpl();
+    private final WarehouseDao warehouseDao = new WarehouseDaoImpl();
 
     @Override
     public UserDao getUserDao() {
@@ -24,6 +25,11 @@ public class DaoFactoryImpl extends DaoFactory {
     @Override
     public GoodsDao getGoodsDao() {
         return goodsDao;
+    }
+
+    @Override
+    public WarehouseDao getWarehouseDao() {
+        return warehouseDao;
     }
 
 

@@ -18,17 +18,51 @@ public class GoodsDaoImpl implements GoodsDao {
 
     @Override
     public Goods read(Connection con, Long id) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(READ_GOODS_BY_ID)) {
+            pstmt.setLong(1, id);
+            pstmt.executeQuery();
+            ResultSet resultSet = pstmt.getResultSet();
+            if (resultSet.next()) {
+                return buildGoods(resultSet);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to find goods! " + e);
+            throw new DaoException("Unable to findgoods! ", e);
+        }
     }
 
     @Override
     public Goods create(Connection con, Goods entity) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(INSERT_GOODS, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, entity.getName());
+            pstmt.setString(2, entity.getUnit());
+            pstmt.setDouble(3, entity.getPrice());
+            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getLong(1));
+                return entity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void update(Connection con, Goods entity) throws DaoException {
-
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_GOODS, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, entity.getName());
+            pstmt.setString(2, entity.getUnit());
+            pstmt.setDouble(3, entity.getPrice());
+            pstmt.setLong(4, entity.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -43,7 +77,7 @@ public class GoodsDaoImpl implements GoodsDao {
             ResultSet resultSet = stmt.getResultSet();
             List<Goods> goodsList = new ArrayList<>();
             while (resultSet.next()) {
-                goodsList.add(Goods.newInstance(resultSet));
+                goodsList.add(buildGoods(resultSet));
             }
             Collections.sort(goodsList);
             resultSet.close();
@@ -57,5 +91,14 @@ public class GoodsDaoImpl implements GoodsDao {
     @Override
     public Goods findByName(Connection con, String name) throws DaoException {
         return null;
+    }
+
+    private Goods buildGoods(ResultSet resultSet) throws SQLException {
+        Goods goods = new Goods();
+        goods.setId(resultSet.getLong(1));
+        goods.setName(resultSet.getString(2));
+        goods.setPrice(resultSet.getDouble(3));
+        goods.setUnit(resultSet.getString(4));
+        return goods;
     }
 }

@@ -14,21 +14,11 @@ public class Goods implements Serializable, Comparable<Goods>{
     public Goods() {
     }
 
-    public Goods(long id, String name, double price, String unit) {
+    public Goods(long id, String name, String unit, double price) {
         this.id = id;
         this.name = name;
-        this.price = price;
         this.unit = unit;
-    }
-
-
-    public static Goods newInstance(ResultSet resultSet) throws SQLException {
-        Goods goods = new Goods();
-        goods.setId(resultSet.getLong(1));
-        goods.setName(resultSet.getString(2));
-        goods.setPrice(resultSet.getDouble(3));
-        goods.setUnit(resultSet.getString(4));
-        return goods;
+        this.price = price;
     }
 
     public long getId() {
@@ -88,7 +78,7 @@ public class Goods implements Serializable, Comparable<Goods>{
 
     @Override
     public int compareTo(Goods o) {
-        int result = name.compareTo(o.getName());
+        int result = name.compareToIgnoreCase(o.getName());
         return (result == 0) ? Double.compare(price, o.getPrice()) : result;
     }
 }

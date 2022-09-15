@@ -1,4 +1,4 @@
-package com.myProject.controller;
+package com.myProject.servlet;
 
 import com.myProject.exception.DaoException;
 import com.myProject.service.command.Receiver;

@@ -51,7 +51,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
     @Override
     public User read(Connection con, Long id) throws DaoException {
         return null;
@@ -68,7 +67,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultSet = pstmt.getGeneratedKeys();
             if (resultSet.next()) {
                 newUser.setId(resultSet.getLong(1));
-  /*!!!!!*/     return null;
+                 return newUser;
             } else {
                 return null;
             }

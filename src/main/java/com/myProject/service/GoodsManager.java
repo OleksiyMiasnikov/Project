@@ -1,10 +1,7 @@
 package com.myProject.service;
 
 import com.myProject.dao.GoodsDao;
-import com.myProject.dao.UserDao;
 import com.myProject.dao.entitie.Goods;
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.entitie.User;
 import com.myProject.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +34,36 @@ public class GoodsManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return goodsDao.findAll(con);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public Goods create(Goods newGoods) throws DaoException{
+        logger.info("Start creating new goods: " + newGoods);
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return goodsDao.create(con, newGoods);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public void update(Goods goods) throws DaoException{
+        logger.info("Start creating new goods");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            goodsDao.update(con, goods);
         } finally {
             try {
                 if (con != null) con.close();

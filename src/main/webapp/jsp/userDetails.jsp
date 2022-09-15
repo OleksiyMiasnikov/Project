@@ -26,7 +26,7 @@
                   <br>
                   Role
                   <select name="newRole">
-                        <option disable selected value value=${user.role.name}> ${user.role.name} </option>
+                        <option value=${user.role.name}> ${user.role.name} </option>
                         <c:forEach var="item" items="${roles }">
                             <option value="${item.getName() }">
                                 ${item.getName() }

@@ -12,7 +12,8 @@ public class User implements Serializable, Comparable<User> {
     private String email;
     private Role role;
 
-    public User(String login, String password, String email, Role role) {
+    public User(long id, String login, String password, String email, Role role) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.email = email;
@@ -75,7 +76,7 @@ public class User implements Serializable, Comparable<User> {
 
     @Override
     public int compareTo(User o) {
-        return this.login.compareTo(o.getLogin());
+        return this.login.compareToIgnoreCase(o.getLogin());
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.myProject.service.command;
 import com.myProject.dao.entitie.Goods;
 import com.myProject.exception.DaoException;
 import com.myProject.service.GoodsManager;
-import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -11,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListOfGoods implements Command {
@@ -21,7 +21,6 @@ public class ListOfGoods implements Command {
         GoodsManager goodsManager = (GoodsManager) req.getSession().getServletContext().getAttribute("GoodsManager");
         List<Goods> goodsList = goodsManager.findAllGoods();
         req.setAttribute("result", goodsList);
-        logger.info("Finish execute command  -ListOfGoods-");
         req.setAttribute("Window", "jsp/commodityExpertWindow.jsp");
         req.getRequestDispatcher("main").forward(req, resp);
     }

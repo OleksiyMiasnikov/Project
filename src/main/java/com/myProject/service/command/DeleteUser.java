@@ -15,6 +15,14 @@ public class DeleteUser implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         String userLogin = req.getParameter("users");
+        if (userLogin == null || userLogin.equals("")) {
+            try {
+                resp.sendRedirect("main");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
         logger.info("Start deleting user: " + userLogin);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         if (userManager.deleteUser(userLogin)) {

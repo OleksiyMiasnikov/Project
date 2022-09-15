@@ -1,4 +1,4 @@
-package com.myProject.controller;
+package com.myProject.servlet;
 
 import com.myProject.dao.entitie.User;
 import com.myProject.employee.Employee;
