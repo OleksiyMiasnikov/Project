@@ -1,9 +1,7 @@
 package com.myProject.service;
 
-import com.myProject.dao.UserDao;
-import com.myProject.dao.entitie.User;
 import com.myProject.dao.entitie.Warehouse;
-import com.myProject.dao.mysql.WarehouseDao;
+import com.myProject.dao.WarehouseDao;
 import com.myProject.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;

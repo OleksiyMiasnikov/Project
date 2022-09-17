@@ -1,9 +1,7 @@
 package com.myProject.dao.mysql;
 
-import com.myProject.dao.DaoFactory;
-import com.myProject.dao.GoodsDao;
-import com.myProject.dao.RoleDao;
-import com.myProject.dao.UserDao;
+import com.myProject.dao.*;
+import com.myProject.dao.OrderDao;
 
 public class DaoFactoryImpl extends DaoFactory {
 
@@ -11,6 +9,8 @@ public class DaoFactoryImpl extends DaoFactory {
     private final RoleDao roleDao = new RoleDaoImpl();
     private final GoodsDao goodsDao = new GoodsDaoImpl();
     private final WarehouseDao warehouseDao = new WarehouseDaoImpl();
+    private final OrderDao orderDao = new OrderDaoImpl();
+    private final OrderDetailsDao orderDetailsDao = new OrderDetailsDaoImpl();
 
     @Override
     public UserDao getUserDao() {
@@ -30,6 +30,16 @@ public class DaoFactoryImpl extends DaoFactory {
     @Override
     public WarehouseDao getWarehouseDao() {
         return warehouseDao;
+    }
+
+    @Override
+    public OrderDao getOrderDao() {
+        return orderDao;
+    }
+
+    @Override
+    public OrderDetailsDao getOrderDetailsDao() {
+        return orderDetailsDao;
     }
 
 

@@ -1,18 +1,18 @@
 package com.myProject.dao;
 
 public class Constants {
-    public static final String SELECT_USER = "SELECT `users`.`id`, `login`, `password`, `email`, `roles_id`, `name` as role_name FROM `users` JOIN `roles` ON `users`.`roles_id` = `roles`.`id` WHERE `login`= ?";
-    public static final String SELECT_ALL_USERS = "SELECT `users`.`id`, `login`, `password`, `email`, `roles_id`, `name` as role_name FROM `users` JOIN `roles` ON `users`.`roles_id` = `roles`.`id`";
+    public static final String SELECT_USER = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as role_name FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `login`= ?";
+    public static final String SELECT_ALL_USERS = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as role_name FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id`";
     public static final String SELECT_ALL_GOODS = "SELECT `id`, `name`, `price`, `unit` FROM `goods`";
     public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `goods_id` FROM `warehouse`";
-    public static final String SELECT_ALL_ROLES  = "SELECT `id`, `name` FROM `roles`";
-    public static final String INSERT_USER = "INSERT INTO users VALUES (default, ?, ?, ?, ?)";
+    public static final String SELECT_ALL_ROLES  = "SELECT `id`, `name` FROM `role`";
+    public static final String INSERT_USER = "INSERT INTO user VALUES (default, ?, ?, ?, ?)";
     public static final String INSERT_GOODS = "INSERT INTO goods VALUES (default, ?, ?, ?)";
     public static final String READ_GOODS_BY_ID = "SELECT `id`, `name`, `price`, `unit` FROM `goods` WHERE `id` = ?";
     public static final String UPDATE_GOODS = "UPDATE goods SET name = ?, unit = ?, price = ? WHERE id = ?";
-    public static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
-    public static final String UPDATE_USER = "UPDATE users SET login = ?, password = ?, email = ?, roles_id = ? WHERE id = ?";
-    public static final String GET_ROLE_ID = "SELECT `id` FROM `roles` WHERE `name` = ?";
+    public static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
+    public static final String UPDATE_USER = "UPDATE user SET login = ?, password = ?, email = ?, role_id = ? WHERE id = ?";
+    public static final String GET_ROLE_ID = "SELECT `id` FROM `role` WHERE `name` = ?";
     public static final String CONTEXT_NAME = "java:comp/env/jdbc/projectConnectionPool";
     public static final String  COMMAND_SHOW_USERS = "Show users";
     public static final String  COMMAND_ADD_USER = "Add user";

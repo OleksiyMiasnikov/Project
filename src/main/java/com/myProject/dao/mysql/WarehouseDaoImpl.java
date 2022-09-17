@@ -1,7 +1,7 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.GoodsDao;
-import com.myProject.dao.entitie.Goods;
+import com.myProject.dao.WarehouseDao;
 import com.myProject.dao.entitie.Warehouse;
 import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,7 @@ import java.util.List;
 import static com.myProject.dao.Constants.*;
 
 
-public class WarehouseDaoImpl implements WarehouseDao{
+public class WarehouseDaoImpl implements WarehouseDao {
     private static final Logger logger = (Logger) LogManager.getLogger(WarehouseDaoImpl.class);
     @Override
     public Warehouse read(Connection con, Long id) throws DaoException {
