@@ -36,21 +36,18 @@ public class AuthorizationServlet extends HttpServlet {
         try {
             User user = userManager.findUser(login);
             if (user != null && password.equals(user.getPassword())) {
-                HttpSession session = req.getSession();
-                if (session.isNew()) {
-                    logger.info("New session: " + session.getId());
-                } else {
-                    logger.info("Existing session: " + session.getId());
-                }
                 Employee employee = Employee.createEmployee(user);
+                HttpSession session = req.getSession();
                 session.setAttribute("Employee", employee);
+                session.setAttribute("menuItems", employee.getMenuItems());
                 logger.info("Session: "
                             + session.getId()
                             + ". Current user:"
                             + employee.getUser().getLogin()
                             + ". Role: "
                             + employee.getUser().getRole());
-                resp.sendRedirect("main");
+                employee.initWindow(req, resp);
+                //resp.sendRedirect("main");
             } else {
                 resp.setContentType("text/html");
                 PrintWriter writer = resp.getWriter();

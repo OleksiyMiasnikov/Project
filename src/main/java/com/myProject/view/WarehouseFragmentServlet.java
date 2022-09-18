@@ -13,12 +13,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/servlet1")
-public class FragmentServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(FragmentServlet.class);
+@WebServlet("/WarehouseFragment")
+public class WarehouseFragmentServlet extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(WarehouseFragmentServlet.class);
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("start");
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("service start");
         List<Warehouse> warehouseList;
         warehouseList = (List<Warehouse>) req.getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
@@ -37,6 +38,6 @@ public class FragmentServlet extends HttpServlet {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        logger.info("finish");
+        logger.info("service finish");
     }
 }

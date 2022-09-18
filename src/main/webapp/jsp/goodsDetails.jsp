@@ -13,7 +13,7 @@
                 Goods details
                 <hr>
             </h2>
-            <form action="GoodsDetailsServlet" method="post">
+            <form action="serveGoods" method="post">
                   Name
                   <input name="newName" value="${goods.name}">
                   <input type="hidden" name="id" value="${goods.id}">

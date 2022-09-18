@@ -8,10 +8,11 @@ VALUES
 
 INSERT INTO `user` (`id`, `login`, `email`, `password`, `role_id`)
 VALUES
-(1, 'Alex', 'a@gmail.com', '1111', 1),
-(2, 'Bob', 'bob@bob', '2222', 2),
-(3, 'Clode', 'clode@clode', '3333', 3),
-(4, 'Den', 'den@den', '4444', 4);
+(1, 'admin', 'a@a', 'admin', 1),
+(2, 'Alex', 'a@alex', '1111', 1),
+(3, 'Bob', 'bob@bob', '2222', 2),
+(4, 'Clode', 'clode@clode', '3333', 3),
+(5, 'Den', 'den@den', '4444', 4);
 
 INSERT INTO `goods` (`id`, `name`, `unit`, `price`)
 VALUES

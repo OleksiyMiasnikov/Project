@@ -20,7 +20,7 @@ public class OrderDetailsManager {
     public static OrderDetailsManager getInstance(OrderDetailsDao orderDetailsDao) {
         if (instance == null) {
             instance = new OrderDetailsManager(orderDetailsDao);
-            logger.info("Instance of OrderDetailsDao created");
+            logger.info("Instance of OrderDetailsDao created" + instance);
         }
         return instance;
     }
@@ -62,4 +62,18 @@ public class OrderDetailsManager {
         }
     }
 
+    public List<OrderDetails> detailsByOrderId(long id) throws DaoException {
+        logger.info("Start getting details of order #" + id);
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.detailsByOrderId(con, id);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

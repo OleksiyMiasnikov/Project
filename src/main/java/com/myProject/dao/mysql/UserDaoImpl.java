@@ -53,7 +53,19 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User read(Connection con, Long id) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(READ_USER_BY_ID)) {
+            pstmt.setLong(1, id);
+            pstmt.executeQuery();
+            ResultSet resultSet = pstmt.getResultSet();
+            if (resultSet.next()) {
+                return buildUser(resultSet);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to find user! " + e);
+            throw new DaoException("Unable to find user! ", e);
+        }
     }
 
     @Override

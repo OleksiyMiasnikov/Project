@@ -1,0 +1,10 @@
+2022-09-17 16:39:41,204 INFO c.m.s.UserManager [main] Instance of UserManager created
+2022-09-17 16:39:41,204 INFO c.m.s.UserManager [main] Start read user
+2022-09-17 16:39:41,204 INFO c.m.u.ConnectionPool [main] Instance of ConnectionPool created
+2022-09-17 16:39:41,235 ERROR c.m.u.ConnectionPool [main] Can not get connection
+2022-09-17 16:40:12,902 INFO c.m.s.UserManager [main] Instance of UserManager created
+2022-09-17 16:40:12,917 INFO c.m.s.UserManager [main] Start read user
+2022-09-17 16:40:12,917 INFO c.m.u.ConnectionPool [main] Instance of ConnectionPool created
+2022-09-17 16:40:12,933 ERROR c.m.u.ConnectionPool [main] Can not get connection
+2022-09-17 16:42:38,377 INFO c.m.u.ConnectionPool [main] Instance of ConnectionPool created
+2022-09-17 16:42:38,409 ERROR c.m.u.ConnectionPool [main] Can not get connection

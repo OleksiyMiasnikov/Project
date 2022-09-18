@@ -6,9 +6,13 @@ public class Constants {
     public static final String SELECT_ALL_GOODS = "SELECT `id`, `name`, `price`, `unit` FROM `goods`";
     public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `goods_id` FROM `warehouse`";
     public static final String SELECT_ALL_ROLES  = "SELECT `id`, `name` FROM `role`";
+    public static final String SELECT_ALL_ORDERS = "SELECT `id`, `user_id`, `time`, `amount` FROM `order`";
     public static final String INSERT_USER = "INSERT INTO user VALUES (default, ?, ?, ?, ?)";
     public static final String INSERT_GOODS = "INSERT INTO goods VALUES (default, ?, ?, ?)";
     public static final String READ_GOODS_BY_ID = "SELECT `id`, `name`, `price`, `unit` FROM `goods` WHERE `id` = ?";
+    public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `amount` FROM `order` WHERE `id` = ?";
+    public static final String READ_USER_BY_ID = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as role_name FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `user`.`id` = ?";
+    public static final String READ_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `goods_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";
     public static final String UPDATE_GOODS = "UPDATE goods SET name = ?, unit = ?, price = ? WHERE id = ?";
     public static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
     public static final String UPDATE_USER = "UPDATE user SET login = ?, password = ?, email = ?, role_id = ? WHERE id = ?";

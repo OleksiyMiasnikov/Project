@@ -2,6 +2,7 @@ package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
+import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
 import com.myProject.service.RoleManager;
 import com.myProject.service.UserManager;
@@ -14,17 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addUser")
+@WebServlet("/serveUser")
 public class AddUserServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(AddUserServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        logger.info("started");
         if ("Cancel".equals(req.getParameter("button"))) {
             try {
                 logger.info("'Cansel' has pressed");
-                resp.sendRedirect("main");
+                ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
                 return;
-            } catch (IOException e) {
+            } catch (DaoException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -34,6 +36,7 @@ public class AddUserServlet extends HttpServlet {
         String email = req.getParameter("newEmail");
         String role = req.getParameter("newRole");
         String strId = req.getParameter("id");
+        logger.info(role);
         if (strId != null && !strId.equals("")) id = Long.parseLong(strId);
         try {
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
@@ -50,8 +53,9 @@ public class AddUserServlet extends HttpServlet {
                 userManager.updateUser(newUser);
                 logger.info(login + " updated");
             }
-            resp.sendRedirect("main");
-        } catch (DaoException | IOException e) {
+            ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
+            //resp.sendRedirect("main");
+        } catch (DaoException e) {
             throw new RuntimeException(e);
         }
     }

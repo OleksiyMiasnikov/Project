@@ -24,7 +24,10 @@
            </div>
 
            <div class="dataBox">
-                <jsp:include page="/servlet1" />
+                <%-- ${result} --%>
+                ${Fragment}
+                <br>
+                <jsp:include page="${Fragment}" />
             </div>
         </form>
     </body>

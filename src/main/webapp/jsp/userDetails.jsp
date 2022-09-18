@@ -13,7 +13,7 @@
                 Adding new user
                 <hr>
             </h2>
-            <form action="addUser" method="post">
+            <form action="serveUser" method="post">
                   Login
                   <input name="newLogin" value="${user.login}">
                   <input type="hidden" name="id" value="${user.id}">
@@ -25,8 +25,8 @@
                   <input name="newEmail" value="${user.email}" >
                   <br>
                   Role
-                  <select name="newRole">
-                        <option value=${user.role.name}> ${user.role.name} </option>
+                  <select name="newRole" value="${user.role.name}">
+                        <option> ${user.role.name} </option>
                         <c:forEach var="item" items="${roles }">
                             <option value="${item.getName() }">
                                 ${item.getName() }

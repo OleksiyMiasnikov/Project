@@ -6,6 +6,7 @@ import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,8 +18,8 @@ public class DeleteUser implements Command {
         String userLogin = req.getParameter("users");
         if (userLogin == null || userLogin.equals("")) {
             try {
-                resp.sendRedirect("main");
-            } catch (IOException e) {
+                req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
+            } catch (IOException | ServletException e) {
                 throw new RuntimeException(e);
             }
             return;
@@ -32,8 +33,8 @@ public class DeleteUser implements Command {
         }
 
         try {
-            resp.sendRedirect("main");
-        } catch (IOException e) {
+            req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
+        } catch (IOException | ServletException e) {
             throw new RuntimeException(e);
         }
 

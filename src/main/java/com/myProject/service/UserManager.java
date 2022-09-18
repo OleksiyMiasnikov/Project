@@ -57,6 +57,21 @@ public class UserManager {
         }
     }
 
+    public User read(long id) throws DaoException {
+        logger.info("Start read user");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return userDao.read(con, id);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
     public User addUser(User newUser) throws DaoException {
         logger.info("Start adding user " + newUser.getLogin());
         logger.info(newUser);

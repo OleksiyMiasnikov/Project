@@ -29,7 +29,7 @@ public class GoodsDaoImpl implements GoodsDao {
             }
         } catch (SQLException e) {
             logger.error("Unable to find goods! " + e);
-            throw new DaoException("Unable to findgoods! ", e);
+            throw new DaoException("Unable to find goods! ", e);
         }
     }
 
