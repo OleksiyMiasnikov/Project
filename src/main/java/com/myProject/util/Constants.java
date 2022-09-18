@@ -1,4 +1,4 @@
-package com.myProject.dao;
+package com.myProject.util;
 
 public class Constants {
     public static final String SELECT_USER = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as role_name FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `login`= ?";
@@ -21,6 +21,7 @@ public class Constants {
     public static final String  COMMAND_SHOW_USERS = "Show users";
     public static final String  COMMAND_ADD_USER = "Add user";
     public static final String  COMMAND_UPDATE_USER = "Update user";
+    public static final String  COMMAND_CREATE_DATABASE = "Create database";
     public static final String  COMMAND_DELETE_USER = "Delete user";
     public static final String  COMMAND_NEW_ORDER = "New order";
     public static final String  COMMAND_REPORTS = "Reports";

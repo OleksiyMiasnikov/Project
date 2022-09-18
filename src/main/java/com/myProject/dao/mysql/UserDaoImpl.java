@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = (Logger) LogManager.getLogger(UserDaoImpl.class);

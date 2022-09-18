@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.myProject.dao.Constants.READ_DETAILS_BY_ORDER_ID;
+import static com.myProject.util.Constants.READ_DETAILS_BY_ORDER_ID;
 
 
 public class OrderDetailsDaoImpl implements OrderDetailsDao {

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 
 public class Cashier extends Employee{

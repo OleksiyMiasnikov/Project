@@ -1,7 +1,7 @@
 package com.myProject.util;
 
 import com.myProject.exception.DaoException;
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

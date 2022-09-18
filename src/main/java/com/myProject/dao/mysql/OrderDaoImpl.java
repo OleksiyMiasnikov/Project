@@ -3,7 +3,6 @@ package com.myProject.dao.mysql;
 import com.myProject.dao.UserDao;
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.OrderDao;
-import com.myProject.dao.entitie.User;
 import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -17,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class OrderDaoImpl implements OrderDao {
     private static final Logger logger = (Logger) LogManager.getLogger(OrderDaoImpl.class);

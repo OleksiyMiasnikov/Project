@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class CommodityExpert extends Employee {
     private static final Logger logger = (Logger) LogManager.getLogger(CommodityExpert.class);

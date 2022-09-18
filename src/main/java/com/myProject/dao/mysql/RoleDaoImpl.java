@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class RoleDaoImpl implements RoleDao {
     private static final Logger logger = (Logger) LogManager.getLogger(RoleDaoImpl.class);

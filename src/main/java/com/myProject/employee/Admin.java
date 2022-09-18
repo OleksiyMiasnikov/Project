@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class Admin extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(Admin.class);
     public Admin(User user) {
-        super(user, COMMAND_ADD_USER, COMMAND_UPDATE_USER, COMMAND_DELETE_USER);
+        super(user, COMMAND_ADD_USER, COMMAND_UPDATE_USER, COMMAND_DELETE_USER, COMMAND_CREATE_DATABASE);
     }
 
     @Override

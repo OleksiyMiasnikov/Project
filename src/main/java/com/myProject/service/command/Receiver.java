@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class Receiver {
     private static final Logger logger = (Logger) LogManager.getLogger(Receiver.class);
@@ -27,7 +27,7 @@ public class Receiver {
         commandMap.put(COMMAND_NEW_GOODS, new NewGoods());
         commandMap.put(COMMAND_LIST_OF_GOODS, new ListOfGoods());
         commandMap.put(COMMAND_INCOME, new Income());
-
+        commandMap.put(COMMAND_CREATE_DATABASE, new CreateDatabase());
     }
     public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
             throws DaoException, ServletException, IOException {

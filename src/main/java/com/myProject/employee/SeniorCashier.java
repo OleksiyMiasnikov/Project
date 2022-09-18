@@ -8,7 +8,7 @@ import org.apache.logging.log4j.core.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.myProject.dao.Constants.*;
+import static com.myProject.util.Constants.*;
 
 public class SeniorCashier extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(SeniorCashier.class);
