@@ -64,4 +64,18 @@ public class OrderManager {
         }
     }
 
+    public Order read(long id) throws DaoException {
+        logger.info("Start getting order by " + id);
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDao.read(con, id);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

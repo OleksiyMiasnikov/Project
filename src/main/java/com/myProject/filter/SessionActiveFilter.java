@@ -20,7 +20,7 @@ public class SessionActiveFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
        HttpServletRequest req = (HttpServletRequest) servletRequest;
        HttpSession session = req.getSession();
-       logger.info("Session: " + session);
+    //   logger.info("Session: " + session);
        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

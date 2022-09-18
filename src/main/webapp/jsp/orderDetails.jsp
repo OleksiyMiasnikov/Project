@@ -10,10 +10,10 @@
         <%@ include file="header.jspf" %>
         <div class="dataBox">
             <h2>
-                Adding new user
+                TITLE
                 <hr>
             </h2>
-            <form action="serveOrder" method="post">
+            <form action="serveOrderDetails" method="post">
                   <ul>
                   <c:forEach var="element" items="${orderDetails}">
                       <li>

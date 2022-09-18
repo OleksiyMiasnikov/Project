@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static com.myProject.dao.Constants.*;
 
@@ -73,7 +74,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private Order buildOrder(Connection con, UserDao userDao, ResultSet resultSet) throws SQLException, ParseException {
-        DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
         Order order = new Order();
         order.setId(resultSet.getLong(1));
         order.setUser(userDao.read(con, resultSet.getLong(2)));

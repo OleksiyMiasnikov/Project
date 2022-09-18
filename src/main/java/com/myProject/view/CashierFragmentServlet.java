@@ -28,7 +28,6 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
                         + "\">");
-                //printWriter.write("<a href=\"serveOrder\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</a>");
                 printWriter.write("--");
