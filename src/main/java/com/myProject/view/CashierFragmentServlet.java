@@ -31,7 +31,14 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</a>");
                 printWriter.write("--");
+
+                /*printWriter.write("<hr>");
+                printWriter.write("11<p>I have a date on <time datetime=\"2017-02-14\">Valentines day</time>.</p>");
+                printWriter.write("<p>Jawahar <time datetime=\"2018-11-14 12:00\"> children's day.</time> </p>");
+                printWriter.write("<hr>");*/
+                logger.info(String.valueOf(element.getDate()));
                 printWriter.write(String.valueOf(element.getDate()));
+
                 printWriter.write("--");
                 printWriter.write(String.valueOf(element.getAmount()));
                 printWriter.write("--");
