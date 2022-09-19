@@ -21,7 +21,7 @@
                 <input name="newId" value="${order.id}">
                 <br>
                 Date
-                <input name="newDate" type="datetime-local" value="${order.date}" />
+                <input name="newDate" type="datetime-locale" value="${order.date}" />
                 <br>
                 Cashier
                 <input name="newUser" value="${order.user.login}">

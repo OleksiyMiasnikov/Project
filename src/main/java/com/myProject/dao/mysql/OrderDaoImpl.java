@@ -73,11 +73,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private Order buildOrder(Connection con, UserDao userDao, ResultSet resultSet) throws SQLException, ParseException {
-        DateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", new Locale("uk","UA"));
+        //DateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", new Locale("uk","UA"));
         Order order = new Order();
         order.setId(resultSet.getLong(1));
         order.setUser(userDao.read(con, resultSet.getLong(2)));
         order.setDate(resultSet.getTimestamp(3));
+        logger.info(order.getDate());
         order.setAmount(resultSet.getDouble(4));
         return order;
     }

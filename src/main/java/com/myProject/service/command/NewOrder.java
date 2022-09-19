@@ -14,8 +14,7 @@ public class NewOrder implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- NewOrder ---");
-        //Get order
-
-        req.getRequestDispatcher("jsp/order.jsp").forward(req, resp);
+        //req.getRequestDispatcher("serveOrder").forward(req, resp);
+        resp.sendRedirect("serveOrder");
     }
 }
