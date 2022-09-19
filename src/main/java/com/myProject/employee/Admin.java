@@ -24,12 +24,8 @@ public class Admin extends Employee{
 
     @Override
     public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        logger.info("initWindow start");
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        List<User> userList = userManager.findAllUsers();
-        req.setAttribute("result", userList);
+        logger.info("initWindow");
         req.setAttribute("Fragment", "/AdminFragment");
-        logger.info(Arrays.toString(userList.toArray()));
         try {
             req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {

@@ -26,16 +26,8 @@ public class Cashier extends Employee{
 
     @Override
     public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        logger.info("initWindow start");
-        OrderManager orderManager =
-                (OrderManager) req
-                        .getSession()
-                        .getServletContext()
-                        .getAttribute("OrderManager");
-        List<Order> orderList = orderManager.findAll();
-        req.setAttribute("result", orderList);
+        logger.info("initWindow");
         req.setAttribute("Fragment", "/CashierFragment");
-        logger.info(Arrays.toString(orderList.toArray()));
         try {
             req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {

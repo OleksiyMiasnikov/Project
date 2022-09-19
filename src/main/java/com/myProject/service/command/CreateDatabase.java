@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -21,15 +22,16 @@ public class CreateDatabase implements Command {
 
         String createSql = readScript("sql\\create.sql");
         String insertData = readScript("sql\\insertions.sql");
-
-
-
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            /*con = DriverManager.getConnection
+                    ("jdbc:mysql://localhost/?user=root&password=18De1975");
+            Statement stmt =con.createStatement();
+            int Result=stmt.executeUpdate("CREATE DATABASE databasename");*/
             Statement stmt = con.createStatement();
-            stmt.execute(createSql);
-            stmt.execute(insertData);
+            //stmt.executeUpdate(createSql);
+            stmt.executeUpdate(insertData);
             logger.info("Finish creating database");
         } catch (SQLException e) {
             throw new RuntimeException(e);

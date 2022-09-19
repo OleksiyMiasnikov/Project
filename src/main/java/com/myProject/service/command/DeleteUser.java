@@ -25,18 +25,18 @@ public class DeleteUser implements Command {
             return;
         }
         logger.info("Start deleting user: " + userLogin);
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         if (userManager.deleteUser(userLogin)) {
             logger.info("User: " + userLogin + "has been deleted");
         } else {
             logger.info("Unable to delete user: " + userLogin);
         }
-
+        req.setAttribute("Fragment", "/AdminFragment");
         try {
-            req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
-        } catch (IOException | ServletException e) {
+            req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
-
+        //employee.initWindow(req, resp);
     }
 }

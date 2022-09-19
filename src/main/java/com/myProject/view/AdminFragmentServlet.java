@@ -2,6 +2,8 @@ package com.myProject.view;
 
 import com.myProject.dao.entitie.User;
 import com.myProject.dao.entitie.Warehouse;
+import com.myProject.exception.DaoException;
+import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -21,27 +23,20 @@ public class AdminFragmentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-        List<User> userList;
-        userList = (List<User>) req.getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
-            /*
-             <input type="radio" id="radio" value="${user.login}" name="users" />
-                            ${user.login}
-                            :
-                            ${user.role.name}
-             */
-
+            UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+            List<User> userList = userManager.findAllUsers();
             for (User element : userList) {
-                printWriter.write("<input type=\"radio\" id=\"radio\" value="
+                printWriter.write("<input type=\"radio\" id=\"radio\" value=\""
                                 + element.getLogin()
-                                +" name=\"users\" />");
+                                +"\" name=\"users\" />");
                 printWriter.write("--");
                 printWriter.write(element.getLogin());
                 printWriter.write("--");
                 printWriter.write(String.valueOf(element.getRole().getName()));
                 printWriter.write("<br>");
             }
-        } catch (IOException e) {
+        } catch (IOException | DaoException e) {
             throw new RuntimeException(e);
         }
         logger.info("service finish");

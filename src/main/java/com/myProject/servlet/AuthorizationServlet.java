@@ -7,7 +7,6 @@ import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -47,15 +46,13 @@ public class AuthorizationServlet extends HttpServlet {
                             + ". Role: "
                             + employee.getUser().getRole());
                 employee.initWindow(req, resp);
-                //resp.sendRedirect("main");
             } else {
                 resp.setContentType("text/html");
                 PrintWriter writer = resp.getWriter();
                 writer.println("<script type=\"text/javascript\">");
                 writer.println("alert('Invalid Login or Password');");
                 writer.println("</script>");
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.html");
-                requestDispatcher.include(req, resp);
+                req.getRequestDispatcher("index.html").include(req, resp);
             }
         } catch (DaoException e) {
             logger.error("LOG.error");
