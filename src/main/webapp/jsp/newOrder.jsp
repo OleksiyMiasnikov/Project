@@ -17,14 +17,19 @@
                 <hr>
             </h2>
             <form action="serveOrder" method="post">
-                Order id : ${order.id}
+                Order id :
+                <input name="id" value="${order.id}" onkeyup="newId.value = this.value" disabled>
+                <input name="newId" value="${order.id}" hidden="hidden">
                 <br>
-                Date : ${order.date}
+                Date :
+                <input name="date" value="${order.date}" onkeyup="newDate.value = this.value" disabled>
+                <input name="newDate" value="${order.date}" hidden="hidden">
                 <br>
-                Cashier : ${order.user.login}
+                Cashier :
+                <input name="user" value="${order.user.login}" onkeyup="newUser.value = this.value" disabled>
+                <input name="newUser" value="${order.user.login}" hidden="hidden">
                 <br>
                 <hr>
-                <form>
                     <select name="newGoods" onchange="newUnit1.selectedIndex=this.selectedIndex;
                                                       newUnit.value=newUnit1.value;
                                                       newPrice1.selectedIndex=this.selectedIndex;
@@ -63,7 +68,6 @@
                     <input name="newAmount" id="newAmount" disabled>
                     |
                     <input type="submit" name="saveOrderDetails" value="Save">
-                </form>
                 <br>
                 <hr>
                 Total Amount ${order.amount}
@@ -89,7 +93,7 @@
 
                   <hr>
                   <br>
-                  <input type="submit" name="button" value="Ok">
+                  <input type="submit" name="button" value="Close Order">
                   <input type="submit" name="button" value="Cancel">
                </div>
             </form>

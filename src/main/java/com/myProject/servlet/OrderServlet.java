@@ -34,11 +34,24 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("doPost started");
-        try {
+        OrderDetails orderDetails = new OrderDetails();
+        String newGoods = req.getParameter("newGoods");
+        String newId = req.getParameter("newId");
+        String newDate = req.getParameter("newDate");
+        logger.info(newId);
+        if ("0".equals(newId)) {
+            // add new order
+            // + add new orderDetails
+
+        } else {
+            // + add new orderDetails
+        }
+        resp.sendRedirect("serveOrder");
+        /*try {
             ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
         } catch (DaoException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         logger.info("doPost finished");
     }
 
