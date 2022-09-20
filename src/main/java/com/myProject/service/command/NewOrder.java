@@ -15,6 +15,6 @@ public class NewOrder implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- NewOrder ---");
         //req.getRequestDispatcher("serveOrder").forward(req, resp);
-        resp.sendRedirect("serveOrder");
+        resp.sendRedirect("serveNewOrder");
     }
 }

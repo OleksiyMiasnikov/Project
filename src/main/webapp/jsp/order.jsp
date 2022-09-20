@@ -52,7 +52,6 @@
                   <hr>
                   <br>
                   <input type="submit" name="button" value="Ok">
-                  <input type="submit" name="button" value="Cancel">
                </div>
             </form>
         </div>

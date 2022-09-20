@@ -16,7 +16,7 @@
                 NEW ORDER
                 <hr>
             </h2>
-            <form action="serveOrder" method="post">
+            <form action="serveNewOrder" method="post">
                 Order id :
                 <input name="id" value="${order.id}" onkeyup="newId.value = this.value" disabled>
                 <input name="newId" value="${order.id}" hidden="hidden">
@@ -101,11 +101,10 @@
                         </li>
                     </c:forEach>
                 </ul>
-
-                  <hr>
-                  <br>
-                  <input type="submit" name="button" value="Close Order">
-                  <input type="submit" name="button" value="Cancel">
+                <hr>
+                <br>
+                <input type="submit" name="button" value="Close Order">
+                <input type="submit" name="button" value="Cancel">
                </div>
             </form>
         </div>
