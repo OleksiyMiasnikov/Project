@@ -24,10 +24,12 @@ public class SessionActiveFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         Employee employee = (Employee) req.getSession().getAttribute("Employee");
         if (employee == null) {
-            logger.info("~~~~~~~~~~~~!!!!!!~~~~~ALLAAAARMAAA~~~~!!!!!!~~~~~~~~~~~~~");
-            req.getRequestDispatcher("authorization").forward(req, resp);
-        } else {
-            logger.info("Employee: " + employee);
+            if (req.getHeader("referer") == null ) {
+                logger.warn("Unauthorized access attempt");
+                req.getRequestDispatcher("index.html").forward(req, resp);
+            } else {
+                req.getRequestDispatcher("authorization").forward(req, resp);
+            }
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
