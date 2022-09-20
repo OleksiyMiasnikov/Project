@@ -1,3 +1,18 @@
+INSERT INTO `role` (`id`, `name`)
+VALUES
+(1, 'admin'),
+(2, 'cashier'),
+(3, 'senior cashier'),
+(4, 'commodity expert');
+
+
+INSERT INTO `user` (`id`, `login`, `email`, `password`, `role_id`)
+VALUES
+(1, 'admin', 'admin@admin', 'admin', 1),
+(2, 'Alex', 'alex@alex', '1111', 1),
+(3, 'Bob', 'b@b', '2222', 2),
+(4, 'Clode', 'c@c', '3333', 3),
+(5, 'Den', 'd@d', '4444', 4);
 
 
 INSERT INTO `goods` (`id`, `name`, `unit`, `price`)
@@ -35,13 +50,13 @@ VALUES
 (13, 40, 13),
 (14, 10, 14);
 
-INSERT INTO `order` (`id`, `user_id`, `time`, `amount`)
+INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`)
 VALUES
-( 1, 3, '2022-09-15 13:15:25', 0),
-( 2, 3, '2022-09-15 14:20:25', 0),
-( 3, 3, '2022-09-16 11:03:15', 0),
-( 4, 3, '2022-09-17 09:45:50', 0),
-( 5, 3, '2022-09-17 10:33:18', 0);
+( 1, 3, '2022-09-15 13:15:25', 10),
+( 2, 3, '2022-09-15 14:20:25', 20),
+( 3, 3, '2022-09-16 11:03:15', 30),
+( 4, 3, '2022-09-17 09:45:50', 40),
+( 5, 3, '2022-09-17 10:33:18', 50);
 
 INSERT INTO `order_details` (`id`, `order_id`, `goods_id`, `quantity`, `price`)
 VALUES

@@ -8,6 +8,7 @@ import com.myProject.exception.DaoException;
 import com.myProject.service.GoodsManager;
 import com.myProject.service.OrderDetailsManager;
 import com.myProject.service.OrderManager;
+import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -18,11 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,19 +33,75 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("doPost started");
-        OrderDetails orderDetails = new OrderDetails();
-        String newGoods = req.getParameter("newGoods");
+        OrderManager orderManager
+                = (OrderManager) getServletContext().getAttribute("OrderManager");
+        Order newOrder = null;
         String newId = req.getParameter("newId");
-        String newDate = req.getParameter("newDate");
-        logger.info(newId);
+
         if ("0".equals(newId)) {
             // add new order
             // + add new orderDetails
-
+            logger.info("first record");
+            SimpleDateFormat formatter =
+                    new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",
+                            new Locale("uk","UA"));
+            Date newDate = null;
+            try {
+                newDate = formatter.parse(req.getParameter("newDate"));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            newOrder = new Order();
+            newOrder.setId(Long.parseLong(newId));
+            newOrder.setDate(newDate);
+            newOrder.setTotalAmount(Double.parseDouble(req.getParameter("newTotal")));
+            UserManager userManager
+                    = (UserManager) getServletContext().getAttribute("UserManager");
+            try {
+                newOrder.setUser(userManager.findUser(req.getParameter("newUser")));
+            } catch (DaoException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                newOrder = orderManager.create(newOrder);
+            } catch (DaoException e) {
+                throw new RuntimeException(e);
+            }
+            logger.info(newOrder);
         } else {
-            // + add new orderDetails
+            try {
+                newOrder = orderManager.read(Long.parseLong(newId));
+            } catch (DaoException e) {
+                throw new RuntimeException(e);
+            }
         }
-        resp.sendRedirect("serveOrder");
+
+        OrderDetails orderDetails = new OrderDetails();
+        GoodsManager goodsManager
+                = (GoodsManager) getServletContext().getAttribute("GoodsManager");
+        long goodsId = Long.parseLong(req.getParameter("newGoodsId"));
+        int quantity = Integer.parseInt(req.getParameter("newQuantity"));
+        double price = Double.parseDouble(req.getParameter("newPrice"));
+        orderDetails.setOrder(newOrder);
+        try {
+            orderDetails.setGoods(goodsManager.read(goodsId));
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+        orderDetails.setQuantity(quantity);
+        orderDetails.setPrice(price);
+
+        OrderDetailsManager orderDetailsManager
+                = (OrderDetailsManager) getServletContext().getAttribute("OrderDetailsManager");
+        try {
+            orderDetails = orderDetailsManager.create(orderDetails);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+        logger.info(orderDetails);
+
+
+        //resp.sendRedirect("serveOrder?id=" + order.getId());
         /*try {
             ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
         } catch (DaoException e) {

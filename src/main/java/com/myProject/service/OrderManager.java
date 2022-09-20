@@ -78,4 +78,19 @@ public class OrderManager {
             }
         }
     }
+
+    public Order create(Order newOrder) throws DaoException {
+        logger.info("Start creating order");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDao.create(con, newOrder);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

@@ -8,13 +8,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import static com.myProject.util.Constants.*;
 
@@ -40,7 +37,22 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order create(Connection con, Order entity) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(CREATE_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setLong(1, entity.getUser().getId());
+            pstmt.setTimestamp(2, new Timestamp(entity.getDate().getTime()));
+            pstmt.setDouble(3, entity.getTotalAmount());
+            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getLong(1));
+                return entity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to create order! " + e);
+            throw new DaoException("Unable to create order! ", e);
+        }
     }
 
     @Override
@@ -73,13 +85,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private Order buildOrder(Connection con, UserDao userDao, ResultSet resultSet) throws SQLException, ParseException {
-        //DateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", new Locale("uk","UA"));
         Order order = new Order();
         order.setId(resultSet.getLong(1));
         order.setUser(userDao.read(con, resultSet.getLong(2)));
         order.setDate(resultSet.getTimestamp(3));
-        logger.info(order.getDate());
-        order.setAmount(resultSet.getDouble(4));
+        order.setTotalAmount(resultSet.getDouble(4));
         return order;
     }
 

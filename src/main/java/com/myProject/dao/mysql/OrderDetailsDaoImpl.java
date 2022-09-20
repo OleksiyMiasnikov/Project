@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.myProject.util.Constants.READ_DETAILS_BY_ORDER_ID;
+import static com.myProject.util.Constants.*;
 
 
 public class OrderDetailsDaoImpl implements OrderDetailsDao {
@@ -25,7 +25,23 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
     @Override
     public OrderDetails create(Connection con, OrderDetails entity) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(CREATE_ORDER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setLong(1, entity.getOrder().getId());
+            pstmt.setLong(2, entity.getGoods().getId());
+            pstmt.setInt(3, entity.getQuantity());
+            pstmt.setDouble(4, entity.getPrice());
+            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getLong(1));
+                return entity;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to create order! " + e);
+            throw new DaoException("Unable to create order! ", e);
+        }
     }
 
     @Override
@@ -50,7 +66,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
     @Override
     public List<OrderDetails> detailsByOrderId(Connection con, long id) throws DaoException {
-        try (PreparedStatement pstmt = con.prepareStatement(READ_DETAILS_BY_ORDER_ID)) {
+        try (PreparedStatement pstmt = con.prepareStatement(READ_ORDER_DETAILS_BY_ORDER_ID)) {
             pstmt.setLong(1, id);
             pstmt.executeQuery();
             ResultSet resultSet = pstmt.getResultSet();

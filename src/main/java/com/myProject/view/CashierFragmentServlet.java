@@ -1,7 +1,6 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Order;
-import com.myProject.dao.entitie.Warehouse;
 import com.myProject.exception.DaoException;
 import com.myProject.service.OrderManager;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/CashierFragment")
@@ -41,7 +39,7 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write(" | ");
                 printWriter.write(String.valueOf(element.getDate()));
                 printWriter.write(" | ");
-                printWriter.write(String.valueOf(element.getAmount()));
+                printWriter.write(String.valueOf(element.getTotalAmount()));
                 printWriter.write(" | ");
                 printWriter.write(element.getUser().getLogin());
                 printWriter.write("<br>");

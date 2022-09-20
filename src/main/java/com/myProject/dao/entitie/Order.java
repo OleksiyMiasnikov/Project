@@ -8,16 +8,16 @@ public class Order implements Serializable, Comparable<Order> {
     private long id;
     private User user;
     private Date date;
-    private double amount;
+    private double totalAmount;
 
     public Order() {
     }
 
-    public Order(long id, User user, Date date, double amount) {
+    public Order(long id, User user, Date date, double totalAmount) {
         this.id = id;
         this.user = user;
         this.date = date;
-        this.amount = amount;
+        this.totalAmount = totalAmount;
     }
 
     public long getId() {
@@ -44,12 +44,12 @@ public class Order implements Serializable, Comparable<Order> {
         this.date = date;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Order implements Serializable, Comparable<Order> {
                 "id=" + id +
                 ", user=" + user +
                 ", date=" + date +
-                ", amount=" + amount +
+                ", totalAmount=" + totalAmount +
                 '}';
     }
 

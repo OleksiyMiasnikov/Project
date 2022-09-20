@@ -27,7 +27,7 @@
                 <input name="newUser" value="${order.user.login}">
                 <br>
                 Amount
-                <input name="newAmount" value="${order.amount}">
+                <input name="newAmount" value="${order.totalAmount}">
                 <br>
 
                 <ul>

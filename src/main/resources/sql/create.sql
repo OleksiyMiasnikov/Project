@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `cash_register`.`order` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `time` DATETIME NULL,
-  `amount` DECIMAL(10,2) NULL,
+  `totalAmount` DECIMAL(10,2) NULL,
   PRIMARY KEY (`id`, `user_id`),
   INDEX `fk_ordes_users1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_ordes_users1`

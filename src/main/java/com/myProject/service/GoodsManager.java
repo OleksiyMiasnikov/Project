@@ -72,4 +72,20 @@ public class GoodsManager {
             }
         }
     }
+
+
+    public Goods read(long goodsId) throws DaoException {
+        logger.info("Start reading goods by id: " + goodsId);
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return goodsDao.read(con, goodsId);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

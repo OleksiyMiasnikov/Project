@@ -76,4 +76,19 @@ public class OrderDetailsManager {
             }
         }
     }
+
+    public OrderDetails create(OrderDetails orderDetails) throws DaoException {
+        logger.info("Start creating details of order #" + orderDetails.getOrder().getId());
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.create(con, orderDetails);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

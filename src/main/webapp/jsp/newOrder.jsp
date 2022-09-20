@@ -34,11 +34,20 @@
                                                       newUnit.value=newUnit1.value;
                                                       newPrice1.selectedIndex=this.selectedIndex;
                                                       newPrice.value=newPrice1.value;
+                                                      newGoodsId.selectedIndex=this.selectedIndex;
                                                       newAmount.value = newQuantity.value*newPrice.value">
                         <option> --- </option>
                         <c:forEach var="item" items="${goods }">
                             <option value="${item.name }">
                                 ${item.name }
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <select name="newGoodsId" hidden="hidden">
+                        <option> --- </option>
+                        <c:forEach var="item" items="${goods }">
+                            <option value="${item.id }">
+                                ${item.id }
                             </option>
                         </c:forEach>
                     </select>
@@ -63,14 +72,16 @@
                     |
                     <input name="newUnit" disabled>
                     |
-                    <input name="newPrice" type="number" onkeyup="newAmount.value = this.value*newQuantity.value">
+                    <input name="newPrice" type="number" step="0.01" onkeyup="newAmount.value = this.value*newQuantity.value">
                     |
                     <input name="newAmount" id="newAmount" disabled>
                     |
                     <input type="submit" name="saveOrderDetails" value="Save">
                 <br>
                 <hr>
-                Total Amount ${order.amount}
+                Total Amount ${order.totalAmount}
+                <input name="total" value="${order.totalAmount}" onkeyup="newTotal.value = this.value" disabled>
+                <input name="newTotal" value="${order.totalAmount}" hidden="hidden">
                 <br>
                 <ul>
                     <c:forEach var="element" items="${orderDetails}">

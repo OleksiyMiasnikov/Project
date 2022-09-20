@@ -18,8 +18,8 @@ public class AddUser implements Command{
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("--- AddUser ---");
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        RoleManager roleManager = (RoleManager) req.getSession().getServletContext().getAttribute("RoleManager");
+        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
+        RoleManager roleManager = (RoleManager) req.getServletContext().getAttribute("RoleManager");
         try {
             List<Role> rolesList = roleManager.findAllRoles();
             req.setAttribute("roles", rolesList);
