@@ -52,7 +52,6 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
                 + se.getSession()
                 + ". Employee: "
                 + se.getSession().getAttribute("Employee"));
-        if (se.getSession().getAttribute("Employee") == null) logger.info("~~~~~~~~~~~~~ALARM~~~~~~~~~~~~~~");
     }
 
     @Override

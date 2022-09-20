@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -19,12 +20,15 @@ public class SessionActiveFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-       Employee employee = (Employee) ((HttpServletRequest) servletRequest).getSession().getAttribute("Employee");
-       if (employee == null) {
-           logger.info("~~~~~~~~~~~~!!!!!!~~~~~ALLAAAARMAAA~~~~!!!!!!~~~~~~~~~~~~~");
-       } else {
-           logger.info("Employee: " + employee);
-       }
-       filterChain.doFilter(servletRequest, servletResponse);
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        Employee employee = (Employee) req.getSession().getAttribute("Employee");
+        if (employee == null) {
+            logger.info("~~~~~~~~~~~~!!!!!!~~~~~ALLAAAARMAAA~~~~!!!!!!~~~~~~~~~~~~~");
+            req.getRequestDispatcher("authorization").forward(req, resp);
+        } else {
+            logger.info("Employee: " + employee);
+        }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }
