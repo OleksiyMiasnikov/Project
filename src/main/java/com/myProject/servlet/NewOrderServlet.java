@@ -29,83 +29,68 @@ import java.util.Locale;
 public class NewOrderServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrderServlet.class);
     private Order currentOrder;
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("doPost started");
-        OrderManager orderManager
-                = (OrderManager) getServletContext().getAttribute("OrderManager");
-        String newId = req.getParameter("newId");
-
-        if ("0".equals(newId)) {
-            logger.info("first record");
-            currentOrder.setTotalAmount(Double.parseDouble(req.getParameter("newTotal")));
-            try {
-                currentOrder = orderManager.create(currentOrder);
-            } catch (DaoException e) {
-                throw new RuntimeException(e);
-            }
-            logger.info(currentOrder);
+        switch (req.getParameter("button")) {
+            case "Save" :
+                logger.info("Save pressed");
+                addOrderDetails(req);
+                resp.sendRedirect("serveNewOrder");
+                break;
+            case "Complete" :
+                logger.info("Complete pressed");
+                break;
+            case "Cancel" :
+                logger.info("Cancel pressed");
+                break;
         }
-        OrderDetails orderDetails = new OrderDetails();
-        GoodsManager goodsManager
-                = (GoodsManager) getServletContext().getAttribute("GoodsManager");
-        long goodsId = Long.parseLong(req.getParameter("newGoodsId"));
-        int quantity = Integer.parseInt(req.getParameter("newQuantity"));
-        double price = Double.parseDouble(req.getParameter("newPrice"));
-        orderDetails.setOrder(currentOrder);
-        try {
-            orderDetails.setGoods(goodsManager.read(goodsId));
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
-        }
-        orderDetails.setQuantity(quantity);
-        orderDetails.setPrice(price);
-
-        OrderDetailsManager orderDetailsManager
-                = (OrderDetailsManager) getServletContext().getAttribute("OrderDetailsManager");
-        try {
-            orderDetails = orderDetailsManager.create(orderDetails);
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
-        }
-        logger.info(orderDetails);
-        resp.sendRedirect("serveNewOrder?id=" + currentOrder.getId());
         logger.info("doPost finished");
+    }
+
+    private void addOrderDetails(HttpServletRequest req) {
+        try {
+            OrderManager orderManager
+                    = (OrderManager) getServletContext().getAttribute("OrderManager");
+            OrderDetailsManager orderDetailsManager
+                    = (OrderDetailsManager) getServletContext().getAttribute("OrderDetailsManager");
+            GoodsManager goodsManager
+                    = (GoodsManager) getServletContext().getAttribute("GoodsManager");
+            if (currentOrder.getId() == 0) {
+                currentOrder = orderManager.create(currentOrder);
+                logger.info("Created new order: " + currentOrder);
+            }
+            OrderDetails orderDetails = new OrderDetails();
+            orderDetails.setOrder(currentOrder);
+            orderDetails.setQuantity(Integer.parseInt(req.getParameter("newQuantity")));
+            orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
+            orderDetails.setGoods(goodsManager.read(Long.parseLong(req.getParameter("newGoodsId"))));
+            orderDetails = orderDetailsManager.create(orderDetails);
+            orderManager.updateTotal(currentOrder.getId());
+            currentOrder.setTotalAmount(orderManager.read(currentOrder.getId()).getTotalAmount());
+            logger.info("Added order details: " + orderDetails);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("doGet started. Current order: " + currentOrder);
         try {
-            String strId = req.getParameter("id");
+            GoodsManager goodsManager =
+                    (GoodsManager) req.getSession().getServletContext().getAttribute("GoodsManager");
             if (currentOrder == null) {
                 currentOrder = new Order();
                 currentOrder.setUser(((Employee) req.getSession().getAttribute("Employee")).getUser());
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 currentOrder.setDate(new Timestamp(new Date().getTime()));
             } else {
-                OrderManager orderManager =
-                        (OrderManager) req.getServletContext().getAttribute("OrderManager");
                 OrderDetailsManager orderDetailsManager =
                         (OrderDetailsManager) req.getServletContext().getAttribute("OrderDetailsManager");
-                try {
-                    List<OrderDetails> orderDetailsList = orderDetailsManager.detailsByOrderId(currentOrder.getId());
-                    logger.info(orderDetailsList);
-                    req.setAttribute("orderDetails", orderDetailsList);
-
-                } catch ( DaoException e) {
-                    throw new RuntimeException(e);
-                }
+                req.setAttribute("orderDetails", orderDetailsManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
-            GoodsManager goodsManager =
-                    (GoodsManager) req.getSession()
-                            .getServletContext()
-                            .getAttribute("GoodsManager");
-            List<Goods> goodsList = goodsManager.findAllGoods();
-            logger.info(goodsList);
-            req.setAttribute("goods", goodsList);
+            req.setAttribute("goods", goodsManager.findAllGoods());
             req.getRequestDispatcher("jsp/newOrder.jsp").forward(req, resp);
         } catch (ServletException | IOException | DaoException e) {
             throw new RuntimeException(e);

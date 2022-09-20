@@ -8,6 +8,10 @@
 
     <body>
         <form class="sideBar" action="menuCommand" method="post">
+            ${Employee.user.login} (${Employee.user.role.name})
+            <hr>
+            <br>
+            <br>
             <c:forEach items="${sessionScope.menuItems}" var="item">
                 <input type="submit" value='${item}' id='${item}' onclick="submitFunction()" name="menuButton">
                 <br>

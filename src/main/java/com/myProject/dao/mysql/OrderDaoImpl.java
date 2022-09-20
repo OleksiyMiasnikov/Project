@@ -97,4 +97,16 @@ public class OrderDaoImpl implements OrderDao {
     public Order findByName(Connection con, String name) throws DaoException {
         return null;
     }
+
+    @Override
+    public void updateTotal(Connection con, long id) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_TOTAL_AMOUNT_BY_ID)) {
+            pstmt.setLong(1, id);
+            pstmt.setLong(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Unable to update total! " + e);
+            throw new DaoException("Unable to update total! ", e);
+        }
+    }
 }

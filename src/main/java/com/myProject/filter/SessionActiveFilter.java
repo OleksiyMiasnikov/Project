@@ -1,5 +1,6 @@
 package com.myProject.filter;
 
+import com.myProject.employee.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -18,9 +19,12 @@ public class SessionActiveFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-       HttpServletRequest req = (HttpServletRequest) servletRequest;
-       HttpSession session = req.getSession();
-    //   logger.info("Session: " + session);
+       Employee employee = (Employee) ((HttpServletRequest) servletRequest).getSession().getAttribute("Employee");
+       if (employee == null) {
+           logger.info("~~~~~~~~~~~~!!!!!!~~~~~ALLAAAARMAAA~~~~!!!!!!~~~~~~~~~~~~~");
+       } else {
+           logger.info("Employee: " + employee);
+       }
        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

@@ -1,5 +1,6 @@
 package com.myProject.listener;
 
+import com.myProject.employee.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -48,7 +49,10 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         logger.info("Session created: "
-                + se.getSession());
+                + se.getSession()
+                + ". Employee: "
+                + se.getSession().getAttribute("Employee"));
+        if (se.getSession().getAttribute("Employee") == null) logger.info("~~~~~~~~~~~~~ALARM~~~~~~~~~~~~~~");
     }
 
     @Override

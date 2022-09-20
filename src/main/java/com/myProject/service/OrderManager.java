@@ -1,9 +1,7 @@
 package com.myProject.service;
 
 import com.myProject.dao.OrderDao;
-import com.myProject.dao.RoleDao;
 import com.myProject.dao.entitie.Order;
-import com.myProject.dao.entitie.Role;
 import com.myProject.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -85,6 +83,23 @@ public class OrderManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.create(con, newOrder);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public void updateTotal(long id) {
+        logger.info("Start updating total amount");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            orderDao.updateTotal(con, id);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();

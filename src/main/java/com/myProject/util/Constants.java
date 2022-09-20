@@ -20,9 +20,11 @@ public class Constants {
     public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `goods_id` FROM `warehouse`";
 
     // SQL OrderDao constants
+    public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (select sum(`quantity`*`price`) from `order_details` where `order_id`=? group by `order_id`) WHERE id = ?";
     public static final String SELECT_ALL_ORDERS = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order`";
     public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ?";
     public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?)";
+    public static final String READ_TOTAL = "SELECT `totalAmount` FROM `order` WHERE id = ?";
 
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `goods_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";

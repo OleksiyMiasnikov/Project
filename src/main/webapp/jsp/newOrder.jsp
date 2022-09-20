@@ -76,12 +76,11 @@
                     |
                     <input name="newAmount" id="newAmount" disabled>
                     |
-                    <input type="submit" name="saveOrderDetails" value="Save">
+                    <input type="submit" name="button" value="Save">
                 <br>
                 <hr>
-                Total Amount ${order.totalAmount}
+                Total Amount
                 <input name="total" value="${order.totalAmount}" onkeyup="newTotal.value = this.value" disabled>
-                <input name="newTotal" value="${order.totalAmount}" hidden="hidden">
                 <br>
                 <ul>
                     <c:forEach var="element" items="${orderDetails}">
@@ -103,7 +102,7 @@
                 </ul>
                 <hr>
                 <br>
-                <input type="submit" name="button" value="Close Order">
+                <input type="submit" name="button" value="Complete">
                 <input type="submit" name="button" value="Cancel">
                </div>
             </form>

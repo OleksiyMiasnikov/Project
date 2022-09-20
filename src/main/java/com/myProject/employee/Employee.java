@@ -44,4 +44,12 @@ public abstract class Employee {
         }
     }
     public abstract void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "user=" + user +
+                ", menuItems=" + menuItems +
+                '}';
+    }
 }
