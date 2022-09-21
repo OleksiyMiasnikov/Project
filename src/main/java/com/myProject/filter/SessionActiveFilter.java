@@ -20,9 +20,10 @@ public class SessionActiveFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        /*HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         Employee employee = (Employee) req.getSession().getAttribute("Employee");
+
         if (employee == null) {
             if (req.getHeader("referer") == null ) {
                 logger.warn("Unauthorized access attempt");
@@ -30,7 +31,7 @@ public class SessionActiveFilter implements Filter {
             } else {
                 req.getRequestDispatcher("authorization").forward(req, resp);
             }
-        }
+        }*/
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
