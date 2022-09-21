@@ -9,11 +9,11 @@
 
     </head>
     <body>
-        <script src="js/order.js"></script>
+
         <%@ include file="header.jspf" %>
 
         <div class="dataBox">
-            <h2 class="id">
+            <h2>
                 NEW ORDER
                 <hr>
             </h2>
@@ -30,38 +30,41 @@
                 ${order.user.login}
                 <br>
                 <hr>
-
-                    <select id="AllGoods">
-                        <c:forEach var="item" items="${goods }">
-                            <option value="${item.id }|${item.name }|${item.price }|${item.unit }">
-
-                            </option>
-                        </c:forEach>
-                    </select>
-
-                    <input  list="idList"
-                            name="newGoodsId"
-                            id="newGoodsId"
-                            onchange="idUpdated();">
-                    <datalist id="idList">
+                    <select name="newGoodsId" contenteditable="true"
+                            onchange="newUnit1.selectedIndex=this.selectedIndex;
+                                       newUnit.value=newUnit1.value;
+                                       newPrice1.selectedIndex=this.selectedIndex;
+                                       newPrice.value=newPrice1.value;
+                                       newGoods.selectedIndex=this.selectedIndex;
+                                       newAmount.value = newQuantity.value*newPrice.value">
+                        <option> - </option>
                         <c:forEach var="item" items="${goods }">
                             <option value="${item.id }">
                                 ${item.id }
                             </option>
                         </c:forEach>
-                    </datalist>
-                    <input  class="id"
-                            list="goodsList"
-                            name="newGoods"
-                            id="newGoods"
-                            onchange="goodsUpdated();">
-                    <datalist id="goodsList">
+                    </select>
+                    <input list="character">
+                    <datalist id="character">
                         <c:forEach var="item" items="${goods }">
                             <option value="${item.name }">
                             ${item.name }
                             </option>
                         </c:forEach>
                     </datalist>
+                    <select name="newGoods" onchange="newUnit1.selectedIndex=this.selectedIndex;
+                                                      newUnit.value=newUnit1.value;
+                                                      newPrice1.selectedIndex=this.selectedIndex;
+                                                      newPrice.value=newPrice1.value;
+                                                      newGoodsId.selectedIndex=this.selectedIndex;
+                                                      newAmount.value = newQuantity.value*newPrice.value">
+                        <option> --- </option>
+                        <c:forEach var="item" items="${goods }">
+                            <option value="${item.name }">
+                                ${item.name }
+                            </option>
+                        </c:forEach>
+                    </select>
                     <select name="newPrice1" hidden="hidden">
                         <option> --- </option>
                         <c:forEach var="item" items="${goods }">
