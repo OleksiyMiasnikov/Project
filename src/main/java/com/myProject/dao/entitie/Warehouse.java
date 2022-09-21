@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Warehouse implements Serializable, Comparable<Warehouse> {
     private long id;
-    private int quantity;
+    private double quantity;
     private Product product;
 
     public long getId() {
@@ -16,11 +16,11 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -41,7 +41,7 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
     public String toString() {
         return "Warehouse{" +
                 "id=" + id +
-                ", goods=" + product +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 '}';
     }

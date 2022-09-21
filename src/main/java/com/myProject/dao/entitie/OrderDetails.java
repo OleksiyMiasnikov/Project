@@ -7,13 +7,13 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
     private long id;
     private Order order;
     private Product product;
-    private int quantity;
+    private double quantity;
     private double price;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(long id, Order order, Product product, int quantity, double price) {
+    public OrderDetails(long id, Order order, Product product, double quantity, double price) {
         this.id = id;
         this.order = order;
         this.product = product;
@@ -45,11 +45,11 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
         this.product = product;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

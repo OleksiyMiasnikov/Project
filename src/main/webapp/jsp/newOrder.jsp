@@ -32,8 +32,8 @@
                 <hr>
 
                     <select id="AllProducts" hidden="hidden">
-                        <c:forEach var="item" items="${products }">
-                            <option value="${item.id }|${item.name }|${item.price }|${item.unit.getLabelUa() }">
+                        <c:forEach var="item" items="${warehouse }">
+                            <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.getLabelUa()}|${item.quantity }">
                             </option>
                         </c:forEach>
                     </select>
@@ -43,8 +43,8 @@
                             id="newProductId"
                             onchange="idUpdated();">
                     <datalist id="idList">
-                        <c:forEach var="item" items="${products }">
-                            <option value="${item.id }">
+                        <c:forEach var="item" items="${warehouse }">
+                            <option value="${item.product.id }">
                                 ${item.id }
                             </option>
                         </c:forEach>
@@ -55,14 +55,14 @@
                             id="newProduct"
                             onchange="productUpdated();">
                     <datalist id="productList">
-                        <c:forEach var="item" items="${products }">
-                            <option value="${item.name }">
-                            ${item.name }
+                        <c:forEach var="item" items="${warehouse }">
+                            <option value="${item.product.name }">
+                            ${item.product.name }
                             </option>
                         </c:forEach>
                     </datalist>
                     |
-                    <input name="newQuantity" id="newQuantity"type="number" default value="1" onchange="updateAmount();">
+                    <input name="newQuantity" id="newQuantity" type="number" default value="1" min="0" onchange="updateAmount();">
                     |
                     <input name="newUnit" id="newUnit" disabled>
                     |

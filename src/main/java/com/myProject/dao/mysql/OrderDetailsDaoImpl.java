@@ -28,7 +28,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         try (PreparedStatement pstmt = con.prepareStatement(CREATE_ORDER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setLong(1, entity.getOrder().getId());
             pstmt.setLong(2, entity.getProduct().getId());
-            pstmt.setInt(3, entity.getQuantity());
+            pstmt.setDouble(3, entity.getQuantity());
             pstmt.setDouble(4, entity.getPrice());
             pstmt.executeUpdate();
             ResultSet resultSet = pstmt.getGeneratedKeys();

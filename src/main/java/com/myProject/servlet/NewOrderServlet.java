@@ -2,9 +2,11 @@ package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
+import com.myProject.dao.entitie.Warehouse;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
 import com.myProject.service.ProductManager;
+import com.myProject.service.WarehouseManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -82,8 +84,8 @@ public class NewOrderServlet extends HttpServlet {
 
     private void showNewOrder(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            ProductManager productManager =
-                    (ProductManager) req.getServletContext().getAttribute("ProductManager");
+            WarehouseManager warehouseManager =
+                    (WarehouseManager) req.getServletContext().getAttribute("WarehouseManager");
             if (currentOrder == null) {
                 currentOrder = new Order();
                 currentOrder.setUser(((Employee) req.getSession().getAttribute("Employee")).getUser());
@@ -93,7 +95,8 @@ public class NewOrderServlet extends HttpServlet {
                 req.setAttribute("orderDetails", currentOrderDetails);
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("products", productManager.findAllProducts());
+            req.setAttribute("warehouse", warehouseManager.findAll());
+            logger.info("products in warehouse: " + warehouseManager.findAll());
             req.getRequestDispatcher("jsp/newOrder.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
