@@ -1,19 +1,39 @@
+function updateAmount() {
+    document.getElementById("newAmount").value
+            = document.getElementById("newPrice").value * document.getElementById("newQuantity").value;
+}
+
 function idUpdated() {
-    alert(document.getElementById("newGoodsId").value);
-}
-function goodsUpdated(){
-    var val = document.getElementById("newGoods").value;
-    alert(val);
-
-    var list = document.getElementById("AllGoods");
-    console.log(list);
-    console.log(list.length);
-
+    var val = document.getElementById("newProductId").value;
+    var list = document.getElementById("AllProducts");
     for (let i = 0; i < list.length; i++) {
-        console.log(list.options[i].value);
-        var partsArray = list.options[i].value.split("|");
-        console.log(partsArray);
+        var productDetails = list.options[i].value.split("|");
+        if (productDetails[0] === val) {
+            console.log(productDetails[0] + ":" + productDetails[1] + ":" + productDetails[2] + ":" + productDetails[3]);
+            document.getElementById("newProduct").value = productDetails[1];
+            document.getElementById("newUnit").value = productDetails[3];
+            document.getElementById("newPrice").value = productDetails[2];
+            updateAmount();
+        }
     }
-
 }
+
+function productUpdated(){
+    var val = document.getElementById("newProduct").value;
+    var list = document.getElementById("AllProducts");
+    for (let i = 0; i < list.length; i++) {
+        var productDetails = list.options[i].value.split("|");
+        if (productDetails[1] === val) {
+            console.log(productDetails[0] + ":" + productDetails[1] + ":" + productDetails[2] + ":" + productDetails[3]);
+            document.getElementById("newProductId").value = productDetails[0];
+            document.getElementById("newUnit").value = productDetails[3];
+            document.getElementById("newPrice").value = productDetails[2];
+            updateAmount();
+        }
+    }
+}
+
+
+
+
 

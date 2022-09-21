@@ -1,14 +1,11 @@
 package com.myProject.servlet;
 
-import com.myProject.dao.entitie.Goods;
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.GoodsManager;
 import com.myProject.service.OrderDetailsManager;
 import com.myProject.service.OrderManager;
-import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -18,13 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @WebServlet("/serveOrder")
 public class OrderServlet extends HttpServlet {

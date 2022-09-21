@@ -10,19 +10,24 @@
         <%@ include file="header.jspf" %>
         <div class="dataBox">
             <h2>
-                Goods details
+                product details
                 <hr>
             </h2>
-            <form action="serveGoods" method="post">
+            <form action="serveProduct" method="post">
                   Name
-                  <input name="newName" value="${goods.name}">
-                  <input type="hidden" name="id" value="${goods.id}">
+                  <input name="newName" value="${product.name}">
+                  <input type="hidden" name="id" value="${product.id}">
                   <br>
                   Unit
-                  <input name="newUnit" value="${goods.unit}">
+                  <input name="newUnit" value="${product.unit}">
+                  <br>
+                  <select id="enumUnit">
+                     <option value="øò">øò</option>
+                     <option value="êã">êã</option>
+                  </select>
                   <br>
                   Price
-                  <input name="newPrice" value="${goods.price}" pattern="^[0-9]+\.?[0-9]{0,2}$">
+                  <input name="newPrice" value="${product.price}" pattern="^[0-9]+\.?[0-9]{0,2}$">
                   <hr>
                   <br>
                   <input type="submit" name="button" value="Ok">

@@ -24,8 +24,8 @@ public class Receiver {
         commandMap.put(COMMAND_DELETE_USER, new DeleteUser());
         commandMap.put(COMMAND_NEW_ORDER, new NewOrder());
         commandMap.put(COMMAND_REPORTS, new Reports());
-        commandMap.put(COMMAND_NEW_GOODS, new NewGoods());
-        commandMap.put(COMMAND_LIST_OF_GOODS, new ListOfGoods());
+        commandMap.put(COMMAND_NEW_PRODUCT, new NewProduct());
+        commandMap.put(COMMAND_LIST_OF_PRODUCT, new ListOfProducts());
         commandMap.put(COMMAND_INCOME, new Income());
         commandMap.put(COMMAND_CREATE_DATABASE, new CreateDatabase());
     }

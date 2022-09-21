@@ -25,13 +25,8 @@ public class SaveOrderDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("doGet");
         OrderDetails orderDetails = new OrderDetails();
-        String newGoods = req.getParameter("newGoods");
+        String newProduct = req.getParameter("newProducts");
         String newId = req.getParameter("newId");
         logger.info(newId);
-
-        //orderDetails.setOrder(req.getParameter();
-        //String = req.getParameter();
-        //String = req.getParameter();
-        //String = req.getParameter();
     }
 }

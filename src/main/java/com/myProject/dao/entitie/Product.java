@@ -1,20 +1,18 @@
 package com.myProject.dao.entitie;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
-public class Goods implements Serializable, Comparable<Goods>{
+public class Product implements Serializable, Comparable<Product>{
     private long id;
     private String name;
     private double price;
-    private String unit;
+    private Unit unit;
 
-    public Goods() {
+    public Product() {
     }
 
-    public Goods(long id, String name, String unit, double price) {
+    public Product(long id, String name, Unit unit, double price) {
         this.id = id;
         this.name = name;
         this.unit = unit;
@@ -45,11 +43,11 @@ public class Goods implements Serializable, Comparable<Goods>{
         this.price = price;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
@@ -57,8 +55,8 @@ public class Goods implements Serializable, Comparable<Goods>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Goods goods = (Goods) o;
-        return id == goods.id;
+        Product product = (Product) o;
+        return id == product.id;
     }
 
     @Override
@@ -68,16 +66,16 @@ public class Goods implements Serializable, Comparable<Goods>{
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", unit='" + unit + '\'' +
+                ", unit='" + unit.labelUa + '\'' +
                 '}';
     }
 
     @Override
-    public int compareTo(Goods o) {
+    public int compareTo(Product o) {
         int result = name.compareToIgnoreCase(o.getName());
         return (result == 0) ? Double.compare(price, o.getPrice()) : result;
     }

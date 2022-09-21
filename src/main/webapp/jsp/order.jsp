@@ -37,9 +37,9 @@
                             |
                             ${element.order.id}
                             |
-                            ${element.goods.name}
+                            ${element.product.name}
                             |
-                            ${element.goods.unit}
+                            ${element.product.unit}
                             |
                             ${element.quantity}
                             |

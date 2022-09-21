@@ -1,6 +1,6 @@
 package com.myProject.dao.mysql;
 
-import com.myProject.dao.GoodsDao;
+import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
 import com.myProject.dao.entitie.Warehouse;
 import com.myProject.exception.DaoException;
@@ -46,9 +46,9 @@ public class WarehouseDaoImpl implements WarehouseDao {
             stmt.executeQuery(SELECT_ALL_IN_WAREHOUSE);
             ResultSet resultSet = stmt.getResultSet();
             List<Warehouse> warehouseList = new ArrayList<>();
-            GoodsDao goodsDao = DaoFactoryImpl.getInstance().getGoodsDao();
+            ProductDao productDao = DaoFactoryImpl.getInstance().getProductDao();
             while (resultSet.next()) {
-                warehouseList.add(buildWarehouse(con, goodsDao, resultSet));
+                warehouseList.add(buildWarehouse(con, productDao, resultSet));
             }
             Collections.sort(warehouseList);
             resultSet.close();
@@ -59,11 +59,11 @@ public class WarehouseDaoImpl implements WarehouseDao {
         }
     }
 
-    private Warehouse buildWarehouse(Connection con, GoodsDao goodsDao, ResultSet resultSet) throws SQLException {
+    private Warehouse buildWarehouse(Connection con, ProductDao productDao, ResultSet resultSet) throws SQLException {
         Warehouse warehouse = new Warehouse();
         warehouse.setId(resultSet.getLong(1));
         warehouse.setQuantity(resultSet.getInt(2));
-        warehouse.setGoods(goodsDao.read(con, resultSet.getLong(3)));
+        warehouse.setProduct(productDao.read(con, resultSet.getLong(3)));
         return warehouse;
     }
 

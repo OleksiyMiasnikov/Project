@@ -31,59 +31,42 @@
                 <br>
                 <hr>
 
-                    <select id="AllGoods">
-                        <c:forEach var="item" items="${goods }">
-                            <option value="${item.id }|${item.name }|${item.price }|${item.unit }">
-
+                    <select id="AllProducts" hidden="hidden">
+                        <c:forEach var="item" items="${products }">
+                            <option value="${item.id }|${item.name }|${item.price }|${item.unit.getLabelUa() }">
                             </option>
                         </c:forEach>
                     </select>
 
                     <input  list="idList"
-                            name="newGoodsId"
-                            id="newGoodsId"
+                            name="newProductId"
+                            id="newProductId"
                             onchange="idUpdated();">
                     <datalist id="idList">
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.id }">
                                 ${item.id }
                             </option>
                         </c:forEach>
                     </datalist>
                     <input  class="id"
-                            list="goodsList"
-                            name="newGoods"
-                            id="newGoods"
-                            onchange="goodsUpdated();">
-                    <datalist id="goodsList">
-                        <c:forEach var="item" items="${goods }">
+                            list="productList"
+                            name="newProduct"
+                            id="newProduct"
+                            onchange="productUpdated();">
+                    <datalist id="productList">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.name }">
                             ${item.name }
                             </option>
                         </c:forEach>
                     </datalist>
-                    <select name="newPrice1" hidden="hidden">
-                        <option> --- </option>
-                        <c:forEach var="item" items="${goods }">
-                            <option value="${item.price }">
-                                ${item.price }
-                            </option>
-                        </c:forEach>
-                    </select>
-                    <select name="newUnit1" hidden="hidden">
-                        <option> --- </option>
-                        <c:forEach var="item" items="${goods }">
-                            <option value="${item.unit }">
-                                ${item.unit }
-                            </option>
-                        </c:forEach>
-                    </select>
                     |
-                    <input name="newQuantity" type="number" default value="1" onchange="newAmount.value = this.value*newPrice.value">
+                    <input name="newQuantity" id="newQuantity"type="number" default value="1" onchange="updateAmount();">
                     |
-                    <input name="newUnit" disabled>
+                    <input name="newUnit" id="newUnit" disabled>
                     |
-                    <input name="newPrice" type="number" step="0.01" onchange="newAmount.value = this.value*newQuantity.value">
+                    <input name="newPrice" id="newPrice" type="number" step="0.01" onchange="updateAmount();">
                     |
                     <input name="newAmount" id="newAmount" disabled>
                     |
@@ -100,9 +83,9 @@
                             |
                             ${element.order.id}
                             |
-                            ${element.goods.name}
+                            ${element.product.name}
                             |
-                            ${element.goods.unit}
+                            ${element.product.unit}
                             |
                             ${element.quantity}
                             |

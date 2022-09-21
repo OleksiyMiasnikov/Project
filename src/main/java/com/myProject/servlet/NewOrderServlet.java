@@ -1,14 +1,10 @@
 package com.myProject.servlet;
 
-import com.myProject.dao.entitie.Goods;
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.GoodsManager;
-import com.myProject.service.OrderDetailsManager;
-import com.myProject.service.OrderManager;
-import com.myProject.service.UserManager;
+import com.myProject.service.ProductManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -19,12 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @WebServlet("/serveNewOrder")
 public class NewOrderServlet extends HttpServlet {
@@ -67,8 +60,8 @@ public class NewOrderServlet extends HttpServlet {
 
     private void addOrderDetails(HttpServletRequest req) {
         try {
-            GoodsManager goodsManager
-                    = (GoodsManager) getServletContext().getAttribute("GoodsManager");
+            ProductManager productManager
+                    = (ProductManager) getServletContext().getAttribute("ProductManager");
             if (currentOrder.getId() == 0) {
                 currentOrder.setId(555L);
                 logger.info("Created new order: " + currentOrder);
@@ -77,7 +70,7 @@ public class NewOrderServlet extends HttpServlet {
             orderDetails.setOrder(currentOrder);
             orderDetails.setQuantity(Integer.parseInt(req.getParameter("newQuantity")));
             orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
-            orderDetails.setGoods(goodsManager.read(Long.parseLong(req.getParameter("newGoodsId"))));
+            orderDetails.setProduct(productManager.read(Long.parseLong(req.getParameter("newProductId"))));
             orderDetails.setId(counter++);
             currentOrderDetails.add(orderDetails);
             currentOrder.setTotalAmount(100);
@@ -89,8 +82,8 @@ public class NewOrderServlet extends HttpServlet {
 
     private void showNewOrder(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            GoodsManager goodsManager =
-                    (GoodsManager) req.getServletContext().getAttribute("GoodsManager");
+            ProductManager productManager =
+                    (ProductManager) req.getServletContext().getAttribute("ProductManager");
             if (currentOrder == null) {
                 currentOrder = new Order();
                 currentOrder.setUser(((Employee) req.getSession().getAttribute("Employee")).getUser());
@@ -100,7 +93,7 @@ public class NewOrderServlet extends HttpServlet {
                 req.setAttribute("orderDetails", currentOrderDetails);
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("goods", goodsManager.findAllGoods());
+            req.setAttribute("products", productManager.findAllProducts());
             req.getRequestDispatcher("jsp/newOrder.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);

@@ -7,7 +7,7 @@ public class DaoFactoryImpl extends DaoFactory {
 
     private final UserDao userDao = new UserDaoImpl();
     private final RoleDao roleDao = new RoleDaoImpl();
-    private final GoodsDao goodsDao = new GoodsDaoImpl();
+    private final ProductDao productDao = new ProductDaoImpl();
     private final WarehouseDao warehouseDao = new WarehouseDaoImpl();
     private final OrderDao orderDao = new OrderDaoImpl();
     private final OrderDetailsDao orderDetailsDao = new OrderDetailsDaoImpl();
@@ -23,8 +23,8 @@ public class DaoFactoryImpl extends DaoFactory {
     }
 
     @Override
-    public GoodsDao getGoodsDao() {
-        return goodsDao;
+    public ProductDao getProductDao() {
+        return productDao;
     }
 
     @Override

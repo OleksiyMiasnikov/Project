@@ -10,14 +10,14 @@ public class Constants {
     public static final String DELETE_USER = "DELETE FROM user WHERE id = ?";
     public static final String UPDATE_USER = "UPDATE user SET login = ?, password = ?, email = ?, role_id = ? WHERE id = ?";
 
-    // SQL GoodsDao constants
-    public static final String SELECT_ALL_GOODS = "SELECT `id`, `name`, `price`, `unit` FROM `goods`";
-    public static final String INSERT_GOODS = "INSERT INTO goods VALUES (default, ?, ?, ?)";
-    public static final String READ_GOODS_BY_ID = "SELECT `id`, `name`, `price`, `unit` FROM `goods` WHERE `id` = ?";
-    public static final String UPDATE_GOODS = "UPDATE goods SET name = ?, unit = ?, price = ? WHERE id = ?";
+    // SQL ProductDao constants
+    public static final String SELECT_ALL_PRODUCT = "SELECT `id`, `name`, `price`, `unit_name` FROM `product`";
+    public static final String INSERT_PRODUCT = "INSERT INTO product VALUES (default, ?, ?, ?)";
+    public static final String READ_PRODUCT_BY_ID = "SELECT `id`, `name`, `price`, `unit_name` FROM `product` WHERE `id` = ?";
+    public static final String UPDATE_PRODUCT = "UPDATE product SET name = ?, unit_name = ?, price = ? WHERE id = ?";
 
     // SQL WarehouseDao constants
-    public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `goods_id` FROM `warehouse`";
+    public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `product_id` FROM `warehouse`";
 
     // SQL OrderDao constants
     public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (select sum(`quantity`*`price`) from `order_details` where `order_id`=? group by `order_id`) WHERE id = ?";
@@ -27,7 +27,7 @@ public class Constants {
     public static final String READ_TOTAL = "SELECT `totalAmount` FROM `order` WHERE id = ?";
 
     // SQL OrderDetailsDao constants
-    public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `goods_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";
+    public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
 
     // SQL RoleDao constants
@@ -42,7 +42,7 @@ public class Constants {
     public static final String COMMAND_DELETE_USER = "Delete user";
     public static final String COMMAND_NEW_ORDER = "New order";
     public static final String COMMAND_REPORTS = "Reports";
-    public static final String COMMAND_NEW_GOODS = "New goods";
-    public static final String COMMAND_LIST_OF_GOODS = "List of goods";
+    public static final String COMMAND_NEW_PRODUCT = "New product";
+    public static final String COMMAND_LIST_OF_PRODUCT = "List of product";
     public static final String COMMAND_INCOME = "Income";
 }

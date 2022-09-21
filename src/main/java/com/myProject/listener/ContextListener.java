@@ -24,8 +24,8 @@ public class ContextListener implements ServletContextListener, ServletContextAt
         sce.getServletContext().setAttribute("UserManager", userManager);
         RoleManager roleManager = RoleManager.getInstance(DaoFactory.getInstance().getRoleDao());
         sce.getServletContext().setAttribute("RoleManager", roleManager);
-        GoodsManager goodsManager = GoodsManager.getInstance(DaoFactory.getInstance().getGoodsDao());
-        sce.getServletContext().setAttribute("GoodsManager", goodsManager);
+        ProductManager productManager = ProductManager.getInstance(DaoFactory.getInstance().getProductDao());
+        sce.getServletContext().setAttribute("ProductManager", productManager);
         WarehouseManager warehouseManager = WarehouseManager.getInstance(DaoFactory.getInstance().getWarehouseDao());
         sce.getServletContext().setAttribute("WarehouseManager", warehouseManager);
         OrderManager orderManager = OrderManager.getInstance(DaoFactory.getInstance().getOrderDao());

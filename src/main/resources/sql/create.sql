@@ -16,16 +16,35 @@ CREATE SCHEMA IF NOT EXISTS `cash_register` DEFAULT CHARACTER SET utf8 ;
 USE `cash_register` ;
 
 -- -----------------------------------------------------
--- Table `cash_register`.`goods`
+-- Table `cash_register`.`unit`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `cash_register`.`goods` ;
+DROP TABLE IF EXISTS `cash_register`.`unit` ;
 
-CREATE TABLE IF NOT EXISTS `cash_register`.`goods` (
+CREATE TABLE IF NOT EXISTS `cash_register`.`unit` (
+  `name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`name`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cash_register`.`product`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cash_register`.`product` ;
+
+CREATE TABLE IF NOT EXISTS `cash_register`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `unit` VARCHAR(20) NULL,
+  `unit_name` VARCHAR(10) NOT NULL,
   `price` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`, `unit_name`),
+  INDEX `fk_goods_unit1_idx` (`unit_name` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  CONSTRAINT `fk_goods_unit1`
+    FOREIGN KEY (`unit_name`)
+    REFERENCES `cash_register`.`unit` (`name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -36,13 +55,13 @@ DROP TABLE IF EXISTS `cash_register`.`warehouse` ;
 
 CREATE TABLE IF NOT EXISTS `cash_register`.`warehouse` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `quantity` INT UNSIGNED NOT NULL,
-  `goods_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`, `goods_id`),
-  INDEX `fk_warehouse_goods1_idx` (`goods_id` ASC) VISIBLE,
+  `quantity` DECIMAL(10,3) UNSIGNED NOT NULL,
+  `product_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`, `product_id`),
+  INDEX `fk_warehouse_goods1_idx` (`product_id` ASC) VISIBLE,
   CONSTRAINT `fk_warehouse_goods1`
-    FOREIGN KEY (`goods_id`)
-    REFERENCES `cash_register`.`goods` (`id`)
+    FOREIGN KEY (`product_id`)
+    REFERENCES `cash_register`.`product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -93,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `cash_register`.`order` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `time` DATETIME NULL,
-  `totalAmount` DECIMAL(10,2) NULL,
+  `totalAmount` DECIMAL(15,2) NULL,
   PRIMARY KEY (`id`, `user_id`),
   INDEX `fk_ordes_users1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_ordes_users1`
@@ -112,20 +131,20 @@ DROP TABLE IF EXISTS `cash_register`.`order_details` ;
 CREATE TABLE IF NOT EXISTS `cash_register`.`order_details` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` INT UNSIGNED NOT NULL,
-  `goods_id` INT UNSIGNED NOT NULL,
-  `quantity` INT UNSIGNED NULL,
+  `product_id` INT UNSIGNED NOT NULL,
+  `quantity` DECIMAL(10,3) UNSIGNED NULL,
   `price` DECIMAL(10,2) UNSIGNED NULL,
-  PRIMARY KEY (`id`, `order_id`, `goods_id`),
+  PRIMARY KEY (`id`, `order_id`, `product_id`),
   INDEX `fk_order_details_ordes1_idx` (`order_id` ASC) VISIBLE,
-  INDEX `fk_order_details_goods1_idx` (`goods_id` ASC) VISIBLE,
+  INDEX `fk_order_details_goods1_idx` (`product_id` ASC) VISIBLE,
   CONSTRAINT `fk_order_details_ordes1`
     FOREIGN KEY (`order_id`)
     REFERENCES `cash_register`.`order` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_order_details_goods1`
-    FOREIGN KEY (`goods_id`)
-    REFERENCES `cash_register`.`goods` (`id`)
+    FOREIGN KEY (`product_id`)
+    REFERENCES `cash_register`.`product` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

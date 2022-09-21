@@ -10,7 +10,7 @@ public abstract class DaoFactory {
 
     public abstract UserDao getUserDao();
     public abstract RoleDao getRoleDao();
-    public abstract GoodsDao getGoodsDao();
+    public abstract ProductDao getProductDao();
     public abstract WarehouseDao getWarehouseDao();
     public abstract OrderDao getOrderDao();
     public abstract OrderDetailsDao getOrderDetailsDao();

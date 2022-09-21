@@ -1,6 +1,6 @@
 package com.myProject.dao.mysql;
 
-import com.myProject.dao.GoodsDao;
+import com.myProject.dao.ProductDao;
 import com.myProject.dao.OrderDetailsDao;
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
@@ -27,7 +27,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     public OrderDetails create(Connection con, OrderDetails entity) throws DaoException {
         try (PreparedStatement pstmt = con.prepareStatement(CREATE_ORDER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setLong(1, entity.getOrder().getId());
-            pstmt.setLong(2, entity.getGoods().getId());
+            pstmt.setLong(2, entity.getProduct().getId());
             pstmt.setInt(3, entity.getQuantity());
             pstmt.setDouble(4, entity.getPrice());
             pstmt.executeUpdate();
@@ -71,10 +71,10 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
             pstmt.executeQuery();
             ResultSet resultSet = pstmt.getResultSet();
             List<OrderDetails> orderDetailsList = new ArrayList<>();
-            GoodsDao goodsDao = DaoFactoryImpl.getInstance().getGoodsDao();
+            ProductDao productDao = DaoFactoryImpl.getInstance().getProductDao();
             Order order = DaoFactoryImpl.getInstance().getOrderDao().read(con, id);
             while (resultSet.next()) {
-                orderDetailsList.add(buildOrderDetails(con, goodsDao, order, resultSet));
+                orderDetailsList.add(buildOrderDetails(con, productDao, order, resultSet));
             }
             Collections.sort(orderDetailsList);
             resultSet.close();
@@ -85,11 +85,11 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         }
     }
 
-    private OrderDetails buildOrderDetails(Connection con, GoodsDao goodsDao, Order order, ResultSet resultSet) throws SQLException {
+    private OrderDetails buildOrderDetails(Connection con, ProductDao productDao, Order order, ResultSet resultSet) throws SQLException {
         OrderDetails orderDetails = new OrderDetails();
         orderDetails.setId(resultSet.getLong(1));
         orderDetails.setOrder(order);
-        orderDetails.setGoods(goodsDao.read(con, resultSet.getLong(3)));
+        orderDetails.setProduct(productDao.read(con, resultSet.getLong(3)));
         orderDetails.setQuantity(resultSet.getInt(4));
         orderDetails.setPrice(resultSet.getDouble(5));
         return orderDetails;

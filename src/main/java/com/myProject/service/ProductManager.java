@@ -1,7 +1,7 @@
 package com.myProject.service;
 
-import com.myProject.dao.GoodsDao;
-import com.myProject.dao.entitie.Goods;
+import com.myProject.dao.ProductDao;
+import com.myProject.dao.entitie.Product;
 import com.myProject.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -12,28 +12,28 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class GoodsManager {
-    private static final Logger logger = (Logger) LogManager.getLogger(GoodsManager.class);
-    private static GoodsManager instance;
-    private final GoodsDao goodsDao;
+public class ProductManager {
+    private static final Logger logger = (Logger) LogManager.getLogger(ProductManager.class);
+    private static ProductManager instance;
+    private final ProductDao productDao;
 
-    public static GoodsManager getInstance(GoodsDao goodsDao) {
+    public static ProductManager getInstance(ProductDao productDao) {
         if (instance == null) {
-            instance = new GoodsManager(goodsDao);
-            logger.info("Instance of GoodsManager created");
+            instance = new ProductManager(productDao);
+            logger.info("Instance of ProductManager created");
         }
         return instance;
     }
-    private GoodsManager(GoodsDao goodsDao) {
-        this.goodsDao = goodsDao;
+    private ProductManager(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
-    public List<Goods> findAllGoods() throws DaoException {
-        logger.info("Start finding all goods");
+    public List<Product> findAllProducts() throws DaoException {
+        logger.info("Start finding all products");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return goodsDao.findAll(con);
+            return productDao.findAll(con);
         } finally {
             try {
                 if (con != null) con.close();
@@ -43,12 +43,12 @@ public class GoodsManager {
         }
     }
 
-    public Goods create(Goods newGoods) throws DaoException{
-        logger.info("Start creating new goods: " + newGoods);
+    public Product create(Product newProduct) throws DaoException{
+        logger.info("Start creating new product: " + newProduct);
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return goodsDao.create(con, newGoods);
+            return productDao.create(con, newProduct);
         } finally {
             try {
                 if (con != null) con.close();
@@ -58,12 +58,12 @@ public class GoodsManager {
         }
     }
 
-    public void update(Goods goods) throws DaoException{
-        logger.info("Start creating new goods");
+    public void update(Product product) throws DaoException{
+        logger.info("Start updating product");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            goodsDao.update(con, goods);
+            productDao.update(con, product);
         } finally {
             try {
                 if (con != null) con.close();
@@ -72,14 +72,12 @@ public class GoodsManager {
             }
         }
     }
-
-
-    public Goods read(long goodsId) throws DaoException {
-        logger.info("Start reading goods by id: " + goodsId);
+    public Product read(long productId) throws DaoException {
+        logger.info("Start reading product by id: " + productId);
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return goodsDao.read(con, goodsId);
+            return productDao.read(con, productId);
         } finally {
             try {
                 if (con != null) con.close();

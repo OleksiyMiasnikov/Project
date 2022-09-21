@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Warehouse implements Serializable, Comparable<Warehouse> {
     private long id;
     private int quantity;
-    private Goods goods;
+    private Product product;
 
     public long getId() {
         return id;
@@ -24,12 +24,12 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
         this.quantity = quantity;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
     public String toString() {
         return "Warehouse{" +
                 "id=" + id +
-                ", goods=" + goods +
+                ", goods=" + product +
                 ", quantity=" + quantity +
                 '}';
     }

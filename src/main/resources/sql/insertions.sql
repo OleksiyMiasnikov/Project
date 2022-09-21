@@ -1,3 +1,5 @@
+USE `cash_register`;
+
 INSERT INTO `role` (`id`, `name`)
 VALUES
 (1, 'admin'),
@@ -14,26 +16,31 @@ VALUES
 (4, 'Clode', 'c@c', '3333', 3),
 (5, 'Den', 'd@d', '4444', 4);
 
-
-INSERT INTO `goods` (`id`, `name`, `unit`, `price`)
+INSERT INTO `unit` (`name`)
 VALUES
-(1, 'мінеральна вода 1л','бутилка', 15.50),
-(2, 'чай Greenfield','пачка', 160.00),
+('кг'),
+('шт');
+
+
+INSERT INTO `product` (`id`, `name`, `unit_name`, `price`)
+VALUES
+(1, 'мінеральна вода 1л','шт', 15.50),
+(2, 'чай Greenfield','шт', 160.00),
 (3, 'цукор','кг', 25.00),
 (4, 'сосиски', 'кг', 120.00),
-(5, 'молоко 1л', 'бутилка', 35.80),
-(6,'cellphone', 'piece', 1023.56),
-(7,'glasses', 'pair', 25.38),
+(5, 'молоко 1л', 'шт', 35.80),
+(6,'cellphone', 'шт', 1023.56),
+(7,'glasses', 'шт', 25.38),
 (8,'helicopter', 'шт', 100000.0),
 (9,'Leopard', 'шт', 2000000.5),
 (10,'M142 HIMARS', 'шт', 3500000.0),
-(11,'pencil', 'piece', 15.45),
-(12,'пиво', 'бутилка', 31.0),
+(11,'pencil', 'шт', 15.45),
+(12,'пиво', 'шт', 31.0),
 (13,'сіль', 'кг', 20.0),
-(14,'олія Олейна 1,0 л', 'бутилка', 60.35),
+(14,'олія Олейна 1,0 л', 'шт', 60.35),
 (15,'шампунь', 'шт', 45.88);
 
-INSERT INTO `warehouse` (`id`, `quantity`, `goods_id`)
+INSERT INTO `warehouse` (`id`, `quantity`, `product_id`)
 VALUES
 (1, 30, 1),
 (2, 5, 2),
@@ -58,7 +65,7 @@ VALUES
 ( 4, 3, '2022-09-17 09:45:50', 40),
 ( 5, 3, '2022-09-17 10:33:18', 50);
 
-INSERT INTO `order_details` (`id`, `order_id`, `goods_id`, `quantity`, `price`)
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`)
 VALUES
 (01, 1, 1, 13, 15.50),
 (02, 1, 2,  2, 160.00),

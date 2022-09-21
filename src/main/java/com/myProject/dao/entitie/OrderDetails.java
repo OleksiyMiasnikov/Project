@@ -6,17 +6,17 @@ import java.util.Objects;
 public class OrderDetails implements Serializable, Comparable<OrderDetails> {
     private long id;
     private Order order;
-    private Goods goods;
+    private Product product;
     private int quantity;
     private double price;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(long id, Order order, Goods goods, int quantity, double price) {
+    public OrderDetails(long id, Order order, Product product, int quantity, double price) {
         this.id = id;
         this.order = order;
-        this.goods = goods;
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
     }
@@ -37,12 +37,12 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
         this.order = order;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -79,7 +79,7 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
         return "OrderDetails{" +
                 "id=" + id +
                 ", order=" + order +
-                ", goods=" + goods +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';

@@ -30,7 +30,7 @@ public class WarehouseManager {
 
 
     public List<Warehouse> findAll() throws DaoException {
-        logger.info("Start finding all users");
+        logger.info("Start finding all products in warehouse");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();

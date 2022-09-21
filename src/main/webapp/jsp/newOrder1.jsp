@@ -30,15 +30,15 @@
                 ${order.user.login}
                 <br>
                 <hr>
-                    <select name="newGoodsId" contenteditable="true"
+                    <select name="newProductId" contenteditable="true"
                             onchange="newUnit1.selectedIndex=this.selectedIndex;
                                        newUnit.value=newUnit1.value;
                                        newPrice1.selectedIndex=this.selectedIndex;
                                        newPrice.value=newPrice1.value;
-                                       newGoods.selectedIndex=this.selectedIndex;
+                                       newProduct.selectedIndex=this.selectedIndex;
                                        newAmount.value = newQuantity.value*newPrice.value">
                         <option> - </option>
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.id }">
                                 ${item.id }
                             </option>
@@ -46,20 +46,20 @@
                     </select>
                     <input list="character">
                     <datalist id="character">
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.name }">
                             ${item.name }
                             </option>
                         </c:forEach>
                     </datalist>
-                    <select name="newGoods" onchange="newUnit1.selectedIndex=this.selectedIndex;
+                    <select name="newProduct" onchange="newUnit1.selectedIndex=this.selectedIndex;
                                                       newUnit.value=newUnit1.value;
                                                       newPrice1.selectedIndex=this.selectedIndex;
                                                       newPrice.value=newPrice1.value;
-                                                      newGoodsId.selectedIndex=this.selectedIndex;
+                                                      newproductId.selectedIndex=this.selectedIndex;
                                                       newAmount.value = newQuantity.value*newPrice.value">
                         <option> --- </option>
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.name }">
                                 ${item.name }
                             </option>
@@ -67,7 +67,7 @@
                     </select>
                     <select name="newPrice1" hidden="hidden">
                         <option> --- </option>
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.price }">
                                 ${item.price }
                             </option>
@@ -75,7 +75,7 @@
                     </select>
                     <select name="newUnit1" hidden="hidden">
                         <option> --- </option>
-                        <c:forEach var="item" items="${goods }">
+                        <c:forEach var="item" items="${products }">
                             <option value="${item.unit }">
                                 ${item.unit }
                             </option>
@@ -103,9 +103,9 @@
                             |
                             ${element.order.id}
                             |
-                            ${element.goods.name}
+                            ${element.product.name}
                             |
-                            ${element.goods.unit}
+                            ${element.product.unit}
                             |
                             ${element.quantity}
                             |
