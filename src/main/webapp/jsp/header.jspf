@@ -3,24 +3,29 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/main.css">
     </head>
-
     <body>
         <form class="sideBar" action="menuCommand" method="post">
-            ${Employee.user.login} (${Employee.user.role.name})
-            <hr>
-            <br>
-            <br>
-            <c:forEach items="${sessionScope.menuItems}" var="item">
-                <input type="submit" value='${item}' id='${item}' onclick="submitFunction()" name="menuButton">
+           <div class="sideBar">
                 <br>
-            </c:forEach>
-            <br>
-            <br>
-            <br>
-            <br>
-            <input type="submit" value="Log out" name="menuButton">
+                <div class="employee">
+                    ${Employee.user.login} (${Employee.user.role.name})
+                </div>
+                <br>
+                <br>
+                <c:forEach items="${sessionScope.menuItems}" var="item">
+                    <input type="submit" value='${item}' id='${item}' onclick="submitFunction()" name="menuButton">
+                    <br>
+                </c:forEach>
+                <br>
+                <br>
+                <br>
+                <br>
+                <input type="submit" value="Log out" name="menuButton">
+           </div>
         </form>
     </body>
 </html>

@@ -7,16 +7,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
     </head>
 
     <body>
         <form action="menuCommand" method="post">
             <div class="sideBar">
-                <span class="employee">
+                <br>
+                <div class="employee">
                     ${Employee.user.login} (${Employee.user.role.name})
-                </span>
-                <hr>
+                </div>
                 <br>
                 <br>
                 <c:forEach items="${sessionScope.menuItems}" var="item">
@@ -31,8 +30,6 @@
            </div>
 
            <div class="dataBox">
-
-                ${Fragment}
                 <br>
                 <jsp:include page="${Fragment}" />
             </div>

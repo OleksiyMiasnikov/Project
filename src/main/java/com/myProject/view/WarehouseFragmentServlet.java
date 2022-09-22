@@ -23,17 +23,34 @@ public class WarehouseFragmentServlet extends HttpServlet {
         List<Warehouse> warehouseList;
         warehouseList = (List<Warehouse>) req.getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
+            printWriter.write("<div class=\"table_header\">");
+            printWriter.write("<span style=\"width: 50px;\">Id</span>");
+            printWriter.write("<span style=\"width: 200px;\">Product name</span>");
+            printWriter.write("<span style=\"width: 50px;\">Unit</span>");
+            printWriter.write("<span style=\"width: 100px;\">Quantity</span>");
+            printWriter.write("<span style=\"width: 100px;text-align: right;\">Price</span>");
+            printWriter.write("</div>");
+
+            printWriter.write("<br><hr>");
+
             for (Warehouse element : warehouseList) {
+                printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));
-                printWriter.write("--");
+                printWriter.write("</span>");
+                printWriter.write("<span style=\"float: left; width: 200px;\">");
                 printWriter.write(element.getProduct().getName());
-                printWriter.write("--");
+                printWriter.write("</span>");
+                printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
                 printWriter.write(element.getProduct().getUnit().labelUa);
-                printWriter.write("--");
+                printWriter.write("</span>");
+                printWriter.write("<span style=\"float: left; width: 100px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getQuantity()));
-                printWriter.write("--");
+                printWriter.write("</span>");
+                printWriter.write("<span style=\"float: left; width: 100px;text-align: right;\">");
                 printWriter.write(String.valueOf(element.getProduct().getPrice()));
+                printWriter.write("</span>");
                 printWriter.write("<br>");
+                printWriter.write("<hr>");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
