@@ -13,7 +13,9 @@
     <body>
         <form action="menuCommand" method="post">
             <div class="sideBar">
-                ${Employee.user.login} (${Employee.user.role.name})
+                <span class="employee">
+                    ${Employee.user.login} (${Employee.user.role.name})
+                </span>
                 <hr>
                 <br>
                 <br>

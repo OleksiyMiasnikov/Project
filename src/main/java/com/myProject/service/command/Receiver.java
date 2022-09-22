@@ -30,6 +30,7 @@ public class Receiver {
         commandMap.put(COMMAND_CREATE_DATABASE, new CreateDatabase());
         commandMap.put(COMMAND_DELETE_ORDER, new DeleteOrder());
         commandMap.put(COMMAND_DELETE_ORDER_PRODUCT, new DeleteOrderedProduct());
+        commandMap.put(COMMAND_REMAINS, new Remains());
     }
     public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
             throws DaoException, ServletException, IOException {

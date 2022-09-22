@@ -16,7 +16,7 @@ import static com.myProject.util.Constants.*;
 public class SeniorCashier extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(SeniorCashier.class);
     public SeniorCashier(User user) {
-        super(user, COMMAND_NEW_ORDER, COMMAND_DELETE_ORDER, COMMAND_DELETE_ORDER_PRODUCT, COMMAND_REPORTS);
+        super(user, COMMAND_NEW_ORDER, COMMAND_DELETE_ORDER, COMMAND_DELETE_ORDER_PRODUCT, COMMAND_REMAINS, COMMAND_REPORTS);
     }
 
     @Override
