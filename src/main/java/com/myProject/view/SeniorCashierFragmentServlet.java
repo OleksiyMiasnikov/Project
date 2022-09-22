@@ -28,15 +28,14 @@ public class SeniorCashierFragmentServlet extends HttpServlet {
                             .getAttribute("CashierManager");
             List<Order> orderList = cashierManager.findAllOrders();
 
+            printWriter.write("<input type=\"checkbox\" id=\"myCheck\" hidden=\"hidden\">");
             for (Order element : orderList) {
-                printWriter.write("<button class=\"btn\" "
-                        + "type=\"submit\" name=\"menuButton\" "
-                        + "value=\"Delete order\" "
-                        + "value=\""
-                        + element.getId()
-                        + "\">"
-                        + "<i class=\"fa-solid fa-trash-can\">"
-                        + "</i></button>");
+                printWriter.write("<input type=\"checkbox\" " +
+                        "name=\"orders\" " +
+                        "id=\"myCheck\" " +
+                        "value=\"" +
+                        element.getId() +
+                        "\">");
                 printWriter.write(" | ");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()

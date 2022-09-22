@@ -71,8 +71,8 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public boolean offTakeProduct(Connection con, OrderDetails orderDetails) throws DaoException {
-        try (PreparedStatement pstmt = con.prepareStatement(OFF_TAKE_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
+    public boolean takeOffProduct(Connection con, OrderDetails orderDetails) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(OFF_TAKE_PRODUCT)) {
             pstmt.setDouble(1, orderDetails.getQuantity());
             pstmt.setLong(2, orderDetails.getProduct().getId());
             pstmt.executeUpdate();
@@ -83,6 +83,17 @@ public class WarehouseDaoImpl implements WarehouseDao {
                 throw new DaoException("Unable to take off product. Out of range value for column 'quantity'" + e);
             }
             throw new DaoException("Unable to take off product: "+ orderDetails.getProduct().getName() + ". Error" + e);
+        }
+    }
+
+    @Override
+    public void recoveryAfterDeletingOrder(Connection con, long id) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(RECOVERY_QUANTITY_AFTER_DELETING_ORDER)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Unable to recovery quantity in warehouse " + e);
+            throw new DaoException("Unable to recovery quantity in warehouse " + e);
         }
     }
 }

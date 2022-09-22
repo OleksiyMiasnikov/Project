@@ -26,6 +26,7 @@ public class Constants {
     public static final String SELECT_ALL_ORDERS = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order`";
     public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ?";
     public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?)";
+    public static final String RECOVERY_QUANTITY_AFTER_DELETING_ORDER = "UPDATE `warehouse`, `order_details` SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` where `warehouse`.`product_id` = `order_details`.`product_id` and `order_details`.`order_id` = ?";
     public static final String READ_TOTAL = "SELECT `totalAmount` FROM `order` WHERE id = ?";
     public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ?";
 

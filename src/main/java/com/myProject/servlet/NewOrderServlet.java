@@ -47,7 +47,6 @@ public class NewOrderServlet extends HttpServlet {
                 }
                 break;
             case "Cancel" :
-// --------------------------------deleteOrder order
                 try {
                     cashierManager.deleteOrder(currentOrder.getId());
                 } catch (DaoException e) {

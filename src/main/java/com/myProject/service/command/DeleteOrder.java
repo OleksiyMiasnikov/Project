@@ -1,6 +1,8 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
+import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -14,7 +16,12 @@ public class DeleteOrder implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("execute ");
-        String order = req.getParameter("menuButton");
-        logger.info("finished " + order);
+        String[] orders = req.getParameterMap().get("orders");
+        if (orders != null) {
+            CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
+            cashierManager.deleteAll(orders);
+        }
+        logger.info("finished ");
+        ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
     }
 }

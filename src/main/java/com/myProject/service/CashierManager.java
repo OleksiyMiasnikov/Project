@@ -118,6 +118,7 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             con.setAutoCommit(false);
+            DaoFactory.getInstance().getWarehouseDao().recoveryAfterDeletingOrder(con, id);
             orderDetailsDao.deleteByOrderId(con, id);
             con.commit();
             orderDao.delete(con, id);
@@ -197,8 +198,7 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             con.setAutoCommit(false);
-            boolean isOffTaken;
-            isOffTaken = DaoFactory.getInstance().getWarehouseDao().offTakeProduct(con, orderDetails);
+            boolean isOffTaken = DaoFactory.getInstance().getWarehouseDao().takeOffProduct(con, orderDetails);
             con.commit();
             if (isOffTaken) {
                 OrderDetails result = orderDetailsDao.create(con, orderDetails);
@@ -228,4 +228,9 @@ public class CashierManager {
         }
     }
 
+    public void deleteAll(String[] orders) throws DaoException {
+        for (String order: orders) {
+            deleteOrder(Integer.parseInt(order));
+        }
+    }
 }
