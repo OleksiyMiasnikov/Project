@@ -2,15 +2,13 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
+import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.dao.entitie.Warehouse;
 import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -70,5 +68,21 @@ public class WarehouseDaoImpl implements WarehouseDao {
     @Override
     public Warehouse findByName(Connection con, String name) throws DaoException {
         return null;
+    }
+
+    @Override
+    public boolean offTakeProduct(Connection con, OrderDetails orderDetails) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(OFF_TAKE_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setDouble(1, orderDetails.getQuantity());
+            pstmt.setLong(2, orderDetails.getProduct().getId());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            logger.error("Unable to take off product: "+ orderDetails.getProduct().getName() + ". Error" + e);
+            if (e.getErrorCode() == ERROR_CODE_OUT_OF_RANGE) {
+                throw new DaoException("Unable to take off product. Out of range value for column 'quantity'" + e);
+            }
+            throw new DaoException("Unable to take off product: "+ orderDetails.getProduct().getName() + ". Error" + e);
+        }
     }
 }

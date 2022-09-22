@@ -2,9 +2,9 @@ package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
-import com.myProject.dao.entitie.Warehouse;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
+import com.myProject.service.CashierManager;
 import com.myProject.service.ProductManager;
 import com.myProject.service.WarehouseManager;
 import org.apache.logging.log4j.LogManager;
@@ -16,17 +16,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @WebServlet("/serveNewOrder")
 public class NewOrderServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrderServlet.class);
     private Order currentOrder;
-    private List<OrderDetails> currentOrderDetails;
-    private long counter = 0L;
+    ProductManager productManager;
+    CashierManager cashierManager;
+    WarehouseManager warehouseManager;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("doPost started");
@@ -37,11 +38,22 @@ public class NewOrderServlet extends HttpServlet {
                 resp.sendRedirect("serveNewOrder");
                 break;
             case "Complete" :
+                currentOrder = null;
                 logger.info("Complete pressed");
+                try {
+                    ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+                } catch (DaoException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "Cancel" :
-                currentOrder = new Order();
-                currentOrderDetails = new ArrayList<>();
+// --------------------------------deleteOrder order
+                try {
+                    cashierManager.deleteOrder(currentOrder.getId());
+                } catch (DaoException e) {
+                    throw new RuntimeException(e);
+                }
+                currentOrder = null;
                 logger.info("Cancel pressed");
                 try {
                     ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
@@ -56,43 +68,42 @@ public class NewOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("doGet started. Current order: " + currentOrder);
-        showNewOrder(req, resp);
+        productManager = (ProductManager) getServletContext().getAttribute("ProductManager");
+        cashierManager = (CashierManager) getServletContext().getAttribute("CashierManager");
+        warehouseManager =  (WarehouseManager) getServletContext().getAttribute("WarehouseManager");
+        showOrder(req, resp);
         logger.info("doGet finished");
     }
 
     private void addOrderDetails(HttpServletRequest req) {
         try {
-            ProductManager productManager
-                    = (ProductManager) getServletContext().getAttribute("ProductManager");
+
             if (currentOrder.getId() == 0) {
-                currentOrder.setId(555L);
+                currentOrder = cashierManager.createOrder(currentOrder);
                 logger.info("Created new order: " + currentOrder);
             }
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(currentOrder);
-            orderDetails.setQuantity(Integer.parseInt(req.getParameter("newQuantity")));
+            orderDetails.setQuantity(Double.parseDouble(req.getParameter("newQuantity")));
             orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
             orderDetails.setProduct(productManager.read(Long.parseLong(req.getParameter("newProductId"))));
-            orderDetails.setId(counter++);
-            currentOrderDetails.add(orderDetails);
-            currentOrder.setTotalAmount(100);
+            orderDetails = cashierManager.createOrderDetails(orderDetails);
+            cashierManager.updateTotal(currentOrder.getId());
+            currentOrder.setTotalAmount(cashierManager.read(currentOrder.getId()).getTotalAmount());
             logger.info("Added order details: " + orderDetails);
-        } catch (DaoException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void showNewOrder(HttpServletRequest req, HttpServletResponse resp) {
+    private void showOrder(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            WarehouseManager warehouseManager =
-                    (WarehouseManager) req.getServletContext().getAttribute("WarehouseManager");
             if (currentOrder == null) {
                 currentOrder = new Order();
                 currentOrder.setUser(((Employee) req.getSession().getAttribute("Employee")).getUser());
                 currentOrder.setDate(new Timestamp(new Date().getTime()));
-                currentOrderDetails = new ArrayList<>();
             } else {
-                req.setAttribute("orderDetails", currentOrderDetails);
+                req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
             req.setAttribute("warehouse", warehouseManager.findAll());

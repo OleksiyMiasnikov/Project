@@ -50,8 +50,8 @@ public class OrderDaoImpl implements OrderDao {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Unable to create order! " + e);
-            throw new DaoException("Unable to create order! ", e);
+            logger.error("Unable to createOrder order! " + e);
+            throw new DaoException("Unable to createOrder order! ", e);
         }
     }
 
@@ -62,7 +62,13 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean delete(Connection con, Long id) throws DaoException {
-        return false;
+        try (PreparedStatement pstmt = con.prepareStatement(DELETE_ORDER)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

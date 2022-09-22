@@ -62,7 +62,7 @@
                         </c:forEach>
                     </datalist>
                     |
-                    <input name="newQuantity" id="newQuantity" type="number" default value="1" min="0" onchange="updateAmount();">
+                    <input name="newQuantity" id="newQuantity" type="number" default value="0" min="0" onchange="updateAmount();">
                     |
                     <input name="newUnit" id="newUnit" disabled>
                     |

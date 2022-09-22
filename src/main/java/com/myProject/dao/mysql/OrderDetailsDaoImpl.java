@@ -39,8 +39,8 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
                 return null;
             }
         } catch (SQLException e) {
-            logger.error("Unable to create order! " + e);
-            throw new DaoException("Unable to create order! ", e);
+            logger.error("Unable to createOrder order! " + e);
+            throw new DaoException("Unable to createOrder order! ", e);
         }
     }
 
@@ -82,6 +82,17 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         } catch (SQLException e) {
             logger.error("Unable to find order details! " + e);
             throw new DaoException("Unable to find order details! ", e);
+        }
+    }
+
+    @Override
+    public boolean deleteByOrderId(Connection con, long id) {
+        try (PreparedStatement pstmt = con.prepareStatement(DELETE_ORDER_DETAILS_BY_ORDER_ID)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

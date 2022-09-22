@@ -39,3 +39,17 @@ ul {
     padding:1px 16px;
     height:700px;
 }
+
+.dataBox button {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.dataBox button:hover {
+  background-color: RoyalBlue;
+}

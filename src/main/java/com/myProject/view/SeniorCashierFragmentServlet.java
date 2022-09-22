@@ -15,22 +15,29 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/CashierFragment")
-public class CashierFragmentServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(CashierFragmentServlet.class);
+@WebServlet("/SeniorCashierFragment")
+public class SeniorCashierFragmentServlet extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(SeniorCashierFragmentServlet.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
             CashierManager cashierManager =
-                    (CashierManager) req
-                            .getSession()
-                            .getServletContext()
+                    (CashierManager) getServletContext()
                             .getAttribute("CashierManager");
             List<Order> orderList = cashierManager.findAllOrders();
 
             for (Order element : orderList) {
+                printWriter.write("<button class=\"btn\" "
+                        + "type=\"submit\" name=\"menuButton\" "
+                        + "value=\"Delete order\" "
+                        + "value=\""
+                        + element.getId()
+                        + "\">"
+                        + "<i class=\"fa-solid fa-trash-can\">"
+                        + "</i></button>");
+                printWriter.write(" | ");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
                         + "\">");

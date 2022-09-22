@@ -20,7 +20,7 @@ public class CreateDatabase implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         logger.info("Start creating database");
 
-        String createSql = readScript("sql\\create.sql");
+        String createSql = readScript("sql\\createOrder.sql");
         String insertData = readScript("sql\\insertions.sql");
         Connection con = null;
         try {

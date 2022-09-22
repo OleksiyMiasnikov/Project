@@ -3,7 +3,7 @@ package com.myProject.servlet;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.OrderDetailsManager;
+import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -33,9 +33,9 @@ public class OrderDetailsServlet extends HttpServlet {
         logger.info("doGet started");
         String strId = req.getParameter("id");
         long id = Long.parseLong(strId);
-        OrderDetailsManager orderDetailsManager = (OrderDetailsManager) req.getServletContext().getAttribute("OrderDetailsManager");
+        CashierManager cashierManager = (CashierManager) getServletContext().getAttribute("CashierManager");
         try {
-            List<OrderDetails> orderDetailsList = orderDetailsManager.detailsByOrderId(id);
+            List<OrderDetails> orderDetailsList = cashierManager.detailsByOrderId(id);
             logger.info(orderDetailsList);
             req.setAttribute("orderDetails", orderDetailsList);
             req.getRequestDispatcher("jsp/orderDetails.jsp").forward(req, resp);

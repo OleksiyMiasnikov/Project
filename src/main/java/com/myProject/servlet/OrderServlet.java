@@ -4,8 +4,7 @@ import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.OrderDetailsManager;
-import com.myProject.service.OrderManager;
+import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -38,12 +37,11 @@ public class OrderServlet extends HttpServlet {
         logger.info("doGet started");
         String strId = req.getParameter("id");
         long id = Long.parseLong(strId);
-        OrderManager orderManager = (OrderManager) req.getServletContext().getAttribute("OrderManager");
-        OrderDetailsManager orderDetailsManager = (OrderDetailsManager) req.getServletContext().getAttribute("OrderDetailsManager");
+        CashierManager cashierManager = (CashierManager) getServletContext().getAttribute("CashierManager");
         try {
-            Order order = orderManager.read(id);
+            Order order = cashierManager.read(id);
             logger.info(order);
-            List<OrderDetails> orderDetailsList = orderDetailsManager.detailsByOrderId(id);
+            List<OrderDetails> orderDetailsList = cashierManager.detailsByOrderId(id);
             logger.info(orderDetailsList);
             req.setAttribute("orderDetails", orderDetailsList);
             req.setAttribute("order", order);

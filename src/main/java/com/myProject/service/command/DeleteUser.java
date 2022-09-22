@@ -29,7 +29,7 @@ public class DeleteUser implements Command {
         if (userManager.deleteUser(userLogin)) {
             logger.info("User: " + userLogin + "has been deleted");
         } else {
-            logger.info("Unable to delete user: " + userLogin);
+            logger.info("Unable to deleteOrder user: " + userLogin);
         }
         req.setAttribute("Fragment", "/AdminFragment");
         try {
