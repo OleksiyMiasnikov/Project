@@ -37,18 +37,18 @@ public class CashierFragmentServlet extends HttpServlet {
                 strHide = "";
             }
             printWriter.write("<div class=\"table_header\">");
-            printWriter.write("<span style=\"width: 50px;\"" +
+            printWriter.write("<span class=\"item\" style=\"width: 50px;\"" +
                     strHide +
                     "><i class=\"fa-solid fa-trash-can\"></i></span>");
-            printWriter.write("<span style=\"width: 50px;\">Id</span>");
-            printWriter.write("<span style=\"width: 200px;\">Time</span>");
-            printWriter.write("<span style=\"width: 100px;\">Amount</span>");
-            printWriter.write("<span style=\"width: 100px;\">Employee</span>");
+            printWriter.write("<span class=\"item\" style=\"width: 50px;\">Id</span>");
+            printWriter.write("<span class=\"item\" style=\"width: 200px;\">Time</span>");
+            printWriter.write("<span class=\"item\" style=\"width: 100px;\">Amount</span>");
+            printWriter.write("<span class=\"item\" style=\"width: 100px;\">Employee</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
 
             for (Order element : orderList) {
-                printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
                 printWriter.write("<input type=\"checkbox\" " +
                         "name=\"orders\" " +
                         "id=\"myCheck\" " +
@@ -57,20 +57,20 @@ public class CashierFragmentServlet extends HttpServlet {
                         element.getId() +
                         "\">");
                 printWriter.write("</span>");
-                printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
                         + "\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</a>");
                 printWriter.write("</span>");
-                printWriter.write("<span style=\"float: left; width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"float: left; width: 200px;\">");
                 printWriter.write(String.valueOf(element.getDate()));
                 printWriter.write("</span>");
-                printWriter.write("<span style=\"float: left; width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"float: left; width: 100px;\">");
                 printWriter.write(String.valueOf(element.getTotalAmount()));
                 printWriter.write("</span>");
-                printWriter.write("<span style=\"float: left; width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"float: left; width: 100px;\">");
                 printWriter.write(element.getUser().getLogin());
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");

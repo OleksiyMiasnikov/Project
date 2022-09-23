@@ -44,16 +44,21 @@ ul {
     overflow: auto;
 }
 
-span {
-    float: left;
+.item {
     text-align: center;
 }
 
 .table_header {
+
     font-weight: bold;
 }
 
+.header_key{
+    float: left;
+    font-weight: bold;
+    background-color: red;
+}
 
-.dataBox button:hover {
-  background-color: RoyalBlue;
+.header_value{
+
 }

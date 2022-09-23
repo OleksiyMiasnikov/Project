@@ -19,6 +19,8 @@ public class CommandServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String button = req.getParameter("menuButton");
+        String[] products = req.getParameterMap().get("products");
+        String product = req.getParameter("products");
         logger.info(button + " was pressed");
         if ("Log out".equals(button)) {
             req.getSession().invalidate();

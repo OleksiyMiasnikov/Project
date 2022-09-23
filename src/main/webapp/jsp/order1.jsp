@@ -1,40 +1,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
     </head>
     <body>
-        <form class="sideBar" action="menuCommand" method="post">
-           <div class="sideBar">
-                <br>
-                <div class="employee">
-                    ${Employee.user.login} (${Employee.user.role.name})
-                </div>
-                <br>
-                <br>
-                <c:forEach items="${sessionScope.menuItems}" var="item">
-                    <input type="submit" value=${item}" id="${item}" name="menuButton">
-                    <br>
-                </c:forEach>
-                <br>
-                <br>
-                <br>
-                <br>
-                <input type="submit" value="Log out" name="menuButton">
-           </div>
 
+        <%@ include file="header.jspf" %>
         <div class="dataBox">
             <h2>
                 Order details
                 <hr>
             </h2>
-
+            <form action="serveOrder" method="post">
                 <p>
                     <span class="header_key">Order id</span>
                     <span class="header_value">${order.id}</span>
@@ -97,7 +78,7 @@
                 <br>
                 <input type="submit" name="button" value="Ok">
                </div>
+            </form>
         </div>
-        </form>
     </body>
 </html>
