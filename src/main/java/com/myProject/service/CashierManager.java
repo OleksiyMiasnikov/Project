@@ -230,7 +230,16 @@ public class CashierManager {
 
     public void deleteAll(String[] orders) throws DaoException {
         for (String order: orders) {
-            deleteOrder(Integer.parseInt(order));
+            deleteOrder(Long.parseLong(order));
+        }
+    }
+
+    public void deleteProductsInOrder(String strId, String[] products) {
+        for (String productId: products) {
+            // 1. product loop
+            // 1.1 in loop - increase product in warehouse by product_id from OrderDetails
+            // 1.2 delete OrderDetails by id
+            // 2. if order does not have orderDetails, delete order
         }
     }
 }

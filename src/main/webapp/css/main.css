@@ -34,9 +34,10 @@ ul {
 }
 
 .dataBox {
-
+    float: left;
     margin-left: 20%;
     margin-top: 5%;
+    padding: 25px;
     width: 80%;
     background-color: lightgray;
     position: fixed;
@@ -45,20 +46,34 @@ ul {
 }
 
 .item {
+    float: left;
+    text-align: center;
+}
+input{
+    float: left;
     text-align: center;
 }
 
 .table_header {
-
+    float: left;
+    text-align: center;
     font-weight: bold;
+    color: darkgrey;
 }
 
 .header_key{
-    float: left;
     font-weight: bold;
-    background-color: red;
+    width: 100px;
+    color: yellow;
+    background-color: blue;
 }
 
 .header_value{
+    background-color: green;
+}
 
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }

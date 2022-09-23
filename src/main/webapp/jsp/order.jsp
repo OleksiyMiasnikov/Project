@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
     </head>
     <body>
-        <form class="sideBar" action="menuCommand" method="post">
+        <form action="menuCommand" method="post">
            <div class="sideBar">
                 <br>
                 <div class="employee">
@@ -19,7 +19,7 @@
                 <br>
                 <br>
                 <c:forEach items="${sessionScope.menuItems}" var="item">
-                    <input type="submit" value=${item}" id="${item}" name="menuButton">
+                    <input type="submit" value="${item}" id="${item}" name="menuButton">
                     <br>
                 </c:forEach>
                 <br>
@@ -34,10 +34,10 @@
                 Order details
                 <hr>
             </h2>
-
                 <p>
                     <span class="header_key">Order id</span>
                     <span class="header_value">${order.id}</span>
+                    <input name="order_id" value="${order.id}" hidden="hidden">
                 </p>
                 <p>
                     <span class="header_key">Date</span>
@@ -54,30 +54,31 @@
                 <br>
                 <hr>
                 <div class="table_header">
-                    <span class="item" style="width: 50px;">
+                    <button type="submit"
+                            name="menuButton"
+                            value="Delete ordered product"
+                            class="table_header"
+                            style="width: 50px; color: black;">
                         <i class="fa-solid fa-trash-can"></i>
-                    </span>
-                    <span class="item" style="width: 50px;">Id</span>
-                    <span class="item" style="width: 70px;">Order Id</span>
-                    <span class="item" style="width: 200px;">Product name</span>
-                    <span class="item" style="width: 50px;">Unit</span>
-                    <span class="item" style="width: 100px;">Quantity</span>
-                    <span class="item" style="width: 100px;">Price</span>
+                    </button>
+                    <span class="table_header" style="width: 50px;">Id</span>
+                    <span class="table_header" style="width: 200px;">Product name</span>
+                    <span class="table_header" style="width: 50px;">Unit</span>
+                    <span class="table_header" style="width: 100px;">Quantity</span>
+                    <span class="table_header" style="width: 100px;">Price</span>
                 </div>
                 <br>
                 <hr>
                     <c:forEach var="element" items="${orderDetails}">
                             <span class="item" style="width: 50px;">
                                 <input  type="checkbox"
+                                        class="center-block"
                                         name="products"
                                         id="myCheck"
                                         value="${element.id}">
                             </span>
                             <span class="item" style="width: 50px;">
                                 ${element.id}
-                            </span>
-                            <span class="item" style="width: 70px;">
-                                ${element.order.id}
                             </span>
                             <span class="item" style="width: 200px;">
                                 ${element.product.name}

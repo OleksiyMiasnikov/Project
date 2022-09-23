@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.myProject.util.Constants.COMMAND_DELETE_ORDER;
+
 @WebServlet("/CashierFragment")
 public class CashierFragmentServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(CashierFragmentServlet.class);
@@ -37,18 +39,26 @@ public class CashierFragmentServlet extends HttpServlet {
                 strHide = "";
             }
             printWriter.write("<div class=\"table_header\">");
-            printWriter.write("<span class=\"item\" style=\"width: 50px;\"" +
-                    strHide +
-                    "><i class=\"fa-solid fa-trash-can\"></i></span>");
-            printWriter.write("<span class=\"item\" style=\"width: 50px;\">Id</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 200px;\">Time</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 100px;\">Amount</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 100px;\">Employee</span>");
+            printWriter.write("<button type=\"submit\" " +
+                                "name=\"menuButton\" " +
+                                "value=\"" +
+                                COMMAND_DELETE_ORDER +
+                                "\"" +
+                                "class=\"table_header\" " +
+                                "style=\"width: 50px; color: black;\"" +
+                                strHide +
+                                ">" +
+                                "<i class=\"fa-solid fa-trash-can\"></i>" +
+                                "</button>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Time</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Amount</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Employee</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
 
             for (Order element : orderList) {
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write("<input type=\"checkbox\" " +
                         "name=\"orders\" " +
                         "id=\"myCheck\" " +
@@ -57,20 +67,20 @@ public class CashierFragmentServlet extends HttpServlet {
                         element.getId() +
                         "\">");
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
                         + "\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</a>");
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
                 printWriter.write(String.valueOf(element.getDate()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 100px;\">");
                 printWriter.write(String.valueOf(element.getTotalAmount()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 100px;\">");
                 printWriter.write(element.getUser().getLogin());
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");

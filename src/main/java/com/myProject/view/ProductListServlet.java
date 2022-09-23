@@ -24,24 +24,24 @@ public class ProductListServlet extends HttpServlet {
         List<Product> productList = (List<Product>) req.getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
             printWriter.write("<div class=\"table_header\">");
-            printWriter.write("<span class=\"item\" style=\"width: 50px;\">Id</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 200px;\">Product name</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 50px;\">Unit</span>");
-            printWriter.write("<span class=\"item\" style=\"width: 100px;text-align: right;\">Price</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Product name</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Unit</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 100px;text-align: right;\">Price</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
 
             for (Product element : productList) {
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
                 printWriter.write(element.getName());
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(element.getUnit().labelUa);
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"float: left; width: 100px;text-align: right;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 100px;text-align: right;\">");
                 printWriter.write(String.valueOf(element.getPrice()));
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");

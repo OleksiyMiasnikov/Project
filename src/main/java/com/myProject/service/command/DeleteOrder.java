@@ -18,8 +18,8 @@ public class DeleteOrder implements Command {
         logger.info("execute ");
         String[] orders = req.getParameterMap().get("orders");
         if (orders != null) {
-            //CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
-            //cashierManager.deleteAll(orders);
+            CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
+            cashierManager.deleteAll(orders);
         }
         logger.info("finished ");
         ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);

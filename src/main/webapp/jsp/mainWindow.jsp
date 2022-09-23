@@ -31,9 +31,8 @@
            </div>
 
            <div class="dataBox">
-                <br>
                 <jsp:include page="${Fragment}" />
-            </div>
+           </div>
         </form>
     </body>
 </html>
