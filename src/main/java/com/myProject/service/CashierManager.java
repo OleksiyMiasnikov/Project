@@ -234,12 +234,27 @@ public class CashierManager {
         }
     }
 
-    public void deleteProductsInOrder(String strId, String[] products) {
-        for (String productId: products) {
-            // 1. product loop
-            // 1.1 in loop - increase product in warehouse by product_id from OrderDetails
-            // 1.2 delete OrderDetails by id
-            // 2. if order does not have orderDetails, delete order
+    public void deleteProductsInOrder(String strId, String[] orderDetailsArray) throws DaoException {
+        // 1. product loop
+        // 1.1 in loop - increase product in warehouse by product_id from OrderDetails
+        // 1.2 delete OrderDetails by id
+        // 2. if order does not have orderDetails, delete order
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            for (String orderDetailsId : orderDetailsArray) {
+                logger.info(orderDetailsId);
+                double quantity = orderDetailsDao.read(con, Long.parseLong(orderDetailsId)).getQuantity();
+
+            }
+        }  finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
         }
     }
 }
