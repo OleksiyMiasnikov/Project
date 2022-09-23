@@ -54,4 +54,5 @@ public class Constants {
     public static final String COMMAND_LIST_OF_PRODUCT = "List of product";
     public static final String COMMAND_INCOME = "Income";
     public static final String COMMAND_REMAINS = "Remains";
+    public static final String COMMAND_ORDERS = "Orders";
 }

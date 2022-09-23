@@ -9,7 +9,6 @@ function idUpdated() {
     for (let i = 0; i < list.length; i++) {
         var productDetails = list.options[i].value.split("|");
         if (productDetails[0] === val) {
-            console.log(productDetails[0] + ":" + productDetails[1] + ":" + productDetails[2] + ":" + productDetails[3] + ":" + productDetails[4]);
             document.getElementById("newProduct").value = productDetails[1];
             document.getElementById("newUnit").value = productDetails[3];
             document.getElementById("newPrice").value = productDetails[2];
@@ -25,7 +24,6 @@ function productUpdated(){
     for (let i = 0; i < list.length; i++) {
         var productDetails = list.options[i].value.split("|");
         if (productDetails[1] === val) {
-            console.log(productDetails[0] + ":" + productDetails[1] + ":" + productDetails[2] + ":" + productDetails[3] + ":" + productDetails[4]);
             document.getElementById("newProductId").value = productDetails[0];
             document.getElementById("newUnit").value = productDetails[3];
             document.getElementById("newPrice").value = productDetails[2];

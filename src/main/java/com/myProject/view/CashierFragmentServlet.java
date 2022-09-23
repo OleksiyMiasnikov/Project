@@ -1,6 +1,7 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Order;
+import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
 import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/CashierFragment")
@@ -28,7 +27,19 @@ public class CashierFragmentServlet extends HttpServlet {
             CashierManager cashierManager =
                     (CashierManager) getServletContext().getAttribute("CashierManager");
             List<Order> orderList = cashierManager.findAllOrders();
+            String role = ((Employee)req.getSession()
+                    .getAttribute("Employee"))
+                    .getUser()
+                    .getRole()
+                    .getName();
+            String strHide = "hidden = \"hidden\" ";
+            if ("Senior cashier".equalsIgnoreCase(role)) {
+                strHide = "";
+            }
             printWriter.write("<div class=\"table_header\">");
+            printWriter.write("<span style=\"width: 50px;\"" +
+                    strHide +
+                    "><i class=\"fa-solid fa-trash-can\"></i></span>");
             printWriter.write("<span style=\"width: 50px;\">Id</span>");
             printWriter.write("<span style=\"width: 200px;\">Time</span>");
             printWriter.write("<span style=\"width: 100px;\">Amount</span>");
@@ -37,6 +48,15 @@ public class CashierFragmentServlet extends HttpServlet {
             printWriter.write("<br><hr>");
 
             for (Order element : orderList) {
+                printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
+                printWriter.write("<input type=\"checkbox\" " +
+                        "name=\"orders\" " +
+                        "id=\"myCheck\" " +
+                        strHide +
+                        "value=\"" +
+                        element.getId() +
+                        "\">");
+                printWriter.write("</span>");
                 printWriter.write("<span style=\"float: left; width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()

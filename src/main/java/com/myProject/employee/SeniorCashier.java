@@ -16,13 +16,13 @@ import static com.myProject.util.Constants.*;
 public class SeniorCashier extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(SeniorCashier.class);
     public SeniorCashier(User user) {
-        super(user, COMMAND_NEW_ORDER, COMMAND_DELETE_ORDER, COMMAND_DELETE_ORDER_PRODUCT, COMMAND_REMAINS, COMMAND_REPORTS);
+        super(user, COMMAND_NEW_ORDER, COMMAND_ORDERS, COMMAND_DELETE_ORDER, COMMAND_DELETE_ORDER_PRODUCT, COMMAND_REMAINS, COMMAND_REPORTS);
     }
 
     @Override
     public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         logger.info("initWindow");
-        req.setAttribute("Fragment", "/SeniorCashierFragment");
+        req.setAttribute("Fragment", "/CashierFragment");
         try {
             req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
