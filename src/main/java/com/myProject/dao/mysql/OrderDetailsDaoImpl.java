@@ -20,7 +20,21 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     private static final Logger logger = (Logger) LogManager.getLogger(OrderDetailsDaoImpl.class);
     @Override
     public OrderDetails read(Connection con, Long id) throws DaoException {
-        return null;
+        try (PreparedStatement pstmt = con.prepareStatement(READ_ORDERDETAILS_BY_ID)) {
+            pstmt.setLong(1, id);
+            pstmt.executeQuery();
+            ResultSet resultSet = pstmt.getResultSet();
+            if (resultSet.next()) {
+                ProductDao productDao = DaoFactoryImpl.getInstance().getProductDao();
+                Order order = DaoFactoryImpl.getInstance().getOrderDao().read(con, id);
+                return buildOrderDetails(con, productDao, order, resultSet);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to find user! " + e);
+            throw new DaoException("Unable to find user! ", e);
+        }
     }
 
     @Override
@@ -51,7 +65,13 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
     @Override
     public boolean delete(Connection con, Long id) throws DaoException {
-        return false;
+        try (PreparedStatement pstmt = con.prepareStatement(DELETE_ORDERDETAILS)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

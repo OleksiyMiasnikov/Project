@@ -20,6 +20,7 @@ public class Constants {
     // SQL WarehouseDao constants
     public static final String SELECT_ALL_IN_WAREHOUSE  = "SELECT `id`, `quantity`, `product_id` FROM `warehouse` WHERE `quantity` > 0";
     public static final String OFF_TAKE_PRODUCT  = "UPDATE `warehouse` SET `quantity` =  `quantity`- ? WHERE `product_id` = ?";
+    public static final String UPDATE_QUANTITY  = "UPDATE `warehouse` SET `quantity` = `quantity` + ? WHERE `product_id` = ?";
     public static final int ERROR_CODE_OUT_OF_RANGE = 1264;
     // SQL OrderDao constants
     public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (SELECT SUM(`quantity`*`price`) FROM `order_details` WHERE `order_id`=? GROUP BY `order_id`) WHERE id = ?";
@@ -33,8 +34,9 @@ public class Constants {
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
+    public static final String DELETE_ORDERDETAILS = "DELETE FROM `order_details` WHERE `id` = ?";
     public static final String DELETE_ORDER_DETAILS_BY_ORDER_ID = "DELETE FROM `order_details` WHERE `order_id` = ?";
-
+    public static final String READ_ORDERDETAILS_BY_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `id` = ?";
     // SQL RoleDao constants
     public static final String GET_ROLE_ID = "SELECT `id` FROM `role` WHERE `name` = ?";
     public static final String SELECT_ALL_ROLES  = "SELECT `id`, `name` FROM `role`";

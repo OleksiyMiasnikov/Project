@@ -96,4 +96,16 @@ public class WarehouseDaoImpl implements WarehouseDao {
             throw new DaoException("Unable to recovery quantity in warehouse " + e);
         }
     }
+
+    @Override
+    public void updateQuantity(Connection con, double quantity, long id) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_QUANTITY)) {
+            pstmt.setDouble(1, quantity);
+            pstmt.setLong(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Unable to update quantity in warehouse " + e);
+            throw new DaoException("Unable to update quantity in warehouse " + e);
+        }
+    }
 }

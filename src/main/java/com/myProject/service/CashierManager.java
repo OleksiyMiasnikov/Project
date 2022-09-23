@@ -239,12 +239,19 @@ public class CashierManager {
         // 1.1 in loop - increase product in warehouse by product_id from OrderDetails
         // 1.2 delete OrderDetails by id
         // 2. if order does not have orderDetails, delete order
+        // 3. update total amount in order
+        // !!! transactions
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
             for (String orderDetailsId : orderDetailsArray) {
                 logger.info(orderDetailsId);
-                double quantity = orderDetailsDao.read(con, Long.parseLong(orderDetailsId)).getQuantity();
+                OrderDetails orderDetails = orderDetailsDao.read(con, Long.parseLong(orderDetailsId));
+                DaoFactory.getInstance().getWarehouseDao()
+                        .updateQuantity(con,
+                                orderDetails.getQuantity(),
+                                orderDetails.getProduct().getId());
+                orderDetailsDao.delete(con, orderDetails.getId());
 
             }
         }  finally {
