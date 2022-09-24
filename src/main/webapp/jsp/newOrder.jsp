@@ -9,7 +9,7 @@
 
     </head>
     <body>
-        <script src="js/order.js"></script>
+        <script src="js/newOrder.js"></script>
         <%@ include file="header.jspf" %>
 
         <div class="dataBox">

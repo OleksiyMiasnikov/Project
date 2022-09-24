@@ -182,7 +182,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDetailsDao.detailsByOrderId(con, id);
+            return orderDetailsDao.readByOrderId(con, id);
         } finally {
             try {
                 if (con != null) con.close();
@@ -241,6 +241,7 @@ public class CashierManager {
         // 2. if order does not have orderDetails, delete order
         // 3. update total amount in order
         // !!! transactions
+        long orderId = Long.parseLong(strId);
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
@@ -252,7 +253,10 @@ public class CashierManager {
                                 orderDetails.getQuantity(),
                                 orderDetails.getProduct().getId());
                 orderDetailsDao.delete(con, orderDetails.getId());
-
+            }
+            if (orderDetailsDao.readByOrderId(con, orderId).isEmpty()) {
+                logger.info("Order is empty");
+                orderDao.delete(con, orderId);
             }
         }  finally {
             try {

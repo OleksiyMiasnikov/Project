@@ -15,6 +15,7 @@
                 <br>
                 <div class="employee">
                     ${Employee.user.login} (${Employee.user.role.name})
+                    <input id="userRole" value="${Employee.user.role.name}" hidden="hidden">
                 </div>
                 <br>
                 <br>
@@ -70,12 +71,13 @@
                 <br>
                 <hr>
                     <c:forEach var="element" items="${orderDetails}">
-                            <span class="item" style="width: 50px;">
+                            <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
                                 <input  type="checkbox"
                                         class="center-block"
                                         name="products"
                                         id="myCheck"
-                                        value="${element.id}">
+                                        value="${element.id}"
+                                        >
                             </span>
                             <span class="item" style="width: 50px;">
                                 ${element.id}
@@ -100,5 +102,6 @@
                </div>
         </div>
         </form>
+        <script src="js/order.js"></script>
     </body>
 </html>

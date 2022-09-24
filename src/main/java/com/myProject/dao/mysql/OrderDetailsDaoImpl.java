@@ -18,6 +18,15 @@ import static com.myProject.util.Constants.*;
 
 public class OrderDetailsDaoImpl implements OrderDetailsDao {
     private static final Logger logger = (Logger) LogManager.getLogger(OrderDetailsDaoImpl.class);
+
+    /**
+     * reads one record from table `order_details` by field `id`
+     * @param con - connection from connection pool
+     * @param id -  id of searched field
+     * @return - object OrderDetails with searched record data or @null if it is absent
+     * @throws DaoException
+     */
+
     @Override
     public OrderDetails read(Connection con, Long id) throws DaoException {
         try (PreparedStatement pstmt = con.prepareStatement(READ_ORDERDETAILS_BY_ID)) {
@@ -37,6 +46,13 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         }
     }
 
+    /**
+     * creates record in table `order_details` with data from object @entity
+     * @param con - connection from connection pool
+     * @param entity
+     * @return
+     * @throws DaoException
+     */
     @Override
     public OrderDetails create(Connection con, OrderDetails entity) throws DaoException {
         try (PreparedStatement pstmt = con.prepareStatement(CREATE_ORDER_DETAILS, Statement.RETURN_GENERATED_KEYS)) {
@@ -85,7 +101,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     }
 
     @Override
-    public List<OrderDetails> detailsByOrderId(Connection con, long id) throws DaoException {
+    public List<OrderDetails> readByOrderId(Connection con, long id) throws DaoException {
         try (PreparedStatement pstmt = con.prepareStatement(READ_ORDER_DETAILS_BY_ORDER_ID)) {
             pstmt.setLong(1, id);
             pstmt.executeQuery();

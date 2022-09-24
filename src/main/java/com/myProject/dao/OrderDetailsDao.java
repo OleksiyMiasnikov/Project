@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface OrderDetailsDao extends Dao<Long, OrderDetails> {
-    List<OrderDetails> detailsByOrderId(Connection con, long id) throws DaoException;
+    List<OrderDetails> readByOrderId(Connection con, long id) throws DaoException;
 
     boolean deleteByOrderId(Connection con, long id);
 }
