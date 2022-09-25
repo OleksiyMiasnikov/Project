@@ -21,7 +21,8 @@ public class WarehouseFragmentServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         List<Warehouse> warehouseList;
-        warehouseList = (List<Warehouse>) req.getAttribute("result");
+        warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
+        logger.info(warehouseList);
         try (PrintWriter printWriter = resp.getWriter()){
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");

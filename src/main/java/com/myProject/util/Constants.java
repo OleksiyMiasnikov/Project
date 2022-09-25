@@ -58,4 +58,5 @@ public class Constants {
     public static final String COMMAND_REMAINS = "Remains";
     public static final String COMMAND_ORDERS = "Orders";
     public static final String AUTHORIZATION_COMMAND = "authorization";
+    public static final String LOGOUT_COMMAND = "Log out";
 }

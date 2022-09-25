@@ -19,7 +19,7 @@
                 </div>
                 <br>
                 <br>
-                <c:forEach items="${sessionScope.menuItems}" var="item">
+                <c:forEach items="${Employee.menuItems}" var="item">
                     <input type="submit" value="${item}" id="${item}" name="menuButton">
                     <br>
                 </c:forEach>

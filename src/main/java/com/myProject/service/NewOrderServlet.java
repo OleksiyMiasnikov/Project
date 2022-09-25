@@ -1,11 +1,9 @@
-package com.myProject.servlet;
+package com.myProject.service;
 
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.CashierManager;
-import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -18,6 +16,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+
+import static com.myProject.util.Constants.COMMAND_ORDERS;
 
 @WebServlet("/serveNewOrder")
 public class NewOrderServlet extends HttpServlet {
@@ -38,11 +38,7 @@ public class NewOrderServlet extends HttpServlet {
             case "Complete" :
                 currentOrder = null;
                 logger.info("Complete pressed");
-               /* try {
-                   // ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
-                } catch (DaoException e) {
-                    throw new RuntimeException(e);
-                }*/
+                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
                 break;
             case "Cancel" :
                 try {
@@ -52,11 +48,7 @@ public class NewOrderServlet extends HttpServlet {
                 }
                 currentOrder = null;
                 logger.info("Cancel pressed");
-//                try {
-//                  //  ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
-//                } catch (DaoException e) {
-//                    throw new RuntimeException(e);
-//                }
+                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
                 break;
         }
         logger.info("doPost finished");
@@ -65,15 +57,16 @@ public class NewOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("doGet started. Current order: " + currentOrder);
-        cashierManager = (CashierManager) getServletContext().getAttribute("CashierManager");
-        commodityExpertManager =  (CommodityExpertManager) getServletContext().getAttribute("CommodityExpertManager");
+        cashierManager
+                = (CashierManager) getServletContext().getAttribute("CashierManager");
+        commodityExpertManager
+                = (CommodityExpertManager) getServletContext().getAttribute("CommodityExpertManager");
         showOrder(req, resp);
         logger.info("doGet finished");
     }
 
     private void addOrderDetails(HttpServletRequest req) {
         try {
-
             if (currentOrder.getId() == 0) {
                 currentOrder = cashierManager.createOrder(currentOrder);
                 logger.info("Created new order: " + currentOrder);
@@ -104,7 +97,7 @@ public class NewOrderServlet extends HttpServlet {
             req.setAttribute("order", currentOrder);
             req.setAttribute("warehouse", commodityExpertManager.findAll());
             logger.info("products in warehouse: " + commodityExpertManager.findAll());
-            req.getRequestDispatcher("jsp/new_order.jsp").forward(req, resp);
+            req.getRequestDispatcher("new_order.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

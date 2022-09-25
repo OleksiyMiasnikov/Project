@@ -23,7 +23,7 @@ public class Admin extends Employee{
         logger.info("initWindow");
         req.setAttribute("Fragment", "/AdminFragment");
         try {
-            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
+            req.getRequestDispatcher("main_window.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

@@ -29,7 +29,8 @@ public class Authorization implements Command {
             Employee employee = Employee.createEmployee(user);
             req.getSession().setAttribute("Employee", employee);
             logger.info(employee);
-            return "jsp/main_window.jsp";
+            req.getSession().setAttribute("Fragment", employee.getFragment());
+            return "main_window.jsp";
         } else {
             resp.setContentType("text/html");
             PrintWriter writer = resp.getWriter();

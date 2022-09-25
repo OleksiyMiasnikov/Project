@@ -45,7 +45,7 @@ public class OrderServlet extends HttpServlet {
             logger.info(orderDetailsList);
             req.setAttribute("orderDetails", orderDetailsList);
             req.setAttribute("order", order);
-            req.getRequestDispatcher("jsp/order.jsp").forward(req, resp);
+            req.getRequestDispatcher("order.jsp").forward(req, resp);
         } catch (ServletException | IOException | DaoException e) {
             throw new RuntimeException(e);
         }

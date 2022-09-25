@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.myProject.util.Constants.COMMAND_ORDERS;
+
 public class DeleteOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrder.class);
     @Override
@@ -22,7 +24,6 @@ public class DeleteOrder implements Command {
             cashierManager.deleteAll(orders);
         }
         logger.info("finished ");
-      //  ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
-        return null;
+        return "controller?command=" + COMMAND_ORDERS;
     }
 }
