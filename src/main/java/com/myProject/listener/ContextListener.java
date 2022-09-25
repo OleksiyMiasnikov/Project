@@ -20,16 +20,17 @@ public class ContextListener implements ServletContextListener, ServletContextAt
     private static final Logger logger = (Logger) LogManager.getLogger(ContextListener.class);
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        UserManager userManager = UserManager.getInstance(DaoFactory.getInstance().getUserDao());
+        UserManager userManager =
+                UserManager.getInstance(DaoFactory.getInstance().getUserDao(),
+                                        DaoFactory.getInstance().getRoleDao());
         sce.getServletContext().setAttribute("UserManager", userManager);
-        RoleManager roleManager = RoleManager.getInstance(DaoFactory.getInstance().getRoleDao());
-        sce.getServletContext().setAttribute("RoleManager", roleManager);
-        ProductManager productManager = ProductManager.getInstance(DaoFactory.getInstance().getProductDao());
-        sce.getServletContext().setAttribute("ProductManager", productManager);
-        WarehouseManager warehouseManager = WarehouseManager.getInstance(DaoFactory.getInstance().getWarehouseDao());
-        sce.getServletContext().setAttribute("WarehouseManager", warehouseManager);
-        CashierManager cashierManager = CashierManager.getInstance(DaoFactory.getInstance().getOrderDao(),
-                                                                    DaoFactory.getInstance().getOrderDetailsDao());
+        CommodityExpertManager commodityExpertManager =
+                CommodityExpertManager.getInstance(DaoFactory.getInstance().getWarehouseDao(),
+                                             DaoFactory.getInstance().getProductDao());
+        sce.getServletContext().setAttribute("CommodityExpertManager", commodityExpertManager);
+        CashierManager cashierManager =
+                CashierManager.getInstance(DaoFactory.getInstance().getOrderDao(),
+                                           DaoFactory.getInstance().getOrderDetailsDao());
         sce.getServletContext().setAttribute("CashierManager", cashierManager);
     }
 

@@ -214,7 +214,7 @@ public class CashierManager {
             } catch (SQLException ex) {
                 throw new DaoException("Connection is null.  " + ex);
             }
-            logger.warn("Unable to create order details. Rollback.");
+            logger.error("Unable to create order details. Rollback.");
             throw new DaoException("Unable to create order details. Rollback. " + e);
         } finally {
             try {
@@ -245,6 +245,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            con.setAutoCommit(false);
             for (String orderDetailsId : orderDetailsArray) {
                 logger.info(orderDetailsId);
                 OrderDetails orderDetails = orderDetailsDao.read(con, Long.parseLong(orderDetailsId));
@@ -252,15 +253,27 @@ public class CashierManager {
                         .updateQuantity(con,
                                 orderDetails.getQuantity(),
                                 orderDetails.getProduct().getId());
+                con.commit();
                 orderDetailsDao.delete(con, orderDetails.getId());
+                con.commit();
             }
             if (orderDetailsDao.readByOrderId(con, orderId).isEmpty()) {
                 logger.info("Order is empty");
                 orderDao.delete(con, orderId);
+                con.commit();
             }
-        }  finally {
+        } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                throw new DaoException("Connection is null.  " + ex);
+            }
+            logger.error("Unable to delete products in order. Rollback.");
+            throw new DaoException("Unable to delete products in order. Rollback. " + e);
+        } finally {
             try {
                 if (con != null) {
+                    con.setAutoCommit(true);
                     con.close();
                 }
             } catch (SQLException e) {

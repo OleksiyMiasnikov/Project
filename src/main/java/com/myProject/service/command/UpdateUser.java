@@ -3,7 +3,6 @@ package com.myProject.service.command;
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
 import com.myProject.exception.DaoException;
-import com.myProject.service.RoleManager;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -22,10 +21,9 @@ public class UpdateUser implements Command {
         String userLogin = req.getParameter("users");
         logger.info("Start updating user: " + userLogin);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        RoleManager roleManager = (RoleManager) req.getSession().getServletContext().getAttribute("RoleManager");
         User user = userManager.findUser(userLogin);
         req.setAttribute("user", user);
-        List<Role> rolesList = roleManager.findAllRoles();
+        List<Role> rolesList = userManager.findAllRoles();
         req.setAttribute("roles", rolesList);
         try {
             req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);

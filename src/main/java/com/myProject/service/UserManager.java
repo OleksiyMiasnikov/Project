@@ -1,5 +1,7 @@
 package com.myProject.service;
 
+import com.myProject.dao.RoleDao;
+import com.myProject.dao.entitie.Role;
 import com.myProject.util.ConnectionPool;
 import com.myProject.dao.UserDao;
 import com.myProject.exception.DaoException;
@@ -16,16 +18,18 @@ public class UserManager {
     private static final Logger logger = (Logger) LogManager.getLogger(UserManager.class);
     private static UserManager instance;
     private final UserDao userDao;
+    private final RoleDao roleDao;
 
-    public static UserManager getInstance(UserDao userDao) {
+    public static UserManager getInstance(UserDao userDao, RoleDao roleDao) {
         if (instance == null) {
-            instance = new UserManager(userDao);
+            instance = new UserManager(userDao, roleDao);
             logger.info("Instance of UserManager created");
         }
         return instance;
     }
-    private UserManager(UserDao userDao) {
+    private UserManager(UserDao userDao, RoleDao roleDao) {
         this.userDao = userDao;
+        this.roleDao = roleDao;
     }
 
     public User findUser(String login) throws DaoException {
@@ -118,4 +122,39 @@ public class UserManager {
             }
         }
     }
+
+    public List<Role> findAllRoles() throws DaoException {
+        logger.info("Start finding all roles");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            List<Role> rolesList = roleDao.findAll(con);
+            logger.info("Finish finding all roles");
+            return rolesList;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public Long getIdRole(String role) throws DaoException {
+        logger.info("Start getting id of " + role);
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            long id = roleDao.findByName(con, role).getId();
+            logger.info(role + " has id: " + id);
+            return id;
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
 }

@@ -2,7 +2,6 @@ package com.myProject.service.command;
 
 import com.myProject.dao.entitie.Role;
 import com.myProject.exception.DaoException;
-import com.myProject.service.RoleManager;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -19,9 +18,8 @@ public class AddUser implements Command{
     public void execute(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("--- AddUser ---");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
-        RoleManager roleManager = (RoleManager) req.getServletContext().getAttribute("RoleManager");
         try {
-            List<Role> rolesList = roleManager.findAllRoles();
+            List<Role> rolesList = userManager.findAllRoles();
             req.setAttribute("roles", rolesList);
             req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
         } catch (ServletException | DaoException | IOException e) {

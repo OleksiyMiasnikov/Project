@@ -2,10 +2,8 @@ package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Product;
 import com.myProject.dao.entitie.Unit;
-import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
-import com.myProject.service.ProductManager;
-import com.myProject.service.command.Receiver;
+import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -48,34 +46,27 @@ public class ProductDetailsServlet extends HttpServlet {
         }
 
         try {
-            ProductManager productManager =
-                    (ProductManager) req.getSession()
+            CommodityExpertManager commodityExpertManager =
+                    (CommodityExpertManager) req.getSession()
                     .getServletContext()
-                    .getAttribute("ProductManager");
+                    .getAttribute("CommodityExpertManager");
 
             Product newProduct = new Product(id, name, unit, price);
             if (id == 0L) {
-                if (productManager.create(newProduct) != null){
+                if (commodityExpertManager.create(newProduct) != null){
                     logger.info(name + " added");
                 } else {
                     logger.info("Unable to add " + name);
                 }
             } else {
-                productManager.update(newProduct);
+                commodityExpertManager.update(newProduct);
                 logger.info(name + " updated");
             }
-            //productManager = (ProductManager) req.getSession().getServletContext().getAttribute("ProductManager");
-            List<Product> productList = productManager.findAllProducts();
+            List<Product> productList = commodityExpertManager.findAllProducts();
             req.setAttribute("result", productList);
             req.setAttribute("Fragment", "/ProductListFragment");
             logger.info(Arrays.toString(productList.toArray()));
             req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
-            // new Receiver().runCommand(req, resp, "COMMAND_LIST_OF_PRODUCT");
-            //((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
-           /* List<Product> productList = productManager.findAllProducts();
-            req.setAttribute("result", productList);
-            req.setAttribute("Window", "jsp/commodityExpertWindow.jsp");
-            req.getRequestDispatcher("main").forward(req, resp);*/
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

@@ -3,7 +3,7 @@ package com.myProject.employee;
 import com.myProject.dao.entitie.User;
 import com.myProject.dao.entitie.Warehouse;
 import com.myProject.exception.DaoException;
-import com.myProject.service.WarehouseManager;
+import com.myProject.service.CommodityExpertManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -28,12 +28,12 @@ public class CommodityExpert extends Employee {
     @Override
     public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         logger.info("initWindow start");
-        WarehouseManager warehouseManager =
-                (WarehouseManager) req
+        CommodityExpertManager commodityExpertManager =
+                (CommodityExpertManager) req
                         .getSession()
                         .getServletContext()
-                        .getAttribute("WarehouseManager");
-        List<Warehouse> warehouseList = warehouseManager.findAll();
+                        .getAttribute("CommodityExpertManager");
+        List<Warehouse> warehouseList = commodityExpertManager.findAll();
         req.setAttribute("result", warehouseList);
         req.setAttribute("Fragment", "/WarehouseFragment");
         logger.info(Arrays.toString(warehouseList.toArray()));

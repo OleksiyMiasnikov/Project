@@ -5,8 +5,7 @@ import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
 import com.myProject.service.CashierManager;
-import com.myProject.service.ProductManager;
-import com.myProject.service.WarehouseManager;
+import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -24,9 +23,8 @@ import java.util.Date;
 public class NewOrderServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrderServlet.class);
     private Order currentOrder;
-    ProductManager productManager;
     CashierManager cashierManager;
-    WarehouseManager warehouseManager;
+    CommodityExpertManager commodityExpertManager;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -67,9 +65,8 @@ public class NewOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("doGet started. Current order: " + currentOrder);
-        productManager = (ProductManager) getServletContext().getAttribute("ProductManager");
         cashierManager = (CashierManager) getServletContext().getAttribute("CashierManager");
-        warehouseManager =  (WarehouseManager) getServletContext().getAttribute("WarehouseManager");
+        commodityExpertManager =  (CommodityExpertManager) getServletContext().getAttribute("CommodityExpertManager");
         showOrder(req, resp);
         logger.info("doGet finished");
     }
@@ -85,7 +82,7 @@ public class NewOrderServlet extends HttpServlet {
             orderDetails.setOrder(currentOrder);
             orderDetails.setQuantity(Double.parseDouble(req.getParameter("newQuantity")));
             orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
-            orderDetails.setProduct(productManager.read(Long.parseLong(req.getParameter("newProductId"))));
+            orderDetails.setProduct(commodityExpertManager.read(Long.parseLong(req.getParameter("newProductId"))));
             orderDetails = cashierManager.createOrderDetails(orderDetails);
             cashierManager.updateTotal(currentOrder.getId());
             currentOrder.setTotalAmount(cashierManager.read(currentOrder.getId()).getTotalAmount());
@@ -105,8 +102,8 @@ public class NewOrderServlet extends HttpServlet {
                 req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("warehouse", warehouseManager.findAll());
-            logger.info("products in warehouse: " + warehouseManager.findAll());
+            req.setAttribute("warehouse", commodityExpertManager.findAll());
+            logger.info("products in warehouse: " + commodityExpertManager.findAll());
             req.getRequestDispatcher("jsp/newOrder.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
