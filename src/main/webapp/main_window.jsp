@@ -12,6 +12,7 @@
     <body>
         <form action="controller" method="post">
             <div class="sideBar">
+                [main_window.jsp]
                 <br>
                 <div class="employee">
                     ${Employee.user.login} (${Employee.user.role.name})

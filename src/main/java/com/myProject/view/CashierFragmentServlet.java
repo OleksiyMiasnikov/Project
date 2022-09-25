@@ -38,6 +38,9 @@ public class CashierFragmentServlet extends HttpServlet {
             if ("Senior cashier".equalsIgnoreCase(role)) {
                 strHide = "";
             }
+            printWriter.write("[CashierFragmentServlet: /CashierFragment]");
+            printWriter.write("<br>");
+
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<button type=\"submit\" " +
                                 "name=\"command\" " +

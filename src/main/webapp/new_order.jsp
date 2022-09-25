@@ -14,7 +14,7 @@
 
         <div class="dataBox">
             <h2 class="id">
-                NEW ORDER
+                NEW ORDER [new_order.jsp]
                 <hr>
             </h2>
             <form action="serveNewOrder" method="post">

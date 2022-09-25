@@ -24,6 +24,8 @@ public class WarehouseFragmentServlet extends HttpServlet {
         warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
         logger.info(warehouseList);
         try (PrintWriter printWriter = resp.getWriter()){
+            printWriter.write("[WarehouseFragmentServlet: /WarehouseFragmentFragment]");
+            printWriter.write("<br>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Product name</span>");

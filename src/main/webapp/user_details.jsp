@@ -10,7 +10,7 @@
         <%@ include file="header.jspf" %>
         <div class="dataBox">
             <h2>
-                Adding new user
+                Adding new user [product_details.jsp]
                 <hr>
             </h2>
             <form action="serveUser" method="post">

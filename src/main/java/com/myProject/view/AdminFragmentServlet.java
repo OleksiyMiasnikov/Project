@@ -26,6 +26,8 @@ public class AdminFragmentServlet extends HttpServlet {
         try (PrintWriter printWriter = resp.getWriter()){
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
             List<User> userList = userManager.findAllUsers();
+            printWriter.write("[AdminFragmentServlet: /AdminFragment]");
+            printWriter.write("<br>");
             for (User element : userList) {
                 printWriter.write("<input type=\"radio\" id=\"radio\" value=\""
                                 + element.getLogin()

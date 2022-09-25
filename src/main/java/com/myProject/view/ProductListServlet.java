@@ -23,6 +23,8 @@ public class ProductListServlet extends HttpServlet {
         logger.info("service start");
         List<Product> productList = (List<Product>) req.getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
+            printWriter.write("[ProductListServlet: /ProductListFragment]");
+            printWriter.write("<br>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Product name</span>");
