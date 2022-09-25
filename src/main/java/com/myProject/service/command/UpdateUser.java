@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+
 
 public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        String userLogin = req.getParameter("users");
+        String userLogin = req.getParameter("userDetails");
         logger.info("Start updating user: " + userLogin);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(userLogin);
@@ -26,10 +28,10 @@ public class UpdateUser implements Command {
         List<Role> rolesList = userManager.findAllRoles();
         req.setAttribute("roles", rolesList);
         try {
-            req.getRequestDispatcher("jsp/user_details.jsp").forward(req, resp);
+            req.getRequestDispatcher("user_details.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
-        return userLogin;
+        return "controller?command=" + COMMAND_SHOW_USERS;
     }
 }

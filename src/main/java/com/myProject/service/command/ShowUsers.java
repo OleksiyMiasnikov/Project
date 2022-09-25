@@ -21,7 +21,6 @@ public class ShowUsers implements Command {
         List<User> userList = userManager.findAllUsers();
         req.setAttribute("result", userList);
         logger.info("Finish execute command  -ShowUsers-");
-        req.getRequestDispatcher("main").forward(req, resp);
-        return null;
+        return "main_window.jsp";
     }
 }

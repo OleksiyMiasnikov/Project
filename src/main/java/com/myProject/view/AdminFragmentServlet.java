@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.myProject.util.Constants.*;
+
 @WebServlet("/AdminFragment")
 public class AdminFragmentServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(AdminFragmentServlet.class);
@@ -28,15 +30,57 @@ public class AdminFragmentServlet extends HttpServlet {
             List<User> userList = userManager.findAllUsers();
             printWriter.write("[AdminFragmentServlet: /AdminFragment]");
             printWriter.write("<br>");
+
+            printWriter.write("<div class=\"table_header\">");
+            printWriter.write("<button type=\"submit\" " +
+                    "name=\"command\" " +
+                    "value=\"" +
+                    COMMAND_DELETE_USER +
+                    "\"" +
+                    "class=\"table_header\" " +
+                    "style=\"width: 50px; color: black;\">" +
+                    "<i class=\"fa-solid fa-trash-can\"></i>" +
+                    "</button>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">User login</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Role</span>");
+            printWriter.write("</div>");
+            printWriter.write("<br><hr>");
             for (User element : userList) {
-                printWriter.write("<input type=\"radio\" id=\"radio\" value=\""
+                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
+                printWriter.write("<input type=\"checkbox\" " +
+                        "name=\"users\" " +
+                        "id=\"myCheck\" " +
+                        "value=\"" +
+                        element.getId() +
+                        "\">");
+                printWriter.write("</span>");
+                printWriter.write("<span class=\"item\" style=\"width: 50px;\" " +
+                                    "name='userDetails' " +
+                                    "value=" +
+                                    element.getId() +
+                                    ">");
+                printWriter.write(String.valueOf(element.getId()));
+                printWriter.write("</span>");
+                printWriter.write("<span class=\"item\" style=\"width: 200px;text-align: center;\">");
+                printWriter.write("<a href=\"controller?command=" + COMMAND_UPDATE_USER + "\">");
+                printWriter.write(element.getLogin());
+                printWriter.write("</a>");
+                printWriter.write("</span>");
+                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
+                printWriter.write(element.getRole().getName());
+                printWriter.write("</span>");
+                printWriter.write("<input name='userDetails' value=" + element.getId() + ">");
+                printWriter.write("<br><hr>");
+
+                /*printWriter.write("<input type=\"radio\" id=\"radio\" value=\""
                                 + element.getLogin()
                                 +"\" name=\"users\" />");
                 printWriter.write("--");
                 printWriter.write(element.getLogin());
                 printWriter.write("--");
                 printWriter.write(String.valueOf(element.getRole().getName()));
-                printWriter.write("<br>");
+                printWriter.write("<br>");*/
             }
         } catch (IOException | DaoException e) {
             throw new RuntimeException(e);

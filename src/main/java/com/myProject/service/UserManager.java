@@ -157,4 +157,33 @@ public class UserManager {
         }
     }
 
+    public void deleteAll(String[] users) throws DaoException {
+        logger.info("Start deleting uses");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            con.setAutoCommit(false);
+            for (String user : users) {
+                userDao.delete(con, Long.parseLong(user));
+            }
+            con.commit();
+        } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                throw new DaoException("Connection is null.  " + ex);
+            }
+            logger.error("Unable to delete users. Rollback.");
+        } finally {
+            try {
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

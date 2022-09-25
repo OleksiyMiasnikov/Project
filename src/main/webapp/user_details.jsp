@@ -10,33 +10,35 @@
         <%@ include file="header.jspf" %>
         <div class="dataBox">
             <h2>
-                Adding new user [product_details.jsp]
+                Adding new user [user_details.jsp]
                 <hr>
             </h2>
-            <form action="serveUser" method="post">
-                  Login
-                  <input name="newLogin" value="${user.login}">
-                  <input type="hidden" name="id" value="${user.id}">
-                  <br>
-                  Password
-                  <input name="newPassword" value="${user.password}">
-                  <br>
-                  Email
-                  <input name="newEmail" value="${user.email}" >
-                  <br>
-                  Role
-                  <select name="newRole" value="${user.role.name}">
-                        <option> ${user.role.name} </option>
-                        <c:forEach var="item" items="${roles }">
-                            <option value="${item.getName() }">
-                                ${item.getName() }
-                            </option>
-                        </c:forEach>
-                   </select>
+            <form action="controller" method="post">
+                <div>
+                    Login
+                    <input name="newLogin" value="${user.login}">
+                    <input type="hidden" name="id" value="${user.id}">
+                    <br>
+                    Password
+                    <input name="newPassword" value="${user.password}">
+                    <br>
+                    Email
+                    <input name="newEmail" value="${user.email}" >
+                    <br>
+                    Role
+                    <select name="newRole" value="${user.role.name}">
+                    <option> ${user.role.name} </option>
+                    <c:forEach var="item" items="${roles }">
+                        <option value="${item.getName() }">
+                            ${item.getName() }
+                        </option>
+                    </c:forEach>
+                    </select>
+                </div>
                   <hr>
                   <br>
-                  <input type="submit" name="button" value="Ok">
-                  <input type="submit" name="button" value="Cancel">
+                  <button type="submit" name="command" value="AddUserDetails">Ok</button>
+                  <button type="submit" name="command" value="Show users">Cancel</button>
                </div>
             </form>
         </div>

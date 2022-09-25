@@ -45,6 +45,7 @@ public class Constants {
     // command constants
     public static final String COMMAND_SHOW_USERS = "Show users";
     public static final String COMMAND_ADD_USER = "Add user";
+    public static final String COMMAND_ADD_USER_DETAILS = "AddUserDetails";
     public static final String COMMAND_UPDATE_USER = "Update user";
     public static final String COMMAND_CREATE_DATABASE = "Create database";
     public static final String COMMAND_DELETE_USER = "Delete user";

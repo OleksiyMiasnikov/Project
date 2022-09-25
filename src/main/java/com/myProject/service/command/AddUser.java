@@ -20,11 +20,10 @@ public class AddUser implements Command{
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         try {
             List<Role> rolesList = userManager.findAllRoles();
-            req.setAttribute("roles", rolesList);
-            req.getRequestDispatcher("jsp/user_details.jsp").forward(req, resp);
-        } catch (ServletException | DaoException | IOException e) {
+            req.getSession().setAttribute("roles", rolesList);
+        } catch ( DaoException  e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return"user_details.jsp";
     }
 }
