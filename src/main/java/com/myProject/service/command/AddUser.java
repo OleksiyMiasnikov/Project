@@ -15,7 +15,7 @@ import java.util.List;
 public class AddUser implements Command{
     private static final Logger logger = (Logger) LogManager.getLogger(AddUser.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("--- AddUser ---");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         try {
@@ -25,5 +25,6 @@ public class AddUser implements Command{
         } catch (ServletException | DaoException | IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }

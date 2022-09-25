@@ -12,7 +12,8 @@ import java.io.IOException;
 public class Income implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Income.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- Income ---");
+        return null;
     }
 }

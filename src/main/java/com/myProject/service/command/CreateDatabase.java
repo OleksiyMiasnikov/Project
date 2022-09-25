@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,7 +16,7 @@ import java.sql.Statement;
 public class CreateDatabase implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(CreateDatabase.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         logger.info("Start creating database");
 
         String createSql = readScript("sql\\createOrder.sql");
@@ -44,6 +43,7 @@ public class CreateDatabase implements Command {
         }
 
 
+        return createSql;
     }
 
     private String readScript(String filePath) {

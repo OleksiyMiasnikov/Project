@@ -11,7 +11,8 @@ import java.io.IOException;
 
 public class Orders implements Command {
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         new Cashier(new User()).initWindow(req, resp);
+        return null;
     }
 }

@@ -12,9 +12,10 @@ import java.io.IOException;
 public class NewOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrder.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- NewOrder ---");
         //req.getRequestDispatcher("serveOrder").forward(req, resp);
         resp.sendRedirect("serveNewOrder");
+        return null;
     }
 }

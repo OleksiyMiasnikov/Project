@@ -14,7 +14,7 @@ import java.io.IOException;
 public class DeleteOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrder.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("execute ");
         String[] orders = req.getParameterMap().get("orders");
         if (orders != null) {
@@ -23,5 +23,6 @@ public class DeleteOrder implements Command {
         }
         logger.info("finished ");
         ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+        return null;
     }
 }

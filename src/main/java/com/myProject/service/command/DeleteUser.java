@@ -1,6 +1,5 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.User;
 import com.myProject.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,7 @@ import java.io.IOException;
 public class DeleteUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteUser.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         String userLogin = req.getParameter("users");
         if (userLogin == null || userLogin.equals("")) {
             try {
@@ -22,7 +21,7 @@ public class DeleteUser implements Command {
             } catch (IOException | ServletException e) {
                 throw new RuntimeException(e);
             }
-            return;
+            return userLogin;
         }
         logger.info("Start deleting user: " + userLogin);
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
@@ -38,5 +37,6 @@ public class DeleteUser implements Command {
             throw new RuntimeException(e);
         }
         //employee.initWindow(req, resp);
+        return userLogin;
     }
 }

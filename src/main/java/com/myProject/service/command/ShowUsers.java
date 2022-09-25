@@ -15,12 +15,13 @@ import java.util.List;
 public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ShowUsers-");
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         List<User> userList = userManager.findAllUsers();
         req.setAttribute("result", userList);
         logger.info("Finish execute command  -ShowUsers-");
         req.getRequestDispatcher("main").forward(req, resp);
+        return null;
     }
 }

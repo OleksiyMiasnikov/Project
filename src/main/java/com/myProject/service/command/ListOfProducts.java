@@ -16,7 +16,7 @@ import java.util.List;
 public class ListOfProducts implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ListOfProducts.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ListOfProducts-");
         CommodityExpertManager commodityExpertManager = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
         List<Product> productList = commodityExpertManager.findAllProducts();
@@ -28,5 +28,6 @@ public class ListOfProducts implements Command {
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }

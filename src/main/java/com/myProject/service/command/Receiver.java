@@ -14,10 +14,10 @@ import java.util.Map;
 import static com.myProject.util.Constants.*;
 
 public class Receiver {
-    private static final Logger logger = (Logger) LogManager.getLogger(Receiver.class);
-    Map<String, Command> commandMap;
-    public Receiver() {
-        this.commandMap = new HashMap<>();
+    private static final Map<String, Command> commandMap;
+
+    static {
+        commandMap = new HashMap<>();
         commandMap.put(COMMAND_ADD_USER, new AddUser());
         commandMap.put(COMMAND_SHOW_USERS, new ShowUsers());
         commandMap.put(COMMAND_UPDATE_USER, new UpdateUser());
@@ -33,9 +33,12 @@ public class Receiver {
         commandMap.put(COMMAND_REMAINS, new Remains());
         commandMap.put(COMMAND_ORDERS, new Orders());
     }
-    public void runCommand(HttpServletRequest req, HttpServletResponse resp, String buttonName)
+
+    public static Command getCommand(String commandName) {
+        return commandMap.get(commandName);
+    }
+    public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws DaoException, ServletException, IOException {
-        logger.info("runCommand executed");
-        commandMap.get(buttonName).execute(req, resp);
+        return commandMap.get(commandName).execute(req, resp);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         String userLogin = req.getParameter("users");
         logger.info("Start updating user: " + userLogin);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
@@ -30,5 +30,6 @@ public class UpdateUser implements Command {
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
+        return userLogin;
     }
 }
