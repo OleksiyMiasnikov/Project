@@ -56,31 +56,25 @@ public class AdminFragmentServlet extends HttpServlet {
                         "\">");
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;\" " +
-                                    "name='userDetails' " +
                                     "value=" +
                                     element.getId() +
                                     ">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 200px;text-align: center;\">");
-                printWriter.write("<a href=\"controller?command=" + COMMAND_UPDATE_USER + "\">");
+                printWriter.write("<a " +
+                                    "href=\"controller?command=" +
+                                    COMMAND_UPDATE_USER +
+                                    "&selectedUser=" +
+                                    element.getId() +
+                                    "\">");
                 printWriter.write(element.getLogin());
                 printWriter.write("</a>");
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
                 printWriter.write(element.getRole().getName());
                 printWriter.write("</span>");
-                printWriter.write("<input name='userDetails' value=" + element.getId() + ">");
                 printWriter.write("<br><hr>");
-
-                /*printWriter.write("<input type=\"radio\" id=\"radio\" value=\""
-                                + element.getLogin()
-                                +"\" name=\"users\" />");
-                printWriter.write("--");
-                printWriter.write(element.getLogin());
-                printWriter.write("--");
-                printWriter.write(String.valueOf(element.getRole().getName()));
-                printWriter.write("<br>");*/
             }
         } catch (IOException | DaoException e) {
             throw new RuntimeException(e);

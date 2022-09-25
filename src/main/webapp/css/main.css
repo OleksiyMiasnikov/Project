@@ -1,12 +1,12 @@
-ul {
-    list-style-type: none;
+body {
+    background-color:gray;
 }
 
 .sideBar {
     list-style-type: none;
     margin: 0;
     width: 18%;
-    background-color:white;
+
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -49,6 +49,7 @@ ul {
     float: left;
     text-align: center;
 }
+
 input{
     float: left;
     text-align: center;
@@ -62,14 +63,17 @@ input{
 }
 
 .header_key{
-    font-weight: bold;
+    float: none;
+    display: inline-block;
     width: 100px;
-    color: yellow;
-    background-color: blue;
+    font-weight: bold;
+    padding: 5px;
 }
 
 .header_value{
-    background-color: green;
+    float: none;
+    width: 150px;
+    text-align: center;
 }
 
 .center-block {
@@ -77,3 +81,5 @@ input{
   margin-right: auto;
   margin-left: auto;
 }
+
+

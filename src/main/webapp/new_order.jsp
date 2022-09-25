@@ -18,19 +18,43 @@
                 <hr>
             </h2>
             <form action="serveNewOrder" method="post">
-                <span>
-                    Order id :
+                <div style="margin-left: 400px; margin-top: -50px;">
+                    <input type="submit" name="button" value="Complete">
+                    <input style="margin-left: 20px;"type="submit" name="button" value="Cancel">
+                </div>
+                <br>
+                <br>
+                <span class="header_key">
+                    Order id
                 </span>
-                ${order.id}
+                <span class="header_value" >
+                    ${order.id}
+                </span>
                 <br>
-                Date :
-                ${order.date}
+                <span class="header_key">
+                    Date
+                </span>
+                <span class="header_value" >
+                    ${order.date}
+                </span>
                 <br>
-                Cashier :
-                ${order.user.login}
+                <span class="header_key">
+                    Cashier
+                </span>
+                <span class="header_value">
+                    ${order.user.login}
+                </span>
                 <br>
+                <span class="header_key">
+                    Total Amount
+                </span>
+                <input class="header_value"
+                        name="total"
+                        value="${order.totalAmount}"
+                        onchange="newTotal.value = this.value"
+                        style="background: transparent; border: none; text-align: left;"
+                        disabled>
                 <hr>
-
                     <select id="AllProducts" hidden="hidden">
                         <c:forEach var="item" items="${warehouse }">
                             <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.getLabelUa()}|${item.quantity }">
@@ -41,7 +65,8 @@
                     <input  list="idList"
                             name="newProductId"
                             id="newProductId"
-                            onchange="idUpdated();">
+                            onchange="idUpdated();"
+                            style="width: 100px;">
                     <datalist id="idList">
                         <c:forEach var="item" items="${warehouse }">
                             <option value="${item.product.id }">
@@ -53,7 +78,8 @@
                             list="productList"
                             name="newProduct"
                             id="newProduct"
-                            onchange="productUpdated();">
+                            onchange="productUpdated();"
+                            style="width: 250px;text-align: center;">
                     <datalist id="productList">
                         <c:forEach var="item" items="${warehouse }">
                             <option value="${item.product.name }">
@@ -61,43 +87,60 @@
                             </option>
                         </c:forEach>
                     </datalist>
-                    |
-                    <input name="newQuantity" id="newQuantity" type="number" default value="0" min="0" onchange="updateAmount();">
-                    |
-                    <input name="newUnit" id="newUnit" disabled>
-                    |
-                    <input name="newPrice" id="newPrice" type="number" step="0.01" onchange="updateAmount();">
-                    |
-                    <input name="newAmount" id="newAmount" disabled>
-                    |
+                    <input name="newQuantity"
+                            id="newQuantity"
+                            type="number"
+                            default value="0"
+                            min="0"
+                            onchange="updateAmount();"
+                            style="width: 100px;">
+                    <input name="newUnit"
+                            id="newUnit"
+                            style="width: 70px;"
+                            disabled>
+                    <input name="newPrice"
+                            id="newPrice"
+                            type="number"
+                            step="0.01"
+                            onchange="updateAmount();"
+                            style="width: 100px;">
+                    <input name="newAmount"
+                            id="newAmount"
+                            style="width: 150px;"
+                            disabled>
                     <input type="submit" name="button" value="Save">
                 <br>
                 <hr>
-                Total Amount
-                <input name="total" value="${order.totalAmount}" onchange="newTotal.value = this.value" disabled>
+                <span class="table_header" style="width: 50px;">Id</span>
+                <span class="table_header" style="width: 200px;">Product name</span>
+                <span class="table_header" style="width: 50px;">Unit</span>
+                <span class="table_header" style="width: 100px;">Quantity</span>
+                <span class="table_header" style="width: 100px;">Price</span>
                 <br>
-                <ul>
-                    <c:forEach var="element" items="${orderDetails}">
-                        <li>
-                            ${element.id}
-                            |
-                            ${element.order.id}
-                            |
-                            ${element.product.name}
-                            |
-                            ${element.product.unit}
-                            |
-                            ${element.quantity}
-                            |
-                            ${element.price}
-                            <br>
-                        </li>
-                    </c:forEach>
-                </ul>
                 <hr>
-                <br>
-                <input type="submit" name="button" value="Complete">
-                <input type="submit" name="button" value="Cancel">
+                <c:forEach var="element" items="${orderDetails}">
+                    <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
+                        ${element.id}
+                    </span>
+                    <span class="item" style="width: 50px;">
+                        ${element.id}
+                    </span>
+                    <span class="item" style="width: 200px;">
+                        ${element.product.name}
+                    </span>
+                    <span class="item" style="width: 50px;">
+                        ${element.product.unit}
+                    </span>
+                    <span class="item" style="width: 100px;">
+                        ${element.quantity}
+                    </span>
+                    <span class="item" style="width: 100px;">
+                        ${element.price}
+                    </span>
+                    <br>
+                    <hr>
+                </c:forEach>
+                <hr>
                </div>
             </form>
         </div>

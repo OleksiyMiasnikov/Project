@@ -36,31 +36,27 @@
                     Order details [order.jsp]
                     <hr>
                 </h2>
-                    <p>
-                        <span class="header_key">Order id</span>
-                        <span class="header_value">${order.id}</span>
-                        <input name="order_id" value="${order.id}" hidden="hidden">
-                    </p>
-                    <p>
-                        <span class="header_key">Date</span>
-                        <span class="header_value">${order.date}</span>
-                    </p>
-                    <p>
-                        <span class="header_key">Cashier</span>
-                        <span class="header_value">${order.user.login}</span>
-                    </p>
-                    <p>
-                        <span class="header_key">Amount</span>
-                        <span class="header_value">${order.totalAmount}</span>
-                    </p>
+                    <span class="header_key">Order id</span>
+                    <span class="header_value">${order.id}</span>
                     <br>
+                    <input name="order_id" value="${order.id}" hidden="hidden">
+                    <span class="header_key">Date</span>
+                    <span class="header_value">${order.date}</span>
+                    <br>
+                    <span class="header_key">Cashier</span>
+                    <span class="header_value">${order.user.login}</span>
+                    <br>
+                    <span class="header_key">Amount</span>
+                    <span class="header_value">${order.totalAmount}</span>
                     <hr>
                     <div class="table_header">
                         <button type="submit"
+                                id="delete_button"
                                 name="command"
                                 value="Delete ordered product"
                                 class="table_header"
-                                style="width: 50px; color: black;">
+                                style="width: 50px; color: black;"
+                                hidden="hidden">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                         <span class="table_header" style="width: 50px;">Id</span>
@@ -99,8 +95,7 @@
                                 <hr>
                         </c:forEach>
                     <br>
-                    <input type="submit" name="button" value="Ok">
-                    <input type="submit" name="command" value="Orders" hidden="hidden">
+                    <button type="submit" name="command" value="Orders">Ok</button>
                    </div>
             </div>
         </form>

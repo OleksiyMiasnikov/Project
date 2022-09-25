@@ -20,10 +20,10 @@ public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        String userLogin = req.getParameter("userDetails");
-        logger.info("Start updating user: " + userLogin);
+        String userId = req.getParameter("selectedUser");
+        logger.info("Start updating user: " + userId);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        User user = userManager.findUser(userLogin);
+        User user = userManager.read(Long.parseLong(userId));
         req.setAttribute("user", user);
         List<Role> rolesList = userManager.findAllRoles();
         req.setAttribute("roles", rolesList);

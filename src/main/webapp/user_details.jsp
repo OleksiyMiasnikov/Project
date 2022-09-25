@@ -15,18 +15,26 @@
             </h2>
             <form action="controller" method="post">
                 <div>
-                    Login
-                    <input name="newLogin" value="${user.login}">
+                    <span class="header_key">
+                        Login
+                    </span>
+                    <input class="header_value" name="newLogin" value="${user.login}">
                     <input type="hidden" name="id" value="${user.id}">
                     <br>
-                    Password
-                    <input name="newPassword" value="${user.password}">
+                    <span class="header_key">
+                        Password
+                    </span>
+                    <input class="header_value" name="newPassword" value="${user.password}">
                     <br>
-                    Email
-                    <input name="newEmail" value="${user.email}" >
+                    <span class="header_key">
+                        Email
+                    </span>
+                    <input class="header_value" name="newEmail" value="${user.email}" >
                     <br>
-                    Role
-                    <select name="newRole" value="${user.role.name}">
+                    <span class="header_key">
+                        Role
+                    </span>
+                    <select class="header_value" name="newRole" value="${user.role.name}">
                     <option> ${user.role.name} </option>
                     <c:forEach var="item" items="${roles }">
                         <option value="${item.getName() }">

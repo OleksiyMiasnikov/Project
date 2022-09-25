@@ -5,4 +5,5 @@
             elements[i].hidden = false;
         }
     }
+    document.getElementById("delete_button").hidden = false;
 }

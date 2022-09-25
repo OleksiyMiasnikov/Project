@@ -22,27 +22,7 @@ public class DeleteUser implements Command {
         if (users != null) {
             UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
             userManager.deleteAll(users);
-            /*CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
-            cashierManager.deleteAll(orders);*/
         }
-        logger.info("finished ");
-
-        /*String userLogin = req.getParameter("users");
-        if (userLogin == null || userLogin.equals("")) {
-            try {
-                req.getRequestDispatcher("user_details.jsp").forward(req, resp);
-            } catch (IOException | ServletException e) {
-                throw new RuntimeException(e);
-            }
-            return userLogin;
-        }
-        logger.info("Start deleting user: " + userLogin);
-        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
-        if (userManager.deleteUser(userLogin)) {
-            logger.info("User: " + userLogin + "has been deleted");
-        } else {
-            logger.info("Unable to deleteOrder user: " + userLogin);
-        }*/
         return "controller?command=" + COMMAND_SHOW_USERS;
     }
 }
