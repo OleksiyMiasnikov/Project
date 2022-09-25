@@ -1,6 +1,8 @@
  if (document.getElementById("userRole").value === "senior cashier") {
-    alert("senior cashier");
-    document.getElementById("checkSpan").hidden="";
-  } else {
-    alert("cashier");
-  }
+    var elements = document.getElementsByClassName('item');
+    for (var i = 0, length = elements.length; i < length; i++) {
+        if (elements[i].id === 'checkSpan') {
+            elements[i].hidden = false;
+        }
+    }
+}
