@@ -24,11 +24,11 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("doPost started");
-        try {
+     /*   try {
             ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
         } catch (DaoException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         logger.info("doPost finished");
     }
 

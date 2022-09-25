@@ -26,7 +26,7 @@ public class UpdateUser implements Command {
         List<Role> rolesList = userManager.findAllRoles();
         req.setAttribute("roles", rolesList);
         try {
-            req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/user_details.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

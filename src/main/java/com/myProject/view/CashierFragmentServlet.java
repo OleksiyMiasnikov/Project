@@ -40,7 +40,7 @@ public class CashierFragmentServlet extends HttpServlet {
             }
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<button type=\"submit\" " +
-                                "name=\"menuButton\" " +
+                                "name=\"command\" " +
                                 "value=\"" +
                                 COMMAND_DELETE_ORDER +
                                 "\"" +

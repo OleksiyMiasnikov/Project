@@ -1,4 +1,4 @@
-package com.myProject.servlet;
+package com.myProject.service;
 
 import com.myProject.exception.DaoException;
 import com.myProject.service.command.Receiver;
@@ -12,13 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/Controller")
+@WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(Controller.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String address = "error_page.jsp";
+        String commandName = req.getParameter("command");
+        logger.info(commandName);
+        try {
+            address = Receiver.runCommand(req, resp, commandName);
+        } catch (DaoException e) {
+            req.getSession().setAttribute("error", e);
+        }
+        logger.info(address);
+        req.getRequestDispatcher(address).forward(req, resp);
     }
 
     @Override
@@ -29,8 +38,9 @@ public class Controller extends HttpServlet {
         try {
             address = Receiver.runCommand(req, resp, commandName);
         } catch (DaoException e) {
-            throw new RuntimeException(e);
+            req.getSession().setAttribute("error", e);
         }
+        logger.info(address);
         resp.sendRedirect(address);
     }
 }

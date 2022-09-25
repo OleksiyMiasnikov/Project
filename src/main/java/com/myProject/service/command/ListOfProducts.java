@@ -24,7 +24,7 @@ public class ListOfProducts implements Command {
         req.setAttribute("Fragment", "/ProductListFragment");
         logger.info(Arrays.toString(productList.toArray()));
         try {
-            req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

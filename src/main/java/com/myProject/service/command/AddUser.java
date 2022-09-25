@@ -21,7 +21,7 @@ public class AddUser implements Command{
         try {
             List<Role> rolesList = userManager.findAllRoles();
             req.setAttribute("roles", rolesList);
-            req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/user_details.jsp").forward(req, resp);
         } catch (ServletException | DaoException | IOException e) {
             throw new RuntimeException(e);
         }

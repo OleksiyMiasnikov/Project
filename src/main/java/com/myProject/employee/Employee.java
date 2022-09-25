@@ -6,8 +6,6 @@ import com.myProject.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,9 +13,9 @@ import java.util.List;
 
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
-
     private final User user;
     private final List<String> menuItems;
+    private final String fragment;
 
     public User getUser() {
         return user;
@@ -27,8 +25,13 @@ public abstract class Employee implements Serializable {
         return menuItems;
     }
 
-    public Employee(User user, String ... items) {
+    public String getFragment() {
+        return fragment;
+    }
+
+    public Employee(User user, String fragment, String ... items) {
         this.user = user;
+        this.fragment = fragment;
         this.menuItems = new ArrayList<>(Arrays.asList(items));
     }
 
@@ -44,7 +47,6 @@ public abstract class Employee implements Serializable {
             }
         }
     }
-    public abstract void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException;
 
     @Override
     public String toString() {

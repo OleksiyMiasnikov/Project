@@ -21,11 +21,11 @@ public class OrderDetailsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
+     /*   try {
             ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
         } catch (DaoException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     @Override
@@ -38,7 +38,7 @@ public class OrderDetailsServlet extends HttpServlet {
             List<OrderDetails> orderDetailsList = cashierManager.detailsByOrderId(id);
             logger.info(orderDetailsList);
             req.setAttribute("orderDetails", orderDetailsList);
-            req.getRequestDispatcher("jsp/orderDetails.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/order_details.jsp").forward(req, resp);
         } catch (ServletException | IOException | DaoException e) {
             throw new RuntimeException(e);
         }

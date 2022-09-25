@@ -38,11 +38,11 @@ public class NewOrderServlet extends HttpServlet {
             case "Complete" :
                 currentOrder = null;
                 logger.info("Complete pressed");
-                try {
-                    ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+               /* try {
+                   // ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
                 } catch (DaoException e) {
                     throw new RuntimeException(e);
-                }
+                }*/
                 break;
             case "Cancel" :
                 try {
@@ -52,11 +52,11 @@ public class NewOrderServlet extends HttpServlet {
                 }
                 currentOrder = null;
                 logger.info("Cancel pressed");
-                try {
-                    ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
-                } catch (DaoException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                  //  ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+//                } catch (DaoException e) {
+//                    throw new RuntimeException(e);
+//                }
                 break;
         }
         logger.info("doPost finished");
@@ -104,7 +104,7 @@ public class NewOrderServlet extends HttpServlet {
             req.setAttribute("order", currentOrder);
             req.setAttribute("warehouse", commodityExpertManager.findAll());
             logger.info("products in warehouse: " + commodityExpertManager.findAll());
-            req.getRequestDispatcher("jsp/newOrder.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/new_order.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

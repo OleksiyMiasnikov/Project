@@ -22,7 +22,7 @@ public class DeleteOrder implements Command {
             cashierManager.deleteAll(orders);
         }
         logger.info("finished ");
-        ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+      //  ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
         return null;
     }
 }

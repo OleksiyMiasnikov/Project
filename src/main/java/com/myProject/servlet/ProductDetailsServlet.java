@@ -24,7 +24,7 @@ public class ProductDetailsServlet extends HttpServlet {
         if ("Cancel".equals(req.getParameter("button"))) {
             try {
                 logger.info("'Cansel' has pressed");
-                req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
+                req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
                 return;
             } catch (IOException | ServletException e) {
                 throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public class ProductDetailsServlet extends HttpServlet {
             req.setAttribute("result", productList);
             req.setAttribute("Fragment", "/ProductListFragment");
             logger.info(Arrays.toString(productList.toArray()));
-            req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

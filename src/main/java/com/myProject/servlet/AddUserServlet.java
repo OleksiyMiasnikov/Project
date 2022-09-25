@@ -20,13 +20,13 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         logger.info("started");
         if ("Cancel".equals(req.getParameter("button"))) {
-            try {
-                logger.info("'Cansel' has pressed");
-                ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
-                return;
-            } catch (DaoException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                logger.info("'Cansel' has pressed");
+//               // ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
+//                return;
+//            } catch (DaoException e) {
+//                throw new RuntimeException(e);
+//            }
         }
         long id = 0L;
         String login = req.getParameter("newLogin");
@@ -50,7 +50,7 @@ public class AddUserServlet extends HttpServlet {
                 userManager.updateUser(newUser);
                 logger.info(login + " updated");
             }
-            ((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
+            //((Employee) req.getSession().getAttribute("Employee")).initWindow(req, resp);
             //resp.sendRedirect("main");
         } catch (DaoException e) {
             throw new RuntimeException(e);

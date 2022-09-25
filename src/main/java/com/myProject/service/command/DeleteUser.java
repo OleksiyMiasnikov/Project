@@ -17,7 +17,7 @@ public class DeleteUser implements Command {
         String userLogin = req.getParameter("users");
         if (userLogin == null || userLogin.equals("")) {
             try {
-                req.getRequestDispatcher("jsp/userDetails.jsp").forward(req, resp);
+                req.getRequestDispatcher("jsp/user_details.jsp").forward(req, resp);
             } catch (IOException | ServletException e) {
                 throw new RuntimeException(e);
             }
@@ -32,7 +32,7 @@ public class DeleteUser implements Command {
         }
         req.setAttribute("Fragment", "/AdminFragment");
         try {
-            req.getRequestDispatcher("jsp/mainWindow.jsp").forward(req, resp);
+            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

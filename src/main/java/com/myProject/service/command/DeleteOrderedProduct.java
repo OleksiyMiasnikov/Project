@@ -23,7 +23,7 @@ public class DeleteOrderedProduct implements Command {
             cashierManager.deleteProductsInOrder(strId, products);
         }
         logger.info("finished ");
-        ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
+      //  ((Employee)req.getSession().getAttribute("Employee")).initWindow(req, resp);
         return strId;
     }
 }

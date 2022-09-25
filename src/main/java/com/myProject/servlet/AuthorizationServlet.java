@@ -15,18 +15,11 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/authorization")
+//@WebServlet("/authorization")
 public class AuthorizationServlet extends HttpServlet {
 
     private static final Logger logger = (Logger) LogManager.getLogger(AuthorizationServlet.class);
-
-    private UserManager userManager;
-    @Override
-    public void init(ServletConfig config) {
-        ServletContext servletContext = config.getServletContext();
-        userManager = (UserManager) servletContext.getAttribute("UserManager");
-    }
-
+/*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
@@ -58,5 +51,5 @@ public class AuthorizationServlet extends HttpServlet {
             logger.error("LOG.error");
             e.printStackTrace();
         }
-    }
+    }*/
 }
