@@ -20,7 +20,7 @@ public class CashierManager {
     private final OrderDao orderDao;
     private final OrderDetailsDao orderDetailsDao;
 
-    public static CashierManager getInstance(OrderDao orderDao, OrderDetailsDao orderDetailsDao) {
+    public static synchronized CashierManager getInstance(OrderDao orderDao, OrderDetailsDao orderDetailsDao) {
         if (instance == null) {
             instance = new CashierManager(orderDao, orderDetailsDao);
             logger.info("Instance of CashierManager created");
@@ -117,6 +117,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             con.setAutoCommit(false);
             DaoFactory.getInstance().getWarehouseDao().recoveryAfterDeletingOrder(con, id);
             orderDetailsDao.deleteByOrderId(con, id);
@@ -197,6 +198,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             con.setAutoCommit(false);
             boolean isOffTaken = DaoFactory.getInstance().getWarehouseDao().takeOffProduct(con, orderDetails);
             con.commit();
@@ -245,6 +247,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             con.setAutoCommit(false);
             for (String orderDetailsId : orderDetailsArray) {
                 logger.info(orderDetailsId);

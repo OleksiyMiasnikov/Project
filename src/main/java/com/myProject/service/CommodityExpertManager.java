@@ -20,7 +20,7 @@ public class CommodityExpertManager {
     private final WarehouseDao warehouseDao;
     private final ProductDao productDao;
 
-    public static CommodityExpertManager getInstance(WarehouseDao warehouseDao, ProductDao productDao) {
+    public static synchronized CommodityExpertManager getInstance(WarehouseDao warehouseDao, ProductDao productDao) {
         if (instance == null) {
             instance = new CommodityExpertManager(warehouseDao, productDao);
             logger.info("Instance of WarehouseDao created");

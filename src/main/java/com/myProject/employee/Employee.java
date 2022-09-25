@@ -8,11 +8,12 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Employee {
+public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
 
     private final User user;

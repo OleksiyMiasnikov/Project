@@ -18,7 +18,7 @@ public class ConnectionPool {
     }
     private static ConnectionPool instance = null;
 
-    public static ConnectionPool getInstance(){
+    public static synchronized ConnectionPool getInstance(){
         if (instance==null) {
             instance = new ConnectionPool();
             logger.info("Instance of ConnectionPool created");
@@ -27,10 +27,9 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() throws DaoException {
-        Context context;
         Connection connection;
         try {
-            context = new InitialContext();
+            Context context = new InitialContext();
             DataSource dataSource = (DataSource) context.lookup(CONTEXT_NAME);
             connection = dataSource.getConnection();
         } catch (NamingException | SQLException e) {

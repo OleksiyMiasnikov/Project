@@ -20,7 +20,7 @@ public class UserManager {
     private final UserDao userDao;
     private final RoleDao roleDao;
 
-    public static UserManager getInstance(UserDao userDao, RoleDao roleDao) {
+    public static synchronized UserManager getInstance(UserDao userDao, RoleDao roleDao) {
         if (instance == null) {
             instance = new UserManager(userDao, roleDao);
             logger.info("Instance of UserManager created");

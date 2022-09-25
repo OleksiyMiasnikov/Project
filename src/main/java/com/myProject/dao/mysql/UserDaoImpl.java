@@ -75,15 +75,17 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(2, newUser.getPassword());
             pstmt.setString(3, newUser.getEmail());
             pstmt.setLong(4, newUser.getRole().getId());
-            pstmt.executeUpdate();
-            ResultSet resultSet = pstmt.getGeneratedKeys();
-            if (resultSet.next()) {
-                newUser.setId(resultSet.getLong(1));
-                 return newUser;
+            if (pstmt.executeUpdate() > 0) {
+                ResultSet resultSet = pstmt.getGeneratedKeys();
+                if (resultSet.next()) {
+                    newUser.setId(resultSet.getLong(1));
+                    return newUser;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
