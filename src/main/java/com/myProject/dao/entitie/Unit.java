@@ -18,7 +18,7 @@ public enum Unit {
     public final String labelUa;
     public final String labelUk;
 
-    private Unit(String labelUa, String labelUk) {
+    Unit(String labelUa, String labelUk) {
         this.labelUa = labelUa;
         this.labelUk = labelUk;
     }

@@ -1,8 +1,6 @@
 package com.myProject.dao.entitie;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class User implements Serializable, Comparable<User> {
