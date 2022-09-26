@@ -16,19 +16,18 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.myProject.util.Constants.COMMAND_LIST_OF_PRODUCT;
+import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+
 @WebServlet("/serveProduct")
 public class ProductDetailsServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(ProductDetailsServlet.class);
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if ("Cancel".equals(req.getParameter("button"))) {
-            try {
-                logger.info("'Cansel' has pressed");
-                req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
-                return;
-            } catch (IOException | ServletException e) {
-                throw new RuntimeException(e);
-            }
+            logger.info("'Cansel' has pressed");
+            resp.sendRedirect("controller?command=" + COMMAND_SHOW_USERS);
+            return;
         }
         long id = 0L;
         double price = 0;
@@ -62,11 +61,7 @@ public class ProductDetailsServlet extends HttpServlet {
                 commodityExpertManager.update(newProduct);
                 logger.info(name + " updated");
             }
-            List<Product> productList = commodityExpertManager.findAllProducts();
-            req.setAttribute("result", productList);
-            req.setAttribute("Fragment", "/ProductListFragment");
-            logger.info(Arrays.toString(productList.toArray()));
-            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
+            req.getRequestDispatcher("controller?command=" + COMMAND_LIST_OF_PRODUCT).forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

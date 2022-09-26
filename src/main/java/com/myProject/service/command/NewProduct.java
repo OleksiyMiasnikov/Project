@@ -14,8 +14,7 @@ public class NewProduct implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- NewProduct ---");
-        req.getRequestDispatcher("jsp/product_details.jsp").forward(req, resp);
-
+        req.getRequestDispatcher("product_details.jsp").forward(req, resp);
         return null;
     }
 }

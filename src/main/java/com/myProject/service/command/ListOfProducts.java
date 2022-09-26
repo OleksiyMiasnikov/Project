@@ -18,13 +18,9 @@ public class ListOfProducts implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ListOfProducts-");
-        CommodityExpertManager commodityExpertManager = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
-        List<Product> productList = commodityExpertManager.findAllProducts();
-        req.setAttribute("result", productList);
-        req.setAttribute("Fragment", "/ProductListFragment");
-        logger.info(Arrays.toString(productList.toArray()));
+        req.getSession().setAttribute("Fragment", "/ProductListFragment");
         try {
-            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
+            req.getRequestDispatcher("main_window.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

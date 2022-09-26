@@ -1,6 +1,8 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Warehouse;
+import com.myProject.exception.DaoException;
+import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/WarehouseFragment")
@@ -20,9 +23,19 @@ public class WarehouseFragmentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-        List<Warehouse> warehouseList;
-        warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
-        logger.info(warehouseList);
+
+        CommodityExpertManager commodityExpertManager =
+                (CommodityExpertManager) req
+                        .getSession()
+                        .getServletContext()
+                        .getAttribute("CommodityExpertManager");
+        List<Warehouse> warehouseList = null;
+        try {
+            warehouseList = commodityExpertManager.findAll();
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
+        logger.info(Arrays.toString(warehouseList.toArray()));
         try (PrintWriter printWriter = resp.getWriter()){
             printWriter.write("[WarehouseFragmentServlet: /WarehouseFragmentFragment]");
             printWriter.write("<br>");
