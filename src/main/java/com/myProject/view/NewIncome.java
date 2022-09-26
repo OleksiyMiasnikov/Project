@@ -19,10 +19,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import static com.myProject.util.Constants.COMMAND_ORDERS;
-import static com.myProject.util.Constants.LOGOUT_COMMAND;
+import static com.myProject.util.Constants.*;
 
-@WebServlet("/serveIncome")
+@WebServlet("/serveNewIncome")
 public class NewIncome extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(NewIncome.class);
     private Order currentOrder;
@@ -36,12 +35,12 @@ public class NewIncome extends HttpServlet {
             case "Save" :
                 logger.info("Save pressed");
                 addOrderDetails(req);
-                resp.sendRedirect("serveNewOrder");
+                resp.sendRedirect("serveNewIncome");
                 break;
             case "Complete" :
                 currentOrder = null;
                 logger.info("Complete pressed");
-                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+                resp.sendRedirect("controller?command=" + INCOMES_COMMAND);
                 break;
             case "Cancel" :
                 try {
@@ -51,7 +50,7 @@ public class NewIncome extends HttpServlet {
                 }
                 currentOrder = null;
                 logger.info("Cancel pressed");
-                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+                resp.sendRedirect("controller?command=" + INCOMES_COMMAND);
                 break;
             case "Log out" :
                 currentOrder = null;
@@ -76,18 +75,18 @@ public class NewIncome extends HttpServlet {
     private void addOrderDetails(HttpServletRequest req) {
         try {
             if (currentOrder.getId() == 0) {
-                currentOrder = cashierManager.createOrder(currentOrder);
-                logger.info("Created new order: " + currentOrder);
+                currentOrder = cashierManager.createIncome(currentOrder);
+                logger.info("Created new income: " + currentOrder);
             }
             OrderDetails orderDetails = new OrderDetails();
             orderDetails.setOrder(currentOrder);
             orderDetails.setQuantity(Double.parseDouble(req.getParameter("newQuantity")));
             orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
             orderDetails.setProduct(commodityExpertManager.read(Long.parseLong(req.getParameter("newProductId"))));
-            orderDetails = cashierManager.createOrderDetails(orderDetails);
+            orderDetails = cashierManager.createIncomeDetails(orderDetails);
             cashierManager.updateTotal(currentOrder.getId());
             currentOrder.setTotalAmount(cashierManager.read(currentOrder.getId()).getTotalAmount());
-            logger.info("Added order details: " + orderDetails);
+            logger.info("Added income details: " + orderDetails);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -103,8 +102,7 @@ public class NewIncome extends HttpServlet {
                 req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("warehouse", commodityExpertManager.findAll());
-            logger.info("products in warehouse: " + commodityExpertManager.findAll());
+            req.setAttribute("products", commodityExpertManager.findAllProducts());
             req.getRequestDispatcher("income.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);

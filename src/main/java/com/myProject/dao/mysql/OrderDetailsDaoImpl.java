@@ -81,7 +81,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
     @Override
     public boolean delete(Connection con, Long id) throws DaoException {
-        try (PreparedStatement pstmt = con.prepareStatement(DELETE_ORDERDETAILS)) {
+        try (PreparedStatement pstmt = con.prepareStatement(DELETE_ORDER_DETAILS)) {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
             return true;

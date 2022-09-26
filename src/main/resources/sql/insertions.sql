@@ -21,6 +21,11 @@ VALUES
 ('кг'),
 ('шт');
 
+INSERT INTO `in_out` (`value`)
+VALUES
+('IN'),
+('OUT');
+
 
 INSERT INTO `product` (`id`, `name`, `unit_name`, `price`)
 VALUES
@@ -57,13 +62,13 @@ VALUES
 (13, 40, 13),
 (14, 10, 14);
 
-INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`)
+INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`)
 VALUES
-( 1, 3, '2022-09-15 13:15:25', 10),
-( 2, 3, '2022-09-15 14:20:25', 20),
-( 3, 3, '2022-09-16 11:03:15', 30),
-( 4, 3, '2022-09-17 09:45:50', 40),
-( 5, 3, '2022-09-17 10:33:18', 50);
+( 1, 3, '2022-09-15 13:15:25', 521.5, 'OUT'),
+( 2, 3, '2022-09-15 14:20:25', 625, 'OUT'),
+( 3, 3, '2022-09-16 11:03:15', 1640.16, 'OUT'),
+( 4, 3, '2022-09-17 09:45:50', 19800003.5, 'OUT'),
+( 5, 3, '2022-09-17 10:33:18', 348.63, 'OUT');
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`)
 VALUES
@@ -81,3 +86,19 @@ VALUES
 (12, 5,12, 1, 31.0),
 (13, 5,13, 2, 20.0),
 (14, 5,14, 1, 45.88);
+
+INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`)
+VALUES
+( 6, 5, '2022-09-15 16:35:25', 0, 'IN'),
+( 7, 5, '2022-09-17 13:23:18', 0, 'IN');
+
+INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`)
+VALUES
+(15, 1, 8,  4, 800000),
+(16, 1, 9,  8, 1500000),
+(17, 1,10, 2, 2500000),
+(18, 2, 1,  8, 10),
+(19, 2, 2, 11, 100.80),
+(20, 2, 3,  3, 18.56),
+(21, 2, 4,  2, 90.38),
+(22, 4, 5, 23, 20.0);

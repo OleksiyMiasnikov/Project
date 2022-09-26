@@ -17,7 +17,7 @@ import static com.myProject.util.Constants.*;
 public class Cashier extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(Cashier.class);
     public Cashier(User user) {
-        super(user, "/CashierFragment", COMMAND_NEW_ORDER, COMMAND_ORDERS, COMMAND_REMAINS);
+        super(user, "/CashierFragment", NEW_ORDER_COMMAND, ORDERS_COMMAND, REMAINS_COMMAND);
     }
 
 

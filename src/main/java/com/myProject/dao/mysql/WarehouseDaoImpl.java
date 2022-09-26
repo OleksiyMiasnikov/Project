@@ -2,7 +2,6 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
-import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.dao.entitie.Warehouse;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -71,18 +70,14 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public boolean takeOffProduct(Connection con, OrderDetails orderDetails) throws DaoException {
-        try (PreparedStatement pstmt = con.prepareStatement(OFF_TAKE_PRODUCT)) {
-            pstmt.setDouble(1, orderDetails.getQuantity());
-            pstmt.setLong(2, orderDetails.getProduct().getId());
+    public void updateQuantity(Connection con, double quantity, long id) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_QUANTITY)) {
+            pstmt.setDouble(1, quantity);
+            pstmt.setLong(2, id);
             pstmt.executeUpdate();
-            return true;
         } catch (SQLException e) {
-            logger.error("Unable to take off product: "+ orderDetails.getProduct().getName() + ". Error" + e);
-            if (e.getErrorCode() == ERROR_CODE_OUT_OF_RANGE) {
-                throw new DaoException("Unable to take off product. Out of range value for column 'quantity'" + e);
-            }
-            throw new DaoException("Unable to take off product: "+ orderDetails.getProduct().getName() + ". Error" + e);
+            logger.error("Unable to update quantity in warehouse " + e);
+            throw new DaoException("Unable to update quantity in warehouse " + e);
         }
     }
 
@@ -94,18 +89,6 @@ public class WarehouseDaoImpl implements WarehouseDao {
         } catch (SQLException e) {
             logger.error("Unable to recovery quantity in warehouse " + e);
             throw new DaoException("Unable to recovery quantity in warehouse " + e);
-        }
-    }
-
-    @Override
-    public void updateQuantity(Connection con, double quantity, long id) throws DaoException {
-        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_QUANTITY)) {
-            pstmt.setDouble(1, quantity);
-            pstmt.setLong(2, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Unable to update quantity in warehouse " + e);
-            throw new DaoException("Unable to update quantity in warehouse " + e);
         }
     }
 }

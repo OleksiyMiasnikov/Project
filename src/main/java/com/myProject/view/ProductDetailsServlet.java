@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.myProject.util.Constants.COMMAND_LIST_OF_PRODUCT;
-import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
+import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 @WebServlet("/serveProduct")
 public class ProductDetailsServlet extends HttpServlet {
@@ -24,7 +24,7 @@ public class ProductDetailsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if ("Cancel".equals(req.getParameter("button"))) {
             logger.info("'Cansel' has pressed");
-            resp.sendRedirect("controller?command=" + COMMAND_SHOW_USERS);
+            resp.sendRedirect("controller?command=" + SHOW_USERS_COMMAND);
             return;
         }
         long id = 0L;
@@ -59,7 +59,7 @@ public class ProductDetailsServlet extends HttpServlet {
                 commodityExpertManager.update(newProduct);
                 logger.info(name + " updated");
             }
-            req.getRequestDispatcher("controller?command=" + COMMAND_LIST_OF_PRODUCT).forward(req, resp);
+            req.getRequestDispatcher("controller?command=" + LIST_OF_PRODUCT_COMMAND).forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

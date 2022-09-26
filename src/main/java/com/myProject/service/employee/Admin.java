@@ -16,7 +16,7 @@ import static com.myProject.util.Constants.*;
 public class Admin extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(Admin.class);
     public Admin(User user) {
-        super(user, "/AdminFragment", COMMAND_ADD_USER);
+        super(user, "/AdminFragment", ADD_USER_COMMAND);
     }
 
     public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {

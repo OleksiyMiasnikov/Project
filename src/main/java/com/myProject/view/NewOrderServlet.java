@@ -40,7 +40,7 @@ public class NewOrderServlet extends HttpServlet {
             case "Complete" :
                 currentOrder = null;
                 logger.info("Complete pressed");
-                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+                resp.sendRedirect("controller?command=" + ORDERS_COMMAND);
                 break;
             case "Cancel" :
                 try {
@@ -50,7 +50,7 @@ public class NewOrderServlet extends HttpServlet {
                 }
                 currentOrder = null;
                 logger.info("Cancel pressed");
-                resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+                resp.sendRedirect("controller?command=" + ORDERS_COMMAND);
                 break;
             case "Log out" :
                 currentOrder = null;

@@ -8,8 +8,6 @@ import java.sql.Connection;
 
 public interface WarehouseDao extends Dao<Long, Warehouse> {
 
-    boolean takeOffProduct(Connection con, OrderDetails orderDetails) throws DaoException;
-
     void recoveryAfterDeletingOrder(Connection con, long id) throws DaoException;
 
     void updateQuantity(Connection con, double quantity, long id) throws DaoException;

@@ -35,7 +35,7 @@ public class AdminFragmentServlet extends HttpServlet {
             printWriter.write("<button type=\"submit\" " +
                     "name=\"command\" " +
                     "value=\"" +
-                    COMMAND_DELETE_USER +
+                    DELETE_USER_COMMAND +
                     "\"" +
                     "class=\"table_header\" " +
                     "style=\"width: 50px; color: black;\">" +
@@ -62,7 +62,7 @@ public class AdminFragmentServlet extends HttpServlet {
                 printWriter.write("<span class=\"item\" style=\"width: 200px;text-align: center;\">");
                 printWriter.write("<a " +
                                     "href=\"controller?command=" +
-                                    COMMAND_UPDATE_USER +
+                        UPDATE_USER_COMMAND +
                                     "&selectedUser=" +
                                     element.getId() +
                                     "\">");

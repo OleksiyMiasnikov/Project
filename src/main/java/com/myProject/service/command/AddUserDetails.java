@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 public class AddUserDetails implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(AddUserDetails.class);
@@ -40,6 +40,6 @@ public class AddUserDetails implements Command {
             userManager.updateUser(newUser);
             logger.info(login + " updated");
         }
-        return "controller?command=" + COMMAND_SHOW_USERS;
+        return "controller?command=" + SHOW_USERS_COMMAND;
     }
 }

@@ -22,7 +22,7 @@ public class CommodityExpert extends Employee {
     private static final Logger logger = (Logger) LogManager.getLogger(CommodityExpert.class);
 
     public CommodityExpert(User user) {
-        super(user, "/WarehouseFragment", COMMAND_NEW_PRODUCT, COMMAND_LIST_OF_PRODUCT, COMMAND_INCOME, COMMAND_REMAINS, COMMAND_REPORTS);
+        super(user, "/WarehouseFragment", NEW_PRODUCT_COMMAND, LIST_OF_PRODUCT_COMMAND, NEW_INCOME_COMMAND, INCOMES_COMMAND, REMAINS_COMMAND, REPORTS_COMMAND);
     }
 
 

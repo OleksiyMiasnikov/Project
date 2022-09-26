@@ -17,7 +17,7 @@
                 INCIME [income.jsp]
                 <hr>
             </h2>
-            <form action="serveNewOrder" method="post">
+            <form action="serveNewIncome" method="post">
                 <div style="margin-left: 400px; margin-top: -50px;">
                     <input type="submit" name="button" value="Complete">
                     <input style="margin-left: 20px;"type="submit" name="button" value="Cancel">
@@ -68,8 +68,8 @@
                             onchange="idUpdated();"
                             style="width: 100px;">
                     <datalist id="idList">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.id }">
+                        <c:forEach var="item" items="${products }">
+                            <option value="${item.id }">
                                 ${item.id }
                             </option>
                         </c:forEach>
@@ -81,9 +81,9 @@
                             onchange="productUpdated();"
                             style="width: 250px;text-align: center;">
                     <datalist id="productList">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.name }">
-                            ${item.product.name }
+                        <c:forEach var="item" items="${products }">
+                            <option value="${item.name }">
+                            ${item.name }
                             </option>
                         </c:forEach>
                     </datalist>

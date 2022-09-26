@@ -115,4 +115,43 @@ public class OrderDaoImpl implements OrderDao {
             throw new DaoException("Unable to update total! ", e);
         }
     }
+
+    @Override
+    public List<Order> findAllIncomes(Connection con) throws DaoException {
+        try (Statement stmt = con.createStatement()) {
+            stmt.executeQuery(SELECT_ALL_INCOMES);
+            ResultSet resultSet = stmt.getResultSet();
+            List<Order> orderList = new ArrayList<>();
+            UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
+            while (resultSet.next()) {
+                orderList.add(buildOrder(con, userDao, resultSet));
+            }
+            Collections.sort(orderList);
+            resultSet.close();
+            return orderList;
+        } catch (SQLException | ParseException e) {
+            logger.error("Unable to find all incomes! " + e);
+            throw new DaoException("Unable to find all incomes! ", e);
+        }
+    }
+
+    @Override
+    public Order createIncome(Connection con, Order currentOrder) throws DaoException {
+        try (PreparedStatement pstmt = con.prepareStatement(CREATE_INCOME, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setLong(1, currentOrder.getUser().getId());
+            pstmt.setTimestamp(2, new Timestamp(currentOrder.getDate().getTime()));
+            pstmt.setDouble(3, currentOrder.getTotalAmount());
+            pstmt.executeUpdate();
+            ResultSet resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                currentOrder.setId(resultSet.getLong(1));
+                return currentOrder;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            logger.error("Unable to createOrder order! " + e);
+            throw new DaoException("Unable to createOrder order! ", e);
+        }
+    }
 }

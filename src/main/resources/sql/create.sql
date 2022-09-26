@@ -104,6 +104,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `cash_register`.`in_out`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `cash_register`.`in_out` ;
+
+CREATE TABLE IF NOT EXISTS `cash_register`.`in_out` (
+  `value` VARCHAR(5) NOT NULL,
+  PRIMARY KEY (`value`),
+  UNIQUE INDEX `value_UNIQUE` (`value` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `cash_register`.`order`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cash_register`.`order` ;
@@ -113,11 +125,18 @@ CREATE TABLE IF NOT EXISTS `cash_register`.`order` (
   `user_id` INT NOT NULL,
   `time` DATETIME NULL,
   `totalAmount` DECIMAL(15,2) NULL,
-  PRIMARY KEY (`id`, `user_id`),
+  `direction` VARCHAR(5) NOT NULL,
+  PRIMARY KEY (`id`, `user_id`, `direction`),
   INDEX `fk_ordes_users1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_order_in_out1_idx` (`direction` ASC) VISIBLE,
   CONSTRAINT `fk_ordes_users1`
     FOREIGN KEY (`user_id`)
     REFERENCES `cash_register`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_order_in_out1`
+    FOREIGN KEY (`direction`)
+    REFERENCES `cash_register`.`in_out` (`value`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

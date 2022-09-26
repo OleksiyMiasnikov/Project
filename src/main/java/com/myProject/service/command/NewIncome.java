@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Income implements Command {
-    private static final Logger logger = (Logger) LogManager.getLogger(Income.class);
+public class NewIncome implements Command {
+    private static final Logger logger = (Logger) LogManager.getLogger(NewIncome.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("--- Income ---");
+        logger.info("--- NewIncome ---");
         // 1. input form  : product id, product name, quantity
         // 2. increase quantity in warehouse if product exist
         // 3. insert product if it is not exist in warehouse
-        return "serveIncome";
+        return "serveNewIncome";
     }
 }

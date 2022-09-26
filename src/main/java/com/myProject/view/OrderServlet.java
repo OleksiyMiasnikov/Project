@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import java.util.List;
 
-import static com.myProject.util.Constants.COMMAND_ORDERS;
+import static com.myProject.util.Constants.ORDERS_COMMAND;
 
 @WebServlet("/serveOrder")
 public class OrderServlet extends HttpServlet {
@@ -25,7 +25,7 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("doPost started");
-        resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+        resp.sendRedirect("controller?command=" + ORDERS_COMMAND);
         logger.info("doPost finished");
     }
 

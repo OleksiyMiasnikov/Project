@@ -1,9 +1,7 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Order;
-import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
-import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -18,41 +16,19 @@ import java.util.List;
 
 import static com.myProject.util.Constants.DELETE_ORDER_COMMAND;
 
-@WebServlet("/CashierFragment")
-public class CashierFragmentServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(CashierFragmentServlet.class);
+@WebServlet("/IncomesFragment")
+public class IncomesFragmentServlet extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(IncomesFragmentServlet.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
-            CashierManager cashierManager =
-                    (CashierManager) getServletContext().getAttribute("CashierManager");
-            List<Order> orderList = cashierManager.findAllOrders();
-            String role = ((Employee)req.getSession()
-                    .getAttribute("Employee"))
-                    .getUser()
-                    .getRole()
-                    .getName();
-            String strHide = "hidden = \"hidden\" ";
-            if ("Senior cashier".equalsIgnoreCase(role)) {
-                strHide = "";
-            }
-            printWriter.write("[CashierFragmentServlet: /CashierFragment]");
+            List<Order> incomeList = (List<Order>) req.getSession().getAttribute("result");
+            printWriter.write("[IncomesFragmentServlet: /IncomesFragment]");
             printWriter.write("<br>");
 
             printWriter.write("<div class=\"table_header\">");
-            printWriter.write("<button type=\"submit\" " +
-                                "name=\"command\" " +
-                                "value=\"" +
-                    DELETE_ORDER_COMMAND +
-                                "\"" +
-                                "class=\"table_header\" " +
-                                "style=\"width: 50px; color: black;\"" +
-                                strHide +
-                                ">" +
-                                "<i class=\"fa-solid fa-trash-can\"></i>" +
-                                "</button>");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Time</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Amount</span>");
@@ -60,14 +36,7 @@ public class CashierFragmentServlet extends HttpServlet {
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
 
-            for (Order element : orderList) {
-                printWriter.write("<input type=\"checkbox\" style=\"width: 50px;text-align:center;\" " +
-                        "name=\"orders\" " +
-                        "id=\"myCheck\" " +
-                        strHide +
-                        "value=\"" +
-                        element.getId() +
-                        "\">");
+            for (Order element : incomeList) {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
@@ -86,7 +55,7 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
-        } catch (IOException | DaoException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         logger.info("service finish");

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 
 public class UpdateUser implements Command {
@@ -32,6 +32,6 @@ public class UpdateUser implements Command {
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
-        return "controller?command=" + COMMAND_SHOW_USERS;
+        return "controller?command=" + SHOW_USERS_COMMAND;
     }
 }

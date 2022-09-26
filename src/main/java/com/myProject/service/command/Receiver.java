@@ -18,21 +18,22 @@ public class Receiver {
         commandMap = new HashMap<>();
         commandMap.put(AUTHORIZATION_COMMAND, new Authorization());
         commandMap.put(LOGOUT_COMMAND, new Logout());
-        commandMap.put(COMMAND_ADD_USER, new AddUser());
-        commandMap.put(COMMAND_ADD_USER_DETAILS, new AddUserDetails());
-        commandMap.put(COMMAND_SHOW_USERS, new ShowUsers());
-        commandMap.put(COMMAND_UPDATE_USER, new UpdateUser());
-        commandMap.put(COMMAND_DELETE_USER, new DeleteUser());
-        commandMap.put(COMMAND_NEW_ORDER, new NewOrder());
-        commandMap.put(COMMAND_REPORTS, new Reports());
-        commandMap.put(COMMAND_NEW_PRODUCT, new NewProduct());
-        commandMap.put(COMMAND_LIST_OF_PRODUCT, new ListOfProducts());
-        commandMap.put(COMMAND_INCOME, new Income());
-        commandMap.put(COMMAND_CREATE_DATABASE, new CreateDatabase());
-        commandMap.put(COMMAND_DELETE_ORDER, new DeleteOrder());
-        commandMap.put(COMMAND_DELETE_ORDER_PRODUCT, new DeleteOrderedProduct());
-        commandMap.put(COMMAND_REMAINS, new Remains());
-        commandMap.put(COMMAND_ORDERS, new Orders());
+        commandMap.put(ADD_USER_COMMAND, new AddUser());
+        commandMap.put(ADD_USER_DETAILS_COMMAND, new AddUserDetails());
+        commandMap.put(SHOW_USERS_COMMAND, new ShowUsers());
+        commandMap.put(UPDATE_USER_COMMAND, new UpdateUser());
+        commandMap.put(DELETE_USER_COMMAND, new DeleteUser());
+        commandMap.put(NEW_ORDER_COMMAND, new NewOrder());
+        commandMap.put(REPORTS_COMMAND, new Reports());
+        commandMap.put(NEW_PRODUCT_COMMAND, new NewProduct());
+        commandMap.put(LIST_OF_PRODUCT_COMMAND, new ListOfProducts());
+        commandMap.put(NEW_INCOME_COMMAND, new NewIncome());
+        commandMap.put(INCOMES_COMMAND, new Incomes());
+        commandMap.put(CREATE_DATABASE_COMMAND, new CreateDatabase());
+        commandMap.put(DELETE_ORDER_COMMAND, new DeleteOrder());
+        commandMap.put(DELETE_ORDER_PRODUCT_COMMAND, new DeleteOrderedProduct());
+        commandMap.put(REMAINS_COMMAND, new Remains());
+        commandMap.put(ORDERS_COMMAND, new Orders());
     }
 
     public static Command getCommand(String commandName) {

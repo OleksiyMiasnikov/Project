@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.myProject.util.Constants.COMMAND_ORDERS;
+import static com.myProject.util.Constants.ORDERS_COMMAND;
 
 public class DeleteOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrder.class);
@@ -23,6 +23,6 @@ public class DeleteOrder implements Command {
             cashierManager.deleteAll(orders);
         }
         logger.info("finished ");
-        return "controller?command=" + COMMAND_ORDERS;
+        return "controller?command=" + ORDERS_COMMAND;
     }
 }
