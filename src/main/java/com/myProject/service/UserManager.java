@@ -37,6 +37,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.findByName(con, login);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -52,6 +54,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.findAll(con);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -67,6 +71,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.read(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -83,6 +89,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.create(con, newUser);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -99,6 +107,8 @@ public class UserManager {
             con = ConnectionPool.getInstance().getConnection();
             User user = userDao.findByName(con, userLogin);
             return userDao.delete(con, user.getId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -114,6 +124,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             userDao.update(con, user);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -131,6 +143,8 @@ public class UserManager {
             List<Role> rolesList = roleDao.findAll(con);
             logger.info("Finish finding all roles");
             return rolesList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -148,6 +162,8 @@ public class UserManager {
             long id = roleDao.findByName(con, role).getId();
             logger.info(role + " has id: " + id);
             return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();

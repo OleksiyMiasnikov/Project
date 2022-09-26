@@ -39,6 +39,8 @@ public class CommodityExpertManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return warehouseDao.findAll(con);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -53,6 +55,8 @@ public class CommodityExpertManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.findAll(con);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -68,6 +72,8 @@ public class CommodityExpertManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.create(con, newProduct);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -83,6 +89,8 @@ public class CommodityExpertManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             productDao.update(con, product);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -97,6 +105,8 @@ public class CommodityExpertManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.read(con, productId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();

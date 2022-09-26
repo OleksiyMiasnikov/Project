@@ -41,6 +41,8 @@ public class CashierManager {
             List<Order> ordersList = orderDao.findAll(con);
             logger.info("Finish finding all orders");
             return ordersList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -58,6 +60,8 @@ public class CashierManager {
             long id = orderDao.findByName(con, order).getId();
             logger.info(order + " has id: " + id);
             return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -73,6 +77,8 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.read(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -88,6 +94,8 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.create(con, newOrder);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -103,6 +111,8 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             orderDao.updateTotal(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -152,6 +162,8 @@ public class CashierManager {
             List<OrderDetails> orderDetailsList = orderDetailsDao.findAll(con);
             logger.info("Finish finding all OrderDetails");
             return orderDetailsList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -169,6 +181,8 @@ public class CashierManager {
             long id = orderDetailsDao.findByName(con, orderDetails).getId();
             logger.info(orderDetails + " has id: " + id);
             return id;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -184,6 +198,8 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return orderDetailsDao.readByOrderId(con, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -289,6 +305,8 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             List<Order> ordersList = orderDao.findAllIncomes(con);
             return ordersList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -304,6 +322,8 @@ public class CashierManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.createIncome(con, currentOrder);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (con != null) con.close();
