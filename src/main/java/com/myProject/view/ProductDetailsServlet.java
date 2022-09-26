@@ -1,8 +1,8 @@
-package com.myProject.servlet;
+package com.myProject.view;
 
 import com.myProject.dao.entitie.Product;
 import com.myProject.dao.entitie.Unit;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.myProject.util.Constants.COMMAND_LIST_OF_PRODUCT;
 import static com.myProject.util.Constants.COMMAND_SHOW_USERS;

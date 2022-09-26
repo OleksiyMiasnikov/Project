@@ -2,6 +2,8 @@ package com.myProject.util;
 
 public class Constants {
     public static final String CONTEXT_NAME = "java:comp/env/jdbc/projectConnectionPool";
+    public static final String START_PAGE = "index.jsp";
+    public static final String MAIN_PAGE = "main_window.jsp";
     // SQL UserDao constants
     public static final String SELECT_USER = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `login`= ?";
     public static final String SELECT_ALL_USERS = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id`";

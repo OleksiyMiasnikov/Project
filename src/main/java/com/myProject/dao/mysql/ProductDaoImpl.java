@@ -3,7 +3,7 @@ package com.myProject.dao.mysql;
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.entitie.Product;
 import com.myProject.dao.entitie.Unit;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

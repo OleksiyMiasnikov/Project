@@ -9,7 +9,7 @@
 
   <filter>
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>com.myProject.filter.EncodingFilter</filter-class>
+    <filter-class>com.myProject.service.filter.EncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>

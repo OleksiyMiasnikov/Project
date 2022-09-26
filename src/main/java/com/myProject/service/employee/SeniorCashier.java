@@ -1,7 +1,7 @@
-package com.myProject.employee;
+package com.myProject.service.employee;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -24,7 +24,7 @@ public class SeniorCashier extends Employee{
         logger.info("initWindow");
         req.setAttribute("Fragment", "/CashierFragment");
         try {
-            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
+            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

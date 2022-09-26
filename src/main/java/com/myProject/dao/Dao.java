@@ -1,6 +1,6 @@
 package com.myProject.dao;
 
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 
 import java.sql.Connection;
 import java.util.List;

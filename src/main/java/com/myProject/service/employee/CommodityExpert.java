@@ -1,8 +1,8 @@
-package com.myProject.employee;
+package com.myProject.service.employee;
 
 import com.myProject.dao.entitie.User;
 import com.myProject.dao.entitie.Warehouse;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import com.myProject.service.CommodityExpertManager;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +38,7 @@ public class CommodityExpert extends Employee {
         req.setAttribute("Fragment", "/WarehouseFragment");
         logger.info(Arrays.toString(warehouseList.toArray()));
         try {
-            req.getRequestDispatcher("jsp/main_window.jsp").forward(req, resp);
+            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

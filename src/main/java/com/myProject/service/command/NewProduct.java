@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -14,7 +14,7 @@ public class NewProduct implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- NewProduct ---");
-        req.getRequestDispatcher("product_details.jsp").forward(req, resp);
-        return null;
+       // req.getRequestDispatcher("product_details.jsp").forward(req, resp);
+        return "product_details.jsp";
     }
 }

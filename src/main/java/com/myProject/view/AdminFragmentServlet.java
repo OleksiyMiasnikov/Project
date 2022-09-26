@@ -1,8 +1,7 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.dao.entitie.Warehouse;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -28,6 +27,7 @@ public class AdminFragmentServlet extends HttpServlet {
         try (PrintWriter printWriter = resp.getWriter()){
             UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
             List<User> userList = userManager.findAllUsers();
+
             printWriter.write("[AdminFragmentServlet: /AdminFragment]");
             printWriter.write("<br>");
 

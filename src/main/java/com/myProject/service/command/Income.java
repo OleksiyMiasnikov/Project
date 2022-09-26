@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -14,6 +14,9 @@ public class Income implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- Income ---");
-        return null;
+        // 1. input form  : product id, product name, quantity
+        // 2. increase quantity in warehouse if product exist
+        // 3. insert product if it is not exist in warehouse
+        return "serveIncome";
     }
 }

@@ -1,4 +1,4 @@
-package com.myProject.filter;
+package com.myProject.service.filter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

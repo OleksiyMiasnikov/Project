@@ -2,7 +2,7 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.RoleDao;
 import com.myProject.dao.entitie.Role;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

@@ -1,4 +1,4 @@
-package com.myProject.exception;
+package com.myProject.service.exception;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

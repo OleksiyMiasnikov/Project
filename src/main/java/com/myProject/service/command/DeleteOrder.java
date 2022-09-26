@@ -1,7 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.employee.Employee;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

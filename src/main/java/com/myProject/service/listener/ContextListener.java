@@ -1,4 +1,4 @@
-package com.myProject.listener;
+package com.myProject.service.listener;
 
 import com.myProject.dao.DaoFactory;
 import com.myProject.service.*;

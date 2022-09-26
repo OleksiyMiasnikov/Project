@@ -2,7 +2,7 @@ package com.myProject.dao;
 
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.dao.entitie.Warehouse;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 
 import java.sql.Connection;
 

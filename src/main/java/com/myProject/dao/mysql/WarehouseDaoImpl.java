@@ -4,7 +4,7 @@ import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
 import com.myProject.dao.entitie.OrderDetails;
 import com.myProject.dao.entitie.Warehouse;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

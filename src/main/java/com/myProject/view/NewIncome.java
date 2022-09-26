@@ -1,9 +1,11 @@
-package com.myProject.service;
+package com.myProject.view;
 
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
-import com.myProject.employee.Employee;
-import com.myProject.exception.DaoException;
+import com.myProject.service.CashierManager;
+import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.employee.Employee;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -17,11 +19,12 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.COMMAND_ORDERS;
+import static com.myProject.util.Constants.LOGOUT_COMMAND;
 
-@WebServlet("/serveNewOrder")
-public class NewOrderServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(NewOrderServlet.class);
+@WebServlet("/serveIncome")
+public class NewIncome extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(NewIncome.class);
     private Order currentOrder;
     CashierManager cashierManager;
     CommodityExpertManager commodityExpertManager;
@@ -102,7 +105,7 @@ public class NewOrderServlet extends HttpServlet {
             req.setAttribute("order", currentOrder);
             req.setAttribute("warehouse", commodityExpertManager.findAll());
             logger.info("products in warehouse: " + commodityExpertManager.findAll());
-            req.getRequestDispatcher("new_order.jsp").forward(req, resp);
+            req.getRequestDispatcher("income.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,7 @@
 package com.myProject.dao;
 
 import com.myProject.dao.entitie.Order;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 
 import java.sql.Connection;
 

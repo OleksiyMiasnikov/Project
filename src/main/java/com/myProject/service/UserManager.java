@@ -4,7 +4,7 @@ import com.myProject.dao.RoleDao;
 import com.myProject.dao.entitie.Role;
 import com.myProject.util.ConnectionPool;
 import com.myProject.dao.UserDao;
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 import com.myProject.dao.entitie.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

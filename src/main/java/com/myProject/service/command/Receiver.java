@@ -1,8 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DaoException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import com.myProject.service.exception.DaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

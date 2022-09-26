@@ -1,6 +1,5 @@
-package com.myProject.listener;
+package com.myProject.service.listener;
 
-import com.myProject.employee.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

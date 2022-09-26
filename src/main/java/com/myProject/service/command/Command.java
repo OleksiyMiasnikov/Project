@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.exception.DaoException;
+import com.myProject.service.exception.DaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
