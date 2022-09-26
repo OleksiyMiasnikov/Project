@@ -6,7 +6,7 @@
 }
 
 body {
-    background: rgba(192, 192, 192, 0.562);
+    background: darkgray; //rgba(192, 192, 192, 0.562);
     overflow: hidden;
 }
 

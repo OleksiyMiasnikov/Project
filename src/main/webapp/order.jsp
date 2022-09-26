@@ -70,6 +70,7 @@
                         <c:forEach var="element" items="${orderDetails}">
                                 <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
                                     <input  type="checkbox"
+                                            style="width: 50px; text-align:center;"
                                             class="center-block"
                                             name="products"
                                             id="myCheck"

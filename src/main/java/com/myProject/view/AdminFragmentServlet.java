@@ -47,14 +47,12 @@ public class AdminFragmentServlet extends HttpServlet {
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
             for (User element : userList) {
-                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
-                printWriter.write("<input type=\"checkbox\" " +
+                printWriter.write("<input type=\"checkbox\" style=\"width: 50px;text-align:center;\" " +
                         "name=\"users\" " +
                         "id=\"myCheck\" " +
                         "value=\"" +
                         element.getId() +
                         "\">");
-                printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;\" " +
                                     "value=" +
                                     element.getId() +

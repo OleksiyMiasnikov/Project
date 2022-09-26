@@ -2,7 +2,6 @@ package com.myProject.servlet;
 
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
-import com.myProject.employee.Employee;
 import com.myProject.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static com.myProject.util.Constants.COMMAND_SHOW_USERS;
+import static com.myProject.util.Constants.*;
 
 @WebServlet("/serveUser")
 public class AddUserServlet extends HttpServlet {
@@ -26,6 +25,8 @@ public class AddUserServlet extends HttpServlet {
         logger.info("started");
         if ("Cancel".equals(req.getParameter("button"))) {
             resp.sendRedirect("controller?command=" + COMMAND_SHOW_USERS);
+        } else if (LOGOUT_COMMAND.equals(req.getParameter("button"))) {
+            resp.sendRedirect("controller?command=" + LOGOUT_COMMAND);
         }
         long id = 0L;
         String login = req.getParameter("newLogin");

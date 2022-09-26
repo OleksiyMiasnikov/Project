@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import static com.myProject.util.Constants.COMMAND_ORDERS;
+import static com.myProject.util.Constants.*;
 
 @WebServlet("/serveNewOrder")
 public class NewOrderServlet extends HttpServlet {
@@ -49,6 +49,11 @@ public class NewOrderServlet extends HttpServlet {
                 currentOrder = null;
                 logger.info("Cancel pressed");
                 resp.sendRedirect("controller?command=" + COMMAND_ORDERS);
+                break;
+            case "Log out" :
+                currentOrder = null;
+                logger.info("Log out pressed");
+                resp.sendRedirect("controller?command=" + LOGOUT_COMMAND);
                 break;
         }
         logger.info("doPost finished");

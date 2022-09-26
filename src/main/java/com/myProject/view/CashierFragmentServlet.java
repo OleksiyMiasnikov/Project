@@ -61,15 +61,13 @@ public class CashierFragmentServlet extends HttpServlet {
             printWriter.write("<br><hr>");
 
             for (Order element : orderList) {
-                printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
-                printWriter.write("<input type=\"checkbox\" " +
+                printWriter.write("<input type=\"checkbox\" style=\"width: 50px;text-align:center;\" " +
                         "name=\"orders\" " +
                         "id=\"myCheck\" " +
                         strHide +
                         "value=\"" +
                         element.getId() +
                         "\">");
-                printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
                         + element.getId()
