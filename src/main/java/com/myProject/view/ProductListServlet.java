@@ -23,16 +23,7 @@ public class ProductListServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-        CommodityExpertManager commodityExpertManager = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
-        List<Product> productList = null;
-        try {
-            productList = commodityExpertManager.findAllProducts();
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
-        }
-
-        logger.info(Arrays.toString(productList.toArray()));
-
+        List<Product> productList = (List<Product>) req.getSession().getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()){
             printWriter.write("[ProductListServlet: /ProductListFragment]");
             printWriter.write("<br>");
@@ -43,7 +34,6 @@ public class ProductListServlet extends HttpServlet {
             printWriter.write("<span class=\"table_header\" style=\"width: 100px;text-align: right;\">Price</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
-
             for (Product element : productList) {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));

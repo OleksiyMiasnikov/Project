@@ -33,11 +33,6 @@ public class WarehouseFragmentServlet extends HttpServlet {
                         .getAttribute("CommodityExpertManager");*/
 
         List<Warehouse> warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
-/*        try {
-            warehouseList = commodityExpertManager.findAll();
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
-        }*/
         logger.info(Arrays.toString(warehouseList.toArray()));
         CalculateWarehouseTotal(warehouseList);
         try (PrintWriter printWriter = resp.getWriter()){
