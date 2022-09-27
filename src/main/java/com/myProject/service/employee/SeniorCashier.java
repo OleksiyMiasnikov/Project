@@ -16,17 +16,6 @@ import static com.myProject.util.Constants.*;
 public class SeniorCashier extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(SeniorCashier.class);
     public SeniorCashier(User user) {
-        super(user, "/CashierFragment", NEW_ORDER_COMMAND, ORDERS_COMMAND, REMAINS_COMMAND, REPORTS_COMMAND);
-    }
-
-
-    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        logger.info("initWindow");
-        req.setAttribute("Fragment", "/CashierFragment");
-        try {
-            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        super(user, ORDERS_COMMAND, NEW_ORDER_COMMAND, ORDERS_COMMAND, REMAINS_COMMAND, REPORTS_COMMAND);
     }
 }

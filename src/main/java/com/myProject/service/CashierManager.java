@@ -38,30 +38,9 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            List<Order> ordersList = orderDao.findAll(con);
-            logger.info("Finish finding all orders");
-            return ordersList;
+            return orderDao.findAll(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public Long getOrderId(String order) throws DaoException {
-        logger.info("Start getting id of " + order);
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            long id = orderDao.findByName(con, order).getId();
-            logger.info(order + " has id: " + id);
-            return id;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot find all orders", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -78,7 +57,7 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.read(con, id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot read order by id: " + id , e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -95,7 +74,7 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.create(con, newOrder);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot create order", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -112,7 +91,7 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             orderDao.updateTotal(con, id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot update total amount in order " + id, e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -138,7 +117,7 @@ public class CashierManager {
             try {
                 if (con != null) con.rollback();
             } catch (SQLException ex) {
-                throw new DaoException("Connection is null.  " + ex);
+                logger.error("Connection is null.  " + ex);
             }
             logger.warn("Unable to delete order: " + id + ". Rollback.");
             throw new DaoException("Unable to delete order: " + id + ". Rollback. " + e);
@@ -154,43 +133,6 @@ public class CashierManager {
         }
     }
 
-    public List<OrderDetails> findAllOrderDetails() throws DaoException {
-        logger.info("Start finding all OrderDetails");
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            List<OrderDetails> orderDetailsList = orderDetailsDao.findAll(con);
-            logger.info("Finish finding all OrderDetails");
-            return orderDetailsList;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public Long getOrderDetailsId(String orderDetails) throws DaoException {
-        logger.info("Start getting id of " + orderDetails);
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            long id = orderDetailsDao.findByName(con, orderDetails).getId();
-            logger.info(orderDetails + " has id: " + id);
-            return id;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
 
     public List<OrderDetails> detailsByOrderId(long id) throws DaoException {
         logger.info("Start getting details of order #" + id);
@@ -199,7 +141,7 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             return orderDetailsDao.readByOrderId(con, id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot getting details of order #" + id, e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -227,7 +169,7 @@ public class CashierManager {
             try {
                 if (con != null) con.rollback();
             } catch (SQLException ex) {
-                throw new DaoException("Connection is null.  " + ex);
+                logger.error("Connection is null.  " + ex);
             }
             logger.error("Unable to create order details. Rollback.");
             throw new DaoException("Unable to create order details. Rollback. " + e);
@@ -282,7 +224,7 @@ public class CashierManager {
             try {
                 if (con != null) con.rollback();
             } catch (SQLException ex) {
-                throw new DaoException("Connection is null.  " + ex);
+                logger.info("Connection is null.  " + ex);
             }
             logger.error("Unable to delete products in order. Rollback.");
             throw new DaoException("Unable to delete products in order. Rollback. " + e);
@@ -303,10 +245,9 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            List<Order> ordersList = orderDao.findAllIncomes(con);
-            return ordersList;
+            return orderDao.findAllIncomes(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to find all incomes" + e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -323,7 +264,7 @@ public class CashierManager {
             con = ConnectionPool.getInstance().getConnection();
             return orderDao.createIncome(con, currentOrder);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable creating income" + e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -350,7 +291,7 @@ public class CashierManager {
             try {
                 if (con != null) con.rollback();
             } catch (SQLException ex) {
-                throw new DaoException("Connection is null.  " + ex);
+                logger.error("Connection is null.  " + ex);
             }
             logger.error("Unable to create income details. Rollback.");
             throw new DaoException("Unable to create income details. Rollback. " + e);

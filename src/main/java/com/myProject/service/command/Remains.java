@@ -15,7 +15,6 @@ import static com.myProject.util.Constants.MAIN_PAGE;
 public class Remains implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        //new CommodityExpert(new User()).initWindow(req, resp);
         CommodityExpertManager commodityExpertManager =
                 (CommodityExpertManager) req
                         .getSession()

@@ -16,16 +16,6 @@ import static com.myProject.util.Constants.*;
 public class Admin extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(Admin.class);
     public Admin(User user) {
-        super(user, "/AdminFragment", ADD_USER_COMMAND);
-    }
-
-    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        logger.info("initWindow");
-        req.setAttribute("Fragment", "/AdminFragment");
-        try {
-            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        super(user, SHOW_USERS_COMMAND, ADD_USER_COMMAND);
     }
 }

@@ -22,26 +22,7 @@ public class CommodityExpert extends Employee {
     private static final Logger logger = (Logger) LogManager.getLogger(CommodityExpert.class);
 
     public CommodityExpert(User user) {
-        super(user, "/WarehouseFragment", NEW_PRODUCT_COMMAND, LIST_OF_PRODUCT_COMMAND, NEW_INCOME_COMMAND, INCOMES_COMMAND, REMAINS_COMMAND, REPORTS_COMMAND);
-    }
-
-
-    public void initWindow(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
-        logger.info("initWindow start");
-        CommodityExpertManager commodityExpertManager =
-                (CommodityExpertManager) req
-                        .getSession()
-                        .getServletContext()
-                        .getAttribute("CommodityExpertManager");
-        List<Warehouse> warehouseList = commodityExpertManager.findAll();
-        req.setAttribute("result", warehouseList);
-        req.setAttribute("Fragment", "/WarehouseFragment");
-        logger.info(Arrays.toString(warehouseList.toArray()));
-        try {
-            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        super(user, REMAINS_COMMAND, NEW_PRODUCT_COMMAND, LIST_OF_PRODUCT_COMMAND, NEW_INCOME_COMMAND, INCOMES_COMMAND, REMAINS_COMMAND, REPORTS_COMMAND);
     }
 }
 

@@ -20,12 +20,20 @@ import static com.myProject.util.Constants.DELETE_ORDER_COMMAND;
 public class IncomesFragmentServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(IncomesFragmentServlet.class);
 
+    private double amountTotal;
+    private double ordersTotal;
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
             List<Order> incomeList = (List<Order>) req.getSession().getAttribute("result");
-            printWriter.write("[IncomesFragmentServlet: /IncomesFragment]");
+            CalculateOrdersTotal(incomeList);
+            printWriter.write("List of incomes. [IncomesFragmentServlet: /IncomesFragment]");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Quantity of orders: " + ordersTotal + "</span>");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Total orders amount : " + amountTotal + "</span>");
             printWriter.write("<br>");
 
             printWriter.write("<div class=\"table_header\">");
@@ -59,5 +67,15 @@ public class IncomesFragmentServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         logger.info("service finish");
+    }
+
+    private void CalculateOrdersTotal(List<Order> list) {
+        if (list == null) return;
+        ordersTotal = 0;
+        amountTotal = 0;
+        for (Order element : list) {
+            ordersTotal ++;
+            amountTotal += element.getTotalAmount();
+        }
     }
 }

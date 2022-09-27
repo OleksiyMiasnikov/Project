@@ -37,8 +37,8 @@ public class UserManager {
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.findByName(con, login);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }  catch (SQLException e) {
+            throw new DaoException("Cannot find user " + login, e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -55,7 +55,7 @@ public class UserManager {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.findAll(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot find all users", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -72,7 +72,7 @@ public class UserManager {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.read(con, id);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot read user by id: " + id, e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -90,7 +90,10 @@ public class UserManager {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.create(con, newUser);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to create user: " +
+                                    newUser.getLogin() +
+                                    " with email: " +
+                                    newUser.getEmail(), e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -108,7 +111,7 @@ public class UserManager {
             User user = userDao.findByName(con, userLogin);
             return userDao.delete(con, user.getId());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot delete user " + userLogin, e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -125,7 +128,7 @@ public class UserManager {
             con = ConnectionPool.getInstance().getConnection();
             userDao.update(con, user);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot update user " + user.getLogin(), e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -140,11 +143,9 @@ public class UserManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            List<Role> rolesList = roleDao.findAll(con);
-            logger.info("Finish finding all roles");
-            return rolesList;
+            return roleDao.findAll(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot find all roles", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -159,11 +160,9 @@ public class UserManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            long id = roleDao.findByName(con, role).getId();
-            logger.info(role + " has id: " + id);
-            return id;
+            return roleDao.findByName(con, role).getId();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Cannot get id role", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -188,9 +187,10 @@ public class UserManager {
             try {
                 if (con != null) con.rollback();
             } catch (SQLException ex) {
-                throw new DaoException("Connection is null.  " + ex);
+                logger.error("Connection is null.  " + ex);
             }
             logger.error("Unable to delete users. Rollback.");
+            throw new DaoException("Unable to delete users. Rollback.", e);
         } finally {
             try {
                 if (con != null) {

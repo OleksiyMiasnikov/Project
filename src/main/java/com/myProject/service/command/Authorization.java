@@ -29,9 +29,8 @@ public class Authorization implements Command {
             Employee employee = Employee.createEmployee(user);
             req.getSession().setAttribute("Employee", employee);
             logger.info(employee);
-            req.getSession().setAttribute("Fragment", employee.getFragment());
             req.getSession().setAttribute("incorrectUser","");
-            return MAIN_PAGE;
+            return "controller?command=" + employee.getStartCommand();
         } else {
             req.getSession().setAttribute("incorrectUser",
                         "ERROR!  Incorrect login or password!");

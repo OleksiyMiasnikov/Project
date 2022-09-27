@@ -25,8 +25,9 @@ public class AdminFragmentServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
-            UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-            List<User> userList = userManager.findAllUsers();
+           /* UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+            List<User> userList = userManager.findAllUsers();*/
+            List<User> userList = (List<User>) req.getSession().getAttribute("result");
 
             printWriter.write("[AdminFragmentServlet: /AdminFragment]");
             printWriter.write("<br>");
@@ -74,7 +75,7 @@ public class AdminFragmentServlet extends HttpServlet {
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
-        } catch (IOException | DaoException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         logger.info("service finish");

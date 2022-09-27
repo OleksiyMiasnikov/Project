@@ -1,6 +1,7 @@
 package com.myProject.service.employee;
 
 import com.myProject.dao.entitie.User;
+import com.myProject.service.command.Command;
 import com.myProject.util.ConnectionPool;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +16,7 @@ public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
     private final List<String> menuItems;
-    private final String fragment;
+    private final String startCommand;
 
     public User getUser() {
         return user;
@@ -25,13 +26,13 @@ public abstract class Employee implements Serializable {
         return menuItems;
     }
 
-    public String getFragment() {
-        return fragment;
+    public String getStartCommand() {
+        return startCommand;
     }
 
-    public Employee(User user, String fragment, String ... items) {
+    public Employee(User user, String startCommand, String ... items) {
         this.user = user;
-        this.fragment = fragment;
+        this.startCommand = startCommand;
         this.menuItems = new ArrayList<>(Arrays.asList(items));
     }
 

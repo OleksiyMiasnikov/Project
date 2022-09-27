@@ -19,25 +19,34 @@ import java.util.List;
 @WebServlet("/WarehouseFragment")
 public class WarehouseFragmentServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(WarehouseFragmentServlet.class);
+    private double amountTotal;
+    private double quantityTotal;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-
+/*
         CommodityExpertManager commodityExpertManager =
                 (CommodityExpertManager) req
                         .getSession()
                         .getServletContext()
-                        .getAttribute("CommodityExpertManager");
-        List<Warehouse> warehouseList = null;
-        try {
+                        .getAttribute("CommodityExpertManager");*/
+
+        List<Warehouse> warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
+/*        try {
             warehouseList = commodityExpertManager.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         logger.info(Arrays.toString(warehouseList.toArray()));
+        CalculateWarehouseTotal(warehouseList);
         try (PrintWriter printWriter = resp.getWriter()){
-            printWriter.write("[WarehouseFragmentServlet: /WarehouseFragmentFragment]");
+            printWriter.write("Remains in warehouse [WarehouseFragmentServlet: /WarehouseFragmentFragment]");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Total quantity : " + quantityTotal + "</span>");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Total amount : " + amountTotal + "</span>");
+
             printWriter.write("<br>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
@@ -72,5 +81,15 @@ public class WarehouseFragmentServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         logger.info("service finish");
+    }
+
+    private void CalculateWarehouseTotal(List<Warehouse> list) {
+        if (list == null) return;
+        quantityTotal = 0;
+        amountTotal = 0;
+        for (Warehouse element : list) {
+            quantityTotal += element.getQuantity();
+            amountTotal += element.getQuantity() * element.getProduct().getPrice();
+        }
     }
 }

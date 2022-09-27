@@ -21,8 +21,8 @@ public class ShowUsers implements Command {
         logger.info("Start execute command -ShowUsers-");
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         List<User> userList = userManager.findAllUsers();
-        req.setAttribute("result", userList);
-        logger.info("Finish execute command  -ShowUsers-");
+        req.getSession().setAttribute("result", userList);
+        req.getSession().setAttribute("Fragment", "/AdminFragment");
         return MAIN_PAGE;
     }
 }

@@ -19,7 +19,7 @@ import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         String userId = req.getParameter("selectedUser");
         logger.info("Start updating user: " + userId);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
@@ -27,11 +27,7 @@ public class UpdateUser implements Command {
         req.setAttribute("user", user);
         List<Role> rolesList = userManager.findAllRoles();
         req.setAttribute("roles", rolesList);
-        try {
-            req.getRequestDispatcher("user_details.jsp").forward(req, resp);
-        } catch (ServletException | IOException e) {
-            throw new RuntimeException(e);
-        }
+        req.getRequestDispatcher("user_details.jsp").forward(req, resp);
         return "controller?command=" + SHOW_USERS_COMMAND;
     }
 }

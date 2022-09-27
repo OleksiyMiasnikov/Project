@@ -3,6 +3,7 @@ package com.myProject.dao.mysql;
 import com.myProject.dao.UserDao;
 import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
+import com.myProject.service.exception.DaoException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class UserDaoImpl implements UserDao {
                 newUser.setId(resultSet.getLong(1));
                 return newUser;
             } else {
-                return null;
+                throw new DaoException("Duplicate entry");
             }
         } finally {
             if (resultSet != null) resultSet.close();

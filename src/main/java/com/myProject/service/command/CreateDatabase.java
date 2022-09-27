@@ -11,12 +11,13 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 
 public class CreateDatabase implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(CreateDatabase.class);
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, IOException {
         logger.info("Start creating database");
 
         String createSql = readScript("sql\\createOrder.sql");
@@ -33,7 +34,7 @@ public class CreateDatabase implements Command {
             stmt.executeUpdate(insertData);
             logger.info("Finish creating database");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to create database" + e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -46,22 +47,18 @@ public class CreateDatabase implements Command {
         return createSql;
     }
 
-    private String readScript(String filePath) {
+    private String readScript(String filePath) throws IOException {
         logger.info("read script from " + filePath);
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filePath).getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource(filePath)).getFile());
         StringBuffer buffer = new StringBuffer();
-        try {
-            BufferedReader reader
-                    = new BufferedReader(new FileReader(file));
-            String str;
-           while ((str = reader.readLine()) != null) {
-               buffer.append(str).append(System.lineSeparator());
-           }
-           logger.info(buffer);
-           return buffer.toString();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        BufferedReader reader
+                = new BufferedReader(new FileReader(file));
+        String str;
+        while ((str = reader.readLine()) != null) {
+           buffer.append(str).append(System.lineSeparator());
         }
+        logger.info(buffer);
+        return buffer.toString();
     }
 }

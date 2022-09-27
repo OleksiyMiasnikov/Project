@@ -1,6 +1,7 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Order;
+import com.myProject.dao.entitie.Warehouse;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.CashierManager;
@@ -21,14 +22,18 @@ import static com.myProject.util.Constants.DELETE_ORDER_COMMAND;
 @WebServlet("/CashierFragment")
 public class CashierFragmentServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(CashierFragmentServlet.class);
+    private double amountTotal;
+    private double ordersTotal;
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
-            CashierManager cashierManager =
+            /*CashierManager cashierManager =
                     (CashierManager) getServletContext().getAttribute("CashierManager");
-            List<Order> orderList = cashierManager.findAllOrders();
+            List<Order> orderList = cashierManager.findAllOrders();*/
+            List<Order> orderList = (List<Order>) req.getSession().getAttribute("result");
+            CalculateOrdersTotal(orderList);
             String role = ((Employee)req.getSession()
                     .getAttribute("Employee"))
                     .getUser()
@@ -38,7 +43,11 @@ public class CashierFragmentServlet extends HttpServlet {
             if ("Senior cashier".equalsIgnoreCase(role)) {
                 strHide = "";
             }
-            printWriter.write("[CashierFragmentServlet: /CashierFragment]");
+            printWriter.write("List of orders. [CashierFragmentServlet: /CashierFragment]");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Quantity of orders: " + ordersTotal + "</span>");
+            printWriter.write("<br>");
+            printWriter.write("<span style=\"width: 250px;\">Total orders amount : " + amountTotal + "</span>");
             printWriter.write("<br>");
 
             printWriter.write("<div class=\"table_header\">");
@@ -86,9 +95,19 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
-        } catch (IOException | DaoException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         logger.info("service finish");
+    }
+
+    private void CalculateOrdersTotal(List<Order> list) {
+        if (list == null) return;
+        ordersTotal = 0;
+        amountTotal = 0;
+        for (Order element : list) {
+            ordersTotal ++;
+            amountTotal += element.getTotalAmount();
+        }
     }
 }

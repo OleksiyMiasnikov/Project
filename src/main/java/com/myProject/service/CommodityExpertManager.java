@@ -40,7 +40,7 @@ public class CommodityExpertManager {
             con = ConnectionPool.getInstance().getConnection();
             return warehouseDao.findAll(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to find all products in warehouse", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -56,7 +56,7 @@ public class CommodityExpertManager {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.findAll(con);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to find products", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -73,7 +73,7 @@ public class CommodityExpertManager {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.create(con, newProduct);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to create new product", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -90,7 +90,7 @@ public class CommodityExpertManager {
             con = ConnectionPool.getInstance().getConnection();
             productDao.update(con, product);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to update product", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -106,7 +106,7 @@ public class CommodityExpertManager {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.read(con, productId);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DaoException("Unable to read product", e);
         } finally {
             try {
                 if (con != null) con.close();

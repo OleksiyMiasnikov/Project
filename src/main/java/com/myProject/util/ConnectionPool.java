@@ -33,7 +33,7 @@ public class ConnectionPool {
             DataSource dataSource = (DataSource) context.lookup(CONTEXT_NAME);
             connection = dataSource.getConnection();
         } catch (NamingException | SQLException e) {
-            logger.error("Can not get connection");
+            logger.error("Can not get connection. " + e);
             throw new DaoException("Can not get connection", e);
         }
         return connection;
