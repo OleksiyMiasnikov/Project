@@ -29,9 +29,6 @@ public class CashierFragmentServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()){
-            /*CashierManager cashierManager =
-                    (CashierManager) getServletContext().getAttribute("CashierManager");
-            List<Order> orderList = cashierManager.findAllOrders();*/
             List<Order> orderList = (List<Order>) req.getSession().getAttribute("result");
             CalculateOrdersTotal(orderList);
             String role = ((Employee)req.getSession()
@@ -43,12 +40,17 @@ public class CashierFragmentServlet extends HttpServlet {
             if ("Senior cashier".equalsIgnoreCase(role)) {
                 strHide = "";
             }
-            printWriter.write("List of orders. [CashierFragmentServlet: /CashierFragment]");
+            printWriter.write("<span style=\"font-size: 8px;\">[CashierFragmentServlet: /CashierFragment]</span>");
+            printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
+                                "*** List of orders ***" +
+                                "</p>");
+            printWriter.write("<hr>");
+            printWriter.write("<span class=\"header_key\" style=\"width: 170px;\">Quantity of orders :</span>");
+            printWriter.write("<span>"  + ordersTotal + "</span>");
             printWriter.write("<br>");
-            printWriter.write("<span style=\"width: 250px;\">Quantity of orders: " + ordersTotal + "</span>");
-            printWriter.write("<br>");
-            printWriter.write("<span style=\"width: 250px;\">Total orders amount : " + amountTotal + "</span>");
-            printWriter.write("<br>");
+            printWriter.write("<span class=\"header_key\" style=\"width: 170px;\">Total orders amount :</span>");
+            printWriter.write("<span>"  + amountTotal + "</span>");
+            printWriter.write("<hr>");
 
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<button type=\"submit\" " +
@@ -68,7 +70,7 @@ public class CashierFragmentServlet extends HttpServlet {
             printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Employee</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
-
+            printWriter.write("<div class=\"data_list\">");
             for (Order element : orderList) {
                 printWriter.write("<input type=\"checkbox\" style=\"width: 50px;text-align:center;\" " +
                         "name=\"orders\" " +
@@ -95,6 +97,7 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
+            printWriter.write("</div>");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

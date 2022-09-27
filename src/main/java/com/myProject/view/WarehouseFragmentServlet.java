@@ -36,13 +36,19 @@ public class WarehouseFragmentServlet extends HttpServlet {
         logger.info(Arrays.toString(warehouseList.toArray()));
         CalculateWarehouseTotal(warehouseList);
         try (PrintWriter printWriter = resp.getWriter()){
-            printWriter.write("Remains in warehouse [WarehouseFragmentServlet: /WarehouseFragmentFragment]");
+            printWriter.write("<span style=\"font-size: 8px;\">" +
+                                "[WarehouseFragmentServlet: /WarehouseFragmentFragment]" +
+                                "</span>");
+            printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
+                                "*** Remains in warehouse ***" +
+                                "</p>");
+            printWriter.write("<hr>");
+            printWriter.write("<span class=\"header_key\" style=\"width: 170px;\">Total quantity : </span>");
+            printWriter.write("<span>" + quantityTotal + "</span>");
             printWriter.write("<br>");
-            printWriter.write("<span style=\"width: 250px;\">Total quantity : " + quantityTotal + "</span>");
-            printWriter.write("<br>");
-            printWriter.write("<span style=\"width: 250px;\">Total amount : " + amountTotal + "</span>");
-
-            printWriter.write("<br>");
+            printWriter.write("<span class=\"header_key\" style=\"width: 170px;\">Total amount : </span>");
+            printWriter.write("<span>" + amountTotal + "</span>");
+            printWriter.write("<hr>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Product name</span>");
@@ -50,9 +56,8 @@ public class WarehouseFragmentServlet extends HttpServlet {
             printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Quantity</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 100px;text-align: right;\">Price</span>");
             printWriter.write("</div>");
-
             printWriter.write("<br><hr>");
-
+            printWriter.write("<div class=\"data_list\">");
             for (Warehouse element : warehouseList) {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));
@@ -72,6 +77,7 @@ public class WarehouseFragmentServlet extends HttpServlet {
                 printWriter.write("<br>");
                 printWriter.write("<hr>");
             }
+            printWriter.write("</div>");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

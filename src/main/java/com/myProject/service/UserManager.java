@@ -1,11 +1,11 @@
 package com.myProject.service;
 
 import com.myProject.dao.RoleDao;
-import com.myProject.dao.entitie.Role;
-import com.myProject.util.ConnectionPool;
 import com.myProject.dao.UserDao;
-import com.myProject.service.exception.DaoException;
+import com.myProject.dao.entitie.Role;
 import com.myProject.dao.entitie.User;
+import com.myProject.service.exception.DaoException;
+import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -20,6 +20,11 @@ public class UserManager {
     private final UserDao userDao;
     private final RoleDao roleDao;
 
+    private UserManager(UserDao userDao, RoleDao roleDao) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
+    }
+
     public static synchronized UserManager getInstance(UserDao userDao, RoleDao roleDao) {
         if (instance == null) {
             instance = new UserManager(userDao, roleDao);
@@ -27,17 +32,13 @@ public class UserManager {
         }
         return instance;
     }
-    private UserManager(UserDao userDao, RoleDao roleDao) {
-        this.userDao = userDao;
-        this.roleDao = roleDao;
-    }
 
     public User findUser(String login) throws DaoException {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
             return userDao.findByName(con, login);
-        }  catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException("Cannot find user " + login, e);
         } finally {
             try {
@@ -91,9 +92,9 @@ public class UserManager {
             return userDao.create(con, newUser);
         } catch (SQLException e) {
             throw new DaoException("Unable to create user: " +
-                                    newUser.getLogin() +
-                                    " with email: " +
-                                    newUser.getEmail(), e);
+                    newUser.getLogin() +
+                    " with email: " +
+                    newUser.getEmail(), e);
         } finally {
             try {
                 if (con != null) con.close();

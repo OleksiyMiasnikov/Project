@@ -1,9 +1,9 @@
 package com.myProject.service.command;
 
 import com.myProject.dao.entitie.User;
+import com.myProject.service.UserManager;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
-import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.START_PAGE;
 
 
 public class Authorization implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Authorization.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
 
@@ -29,11 +30,11 @@ public class Authorization implements Command {
             Employee employee = Employee.createEmployee(user);
             req.getSession().setAttribute("Employee", employee);
             logger.info(employee);
-            req.getSession().setAttribute("incorrectUser","");
+            req.getSession().setAttribute("incorrectUser", "");
             return "controller?command=" + employee.getStartCommand();
         } else {
             req.getSession().setAttribute("incorrectUser",
-                        "ERROR!  Incorrect login or password!");
+                    "ERROR!  Incorrect login or password!");
             return START_PAGE;
         }
     }

@@ -1,8 +1,6 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.service.exception.DaoException;
-import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -15,7 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.DELETE_USER_COMMAND;
+import static com.myProject.util.Constants.UPDATE_USER_COMMAND;
 
 @WebServlet("/AdminFragment")
 public class AdminFragmentServlet extends HttpServlet {
@@ -24,9 +23,7 @@ public class AdminFragmentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-        try (PrintWriter printWriter = resp.getWriter()){
-           /* UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-            List<User> userList = userManager.findAllUsers();*/
+        try (PrintWriter printWriter = resp.getWriter()) {
             List<User> userList = (List<User>) req.getSession().getAttribute("result");
 
             printWriter.write("[AdminFragmentServlet: /AdminFragment]");
@@ -55,18 +52,18 @@ public class AdminFragmentServlet extends HttpServlet {
                         element.getId() +
                         "\">");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;\" " +
-                                    "value=" +
-                                    element.getId() +
-                                    ">");
+                        "value=" +
+                        element.getId() +
+                        ">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 200px;text-align: center;\">");
                 printWriter.write("<a " +
-                                    "href=\"controller?command=" +
+                        "href=\"controller?command=" +
                         UPDATE_USER_COMMAND +
-                                    "&selectedUser=" +
-                                    element.getId() +
-                                    "\">");
+                        "&selectedUser=" +
+                        element.getId() +
+                        "\">");
                 printWriter.write(element.getLogin());
                 printWriter.write("</a>");
                 printWriter.write("</span>");

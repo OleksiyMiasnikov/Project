@@ -1,8 +1,6 @@
 package com.myProject.view;
 
 import com.myProject.dao.entitie.Product;
-import com.myProject.service.exception.DaoException;
-import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet("/ProductListFragment")
@@ -24,7 +21,7 @@ public class ProductListServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         List<Product> productList = (List<Product>) req.getSession().getAttribute("result");
-        try (PrintWriter printWriter = resp.getWriter()){
+        try (PrintWriter printWriter = resp.getWriter()) {
             printWriter.write("[ProductListServlet: /ProductListFragment]");
             printWriter.write("<br>");
             printWriter.write("<div class=\"table_header\">");

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 public class DaoException extends SQLException {
     private static final Logger logger = (Logger) LogManager.getLogger(DaoException.class);
+
     public DaoException(String message, Throwable cause) {
         super(message, cause);
     }

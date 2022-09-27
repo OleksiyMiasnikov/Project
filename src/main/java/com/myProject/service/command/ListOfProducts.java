@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
 import static com.myProject.util.Constants.MAIN_PAGE;
 
 public class ListOfProducts implements Command {

@@ -1,8 +1,8 @@
 package com.myProject.service.command;
 
 import com.myProject.dao.entitie.User;
-import com.myProject.service.exception.DaoException;
 import com.myProject.service.UserManager;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -16,6 +16,7 @@ import static com.myProject.util.Constants.MAIN_PAGE;
 
 public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ShowUsers-");

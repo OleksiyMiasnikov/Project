@@ -6,7 +6,6 @@ body {
     list-style-type: none;
     margin: 0;
     width: 18%;
-
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -34,20 +33,25 @@ body {
 }
 
 .dataBox {
-    float: left;
-    margin-left: 20%;
-    margin-top: 5%;
+    margin: auto;
     padding: 25px;
-    width: 80%;
-    background-color: lightgray;
-    position: fixed;
-    height: 90%;
-    overflow: auto;
+    width: 500px;
+    background-color: white;
+    height: 700px;
+    font-family: Oxanium;
+    box-shadow: 10px 5px 5px black;
+}
+
+.data_list {
+    margin: auto;
+    height: 380px;
+    background-color: yellow;
 }
 
 .item {
     float: left;
     text-align: center;
+    font-size: 14px;
 }
 
 input{
@@ -59,7 +63,7 @@ input{
     float: left;
     text-align: center;
     font-weight: bold;
-    color: darkgrey;
+    font-size: 14px;
 }
 
 .header_key{
@@ -68,6 +72,7 @@ input{
     width: 100px;
     font-weight: bold;
     padding: 5px;
+    font-size: 16px;
 }
 
 .header_value{
@@ -80,6 +85,11 @@ input{
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+hr {
+    border-top: 1px
+    dashed;
 }
 
 

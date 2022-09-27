@@ -2,8 +2,8 @@ package com.myProject.view;
 
 import com.myProject.dao.entitie.Product;
 import com.myProject.dao.entitie.Unit;
-import com.myProject.service.exception.DaoException;
 import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -20,6 +20,7 @@ import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 @WebServlet("/serveProduct")
 public class ProductDetailsServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(ProductDetailsServlet.class);
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if ("Cancel".equals(req.getParameter("button"))) {
@@ -45,12 +46,12 @@ public class ProductDetailsServlet extends HttpServlet {
         try {
             CommodityExpertManager commodityExpertManager =
                     (CommodityExpertManager) req.getSession()
-                    .getServletContext()
-                    .getAttribute("CommodityExpertManager");
+                            .getServletContext()
+                            .getAttribute("CommodityExpertManager");
 
             Product newProduct = new Product(id, name, unit, price);
             if (id == 0L) {
-                if (commodityExpertManager.create(newProduct) != null){
+                if (commodityExpertManager.create(newProduct) != null) {
                     logger.info(name + " added");
                 } else {
                     logger.info("Unable to add " + name);
