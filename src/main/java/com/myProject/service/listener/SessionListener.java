@@ -50,12 +50,12 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
         logger.info("Session created: "
                 + se.getSession()
                 + ". Employee: "
-                + se.getSession().getAttribute("Employee"));
+                + se.getSession().getAttribute("employee"));
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         logger.info("Session destroyed: "
-                + se.getSession() + "-" + se.getSession().getAttribute("Employee") + "-" + se.getSession().getAttribute("Login"));
+                + se.getSession() + "-" + se.getSession().getAttribute("employee") + "-" + se.getSession().getAttribute("Login"));
     }
 }

@@ -67,22 +67,23 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> findAll(Connection con) throws SQLException {
-        Statement stmt = null;
+    public List<Product> findAll(Connection con, int from, int size) throws SQLException {
+        PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<Product> productList = new ArrayList<>();
         try {
-            stmt = con.createStatement();
-            stmt.executeQuery(SELECT_ALL_PRODUCT);
-            resultSet = stmt.getResultSet();
+            pstmt = con.prepareStatement(SELECT_ALL_PRODUCT_WITH_LIMIT);
+            pstmt.setInt(1, from);
+            pstmt.setInt(2, size);
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
             while (resultSet.next()) {
                 productList.add(buildProduct(resultSet));
             }
         } finally {
             if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (pstmt != null) pstmt.close();
         }
-        Collections.sort(productList);
         return productList;
     }
 
@@ -103,5 +104,21 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public boolean delete(Connection con, Long id){
         return false;
+    }
+
+    @Override
+    public int findRowsTotal(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(COUNT_ROWS);
+            resultSet = stmt.getResultSet();
+            resultSet.next();
+            return resultSet.getInt("rows_total");
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (stmt != null) stmt.close();
+        }
     }
 }

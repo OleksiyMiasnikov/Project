@@ -33,12 +33,12 @@ public class CashierManager {
         this.orderDetailsDao = orderDetailsDao;
     }
 
-    public List<Order> findAllOrders() throws DaoException {
+    public List<Order> findAllOrders(int from, int size) throws DaoException {
         logger.info("Start finding all orders");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.findAll(con);
+            return orderDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Cannot find all orders", e);
         } finally {

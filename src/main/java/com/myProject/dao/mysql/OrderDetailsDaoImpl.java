@@ -127,7 +127,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     }
 
     @Override
-    public List<OrderDetails> findAll(Connection con){
+    public List<OrderDetails> findAll(Connection con, int from, int size){
         return null;
     }
     @Override

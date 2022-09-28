@@ -15,12 +15,12 @@
                 [order.jsp]
                 <br>
                 <div class="employee">
-                    ${Employee.user.login} (${Employee.user.role.name})
-                    <input id="userRole" value="${Employee.user.role.name}" hidden="hidden">
+                    ${employee.user.login} (${employee.user.role.name})
+                    <input id="userRole" value="${employee.user.role.name}" hidden="hidden">
                 </div>
                 <br>
                 <br>
-                <c:forEach items="${Employee.menuItems}" var="item">
+                <c:forEach items="${employee.menuItems}" var="item">
                     <input type="submit" value="${item}" id="${item}" name="command">
                     <br>
                 </c:forEach>
@@ -55,41 +55,41 @@
                                 name="command"
                                 value="Delete ordered product"
                                 class="table_header"
-                                style="width: 50px; color: black;"
+                                style="width: 40px; color: black;"
                                 hidden="hidden">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
-                        <span class="table_header" style="width: 50px;">Id</span>
+                        <span class="table_header" style="width: 40px;">Id</span>
                         <span class="table_header" style="width: 200px;">Product name</span>
-                        <span class="table_header" style="width: 50px;">Unit</span>
-                        <span class="table_header" style="width: 100px;">Quantity</span>
-                        <span class="table_header" style="width: 100px;">Price</span>
+                        <span class="table_header" style="width: 40px;">Unit</span>
+                        <span class="table_header" style="width: 90px;">Quantity</span>
+                        <span class="table_header" style="width: 90px;">Price</span>
                     </div>
                     <br>
                     <hr>
                         <c:forEach var="element" items="${orderDetails}">
-                                <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
+                                <span id="checkSpan" class="item" style="width: 40px;" hidden="hidden">
                                     <input  type="checkbox"
-                                            style="width: 50px; text-align:center;"
+                                            style="width: 40px; text-align:center;"
                                             class="center-block"
                                             name="products"
                                             id="myCheck"
                                             value="${element.id}"
                                             >
                                 </span>
-                                <span class="item" style="width: 50px;">
+                                <span class="item" style="width: 40px;">
                                     ${element.id}
                                 </span>
                                 <span class="item" style="width: 200px;">
                                     ${element.product.name}
                                 </span>
-                                <span class="item" style="width: 50px;">
+                                <span class="item" style="width: 40px;">
                                     ${element.product.unit}
                                 </span>
-                                <span class="item" style="width: 100px;">
+                                <span class="item" style="width: 90px;">
                                     ${element.quantity}
                                 </span>
-                                <span class="item" style="width: 100px;">
+                                <span class="item" style="width: 90px;">
                                     ${element.price}
                                 </span>
                                 <br>

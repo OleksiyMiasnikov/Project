@@ -49,12 +49,12 @@ public class UserManager {
         }
     }
 
-    public List<User> findAllUsers() throws DaoException {
+    public List<User> findAllUsers(int from, int size) throws DaoException {
         logger.info("Start finding all users");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return userDao.findAll(con);
+            return userDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Cannot find all users", e);
         } finally {
@@ -139,12 +139,12 @@ public class UserManager {
         }
     }
 
-    public List<Role> findAllRoles() throws DaoException {
+    public List<Role> findAllRoles(int from, int size) throws DaoException {
         logger.info("Start finding all roles");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return roleDao.findAll(con);
+            return roleDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Cannot find all roles", e);
         } finally {

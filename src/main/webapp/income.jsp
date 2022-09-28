@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,8 +8,8 @@
 
     </head>
     <body>
-        <c:if test="${sessionScope.Employee.user.role.name ne 'commodity expert'}">
-            Not a commodity expert!!!
+        <c:if test="${sessionScope.employee.user.role.name ne 'commodity expert'}">
+            <jsp:forward page="index.jsp" />
         </c:if>
         <script src="js/new_order.js"></script>
         <%@ include file="header.jspf" %>

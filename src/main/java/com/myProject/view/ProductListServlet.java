@@ -23,7 +23,10 @@ public class ProductListServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
         List<Product> productList = (List<Product>) req.getSession().getAttribute("result");
+        int pageTotal = (int) req.getSession().getAttribute("pages_total");
+        int currentPage = (int) req.getSession().getAttribute("page");
         try (PrintWriter printWriter = resp.getWriter()) {
+            printWriter.write("<script src=\"js/pagination.js\"></script>");
             printWriter.write("<span style=\"font-size: 8px;\">" +
                                 "[ProductListServlet: /ProductListFragment]" +
                                 "</span>");
@@ -62,6 +65,38 @@ public class ProductListServlet extends HttpServlet {
                 printWriter.write("<br><hr>");
             }
             printWriter.write("</div>");
+            printWriter.write("<br>");
+            if (pageTotal > 1) {
+                printWriter.write("<div class='pagination'>");
+                    printWriter.write("<button onclick=\"firstPage();\" " +
+                            "name='command' " +
+                            "value='" +
+                            LIST_OF_PRODUCT_COMMAND +
+                            "'><i class=\"fa fa-angle-double-left\"> </i> </button>");
+
+                    printWriter.write("<button onclick=\"decPage();\" " +
+                            " name='command' value='" +
+                            LIST_OF_PRODUCT_COMMAND +
+                            "'> <i class=\"fa fa-angle-left\"> </i> </button>");
+
+                    printWriter.write("<input style='width:30px;text-align: center; border: none;' id='current_page' name='page' default value='" + currentPage + "'>");
+                    printWriter.write(" of <input style='width:30px;text-align: center; border: none;' id='last_page' name='lastPage' value='" + pageTotal + "'>");
+
+                    printWriter.write("<button onclick=\"incPage();\" " +
+                            "name='command' " +
+                            "value='" +
+                            LIST_OF_PRODUCT_COMMAND +
+                            "'><i class=\"fa fa-angle-right\"> </i> </button>");
+
+                    printWriter.write("<button onclick=\"lPage();\" " +
+                            "name='command' " +
+                            "value='" +
+                            LIST_OF_PRODUCT_COMMAND +
+                            "'><i class=\"fa fa-angle-double-right\"> </i> </button>");
+                printWriter.write("</div>");
+            }
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

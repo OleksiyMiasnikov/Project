@@ -11,16 +11,16 @@
     </head>
 
     <body>
-        <form action="controller" method="post">
+        <form id="controller_form" action="controller" method="post">
             <div class="sideBar">
                 [main_window.jsp]
                 <br>
                 <div class="employee">
-                    ${Employee.user.login} (${Employee.user.role.name})
+                    ${employee.user.login} (${employee.user.role.name})
                 </div>
                 <br>
                 <br>
-                <c:forEach items="${Employee.menuItems}" var="item">
+                <c:forEach items="${employee.menuItems}" var="item">
                    <input type="submit" value='${item}' id='${item}' name="command">
                    <br>
                 </c:forEach>

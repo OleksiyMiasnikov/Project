@@ -12,20 +12,22 @@ import static com.myProject.util.Constants.*;
 
 public class RoleDaoImpl implements RoleDao {
     @Override
-    public List<Role> findAll(Connection con) throws SQLException {
-        Statement stmt = null;
+    public List<Role> findAll(Connection con, int from, int size) throws SQLException {
+        PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<Role> rolesList = new ArrayList<>();
         try {
-            stmt = con.createStatement();
-            stmt.executeQuery(SELECT_ALL_ROLES);
-            resultSet = stmt.getResultSet();
+            pstmt = con.prepareStatement(SELECT_ALL_ROLES_WITH_LIMIT);
+            pstmt.setInt(1, from);
+            pstmt.setInt(2, size);
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
             while (resultSet.next()) {
                 rolesList.add(Role.newInstance(resultSet));
             }
         } finally {
             if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (pstmt != null) pstmt.close();
         }
         Collections.sort(rolesList);
         return rolesList;

@@ -32,7 +32,7 @@ public class CashierFragmentServlet extends HttpServlet {
             List<Order> orderList = (List<Order>) req.getSession().getAttribute("result");
             CalculateOrdersTotal(orderList);
             String role = ((Employee)req.getSession()
-                    .getAttribute("Employee"))
+                    .getAttribute("employee"))
                     .getUser()
                     .getRole()
                     .getName();
@@ -58,7 +58,7 @@ public class CashierFragmentServlet extends HttpServlet {
             printWriter.write("<button type=\"submit\" " +
                                 "name=\"command\" " +
                                 "value=\"" +
-                    DELETE_ORDER_COMMAND +
+                                DELETE_ORDER_COMMAND +
                                 "\"" +
                                 "class=\"table_header\" " +
                                 "style=\"width: 50px; color: black;\"" +
@@ -88,7 +88,7 @@ public class CashierFragmentServlet extends HttpServlet {
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</a>");
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 190px;\">");
                 printWriter.write(String.valueOf(element.getDate()));
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 100px;\">");

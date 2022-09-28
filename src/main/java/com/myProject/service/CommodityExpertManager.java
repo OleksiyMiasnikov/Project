@@ -33,12 +33,12 @@ public class CommodityExpertManager {
     }
 
 
-    public List<Warehouse> findAll() throws DaoException {
+    public List<Warehouse> findAll(int from, int size) throws DaoException {
         logger.info("Start finding all products in warehouse");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return warehouseDao.findAll(con);
+            return warehouseDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Unable to find all products in warehouse", e);
         } finally {
@@ -49,12 +49,12 @@ public class CommodityExpertManager {
             }
         }
     }
-    public List<Product> findAllProducts() throws DaoException {
+    public List<Product> findAllProducts(int from, int size) throws DaoException {
         logger.info("Start finding all products");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return productDao.findAll(con);
+            return productDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Unable to find products", e);
         } finally {
@@ -107,6 +107,23 @@ public class CommodityExpertManager {
             return productDao.read(con, productId);
         } catch (SQLException e) {
             throw new DaoException("Unable to read product", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public int findRowsTotal() throws DaoException {
+        logger.info("Start calculation quantity of rows in table 'product'");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return productDao.findRowsTotal(con);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine quantity of rows in table 'product'", e);
         } finally {
             try {
                 if (con != null) con.close();

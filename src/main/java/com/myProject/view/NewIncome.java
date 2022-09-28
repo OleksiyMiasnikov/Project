@@ -96,7 +96,7 @@ public class NewIncome extends HttpServlet {
         try {
             if (currentOrder == null) {
                 currentOrder = new Order();
-                currentOrder.setUser(((Employee) req.getSession().getAttribute("Employee")).getUser());
+                currentOrder.setUser(((Employee) req.getSession().getAttribute("employee")).getUser());
                 currentOrder.setDate(new Timestamp(new Date().getTime()));
             } else {
                 req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));

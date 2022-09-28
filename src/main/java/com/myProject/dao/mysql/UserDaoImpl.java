@@ -34,20 +34,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAll(Connection con) throws SQLException {
-        Statement stmt = null;
+    public List<User> findAll(Connection con, int from, int size) throws SQLException {
+        PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<User> userList = new ArrayList<>();
         try {
-            stmt = con.createStatement();
-            stmt.executeQuery(SELECT_ALL_USERS);
-            resultSet = stmt.getResultSet();
+            pstmt = con.prepareStatement(SELECT_ALL_USERS_WITH_LIMIT);
+            pstmt.setInt(1, from);
+            pstmt.setInt(2, size);
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
             while (resultSet.next()) {
                 userList.add(buildUser(resultSet));
             }
         } finally {
             if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (pstmt != null) pstmt.close();
         }
         Collections.sort(userList);
         return userList;

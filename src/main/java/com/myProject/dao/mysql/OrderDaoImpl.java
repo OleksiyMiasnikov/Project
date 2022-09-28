@@ -58,21 +58,23 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> findAll(Connection con) throws SQLException {
-        Statement stmt = null;
+    public List<Order> findAll(Connection con, int from, int size) throws SQLException {
+        PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<Order> orderList = new ArrayList<>();
         try {
-            stmt = con.createStatement();
-            stmt.executeQuery(SELECT_ALL_ORDERS);
-            resultSet = stmt.getResultSet();
+            pstmt = con.prepareStatement(SELECT_ALL_ORDERS_WITH_LIMIT);
+            pstmt.setInt(1, from);
+            pstmt.setInt(2, size);
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
             UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
             while (resultSet.next()) {
                 orderList.add(buildOrder(con, userDao, resultSet));
             }
         } finally {
             if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (pstmt != null) pstmt.close();
         }
         Collections.sort(orderList);
         return orderList;

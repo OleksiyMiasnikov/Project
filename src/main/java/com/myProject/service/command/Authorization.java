@@ -28,7 +28,7 @@ public class Authorization implements Command {
         User user = userManager.findUser(login);
         if (user != null && password.equals(user.getPassword())) {
             Employee employee = Employee.createEmployee(user);
-            req.getSession().setAttribute("Employee", employee);
+            req.getSession().setAttribute("employee", employee);
             logger.info(employee);
             req.getSession().setAttribute("incorrectUser", "");
             return "controller?command=" + employee.getStartCommand();
