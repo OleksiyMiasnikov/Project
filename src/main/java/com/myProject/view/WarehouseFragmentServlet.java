@@ -25,13 +25,6 @@ public class WarehouseFragmentServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("service start");
-/*
-        CommodityExpertManager commodityExpertManager =
-                (CommodityExpertManager) req
-                        .getSession()
-                        .getServletContext()
-                        .getAttribute("CommodityExpertManager");*/
-
         List<Warehouse> warehouseList = (List<Warehouse>) req.getSession().getAttribute("result");
         logger.info(Arrays.toString(warehouseList.toArray()));
         CalculateWarehouseTotal(warehouseList);

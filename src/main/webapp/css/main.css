@@ -54,7 +54,7 @@ body {
     font-size: 14px;
 }
 
-input{
+.data_list input{
     float: left;
     text-align: center;
 }

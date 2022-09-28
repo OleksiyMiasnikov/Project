@@ -40,7 +40,9 @@ public class CashierFragmentServlet extends HttpServlet {
             if ("Senior cashier".equalsIgnoreCase(role)) {
                 strHide = "";
             }
-            printWriter.write("<span style=\"font-size: 8px;\">[CashierFragmentServlet: /CashierFragment]</span>");
+            printWriter.write("<span style=\"font-size: 8px;\">" +
+                                "[CashierFragmentServlet: /CashierFragment]" +
+                                "</span>");
             printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
                                 "*** List of orders ***" +
                                 "</p>");

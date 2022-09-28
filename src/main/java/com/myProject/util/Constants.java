@@ -63,7 +63,8 @@ public class Constants {
     public static final String NEW_ORDER_COMMAND = "New order";
     public static final String REPORTS_COMMAND = "Reports";
     public static final String NEW_PRODUCT_COMMAND = "New product";
-    public static final String LIST_OF_PRODUCT_COMMAND = "List of product";
+    public static final String CREATE_PRODUCT_COMMAND = "Create product";
+    public static final String LIST_OF_PRODUCT_COMMAND = "List of products";
     public static final String NEW_INCOME_COMMAND = "New Income";
     public static final String INCOMES_COMMAND = "Incomes";
     public static final String REMAINS_COMMAND = "Remains";

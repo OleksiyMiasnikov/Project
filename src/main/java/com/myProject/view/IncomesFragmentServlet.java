@@ -29,21 +29,25 @@ public class IncomesFragmentServlet extends HttpServlet {
         try (PrintWriter printWriter = resp.getWriter()){
             List<Order> incomeList = (List<Order>) req.getSession().getAttribute("result");
             CalculateOrdersTotal(incomeList);
-            printWriter.write("List of incomes. [IncomesFragmentServlet: /IncomesFragment]");
-            printWriter.write("<br>");
+            printWriter.write("<span style=\"font-size: 8px;\">" +
+                    "[IncomesFragmentServlet: /IncomesFragment]" +
+                    "</span>");
+            printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
+                    "*** List of incomes ***" +
+                    "</p>");
+            printWriter.write("<hr>");
             printWriter.write("<span style=\"width: 250px;\">Quantity of orders: " + ordersTotal + "</span>");
             printWriter.write("<br>");
             printWriter.write("<span style=\"width: 250px;\">Total orders amount : " + amountTotal + "</span>");
-            printWriter.write("<br>");
-
+            printWriter.write("<br><hr>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Time</span>");
-            printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Amount</span>");
-            printWriter.write("<span class=\"table_header\" style=\"width: 100px;\">Employee</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 120px;\">Amount</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 130px;\">Employee</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
-
+            printWriter.write("<div class=\"data_list\">");
             for (Order element : incomeList) {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write("<a href=\"serveOrder?id="
@@ -55,14 +59,15 @@ public class IncomesFragmentServlet extends HttpServlet {
                 printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
                 printWriter.write(String.valueOf(element.getDate()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 120px;\">");
                 printWriter.write(String.valueOf(element.getTotalAmount()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 100px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 130px;\">");
                 printWriter.write(element.getUser().getLogin());
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
+            printWriter.write("</div>");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

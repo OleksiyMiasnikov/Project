@@ -22,30 +22,37 @@ public class ProductListServlet extends HttpServlet {
         logger.info("service start");
         List<Product> productList = (List<Product>) req.getSession().getAttribute("result");
         try (PrintWriter printWriter = resp.getWriter()) {
-            printWriter.write("[ProductListServlet: /ProductListFragment]");
-            printWriter.write("<br>");
+            printWriter.write("<span style=\"font-size: 8px;\">" +
+                                "[ProductListServlet: /ProductListFragment]" +
+                                "</span>");
+            printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
+                                "*** List of products ***" +
+                                "</p>");
+            printWriter.write("<hr>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
-            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Product name</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 250px;\">Product name</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Unit</span>");
-            printWriter.write("<span class=\"table_header\" style=\"width: 100px;text-align: right;\">Price</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 150px;text-align: right;\">Price</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
+            printWriter.write("<div class=\"data_list\">");
             for (Product element : productList) {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 250px;\">");
                 printWriter.write(element.getName());
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(element.getUnit().labelUa);
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 100px;text-align: right;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 150px;text-align: right;\">");
                 printWriter.write(String.valueOf(element.getPrice()));
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
             }
+            printWriter.write("</div>");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
