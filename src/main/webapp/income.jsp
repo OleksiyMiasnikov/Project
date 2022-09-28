@@ -56,8 +56,8 @@
                         disabled>
                 <hr>
                     <select id="AllProducts" hidden="hidden">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.getLabelUa()}|${item.quantity }">
+                        <c:forEach var="item" items="${products }">
+                            <option value="${item.id }|${item.name }|${item.price }|${item.unit.getLabelUa()}|1000000">
                             </option>
                         </c:forEach>
                     </select>
@@ -87,6 +87,7 @@
                             </option>
                         </c:forEach>
                     </datalist>
+                    <br>
                     <input name="newQuantity"
                             id="newQuantity"
                             type="number"
@@ -108,7 +109,8 @@
                             id="newAmount"
                             style="width: 150px;"
                             disabled>
-                    <input type="submit" name="button" value="Save">
+                <br>
+                <input type="submit" name="button" value="Save">
                 <br>
                 <hr>
                 <span class="table_header" style="width: 50px;">Id</span>
@@ -140,7 +142,6 @@
                     <br>
                     <hr>
                 </c:forEach>
-                <hr>
                </div>
             </form>
         </div>

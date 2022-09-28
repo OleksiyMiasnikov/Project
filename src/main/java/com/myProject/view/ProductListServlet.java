@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import static com.myProject.util.Constants.*;
+
 @WebServlet("/ProductListFragment")
 public class ProductListServlet extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(ProductListServlet.class);
@@ -41,8 +43,15 @@ public class ProductListServlet extends HttpServlet {
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(String.valueOf(element.getId()));
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 250px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 250px;text-align: center;\">");
+                printWriter.write("<a " +
+                        "href=\"controller?command=" +
+                        NEW_PRODUCT_COMMAND +
+                        "&selectedProduct=" +
+                        element.getId() +
+                        "\">");
                 printWriter.write(element.getName());
+                printWriter.write("</a>");
                 printWriter.write("</span>");
                 printWriter.write("<span class=\"item\" style=\"width: 50px;text-align: center;\">");
                 printWriter.write(element.getUnit().labelUa);

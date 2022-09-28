@@ -56,6 +56,7 @@ public class Constants {
     public static final String ADD_USER_COMMAND = "Add user";
     public static final String ADD_USER_DETAILS_COMMAND = "AddUserDetails";
     public static final String UPDATE_USER_COMMAND = "Update user";
+    public static final String UPDATE_PRODUCT_COMMAND = "Update product";
     public static final String CREATE_DATABASE_COMMAND = "Create database";
     public static final String DELETE_USER_COMMAND = "Delete user";
     public static final String DELETE_ORDER_COMMAND = "Delete order";
