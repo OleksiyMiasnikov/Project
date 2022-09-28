@@ -25,10 +25,13 @@ public class AdminFragmentServlet extends HttpServlet {
         logger.info("service start");
         try (PrintWriter printWriter = resp.getWriter()) {
             List<User> userList = (List<User>) req.getSession().getAttribute("result");
-
-            printWriter.write("[AdminFragmentServlet: /AdminFragment]");
-            printWriter.write("<br>");
-
+            printWriter.write("<span style=\"font-size: 8px;\">" +
+                                "[AdminFragmentServlet: /AdminFragment]" +
+                                "</span>");
+            printWriter.write("<p style=\"text-align: center; font-size: 22px;font-weight: bold\">" +
+                                "*** List of users ***" +
+                                "</p>");
+            printWriter.write("<hr>");
             printWriter.write("<div class=\"table_header\">");
             printWriter.write("<button type=\"submit\" " +
                     "name=\"command\" " +
@@ -41,7 +44,7 @@ public class AdminFragmentServlet extends HttpServlet {
                     "</button>");
             printWriter.write("<span class=\"table_header\" style=\"width: 50px;\">Id</span>");
             printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">User login</span>");
-            printWriter.write("<span class=\"table_header\" style=\"width: 200px;\">Role</span>");
+            printWriter.write("<span class=\"table_header\" style=\"width: 150px;\">Role</span>");
             printWriter.write("</div>");
             printWriter.write("<br><hr>");
             for (User element : userList) {
@@ -67,7 +70,7 @@ public class AdminFragmentServlet extends HttpServlet {
                 printWriter.write(element.getLogin());
                 printWriter.write("</a>");
                 printWriter.write("</span>");
-                printWriter.write("<span class=\"item\" style=\"width: 200px;\">");
+                printWriter.write("<span class=\"item\" style=\"width: 150px;\">");
                 printWriter.write(element.getRole().getName());
                 printWriter.write("</span>");
                 printWriter.write("<br><hr>");
