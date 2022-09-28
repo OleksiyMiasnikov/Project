@@ -102,7 +102,7 @@ public class NewIncome extends HttpServlet {
                 req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("products", commodityExpertManager.findAllProducts());
+            req.setAttribute("products", commodityExpertManager.findAllProducts(0, 1000));
             req.getRequestDispatcher("income.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);

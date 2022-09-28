@@ -17,7 +17,7 @@ public class Orders implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         CashierManager cashierManager =
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
-        List<Order> orderList = cashierManager.findAllOrders();
+        List<Order> orderList = cashierManager.findAllOrders(0, 1000);
         req.getSession().setAttribute("result", orderList);
         req.getSession().setAttribute("Fragment", "/CashierFragment");
         return MAIN_PAGE;

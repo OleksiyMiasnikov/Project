@@ -102,8 +102,8 @@ public class NewOrderServlet extends HttpServlet {
                 req.setAttribute("orderDetails", cashierManager.detailsByOrderId(currentOrder.getId()));
             }
             req.setAttribute("order", currentOrder);
-            req.setAttribute("warehouse", commodityExpertManager.findAll());
-            logger.info("products in warehouse: " + commodityExpertManager.findAll());
+            req.setAttribute("warehouse", commodityExpertManager.findAll(0, 1000));
+            logger.info("products in warehouse: " + commodityExpertManager.findAll(0, 1000));
             req.getRequestDispatcher("new_order.jsp").forward(req, resp);
         } catch (DaoException | ServletException | IOException e) {
             throw new RuntimeException(e);

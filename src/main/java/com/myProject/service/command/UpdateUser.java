@@ -25,7 +25,7 @@ public class UpdateUser implements Command {
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         User user = userManager.read(Long.parseLong(userId));
         req.setAttribute("user", user);
-        List<Role> rolesList = userManager.findAllRoles();
+        List<Role> rolesList = userManager.findAllRoles(0, 1000);
         req.setAttribute("roles", rolesList);
         req.getRequestDispatcher("user_details.jsp").forward(req, resp);
         return "controller?command=" + SHOW_USERS_COMMAND;

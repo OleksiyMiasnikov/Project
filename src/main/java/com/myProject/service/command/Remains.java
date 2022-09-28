@@ -20,7 +20,7 @@ public class Remains implements Command {
                         .getSession()
                         .getServletContext()
                         .getAttribute("CommodityExpertManager");
-        List<Warehouse> warehouseList = commodityExpertManager.findAll();
+        List<Warehouse> warehouseList = commodityExpertManager.findAll(0, 1000);
         req.getSession().setAttribute("result", warehouseList);
         req.getSession().setAttribute("Fragment", "/WarehouseFragment");
         return MAIN_PAGE;

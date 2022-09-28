@@ -21,7 +21,7 @@ public class ShowUsers implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ShowUsers-");
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        List<User> userList = userManager.findAllUsers();
+        List<User> userList = userManager.findAllUsers(0, 1000);
         req.getSession().setAttribute("result", userList);
         req.getSession().setAttribute("Fragment", "/AdminFragment");
         return MAIN_PAGE;

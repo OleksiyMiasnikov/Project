@@ -16,7 +16,7 @@ public class AddUser implements Command{
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
         logger.info("--- AddUser ---");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
-        List<Role> rolesList = userManager.findAllRoles();
+        List<Role> rolesList = userManager.findAllRoles(0, 1000);
         req.getSession().setAttribute("roles", rolesList);
         return"user_details.jsp";
     }
