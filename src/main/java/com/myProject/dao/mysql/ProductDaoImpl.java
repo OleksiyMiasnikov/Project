@@ -6,7 +6,9 @@ import com.myProject.dao.entitie.Unit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.myProject.util.Constants.*;
 
@@ -115,6 +117,25 @@ public class ProductDaoImpl implements ProductDao {
             resultSet = stmt.getResultSet();
             resultSet.next();
             return resultSet.getInt("rows_total");
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (stmt != null) stmt.close();
+        }
+    }
+
+    @Override
+    public Map<String, Double> Totals(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(TOTALS_WAREHOUSE);
+            resultSet = stmt.getResultSet();
+            resultSet.next();
+            Map<String, Double> result = new HashMap<>();
+            result.put("total_quantity", resultSet.getDouble("total_quantity"));
+            result.put("total_amount", resultSet.getDouble("total_amount"));
+            return result;
         } finally {
             if (resultSet != null) resultSet.close();
             if (stmt != null) stmt.close();

@@ -85,6 +85,7 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(2, newUser.getPassword());
             pstmt.setString(3, newUser.getEmail());
             pstmt.setLong(4, newUser.getRole().getId());
+            pstmt.executeUpdate();
             resultSet = pstmt.getGeneratedKeys();
             if (resultSet.next()) {
                 newUser.setId(resultSet.getLong(1));
@@ -127,5 +128,21 @@ public class UserDaoImpl implements UserDao {
         user.setEmail(resultSet.getString(4));
         user.setRole(new Role(resultSet.getInt(5), resultSet.getString(6)));
         return user;
+    }
+
+    @Override
+    public int findRowsTotal(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(COUNT_ROWS_IN_USER);
+            resultSet = stmt.getResultSet();
+            resultSet.next();
+            return resultSet.getInt("rows_total");
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (stmt != null) stmt.close();
+        }
     }
 }

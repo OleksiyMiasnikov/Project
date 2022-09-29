@@ -203,4 +203,21 @@ public class UserManager {
             }
         }
     }
+
+    public int findRowsTotal() throws DaoException {
+        logger.info("Start calculation quantity of rows in table 'user'");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return userDao.findRowsTotal(con);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine quantity of rows in table 'user'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.myProject.dao.entitie.Order;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface OrderDao extends Dao<Long, Order> {
     void updateTotal(Connection con, long id) throws SQLException;
@@ -14,4 +15,6 @@ public interface OrderDao extends Dao<Long, Order> {
     Order createIncome(Connection con, Order currentOrder) throws SQLException;
 
     int findRowsTotal(Connection con, String direction) throws SQLException;
+
+    Map<String, Double> Totals(Connection con, String direction) throws SQLException;
 }

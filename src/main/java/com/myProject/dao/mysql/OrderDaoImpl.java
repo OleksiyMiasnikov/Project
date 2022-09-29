@@ -7,7 +7,9 @@ import com.myProject.dao.OrderDao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.myProject.util.Constants.*;
 
@@ -163,6 +165,26 @@ public class OrderDaoImpl implements OrderDao {
             pstmt.setLong(1, id);
             pstmt.setLong(2, id);
             pstmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public Map<String, Double> Totals(Connection con, String direction) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(TOTALS_ORDERS);
+            pstmt.setString(1, direction);
+            pstmt.execute();
+            resultSet = pstmt.getResultSet();
+            resultSet.next();
+            Map<String, Double> result = new HashMap<>();
+            result.put("total_quantity", resultSet.getDouble("total_quantity"));
+            result.put("total_amount", resultSet.getDouble("total_amount"));
+            return result;
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (pstmt != null) pstmt.close();
         }
     }
 

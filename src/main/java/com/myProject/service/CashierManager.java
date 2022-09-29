@@ -13,6 +13,7 @@ import org.apache.logging.log4j.core.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class CashierManager {
     private static final Logger logger = (Logger) LogManager.getLogger(CashierManager.class);
@@ -301,6 +302,23 @@ public class CashierManager {
             return orderDao.findRowsTotal(con, direction);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine quantity of '' rows in table 'order'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public Map<String, Double> OrdersTotals(String direction) throws DaoException {
+        logger.info("Starting determining orders totals");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDao.Totals(con, direction);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine orders totals", e);
         } finally {
             try {
                 if (con != null) con.close();

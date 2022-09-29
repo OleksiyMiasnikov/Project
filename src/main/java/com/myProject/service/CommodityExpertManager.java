@@ -12,6 +12,7 @@ import org.apache.logging.log4j.core.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 public class CommodityExpertManager {
@@ -141,6 +142,23 @@ public class CommodityExpertManager {
             return warehouseDao.findRowsTotal(con);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine quantity of rows in table 'product'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public Map<String, Double> WarehouseTotals() throws DaoException {
+        logger.info("Starting determining warehouse totals");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return productDao.Totals(con);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to find products", e);
         } finally {
             try {
                 if (con != null) con.close();

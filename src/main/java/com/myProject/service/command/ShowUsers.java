@@ -12,19 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.MAIN_PAGE;
+import static com.myProject.util.Constants.*;
 
 public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-/*        logger.info("Start execute command -ShowUsers-");
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        List<User> userList = userManager.findAllUsers(0, 1000);
-        req.getSession().setAttribute("result", userList);
-        req.getSession().setAttribute("Fragment", "/AdminFragment");
-        return MAIN_PAGE;*/
         logger.info("Start execute command -ShowUsers-");
         UserManager manager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         String strPage = req.getParameter("page");
@@ -32,6 +26,10 @@ public class ShowUsers implements Command {
         if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
         int pagesTotal = (int)Math. ceil(manager.findRowsTotal()/10d);
         List<User> userList = manager.findAllUsers((currentPage - 1) * 10, 10);
+        req.getSession().setAttribute("page", currentPage);
+        req.getSession().setAttribute("pages_total", pagesTotal);
+        req.getSession().setAttribute("command_name", SHOW_USERS_COMMAND);
         req.getSession().setAttribute("result", userList);
+        return "users_list.jsp";
     }
 }

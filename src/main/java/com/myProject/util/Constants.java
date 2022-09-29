@@ -13,6 +13,7 @@ public class Constants {
     public static final String READ_USER_BY_ID = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `user`.`id` = ?";
     public static final String DELETE_USER = "DELETE FROM `user` WHERE `id` = ?";
     public static final String UPDATE_USER = "UPDATE `user` SET `login` = ?, `password` = ?, `email` = ?, `role_id` = ? WHERE `id` = ?";
+    public static final String COUNT_ROWS_IN_USER = "SELECT count(*) AS `rows_total` FROM `user`";
 
 
     // SQL ProductDao constants
@@ -29,7 +30,8 @@ public class Constants {
     public static final String SELECT_ALL_IN_WAREHOUSE_WITH_LIMIT = "SELECT `id`, `quantity`, `product_id` FROM `warehouse` WHERE `quantity` > 0 LIMIT ?, ?";
     public static final String UPDATE_QUANTITY = "UPDATE `warehouse` SET `quantity` = `quantity` + ? WHERE `product_id` = ?";
     public static final String RECOVERY_QUANTITY_AFTER_DELETING_ORDER = "UPDATE `warehouse`, `order_details` SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` WHERE `warehouse`.`product_id` = `order_details`.`product_id` AND `order_details`.`order_id` = ?";
-    public static final String COUNT_ROWS_IN_WAREEHOUSE = "SELECT count(*) AS `rows_total` FROM `warehouse`";
+    public static final String COUNT_ROWS_IN_WAREHOUSE = "SELECT count(*) AS `rows_total` FROM `warehouse`";
+    public static final String TOTALS_WAREHOUSE = "SELECT SUM(`quantity`) AS `total_quantity`, SUM(`price`*`quantity`) AS `total_amount` FROM `warehouse` JOIN `product` ON `product`.`id` = `warehouse`.`product_id`";
     public static final int ERROR_CODE_OUT_OF_RANGE = 1264;
 
     // SQL OrderDao constants
@@ -41,7 +43,7 @@ public class Constants {
     public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN')";
     public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ?";
     public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ?";
-
+    public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ?";
 
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";

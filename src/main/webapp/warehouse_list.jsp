@@ -15,14 +15,14 @@
                     Total quantity :
                 </span>
                 <span>
-                    ${quantityTotal}
+                    ${total_quantity}
                 </span>
                 <br>
                 <span class="header_key" style="width: 170px;">
                     Total amount :
                 </span>
                 <span>
-                    ${amountTotal}
+                    ${total_amount}
                 </span>
                 <hr>
                 <div class=table_header>

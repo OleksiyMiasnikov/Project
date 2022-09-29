@@ -68,7 +68,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
         ResultSet resultSet = null;
         try {
             stmt = con.createStatement();
-            stmt.executeQuery(COUNT_ROWS_IN_WAREEHOUSE);
+            stmt.executeQuery(COUNT_ROWS_IN_WAREHOUSE);
             resultSet = stmt.getResultSet();
             resultSet.next();
             return resultSet.getInt("rows_total");
