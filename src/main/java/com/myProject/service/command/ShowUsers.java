@@ -19,11 +19,19 @@ public class ShowUsers implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("Start execute command -ShowUsers-");
+/*        logger.info("Start execute command -ShowUsers-");
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         List<User> userList = userManager.findAllUsers(0, 1000);
         req.getSession().setAttribute("result", userList);
         req.getSession().setAttribute("Fragment", "/AdminFragment");
-        return MAIN_PAGE;
+        return MAIN_PAGE;*/
+        logger.info("Start execute command -ShowUsers-");
+        UserManager manager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+        String strPage = req.getParameter("page");
+        int currentPage = 1;
+        if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
+        int pagesTotal = (int)Math. ceil(manager.findRowsTotal()/10d);
+        List<User> userList = manager.findAllUsers((currentPage - 1) * 10, 10);
+        req.getSession().setAttribute("result", userList);
     }
 }

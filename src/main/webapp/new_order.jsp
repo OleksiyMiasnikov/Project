@@ -1,20 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     </head>
     <body>
         <script src="js/new_order.js"></script>
         <%@ include file="header.jspf" %>
-
+        </form>
         <div class="dataBox">
             <h2 class="id">
-                NEW ORDER [new_order.jsp]
+                VERY NEW ORDER [new_order.jsp]
                 <hr>
             </h2>
             <form action="serveNewOrder" method="post">
@@ -140,7 +138,6 @@
                     <br>
                     <hr>
                 </c:forEach>
-                <hr>
                </div>
             </form>
         </div>

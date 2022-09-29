@@ -28,7 +28,6 @@ function productUpdated(){
             document.getElementById("newUnit").value = productDetails[3];
             document.getElementById("newPrice").value = productDetails[2];
             document.getElementById("newQuantity").max = productDetails[4];
-            console.log(productDetails[4]);
             updateAmount();
         }
     }

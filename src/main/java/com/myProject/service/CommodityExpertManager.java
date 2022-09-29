@@ -116,12 +116,29 @@ public class CommodityExpertManager {
         }
     }
 
-    public int findRowsTotal() throws DaoException {
+    public int findRowsTotalInProduct() throws DaoException {
         logger.info("Start calculation quantity of rows in table 'product'");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
             return productDao.findRowsTotal(con);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine quantity of rows in table 'product'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public int findRowsTotalInWarehouse() throws DaoException {
+        logger.info("Start calculation quantity of rows in table 'warehouse'");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return warehouseDao.findRowsTotal(con);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine quantity of rows in table 'product'", e);
         } finally {

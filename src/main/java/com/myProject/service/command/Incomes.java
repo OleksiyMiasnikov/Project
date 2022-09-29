@@ -23,7 +23,7 @@ public class Incomes implements Command {
         String strPage = req.getParameter("page");
         int currentPage = 1;
         if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
-        int pagesTotal = (int)Math. ceil(manager.findIncomeRowsTotal()/10d);
+        int pagesTotal = (int)Math. ceil(manager.findRowsTotal("IN")/10d);
         List<Order> list = manager.findAll((currentPage - 1) * 10, 10, "IN");
         CalculateOrdersTotal(list);
         req.getSession().setAttribute("result", list);
@@ -33,7 +33,9 @@ public class Incomes implements Command {
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", INCOMES_COMMAND);
-        return "incomes_list.jsp";
+        req.getSession().setAttribute("operation", "incomes");
+        return "orders_list.jsp";
+       // return "incomes_list.jsp";
     }
 
     private void CalculateOrdersTotal(List<Order> list) {

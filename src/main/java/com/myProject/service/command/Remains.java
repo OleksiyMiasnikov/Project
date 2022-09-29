@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
 import static com.myProject.util.Constants.REMAINS_COMMAND;
 
 public class Remains implements Command {
@@ -26,7 +25,7 @@ public class Remains implements Command {
         String strPage = req.getParameter("page");
         int currentPage = 1;
         if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
-        int pagesTotal = (int)Math. ceil(manager.findRowsTotal()/10d);
+        int pagesTotal = (int)Math. ceil(manager.findRowsTotalInWarehouse()/10d);
         List<Warehouse> list = manager.findAll((currentPage - 1) * 10, 10);
         CalculateWarehouseTotal(list);
         req.getSession().setAttribute("amountTotal", amountTotal);

@@ -25,4 +25,6 @@ public interface WarehouseDao extends Dao<Long, Warehouse> {
      */
 
     void updateQuantity(Connection con, double quantity, long id) throws SQLException;
+
+    int findRowsTotal(Connection con) throws SQLException;
 }

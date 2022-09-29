@@ -63,6 +63,22 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
+    public int findRowsTotal(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(COUNT_ROWS_IN_WAREEHOUSE);
+            resultSet = stmt.getResultSet();
+            resultSet.next();
+            return resultSet.getInt("rows_total");
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (stmt != null) stmt.close();
+        }
+    }
+
+    @Override
     public void recoveryAfterDeletingOrder(Connection con, long id) throws SQLException {
         try (PreparedStatement pstmt = con.prepareStatement(RECOVERY_QUANTITY_AFTER_DELETING_ORDER)) {
             pstmt.setLong(1, id);

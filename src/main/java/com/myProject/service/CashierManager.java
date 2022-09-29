@@ -293,12 +293,12 @@ public class CashierManager {
         }
     }
 
-    public int findIncomeRowsTotal() throws DaoException {
+    public int findRowsTotal(String direction) throws DaoException {
         logger.info("Start calculation quantity of rows in table 'product'");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.findRowsTotal(con, "IN");
+            return orderDao.findRowsTotal(con, direction);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine quantity of '' rows in table 'order'", e);
         } finally {

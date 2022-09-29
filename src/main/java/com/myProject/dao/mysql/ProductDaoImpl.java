@@ -6,7 +6,6 @@ import com.myProject.dao.entitie.Unit;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
@@ -112,7 +111,7 @@ public class ProductDaoImpl implements ProductDao {
         ResultSet resultSet = null;
         try {
             stmt = con.createStatement();
-            stmt.executeQuery(COUNT_ROWS);
+            stmt.executeQuery(COUNT_ROWS_IN_PRODUCT);
             resultSet = stmt.getResultSet();
             resultSet.next();
             return resultSet.getInt("rows_total");
