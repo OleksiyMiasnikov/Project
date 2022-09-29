@@ -21,20 +21,18 @@ public class ListOfProducts implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ListOfProducts-");
+        CommodityExpertManager manager =
+                (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
         if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
-        CommodityExpertManager manager =
-                (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
-        int total = manager.findRowsTotal();
-        int pagesTotal = (int)Math. ceil(total/10d);
+        int pagesTotal = (int)Math. ceil(manager.findRowsTotal()/10d);
         List<Product> productList = manager.findAllProducts((currentPage - 1) * 10, 10);
 
         req.getSession().setAttribute("result", productList);
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", LIST_OF_PRODUCT_COMMAND);
-        //req.getSession().setAttribute("Fragment", "product_list.jsp");
         return "product_list.jsp";
     }
 }
