@@ -31,7 +31,7 @@
                 <input type="submit" value="Log out" name="command">
            </div>
            <div class="dataBox">
-                <jsp:include page="${Fragment}" />
+                 <jsp:include page="${Fragment}" />
            </div>
         </form>
     </body>

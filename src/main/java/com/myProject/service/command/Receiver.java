@@ -42,6 +42,7 @@ public class Receiver {
     }
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws DaoException, ServletException, IOException {
-        return commandMap.get(commandName).execute(req, resp);
+        Command command = commandMap.get(commandName);
+        return command.execute(req, resp);
     }
 }

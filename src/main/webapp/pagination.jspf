@@ -1,26 +1,25 @@
-<div class='pagination'>
-    <button onclick='firstPage();' name='command' value='${command_name}'>
-        <i class=fa fa-angle-double-left> </i>
+<!DOCTYPE html>
+<div class="pagination">
+    <button onclick="firstPage();" name="command" value="${command_name}">
+        <i class="fa fa-angle-double-left"> </i>
+    </button>
+    <button onclick="decPage();" name="command" value="${command_name}">
+        <i class="fa fa-angle-left"> </i>
     </button>
 
-    <button onclick='decPage();' name='command' value='${command_name}'>
-        <i class=fa fa-angle-left> </i>
-    </button>
-
-    <input style='width:30px;text-align: center; border: none;'
-            id='current_page'
-            name='page'
-            default value='${page}'>
+    <input style="width:30px;text-align: center; border: none;"
+            id="current_page"
+            name="page"
+            default value="${page}">
     of
-    <input style='width:30px;text-align: center; border: none;'
-            id='last_page'
-            name='lastPage' value='${pages_total}'>
+    <input style="width:30px;text-align: center; border: none;"
+            id="last_page"
+            name="lastPage" value="${pages_total}">
 
-    <button onclick='incPage();' name='command' value='${command_name}'>
-        <i class=fa fa-angle-right> </i>
+    <button onclick="incPage();" name="command" value="${command_name}">
+        <i class="fa fa-angle-right"> </i>
     </button>
-
-    <button onclick='lPage();' name='command' value='${command_name}'>
-        <i class=fa fa-angle-double-right> </i>
+    <button onclick="lPage();" name="command" value="${command_name}">
+        <i class="fa fa-angle-double-right"> </i>
     </button>
 </div>
