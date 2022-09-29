@@ -7,7 +7,6 @@ import com.myProject.dao.OrderDao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
@@ -76,31 +75,29 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();
         }
-        Collections.sort(orderList);
         return orderList;
     }
 
     @Override
-    public List<Order> findAllIncomes(Connection con) throws SQLException {
-        Statement stmt = null;
+    public List<Order> findAllIncomes(Connection con, int from, int size) throws SQLException {
+        PreparedStatement pstmt = null;
         ResultSet resultSet = null;
+        List<Order> orderList = new ArrayList<>();
         try {
-            stmt = con.createStatement();
-            stmt.executeQuery(SELECT_ALL_INCOMES);
-            resultSet = stmt.getResultSet();
-            List<Order> orderList = new ArrayList<>();
+            pstmt = con.prepareStatement(SELECT_ALL_INCOMES_WITH_LIMIT);
+            pstmt.setInt(1, from);
+            pstmt.setInt(2, size);
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
             UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
             while (resultSet.next()) {
                 orderList.add(buildOrder(con, userDao, resultSet));
             }
-            Collections.sort(orderList);
-            resultSet.close();
-            return orderList;
         } finally {
             if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (pstmt != null) pstmt.close();
         }
-    }
+        return orderList;    }
 
     @Override
     public Order createIncome(Connection con, Order currentOrder) throws SQLException {
@@ -119,6 +116,23 @@ public class OrderDaoImpl implements OrderDao {
             } else {
                 return null;
             }
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (pstmt != null) pstmt.close();
+        }
+    }
+
+    @Override
+    public int findRowsTotal(Connection con, String direction) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(COUNT_ROWS_IN_ORDER);
+            pstmt.setString(1, direction);
+            pstmt.execute();
+            resultSet = pstmt.getResultSet();
+            resultSet.next();
+            return resultSet.getInt("rows_total");
         } finally {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();

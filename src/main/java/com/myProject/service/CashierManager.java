@@ -33,11 +33,14 @@ public class CashierManager {
         this.orderDetailsDao = orderDetailsDao;
     }
 
-    public List<Order> findAllOrders(int from, int size) throws DaoException {
-        logger.info("Start finding all orders");
+    public List<Order> findAll(int from, int size, String direction) throws DaoException {
+        logger.info("Start finding all orders or incomes");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            if ("IN".equals(direction)) {
+                return orderDao.findAllIncomes(con, from, size);
+            }
             return orderDao.findAll(con, from, size);
         } catch (SQLException e) {
             throw new DaoException("Cannot find all orders", e);
@@ -240,23 +243,6 @@ public class CashierManager {
         }
     }
 
-    public List<Order> findAllIncomes() throws DaoException {
-        logger.info("Start finding all incomes");
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            return orderDao.findAllIncomes(con);
-        } catch (SQLException e) {
-            throw new DaoException("Unable to find all incomes" + e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
     public Order createIncome(Order currentOrder) throws DaoException {
         logger.info("Start creating income");
         Connection con = null;
@@ -301,6 +287,23 @@ public class CashierManager {
                     con.setAutoCommit(true);
                     con.close();
                 }
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public int findIncomeRowsTotal() throws DaoException {
+        logger.info("Start calculation quantity of rows in table 'product'");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDao.findRowsTotal(con, "IN");
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine quantity of '' rows in table 'order'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }

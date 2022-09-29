@@ -34,12 +34,13 @@ public class Constants {
 
     // SQL OrderDao constants
     public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (SELECT SUM(`quantity`*`price`) FROM `order_details` WHERE `order_id`=? GROUP BY `order_id`) WHERE id = ? LIMIT ?, ?";
-    public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT'";
+    public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT' LIMIT ?,?";
+    public static final String SELECT_ALL_INCOMES_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN' LIMIT ?,?";
     public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ?";
     public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'OUT')";
     public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN')";
     public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ?";
-    public static final String SELECT_ALL_INCOMES = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN'";
+    public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ?";
 
 
     // SQL OrderDetailsDao constants
