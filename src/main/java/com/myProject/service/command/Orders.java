@@ -24,7 +24,11 @@ public class Orders implements Command {
         String strPage = req.getParameter("page");
         String direction = req.getParameter("direction");
         int currentPage = 1;
-        if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
+        if (strPage != null &&
+                !"".equals(strPage) &&
+                ORDERS_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
+            currentPage = Integer.parseInt(strPage);
+        }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotal("OUT")/10d);
         List<Order> list = manager.findAll((currentPage - 1) * 10, 10, "OUT");
         Map<String, Double> totals = manager.OrdersTotals("OUT");

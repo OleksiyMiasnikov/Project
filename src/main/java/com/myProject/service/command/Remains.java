@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.myProject.util.Constants.REMAINS_COMMAND;
+import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 public class Remains implements Command {
     @Override
@@ -23,7 +24,11 @@ public class Remains implements Command {
                         .getAttribute("CommodityExpertManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
-        if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
+        if (strPage != null &&
+            !"".equals(strPage) &&
+            REMAINS_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
+            currentPage = Integer.parseInt(strPage);
+        }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotalInWarehouse()/10d);
         List<Warehouse> list = manager.findAll((currentPage - 1) * 10, 10);
         Map<String, Double> totals = manager.WarehouseTotals();

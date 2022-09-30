@@ -23,7 +23,11 @@ public class ShowUsers implements Command {
         UserManager manager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
-        if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
+        if (strPage != null &&
+                !"".equals(strPage) &&
+                SHOW_USERS_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
+            currentPage = Integer.parseInt(strPage);
+        }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotal()/10d);
         List<User> userList = manager.findAllUsers((currentPage - 1) * 10, 10);
         req.getSession().setAttribute("page", currentPage);

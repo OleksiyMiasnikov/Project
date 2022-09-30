@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
+import static com.myProject.util.Constants.ORDERS_COMMAND;
 
 public class ListOfProducts implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ListOfProducts.class);
@@ -23,7 +24,11 @@ public class ListOfProducts implements Command {
                 (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
-        if (strPage != null && !"".equals(strPage)) currentPage = Integer.parseInt(strPage);
+        if (strPage != null &&
+                !"".equals(strPage) &&
+                LIST_OF_PRODUCT_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
+            currentPage = Integer.parseInt(strPage);
+        }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotalInProduct()/10d);
         List<Product> productList = manager.findAllProducts((currentPage - 1) * 10, 10);
 
