@@ -38,7 +38,7 @@
                             </a>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
-                            ${item.unit}
+                            ${item.unit.labelUa}
                         </span>
                         <span class=item style="width: 150px;text-align: right;">
                             ${item.price}
@@ -48,7 +48,9 @@
                     </c:forEach>
                 </div>
                 <br>
-                <%@ include file="pagination.jspf" %>
+                <c:if test="${pages_total > 1}">
+                    <%@ include file="pagination.jspf" %>
+                </c:if>
             </div>
         </form>
     </body>

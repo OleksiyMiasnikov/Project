@@ -71,7 +71,7 @@
                             </a>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
-                            ${item.product.unit}
+                            ${item.product.unit.labelUa}
                         </span>
                         <span class=item style="width: 100px;text-align: right;">
                             ${item.quantity}
