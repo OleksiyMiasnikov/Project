@@ -26,6 +26,7 @@ public class Receiver {
         commandMap.put(NEW_ORDER_COMMAND, new NewOrder());
         commandMap.put(REPORTS_COMMAND, new Reports());
         commandMap.put(NEW_PRODUCT_COMMAND, new ServeProduct());
+        commandMap.put(SERVE_ORDER_COMMAND, new ServeOrder());
         commandMap.put(LIST_OF_PRODUCT_COMMAND, new ListOfProducts());
         commandMap.put(NEW_INCOME_COMMAND, new NewIncome());
         commandMap.put(INCOMES_COMMAND, new Incomes());

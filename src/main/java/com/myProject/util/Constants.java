@@ -78,4 +78,5 @@ public class Constants {
     public static final String MOVIES_COMMAND = "Movies";
     public static final String AUTHORIZATION_COMMAND = "authorization";
     public static final String LOGOUT_COMMAND = "Log out";
+    public static final String SERVE_ORDER_COMMAND = "Serve order";
 }

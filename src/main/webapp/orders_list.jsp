@@ -61,7 +61,7 @@
                                     value=${item.id}>
                         </span>
                         <span class="item" style="width: 50px;text-align: center;">
-                            <a href="serveOrder?id=${item.id}">
+                            <a href="controller?command=Serve order&id=${item.id}">
                                 ${item.id}
                             </a>
                         </span>
