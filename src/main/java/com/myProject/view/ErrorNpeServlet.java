@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/npe")
-public class NpeServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(NpeServlet.class);
+public class ErrorNpeServlet extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(ErrorNpeServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.getWriter().append("NullPointerException");

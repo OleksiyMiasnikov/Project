@@ -28,9 +28,25 @@
                 <div class=table_header>
                     <span class=table_header style="width: 50px;">
                         Id
+                        <button type="submit"
+                                name="command"
+                                id="delete_button"
+                                value=""
+                                class="table_header"
+                                style="width: 10px; color: black; border:none;background-color: transparent;float: none;">
+                                <i class="fa fa-sort" style="width: 20px;"></i>
+                        </button>
                     </span>
                     <span class=table_header style="width: 200px;">
                         Product name
+                        <button type="submit"
+                                name="command"
+                                id="delete_button"
+                                value=""
+                                class="table_header"
+                                style="width: 10px; color: black; border:none;background-color: transparent;float: none;">
+                                <i class="fa fa-sort" style="width: 20px;"></i>
+                        </button>
                     </span>
                     <span class=table_header style="width: 50px;">
                         Unit

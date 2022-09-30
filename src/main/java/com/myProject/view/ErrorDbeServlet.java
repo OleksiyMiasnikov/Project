@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/dbe")
-public class DbeServlet extends HttpServlet {
-    private static final Logger logger = (Logger) LogManager.getLogger(DbeServlet.class);
+public class ErrorDbeServlet extends HttpServlet {
+    private static final Logger logger = (Logger) LogManager.getLogger(ErrorDbeServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.getWriter().append("DB Exception");

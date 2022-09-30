@@ -35,6 +35,7 @@ public class Receiver {
         commandMap.put(CREATE_PRODUCT_COMMAND, new CreateProduct());
         commandMap.put(REMAINS_COMMAND, new Remains());
         commandMap.put(ORDERS_COMMAND, new Orders());
+        commandMap.put(MOVIES_COMMAND, new Movies());
     }
 
     public static Command getCommand(String commandName) {

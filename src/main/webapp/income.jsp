@@ -13,10 +13,10 @@
         </c:if>
         <script src="js/new_order.js"></script>
         <%@ include file="header.jspf" %>
-
+        </form>
         <div class="dataBox">
             <h2 class="id">
-                INCIME [income.jsp]
+                INCOME [income.jsp]
                 <hr>
             </h2>
             <form action="serveNewIncome" method="post">
