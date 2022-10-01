@@ -12,6 +12,15 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
         return id;
     }
 
+    public Warehouse() {
+    }
+
+    public Warehouse(long id, double quantity, Product product) {
+        this.id = id;
+        this.quantity = quantity;
+        this.product = product;
+    }
+
     public void setId(long id) {
         this.id = id;
     }

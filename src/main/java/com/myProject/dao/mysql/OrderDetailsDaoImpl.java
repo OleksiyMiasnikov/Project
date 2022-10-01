@@ -2,6 +2,7 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.OrderDetailsDao;
+import com.myProject.dao.UserDao;
 import com.myProject.dao.entitie.Order;
 import com.myProject.dao.entitie.OrderDetails;
 
@@ -27,7 +28,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         try {
-            pstmt = con.prepareStatement(READ_ORDERDETAILS_BY_ID);
+            pstmt = con.prepareStatement(READ_ORDER_DETAILS_BY_ID);
             pstmt.setLong(1, id);
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
@@ -76,13 +77,15 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     }
 
     @Override
-    public List<OrderDetails> readByOrderId(Connection con, long id) throws SQLException {
+    public List<OrderDetails> readByOrderId(Connection con, int from, int size, long id) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<OrderDetails> orderDetailsList = new ArrayList<>();
         try {
             pstmt = con.prepareStatement(READ_ORDER_DETAILS_BY_ORDER_ID);
             pstmt.setLong(1, id);
+            pstmt.setInt(2, from);
+            pstmt.setInt(3, size);
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
             ProductDao productDao = DaoFactoryImpl.getInstance().getProductDao();
@@ -113,6 +116,23 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
             pstmt.setLong(1, id);
             pstmt.executeUpdate();
             return true;
+        }
+    }
+
+    @Override
+    public int findRowsTotal(Connection con, long id) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(COUNT_ROWS_IN_ORDER_DETAILS);
+            pstmt.setLong(1, id);
+            pstmt.execute();
+            resultSet = pstmt.getResultSet();
+            resultSet.next();
+            return resultSet.getInt("rows_total");
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (pstmt != null) pstmt.close();
         }
     }
 

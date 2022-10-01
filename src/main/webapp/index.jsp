@@ -9,9 +9,6 @@
 
    <body>
       <script src="js/login.js"></script>
-      <div class="error">
-        ${incorrectUser}
-      </div>
       <div class="container">
          <div class="wrapper">
             <div class="title"><span>Login Form</span></div>
@@ -26,6 +23,9 @@
                   <input type="password" name="password" placeholder="Password" id="pass" required>
                   <i class="fas fa-eye-slash" id="eye" onclick="changingVisiabilityOfPassword()"></i>
                </div>
+               <p class="error">
+                    ${incorrectUser}
+               </p>
                <div class="row button">
                   <input type="submit" value="Login">
                </div>

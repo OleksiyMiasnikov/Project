@@ -1,7 +1,5 @@
 function firstPage() {
-
     document.getElementById("current_page").value = 1;
-
     document.getElementById("controller_form").submit();
 }
 

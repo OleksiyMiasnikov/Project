@@ -16,6 +16,6 @@ import static com.myProject.util.Constants.*;
 public class Incomes implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        return "controller?command=" + MOVIES_COMMAND + "&direction=IN";
+        return "controller?command=" + MOVIES_COMMAND + "&direction=IN&page=" + req.getParameter("page");
     }
 }

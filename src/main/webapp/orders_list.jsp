@@ -2,7 +2,6 @@
 <html>
 <body>
         <%@ include file="header.jspf" %>
-        <script src=js/pagination.js></script>
             <div class="dataBox">
                 <input id="userRole" value="${employee.user.role.name}" hidden="hidden">
                 <span style="font-size: 8px;">
@@ -61,7 +60,7 @@
                                     value=${item.id}>
                         </span>
                         <span class="item" style="width: 50px;text-align: center;">
-                            <a href="controller?command=Serve order&id=${item.id}">
+                            <a href="controller?command=Serve order&id=${item.id}&operation=${operation}">
                                 ${item.id}
                             </a>
                         </span>

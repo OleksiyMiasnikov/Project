@@ -18,8 +18,8 @@ public class ServeOrder implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- ServeOrder ---");
-
         String strId = req.getParameter("id");
+        String operation = req.getParameter("operation");
         long id = Long.parseLong(strId);
         CashierManager manager =
                 (CashierManager) req.getSession()
@@ -29,21 +29,11 @@ public class ServeOrder implements Command {
         List<OrderDetails> orderDetailsList = manager.detailsByOrderId(id);
         req.setAttribute("orderDetails", orderDetailsList);
         req.setAttribute("order", order);
-        return "order.jsp";
-
-
-
-/*        String strId = req.getParameter("selectedProduct");
-        Product product = new Product(0L,"", Unit.valueOfLabel("шт"), 1d);
-        if (strId != null) {
-            CommodityExpertManager manager =
-                    (CommodityExpertManager) req.getSession().getServletContext().getAttribute("CommodityExpertManager");
-            product = manager.read(Long.parseLong(strId));
+        if ("orders".equals(operation)) {
+            req.setAttribute("operation", "Order");
+        } else {
+            req.setAttribute("operation", "Income");
         }
-        req.getSession().setAttribute("units", Unit.values());
-        req.getSession().setAttribute("result", product);
-        req.getSession().setAttribute("Fragment", "/ProductFragment");
-        //return MAIN_PAGE;
-        return "product_details.jsp";*/
+        return "order.jsp";
     }
 }

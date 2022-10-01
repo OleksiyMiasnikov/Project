@@ -39,18 +39,20 @@ public class Constants {
     public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT' LIMIT ?,?";
     public static final String SELECT_ALL_INCOMES_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN' LIMIT ?,?";
     public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ?";
-    public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'OUT')";
+    public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, ?)";
     public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN')";
     public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ?";
     public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ?";
     public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ?";
 
     // SQL OrderDetailsDao constants
-    public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ?";
+    public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ? LIMIT ?, ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
     public static final String DELETE_ORDER_DETAILS = "DELETE FROM `order_details` WHERE `id` = ?";
     public static final String DELETE_ORDER_DETAILS_BY_ORDER_ID = "DELETE FROM `order_details` WHERE `order_id` = ?";
-    public static final String READ_ORDERDETAILS_BY_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `id` = ?";
+    public static final String READ_ORDER_DETAILS_BY_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `id` = ?";
+    public static final String COUNT_ROWS_IN_ORDER_DETAILS = "SELECT count(*) AS `rows_total` FROM `order_details` WHERE `order_id` = ?";
+
     // SQL RoleDao constants
     public static final String GET_ROLE_ID = "SELECT `id` FROM `role` WHERE `name` = ?";
     public static final String SELECT_ALL_ROLES_WITH_LIMIT = "SELECT `id`, `name` FROM `role` LIMIT ?, ?";

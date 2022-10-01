@@ -7,21 +7,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <script src="js/new_order.js"></script>
         <%@ include file="header.jspf" %>
-        </form>
-        <div class="dataBox">
-            <h2 class="id">
-                VERY NEW ORDER [new_order.jsp]
+            <div class="dataBox">
+                <span style="font-size: 8px;">
+                    [new_order.jsp]
+                </span>
+                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                    *** New ${operation} ***
+                </p>
                 <hr>
-            </h2>
-            <form action="serveNewOrder" method="post">
-                <div style="margin-left: 400px; margin-top: -50px;">
-                    <input type="submit" name="button" value="Complete">
-                    <input style="margin-left: 20px;"type="submit" name="button" value="Cancel">
-                </div>
-                <br>
-                <br>
                 <span class="header_key">
                     Order id
                 </span>
@@ -53,60 +47,68 @@
                         style="background: transparent; border: none; text-align: left;"
                         disabled>
                 <hr>
-                    <select id="AllProducts" hidden="hidden">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.getLabelUa()}|${item.quantity }">
-                            </option>
-                        </c:forEach>
-                    </select>
+                <select id="AllProducts" hidden="hidden">
+                    <c:forEach var="item" items="${warehouse }">
+                        <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.labelUa}|${item.quantity } ">
+                        </option>
+                    </c:forEach>
+                </select>
 
-                    <input  list="idList"
-                            name="newProductId"
-                            id="newProductId"
-                            onchange="idUpdated();"
-                            style="width: 100px;">
-                    <datalist id="idList">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.id }">
-                                ${item.id }
-                            </option>
-                        </c:forEach>
-                    </datalist>
-                    <input  class="id"
-                            list="productList"
-                            name="newProduct"
-                            id="newProduct"
-                            onchange="productUpdated();"
-                            style="width: 250px;text-align: center;">
-                    <datalist id="productList">
-                        <c:forEach var="item" items="${warehouse }">
-                            <option value="${item.product.name }">
-                            ${item.product.name }
-                            </option>
-                        </c:forEach>
-                    </datalist>
-                    <input name="newQuantity"
-                            id="newQuantity"
-                            type="number"
-                            default value="0"
-                            min="0"
-                            onchange="updateAmount();"
-                            style="width: 100px;">
-                    <input name="newUnit"
-                            id="newUnit"
-                            style="width: 70px;"
-                            disabled>
-                    <input name="newPrice"
-                            id="newPrice"
-                            type="number"
-                            step="0.01"
-                            onchange="updateAmount();"
-                            style="width: 100px;">
-                    <input name="newAmount"
-                            id="newAmount"
-                            style="width: 150px;"
-                            disabled>
-                    <input type="submit" name="button" value="Save">
+                <input  list="idList"
+                        name="newProductId"
+                        id="newProductId"
+                        onchange="idUpdated();"
+                        placeholder="id"
+                        style="width: 100px;">
+                <datalist id="idList">
+                    <c:forEach var="item" items="${warehouse }">
+                        <option value="${item.product.id }">
+                            ${item.product.id }
+                        </option>
+                    </c:forEach>
+                </datalist>
+                <input  class="id"
+                        list="productList"
+                        name="newProduct"
+                        id="newProduct"
+                        placeholder="product name"
+                        onchange="productUpdated();"
+                        style="width: 250px;text-align: center;">
+                <datalist id="productList">
+                    <c:forEach var="item" items="${warehouse }">
+                        <option value="${item.product.name }">
+                        ${item.product.name }
+                        </option>
+                    </c:forEach>
+                </datalist>
+                <input name="newQuantity"
+                        id="newQuantity"
+                        type="number"
+                        placeholder="quantity"
+                        default value="0"
+                        min="0"
+                        onchange="updateAmount();"
+                        style="width: 100px;"
+                        max=5>
+                <input name="newUnit"
+                        id="newUnit"
+                        placeholder="unit"
+                        style="width: 70px;"
+                        disabled>
+                <input name="newPrice"
+                        id="newPrice"
+                        type="number"
+                        placeholder="price"
+                        step="0.01"
+                        onchange="updateAmount();"
+                        style="width: 100px;">
+                <input name="newAmount"
+                        id="newAmount"
+                        style="width: 150px;"
+                        disabled>
+                <button type="submit" name="button" value="Save">
+                    Save
+                </button>
                 <br>
                 <hr>
                 <span class="table_header" style="width: 50px;">Id</span>
@@ -116,30 +118,47 @@
                 <span class="table_header" style="width: 100px;">Price</span>
                 <br>
                 <hr>
-                <c:forEach var="element" items="${orderDetails}">
-                    <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
-                        ${element.id}
-                    </span>
-                    <span class="item" style="width: 50px;">
-                        ${element.id}
-                    </span>
-                    <span class="item" style="width: 200px;">
-                        ${element.product.name}
-                    </span>
-                    <span class="item" style="width: 50px;">
-                        ${element.product.unit}
-                    </span>
-                    <span class="item" style="width: 100px;">
-                        ${element.quantity}
-                    </span>
-                    <span class="item" style="width: 100px;">
-                        ${element.price}
-                    </span>
+                <div class=data_list style="height: 200px;">
+                    <c:forEach var="element" items="${orderDetails}">
+                        <span id="checkSpan" class="item" style="width: 50px;" hidden="hidden">
+                            ${element.id}
+                        </span>
+                        <span class="item" style="width: 50px;">
+                            ${element.id}
+                        </span>
+                        <span class="item" style="width: 200px;">
+                            ${element.product.name}
+                        </span>
+                        <span class="item" style="width: 50px;">
+                            ${element.product.unit.labelUa}
+                        </span>
+                        <span class="item" style="width: 100px;">
+                            ${element.quantity}
+                        </span>
+                        <span class="item" style="width: 100px;">
+                            ${element.price}
+                        </span>
+                        <br>
+                        <hr>
+                    </c:forEach>
+                </div>
+                <c:if test="${pages_total > 1}">
+                    <%@ include file="pagination.jspf" %>
+                </c:if>
+                <br>
+                <div class="submit_button">
+                    <input  name="command" value="New order" hidden="hidden">
+                    <input  name="direction" value="${direction}" hidden="hidden">
+                    <button type="submit" name="button" value="Complete">
+                        Complete
+                    </button>
                     <br>
-                    <hr>
-                </c:forEach>
-               </div>
-            </form>
-        </div>
+                    <button style="margin-left: 20px;" type="submit" name="button" value="Cancel">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+        <script src="js/new_order.js"></script>
     </body>
 </html>

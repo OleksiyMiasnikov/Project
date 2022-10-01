@@ -21,7 +21,6 @@ public class Controller extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String address = "error_page.jsp";
         String commandName = req.getParameter("command");
-        String direction = req.getParameter("direction");
         logger.info(commandName);
         try {
             address = Receiver.runCommand(req, resp, commandName);

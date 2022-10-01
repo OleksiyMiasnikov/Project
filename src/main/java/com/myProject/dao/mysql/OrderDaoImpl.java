@@ -36,7 +36,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order create(Connection con, Order entity) throws SQLException {
+    public Order create(Connection con, Order entity, String direction) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         try {
@@ -44,11 +44,35 @@ public class OrderDaoImpl implements OrderDao {
             pstmt.setLong(1, entity.getUser().getId());
             pstmt.setTimestamp(2, new Timestamp(entity.getDate().getTime()));
             pstmt.setDouble(3, entity.getTotalAmount());
+            pstmt.setString(4, direction);
             pstmt.executeUpdate();
             resultSet = pstmt.getGeneratedKeys();
             if (resultSet.next()) {
                 entity.setId(resultSet.getLong(1));
                 return entity;
+            } else {
+                return null;
+            }
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (pstmt != null) pstmt.close();
+        }
+    }
+
+    @Override
+    public Order createIncome(Connection con, Order currentOrder) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(CREATE_INCOME, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setLong(1, currentOrder.getUser().getId());
+            pstmt.setTimestamp(2, new Timestamp(currentOrder.getDate().getTime()));
+            pstmt.setDouble(3, currentOrder.getTotalAmount());
+            pstmt.executeUpdate();
+            resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                currentOrder.setId(resultSet.getLong(1));
+                return currentOrder;
             } else {
                 return null;
             }
@@ -99,29 +123,7 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();
         }
-        return orderList;    }
-
-    @Override
-    public Order createIncome(Connection con, Order currentOrder) throws SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-        try {
-            pstmt = con.prepareStatement(CREATE_INCOME, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setLong(1, currentOrder.getUser().getId());
-            pstmt.setTimestamp(2, new Timestamp(currentOrder.getDate().getTime()));
-            pstmt.setDouble(3, currentOrder.getTotalAmount());
-            pstmt.executeUpdate();
-            resultSet = pstmt.getGeneratedKeys();
-            if (resultSet.next()) {
-                currentOrder.setId(resultSet.getLong(1));
-                return currentOrder;
-            } else {
-                return null;
-            }
-        } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
-        }
+        return orderList;
     }
 
     @Override
@@ -186,6 +188,11 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();
         }
+    }
+
+    @Override
+    public Order create(Connection con, Order entity) throws SQLException {
+        return null;
     }
 
     @Override

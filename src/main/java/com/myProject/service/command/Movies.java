@@ -22,27 +22,30 @@ public class Movies implements Command {
         String strPage = req.getParameter("page");
         String direction = req.getParameter("direction");
         String operation;
+        String commandName;
         if ("IN".equals(direction)) {
             operation = "incomes";
+            commandName = INCOMES_COMMAND;
         } else {
             operation = "orders";
+            commandName = ORDERS_COMMAND;
         }
         int currentPage = 1;
         if (strPage != null &&
-                !"".equals(strPage) &&
-                MOVIES_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
+                !"null".equals(strPage) &&
+                commandName.equals(req.getSession().getAttribute("command_name"))) {
             currentPage = Integer.parseInt(strPage);
         }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotal(direction)/10d);
         List<Order> list = manager.findAll((currentPage - 1) * 10, 10, direction);
-        Map<String, Double> totals = manager.OrdersTotals(direction);
+        Map<String, Double> totals = manager.ordersTotals(direction);
         req.getSession().setAttribute("result", list);
         req.getSession().setAttribute("total_amount", totals.get("total_amount"));
         req.getSession().setAttribute("total_quantity", totals.get("total_quantity"));
         req.getSession().setAttribute("result", list);
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
-        req.getSession().setAttribute("command_name", MOVIES_COMMAND);
+        req.getSession().setAttribute("command_name", commandName);
         req.getSession().setAttribute("operation", operation);
         return "orders_list.jsp";
     }

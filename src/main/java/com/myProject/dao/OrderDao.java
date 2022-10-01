@@ -12,6 +12,8 @@ public interface OrderDao extends Dao<Long, Order> {
 
     List<Order> findAllIncomes(Connection con, int from, int size) throws SQLException;
 
+    Order create(Connection con, Order entity, String direction) throws SQLException;
+
     Order createIncome(Connection con, Order currentOrder) throws SQLException;
 
     int findRowsTotal(Connection con, String direction) throws SQLException;

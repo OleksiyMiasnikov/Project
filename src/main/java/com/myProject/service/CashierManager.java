@@ -71,17 +71,101 @@ public class CashierManager {
         }
     }
 
-    public Order createOrder(Order newOrder) throws DaoException {
+    public Order createOrder(Order newOrder, String direction) throws DaoException {
         logger.info("Start creating order");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.create(con, newOrder);
+            return orderDao.create(con, newOrder, direction);
         } catch (SQLException e) {
             throw new DaoException("Cannot create order", e);
         } finally {
             try {
                 if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public Order createIncome(Order currentOrder) throws DaoException {
+        logger.info("Start creating income");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDao.createIncome(con, currentOrder);
+        } catch (SQLException e) {
+            throw new DaoException("Unable creating income" + e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public OrderDetails createOrderDetails(OrderDetails orderDetails, String direction) throws DaoException {
+        logger.info("Start creating details of order #" + orderDetails.getOrder().getId());
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            con.setAutoCommit(false);
+            int sign = 1;
+            if ("OUT".equals(direction)) sign = -1;
+            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con,
+                    sign * orderDetails.getQuantity(),
+                    orderDetails.getProduct().getId());
+            OrderDetails result = orderDetailsDao.create(con, orderDetails);
+            con.commit();
+            return result;
+        } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                logger.error("Connection is null.  " + ex);
+            }
+            logger.error("Unable to create order details. Rollback.");
+            throw new DaoException("Unable to create order details. Rollback. " + e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    //Deprecated
+    public OrderDetails createIncomeDetails(OrderDetails orderDetails) throws DaoException {
+        logger.info("Start creating details of income #" + orderDetails.getOrder().getId());
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            con.setAutoCommit(false);
+            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con, orderDetails.getQuantity(),orderDetails.getProduct().getId());
+            OrderDetails result = orderDetailsDao.create(con, orderDetails);
+            con.commit();
+            return result;
+        } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                logger.error("Connection is null.  " + ex);
+            }
+            logger.error("Unable to create income details. Rollback.");
+            throw new DaoException("Unable to create income details. Rollback. " + e);
+        } finally {
+            try {
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -143,46 +227,12 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDetailsDao.readByOrderId(con, id);
+            return orderDetailsDao.readByOrderId(con, 0, 1000, id);
         } catch (SQLException e) {
             throw new DaoException("Cannot getting details of order #" + id, e);
         } finally {
             try {
                 if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public OrderDetails createOrderDetails(OrderDetails orderDetails) throws DaoException {
-        logger.info("Start creating details of order #" + orderDetails.getOrder().getId());
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            con.setAutoCommit(false);
-            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con,
-                    (-1) * orderDetails.getQuantity(),
-                    orderDetails.getProduct().getId());
-            con.commit();
-            OrderDetails result = orderDetailsDao.create(con, orderDetails);
-            con.commit();
-            return result;
-        } catch (SQLException e) {
-            try {
-                if (con != null) con.rollback();
-            } catch (SQLException ex) {
-                logger.error("Connection is null.  " + ex);
-            }
-            logger.error("Unable to create order details. Rollback.");
-            throw new DaoException("Unable to create order details. Rollback. " + e);
-        } finally {
-            try {
-                if (con != null) {
-                    con.setAutoCommit(true);
-                    con.close();
-                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -219,7 +269,7 @@ public class CashierManager {
                 orderDetailsDao.delete(con, orderDetails.getId());
                 con.commit();
             }
-            if (orderDetailsDao.readByOrderId(con, orderId).isEmpty()) {
+            if (orderDetailsDao.readByOrderId(con, 0, 1000, orderId).isEmpty()) {
                 logger.info("Order is empty");
                 orderDao.delete(con, orderId);
                 con.commit();
@@ -244,58 +294,8 @@ public class CashierManager {
         }
     }
 
-    public Order createIncome(Order currentOrder) throws DaoException {
-        logger.info("Start creating income");
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            return orderDao.createIncome(con, currentOrder);
-        } catch (SQLException e) {
-            throw new DaoException("Unable creating income" + e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
-    public OrderDetails createIncomeDetails(OrderDetails orderDetails) throws DaoException {
-        logger.info("Start creating details of income #" + orderDetails.getOrder().getId());
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            con.setAutoCommit(false);
-            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con, orderDetails.getQuantity(),orderDetails.getProduct().getId());
-            con.commit();
-            OrderDetails result = orderDetailsDao.create(con, orderDetails);
-            con.commit();
-            return result;
-
-        } catch (SQLException e) {
-            try {
-                if (con != null) con.rollback();
-            } catch (SQLException ex) {
-                logger.error("Connection is null.  " + ex);
-            }
-            logger.error("Unable to create income details. Rollback.");
-            throw new DaoException("Unable to create income details. Rollback. " + e);
-        } finally {
-            try {
-                if (con != null) {
-                    con.setAutoCommit(true);
-                    con.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
     public int findRowsTotal(String direction) throws DaoException {
-        logger.info("Start calculation quantity of rows in table 'product'");
+        logger.info("Start calculation quantity of rows in table 'order'");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
@@ -311,7 +311,7 @@ public class CashierManager {
         }
     }
 
-    public Map<String, Double> OrdersTotals(String direction) throws DaoException {
+    public Map<String, Double> ordersTotals(String direction) throws DaoException {
         logger.info("Starting determining orders totals");
         Connection con = null;
         try {
@@ -319,6 +319,39 @@ public class CashierManager {
             return orderDao.Totals(con, direction);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine orders totals", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public double findRowsTotalInOrderDetails(long id) throws DaoException {
+        logger.info("Start calculation quantity of rows in table 'order_details'");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.findRowsTotal(con, id);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to determine quantity of '' rows in table 'order'", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+    public List<OrderDetails> findAllOrderDetails(int from, int size, long id) throws DaoException {
+        logger.info("Start finding all orders or incomes");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.readByOrderId(con, from, size, id);
+        } catch (SQLException e) {
+            throw new DaoException("Cannot find all orders", e);
         } finally {
             try {
                 if (con != null) con.close();

@@ -33,10 +33,10 @@
 
             <div class="dataBox">
                 <h2>
-                    Order details [order.jsp]
+                    ${operation} details [order.jsp]
                     <hr>
                 </h2>
-                    <span class="header_key">Order id</span>
+                    <span class="header_key">${operation} id</span>
                     <span class="header_value">${order.id}</span>
                     <br>
                     <input name="order_id" value="${order.id}" hidden="hidden">
@@ -84,7 +84,7 @@
                                     ${element.product.name}
                                 </span>
                                 <span class="item" style="width: 40px;">
-                                    ${element.product.unit}
+                                    ${element.product.unit.labelUa}
                                 </span>
                                 <span class="item" style="width: 90px;">
                                     ${element.quantity}
@@ -96,7 +96,7 @@
                                 <hr>
                         </c:forEach>
                     <br>
-                    <button type="submit" name="command" value="Orders">Ok</button>
+                    <button type="submit" name="command" value="${operation}s">Ok</button>
                    </div>
             </div>
         </form>

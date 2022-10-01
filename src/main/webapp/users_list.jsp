@@ -2,7 +2,6 @@
 <html>
 <body>
         <%@ include file="header.jspf" %>
-        <script src=js/pagination.js></script>
             <div class="dataBox">
                 <input id="userRole" value="${employee.user.role.name}" hidden="hidden">
                 <span style="font-size: 8px;">

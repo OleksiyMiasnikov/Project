@@ -87,9 +87,10 @@ body {
 }
 
 .submit_button{
-    display: block;
-    weight: 50px;
+    display: flex;
     margin: 10px;
+    justify-content: center;
+    text-align: center;
 }
 
 hr {
