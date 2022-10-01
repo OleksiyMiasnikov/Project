@@ -34,7 +34,7 @@ public class Authorization implements Command {
             return "controller?command=" + employee.getStartCommand();
         } else {
             req.getSession().setAttribute("incorrectUser",
-                    "ERROR!  Incorrect login or password!");
+                    "Incorrect login or password!");
             return START_PAGE;
         }
     }

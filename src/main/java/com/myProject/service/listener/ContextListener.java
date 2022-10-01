@@ -50,7 +50,7 @@ public class ContextListener implements ServletContextListener, ServletContextAt
 
         // save descriptions to servlet context
         context.setAttribute("locales", locales);
-        locales.list(System.out);
+        logger.info("locales: " + locales.toString());
     }
 
     @Override

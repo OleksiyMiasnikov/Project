@@ -9,10 +9,13 @@
     <body>
         <%@ include file="/jsp/header.jspf" %>
         <div class="dataBox">
-            <h2>
-                Adding new user [user_details.jsp]
-                <hr>
-            </h2>
+            <span style="font-size: 8px;">
+                [user_details.jsp]
+            </span>
+            <p style="text-align: center; font-size: 22px;font-weight: bold">
+                *** Add new user ***
+            </p>
+            <hr>
             <form action="controller" method="post">
                 <div>
                     <span class="header_key">

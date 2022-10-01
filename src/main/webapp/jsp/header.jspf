@@ -12,8 +12,17 @@
 
     <body>
         <form id="controller_form" action="controller" method="get">
-           <div class="sideBar">
+            <div class="locales">
+                <select name="locale">
+                    <c:forEach items="${locales}" var="locale">
+                        <c:set var="selected" value="${locale.key == currentLocale ? 'selected' : '' }"/>
+                        <option value="${locale.key}" ${selected}>${locale.value}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="sideBar">
                 [header.jsp]
+
                 <br>
                 <div class="employee">
                     ${employee.user.login} (${employee.user.role.name})
@@ -29,6 +38,6 @@
                 <br>
                 <br>
                 <input type="submit" value="Log out" name="command">
-           </div>
+            </div>
     </body>
 </html>
