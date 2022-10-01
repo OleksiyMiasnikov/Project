@@ -7,7 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
     <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
         <div class="dataBox">
             <h2>
                 Adding new user [user_details.jsp]

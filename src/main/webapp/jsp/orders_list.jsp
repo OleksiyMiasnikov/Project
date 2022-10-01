@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
             <div class="dataBox">
                 <input id="userRole" value="${employee.user.role.name}" hidden="hidden">
                 <span style="font-size: 8px;">
@@ -79,7 +79,7 @@
                 </div>
                 <br>
                 <c:if test="${pages_total > 1}">
-                    <%@ include file="pagination.jspf" %>
+                    <%@ include file="/jsp/pagination.jspf" %>
                 </c:if>
             </div>
         </form>

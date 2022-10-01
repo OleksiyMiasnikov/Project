@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.myProject.util.Constants.PATH;
+
 public class ServeOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeOrder.class);
     @Override
@@ -34,6 +36,6 @@ public class ServeOrder implements Command {
         } else {
             req.setAttribute("operation", "Income");
         }
-        return "order.jsp";
+        return PATH + "order.jsp";
     }
 }

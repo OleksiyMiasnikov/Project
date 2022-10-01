@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.myProject.util.Constants.MAIN_PAGE;
+import static com.myProject.util.Constants.PATH;
 
 public class ServeProduct implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeProduct.class);
@@ -30,6 +30,6 @@ public class ServeProduct implements Command {
         req.getSession().setAttribute("result", product);
         req.getSession().setAttribute("Fragment", "/ProductFragment");
         //return MAIN_PAGE;
-        return "product_details.jsp";
+        return PATH + "product_details.jsp";
     }
 }

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -7,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
+            <input id="pcs" value="${pcs}" hidden="hidden">
             <div class="dataBox">
                 <span style="font-size: 8px;">
                     [new_order.jsp]
@@ -84,10 +86,11 @@
                 <input name="newQuantity"
                         id="newQuantity"
                         type="number"
+                        step="0.001"
                         placeholder="quantity"
                         default value="0"
                         min="0"
-                        onchange="updateAmount();"
+                        onchange="quantityUpdated();"
                         style="width: 100px;"
                         max=5>
                 <input name="newUnit"
@@ -132,7 +135,7 @@
                         <span class="item" style="width: 50px;">
                             ${element.product.unit.labelUa}
                         </span>
-                        <span class="item" style="width: 100px;">
+                        <span class="item" style="width: 100px;" type="number" step="0.001">
                             ${element.quantity}
                         </span>
                         <span class="item" style="width: 100px;">
@@ -143,7 +146,7 @@
                     </c:forEach>
                 </div>
                 <c:if test="${pages_total > 1}">
-                    <%@ include file="pagination.jspf" %>
+                    <%@ include file="/jsp/pagination.jspf" %>
                 </c:if>
                 <br>
                 <div class="submit_button">

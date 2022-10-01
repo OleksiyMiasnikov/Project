@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
         <script src=js/pagination.js></script>
             <div class="dataBox">
                 <span style="font-size: 8px;">
@@ -49,7 +49,7 @@
                 </div>
                 <br>
                 <c:if test="${pages_total > 1}">
-                    <%@ include file="pagination.jspf" %>
+                    <%@ include file="/jsp/pagination.jspf" %>
                 </c:if>
             </div>
         </form>

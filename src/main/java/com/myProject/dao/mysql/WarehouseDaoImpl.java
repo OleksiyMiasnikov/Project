@@ -48,7 +48,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     private Warehouse buildWarehouse(Connection con, ProductDao productDao, ResultSet resultSet) throws SQLException {
         Warehouse warehouse = new Warehouse();
         warehouse.setId(resultSet.getLong(1));
-        warehouse.setQuantity(resultSet.getInt(2));
+        warehouse.setQuantity(resultSet.getDouble(2));
         warehouse.setProduct(productDao.read(con, resultSet.getLong(3)));
         return warehouse;
     }

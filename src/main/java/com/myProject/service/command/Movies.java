@@ -47,6 +47,6 @@ public class Movies implements Command {
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", commandName);
         req.getSession().setAttribute("operation", operation);
-        return "orders_list.jsp";
+        return PATH + "orders_list.jsp";
     }
 }

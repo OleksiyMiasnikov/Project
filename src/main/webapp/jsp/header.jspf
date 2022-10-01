@@ -11,9 +11,9 @@
     </head>
 
     <body>
-        <form id="controller_form" action="controller" method="post">
-            <div class="sideBar">
-                [main_window.jsp]
+        <form id="controller_form" action="controller" method="get">
+           <div class="sideBar">
+                [header.jsp]
                 <br>
                 <div class="employee">
                     ${employee.user.login} (${employee.user.role.name})
@@ -21,8 +21,8 @@
                 <br>
                 <br>
                 <c:forEach items="${employee.menuItems}" var="item">
-                   <input type="submit" value='${item}' id='${item}' name="command">
-                   <br>
+                    <input type="submit" value="${item}" id="${item}" name="command">
+                    <br>
                 </c:forEach>
                 <br>
                 <br>
@@ -30,9 +30,5 @@
                 <br>
                 <input type="submit" value="Log out" name="command">
            </div>
-           <div class="dataBox">
-                 <jsp:include page="${Fragment}" />
-           </div>
-        </form>
     </body>
 </html>

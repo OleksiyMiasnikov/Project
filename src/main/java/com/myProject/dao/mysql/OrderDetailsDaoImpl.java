@@ -141,7 +141,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         orderDetails.setId(resultSet.getLong(1));
         orderDetails.setOrder(order);
         orderDetails.setProduct(productDao.read(con, resultSet.getLong(3)));
-        orderDetails.setQuantity(resultSet.getInt(4));
+        orderDetails.setQuantity(resultSet.getDouble(4));
         orderDetails.setPrice(resultSet.getDouble(5));
         return orderDetails;
     }

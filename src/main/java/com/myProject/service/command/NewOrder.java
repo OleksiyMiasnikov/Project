@@ -68,7 +68,7 @@ public class NewOrder implements Command {
                 addOrderDetails(req);
             default:
                 showOrder(req, resp);
-                return "new_order.jsp";
+                return PATH + "new_order.jsp";
         }
     }
 
@@ -122,6 +122,7 @@ public class NewOrder implements Command {
         req.getSession().setAttribute("command_name", commandName);
         req.getSession().setAttribute("direction", direction);
         req.getSession().setAttribute("operation", operation);
+        req.getSession().setAttribute("pcs", "шт");
         req.getSession().setAttribute("order", currentOrder);
     }
 }

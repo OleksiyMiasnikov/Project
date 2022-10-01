@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.myProject.util.Constants.PATH;
+
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(Controller.class);
@@ -19,7 +21,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String address = "error_page.jsp";
+        String address = PATH + "error_page.jsp";
         String commandName = req.getParameter("command");
         logger.info(commandName);
         try {

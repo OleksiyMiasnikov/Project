@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
-import static com.myProject.util.Constants.ORDERS_COMMAND;
+import static com.myProject.util.Constants.*;
 
 public class ListOfProducts implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ListOfProducts.class);
@@ -36,6 +35,6 @@ public class ListOfProducts implements Command {
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", LIST_OF_PRODUCT_COMMAND);
-        return "product_list.jsp";
+        return PATH + "product_list.jsp";
     }
 }

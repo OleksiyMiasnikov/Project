@@ -3,11 +3,21 @@ function updateAmount() {
             = document.getElementById("newPrice").value * document.getElementById("newQuantity").value;
 }
 
+function quantityUpdated() {
+    var unit = document.getElementById("newUnit").value;
+    var pcs = document.getElementById("pcs").value;
+    if (pcs === unit) {
+        var val = document.getElementById("newQuantity").value;
+        document.getElementById("newQuantity").value =
+            Math.round(val);
+    }
+    updateAmount();
+}
+
 function idUpdated() {
     console.log("idUpdated");
     var val = document.getElementById("newProductId").value;
     var list = document.getElementById("AllProducts");
-    console.log(list);
     for (let i = 0; i < list.length; i++) {
         var productDetails = list.options[i].value.split("|");
         if (productDetails[0] === val) {
@@ -15,14 +25,12 @@ function idUpdated() {
             document.getElementById("newUnit").value = productDetails[3];
             document.getElementById("newPrice").value = productDetails[2];
             document.getElementById("newQuantity").max = parseFloat(productDetails[4]);
-            console.log(document.getElementById("newQuantity").max);
             updateAmount();
         }
     }
 }
 
 function productUpdated(){
-    console.log("productUpdated");
     var val = document.getElementById("newProduct").value;
     var list = document.getElementById("AllProducts");
     for (let i = 0; i < list.length; i++) {
@@ -32,7 +40,6 @@ function productUpdated(){
             document.getElementById("newUnit").value = productDetails[3];
             document.getElementById("newPrice").value = productDetails[2];
             document.getElementById("newQuantity").max = parseFloat(productDetails[4]);
-            console.log(document.getElementById("newQuantity").max);
             updateAmount();
         }
     }

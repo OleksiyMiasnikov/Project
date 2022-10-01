@@ -2,8 +2,8 @@ package com.myProject.util;
 
 public class Constants {
     public static final String CONTEXT_NAME = "java:comp/env/jdbc/projectConnectionPool";
+    public static final String PATH = "jsp/";
     public static final String START_PAGE = "index.jsp";
-    public static final String MAIN_PAGE = "main_window.jsp";
 
 
     // SQL UserDao constants

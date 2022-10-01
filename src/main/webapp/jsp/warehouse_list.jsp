@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
         <script src=js/pagination.js></script>
             <div class="dataBox">
                 <span style="font-size: 8px;">
@@ -84,7 +84,7 @@
                     </c:forEach>
                 </div>
                 <br>
-                <%@ include file="pagination.jspf" %>
+                <%@ include file="/jsp/pagination.jspf" %>
             </div>
         </form>
     </body>

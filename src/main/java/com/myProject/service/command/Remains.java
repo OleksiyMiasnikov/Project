@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.myProject.util.Constants.REMAINS_COMMAND;
-import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
+import static com.myProject.util.Constants.*;
 
 public class Remains implements Command {
     @Override
@@ -38,6 +37,6 @@ public class Remains implements Command {
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", REMAINS_COMMAND);
-        return "warehouse_list.jsp";
+        return PATH + "warehouse_list.jsp";
     }
 }

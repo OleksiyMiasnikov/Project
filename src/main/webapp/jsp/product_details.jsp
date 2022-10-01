@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <%@ include file="header.jspf" %>
+        <%@ include file="/jsp/header.jspf" %>
         <script src=></script>
             <div class="dataBox">
                 <span style="font-size: 8px;">
