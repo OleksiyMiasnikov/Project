@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/myProject/dao/DBManager.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/myProject/service/exception/DaoException.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/changeLocale.jsp" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>
