@@ -6,13 +6,13 @@ import com.myProject.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.*;
 import javax.servlet.annotation.WebListener;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 
 @WebListener
@@ -32,6 +32,25 @@ public class ContextListener implements ServletContextListener, ServletContextAt
                 CashierManager.getInstance(DaoFactory.getInstance().getOrderDao(),
                                            DaoFactory.getInstance().getOrderDetailsDao());
         sce.getServletContext().setAttribute("CashierManager", cashierManager);
+
+        // obtain file name with locales descriptions
+        ServletContext context = sce.getServletContext();
+        String localesFileName = context.getInitParameter("locales");
+
+        // obtain real path on server
+        String localesFileRealPath = context.getRealPath(localesFileName);
+
+        // local descriptions
+        Properties locales = new Properties();
+        try {
+            locales.load(new FileInputStream(localesFileRealPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // save descriptions to servlet context
+        context.setAttribute("locales", locales);
+        locales.list(System.out);
     }
 
     @Override
