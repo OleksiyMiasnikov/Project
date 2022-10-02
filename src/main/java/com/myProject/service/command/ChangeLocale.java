@@ -17,6 +17,7 @@ public class ChangeLocale implements Command {
         String previousPage = req.getHeader("referer");
         int last = previousPage.lastIndexOf('/');
         String result = previousPage.substring(last + 1);
+        if ("".equals(result)) result = "index.jsp";
         return result;
     }
 }

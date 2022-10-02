@@ -13,8 +13,8 @@
     </head>
 
     <body>
+        <%@ include file="/jsp/locale.jspf" %>
         <form id="controller_form" action="controller" method="post">
-            <%@ include file="/jsp/locale.jspf" %>
             <div class="sideBar">
                 [header.jsp]
                 <br>
