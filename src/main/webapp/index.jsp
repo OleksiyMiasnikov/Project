@@ -1,26 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="css/login.css">
+      <link rel="stylesheet" href="css/locale.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
    </head>
 
    <body>
       <script src="js/login.js"></script>
+
       <div class="container">
          <div class="wrapper">
-            <div class="title"><span>Login Form</span></div>
+            <div class="title"><span><fmt:message key="index_jsp.form.title"/></span></div>
             <form action="controller" method="post">
                <input name="command" value="authorization" hidden="hidden">
                <div class="row">
                   <i class="fas fa-user"></i>
-                  <input name="login" placeholder="Login">
+                  <input name="login" placeholder=<fmt:message key="index_jsp.form.ligin"/>>
                </div>
                <div class="row">
                   <i class="fas fa-lock"></i>
-                  <input type="password" name="password" placeholder="Password" id="pass" required>
+                  <input type="password" name="password" placeholder='<fmt:message key="index_jsp.form.password"/>' id="pass" required>
                   <i class="fas fa-eye-slash" id="eye" onclick="changingVisiabilityOfPassword()"></i>
                </div>
                <p class="error">
@@ -29,6 +34,9 @@
                <div class="row button">
                   <input type="submit" value="Login">
                </div>
+               ${param.locale}
+               ${locale}
+               ${sessionScope.locale}
             </form>
          </div>
       </div>

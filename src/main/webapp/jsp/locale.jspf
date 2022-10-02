@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+    <script src=js/locale.js></script>
+    <div class="locale">
+        <button type="submit" name="command" value="change_locale">
+            UA
+        </button>
+        <button type="submit" name="command" value="change_locale">
+            EN
+        </button>
+    </div>
+    <fmt:setLocale value="${locale}" scope="session"/>
+    <fmt:setBundle basename="resources"/>
+    <c:set var="currentLocale" value="${locale}" scope="session"/>
+</html

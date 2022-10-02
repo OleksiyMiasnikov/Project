@@ -20,13 +20,13 @@
                          <i class="fa-solid fa-trash-can"></i>
                     </button>
                     <span class=table_header style="width: 50px;">
-                        Id
+                        <fmt:message key="user_list_jsp.id"/>
                     </span>
                     <span class=table_header style="width: 200px;">
-                        User
+                        <fmt:message key="user_list_jsp.user"/>
                     </span>
                     <span class=table_header style="width: 150px;">
-                        Role
+                        <fmt:message key="user_list_jsp.role"/>
                     </span>
                 </div>
                 <br>

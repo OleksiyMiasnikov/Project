@@ -37,6 +37,7 @@ public class Receiver {
         commandMap.put(REMAINS_COMMAND, new Remains());
         commandMap.put(ORDERS_COMMAND, new Orders());
         commandMap.put(MOVIES_COMMAND, new Movies());
+        commandMap.put(LOCALE_COMMAND, new ChangeLocale());
     }
 
     public static Command getCommand(String commandName) {
@@ -44,7 +45,6 @@ public class Receiver {
     }
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws DaoException, ServletException, IOException {
-        Command command = commandMap.get(commandName);
-        return command.execute(req, resp);
+        return commandMap.get(commandName).execute(req, resp);
     }
 }
