@@ -8,18 +8,21 @@
                     [orders_list.jsp]
                 </span>
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
-                    *** List of ${operation} ***
+                    *** <fmt:message key="order_list_jst.list_of"/>
+                    <fmt:message key="${operation}"/> ***
                 </p>
                 <hr>
                 <span class="header_key" style="width: 200px;">
-                    Quantity of ${operation} :
+                    <fmt:message key="order_list_jst.quantity_of"/>
+                    <fmt:message key="${operation}"/> :
                 </span>
                 <span>
                     ${total_quantity}
                 </span>
                 <br>
                 <span class="header_key" style="width: 200px;">
-                    Total ${operation} amount :
+                    <fmt:message key="data_total"/>
+                    <fmt:message key="${operation}"/> :
                 </span>
                 <span>
                     ${total_amount}
@@ -36,16 +39,16 @@
                          <i class="fa-solid fa-trash-can"></i>
                     </button>
                     <span class=table_header style="width: 50px;">
-                        Id
+                        <fmt:message key="data_id"/>
                     </span>
                     <span class=table_header style="width: 200px;">
-                        Time
+                        <fmt:message key="data_time"/>
                     </span>
                     <span class=table_header style="width: 100px;">
-                        Amount
+                        <fmt:message key="data_amount"/>
                     </span>
-                    <span class=table_header style="width: 100px;">
-                        Employee
+                    <span class=table_header style="width: 100px;text-align: right;">
+                        <fmt:message key="data_employee"/>
                     </span>
                 </div>
                 <br>
@@ -60,7 +63,7 @@
                                     value=${item.id}>
                         </span>
                         <span class="item" style="width: 50px;text-align: center;">
-                            <a href="controller?command=Serve order&id=${item.id}&operation=${operation}">
+                            <a href="controller?command=command.serve_order&id=${item.id}&operation=${operation}">
                                 ${item.id}
                             </a>
                         </span>

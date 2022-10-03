@@ -51,6 +51,6 @@ public class CreateProduct implements Command {
             logger.info(name + " updated");
         }
 
-        return "controller?command=" + LIST_OF_PRODUCT_COMMAND;
+        return "controller?command=command.list_of_products";
     }
 }

@@ -8,21 +8,21 @@
                     [product_list.jsp]
                 </span>
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
-                    *** List of products ***
+                    *** <fmt:message key="product_list_jst.list_of_products"/> ***
                 </p>
                 <hr>
                 <div class=table_header>
                     <span class=table_header style="width: 50px;">
-                        Id
+                        <fmt:message key="data_id"/>
                     </span>
                     <span class=table_header style="width: 250px;">
-                        Product name
+                        <fmt:message key="data_product_name"/>
                     </span>
                     <span class=table_header style="width: 50px;">
-                        Unit
+                        <fmt:message key="data_unit"/>
                     </span>
                     <span class=table_header style="width: 150px;text-align: right;">
-                        Price
+                        <fmt:message key="data_price"/>
                     </span>
                 </div>
                 <br>
@@ -33,7 +33,7 @@
                             ${item.id}
                         </span>
                         <span class=item style="width: 250px;text-align: center;">
-                            <a href="controller?command=New product&selectedProduct=${item.id}">
+                            <a href="${pageContext.request.contextPath}/controller?command=command.new_product&selectedProduct=${item.id}">
                                 ${item.name}
                             </a>
                         </span>

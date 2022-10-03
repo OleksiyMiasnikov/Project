@@ -59,27 +59,27 @@ public class Constants {
 
 
     // command constants
-    public static final String SHOW_USERS_COMMAND = "Show users";
-    public static final String ADD_USER_COMMAND = "Add user";
-    public static final String ADD_USER_DETAILS_COMMAND = "AddUserDetails";
-    public static final String UPDATE_USER_COMMAND = "Update user";
-    public static final String UPDATE_PRODUCT_COMMAND = "Update product";
-    public static final String CREATE_DATABASE_COMMAND = "Create database";
-    public static final String DELETE_USER_COMMAND = "Delete user";
-    public static final String DELETE_ORDER_COMMAND = "Delete order";
-    public static final String DELETE_ORDER_PRODUCT_COMMAND = "Delete ordered product";
-    public static final String NEW_ORDER_COMMAND = "New order";
-    public static final String REPORTS_COMMAND = "Reports";
-    public static final String NEW_PRODUCT_COMMAND = "New product";
-    public static final String CREATE_PRODUCT_COMMAND = "Create product";
-    public static final String LIST_OF_PRODUCT_COMMAND = "List of products";
-    public static final String NEW_INCOME_COMMAND = "New income";
-    public static final String INCOMES_COMMAND = "Incomes";
-    public static final String REMAINS_COMMAND = "Remains";
-    public static final String ORDERS_COMMAND = "Orders";
-    public static final String MOVIES_COMMAND = "Movies";
+    public static final String SHOW_USERS_COMMAND = "command.show_users";//"Show users";
+    public static final String ADD_USER_COMMAND = "command.add_user";//"Add user";
+    public static final String ADD_USER_DETAILS_COMMAND = "command.add_user_details";//"AddUserDetails";
+    public static final String UPDATE_USER_COMMAND = "command.update_user";//"Update user";
+    public static final String UPDATE_PRODUCT_COMMAND = "command.update_product";//"Update product";
+    public static final String CREATE_DATABASE_COMMAND = "command.create_database";//"Create database";
+    public static final String DELETE_USER_COMMAND = "command.delete_user";//"Delete user";
+    public static final String DELETE_ORDER_COMMAND = "command.delete_order";//"Delete order";
+    public static final String DELETE_ORDER_PRODUCT_COMMAND = "command.delete_ordered_product";//"Delete ordered product";
+    public static final String NEW_ORDER_COMMAND = "command.new_order";//"New order";
+    public static final String REPORTS_COMMAND = "command.reports";//"Reports";
+    public static final String NEW_PRODUCT_COMMAND = "command.new_product";//"New product";
+    public static final String CREATE_PRODUCT_COMMAND = "command.create_product";//"Create product";
+    public static final String LIST_OF_PRODUCT_COMMAND = "command.list_of_products";//"List of products";
+    public static final String NEW_INCOME_COMMAND = "command.new_income";//"New income";
+    public static final String INCOMES_COMMAND = "command.incomes";//"Incomes";
+    public static final String REMAINS_COMMAND = "command.remains";//"Remains";
+    public static final String ORDERS_COMMAND = "command.orders";//"Orders";
+    public static final String MOVIES_COMMAND = "command.movies";//"Movies";
     public static final String AUTHORIZATION_COMMAND = "authorization";
-    public static final String LOGOUT_COMMAND = "Log out";
-    public static final String SERVE_ORDER_COMMAND = "Serve order";
+    public static final String LOGOUT_COMMAND = "command.log_out";//"Log out";
+    public static final String SERVE_ORDER_COMMAND = "command.serve_order";//"Serve order";
     public static final String LOCALE_COMMAND = "change_locale";
 }

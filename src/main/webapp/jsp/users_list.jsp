@@ -20,13 +20,13 @@
                          <i class="fa-solid fa-trash-can"></i>
                     </button>
                     <span class=table_header style="width: 50px;">
-                        <fmt:message key="user_list_jsp.id"/>
+                        <fmt:message key="data_id"/>
                     </span>
                     <span class=table_header style="width: 200px;">
-                        <fmt:message key="user_list_jsp.user"/>
+                        <fmt:message key="data_user"/>
                     </span>
                     <span class=table_header style="width: 150px;">
-                        <fmt:message key="user_list_jsp.role"/>
+                        <fmt:message key="data_role"/>
                     </span>
                 </div>
                 <br>
@@ -43,7 +43,7 @@
                              ${item.id}
                         </span>
                         <span class="item" style="width: 200px;text-align: center;">
-                             <a href="${pageContext.request.contextPath}/controller?command=Update user&selectedUser=${item.id}">
+                             <a href="${pageContext.request.contextPath}/controller?command=command.update_user&selectedUser=${item.id}">
                                 ${item.login}
                              </a>
                         </span>

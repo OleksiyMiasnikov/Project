@@ -31,6 +31,6 @@ public class ChangeLocale implements Command {
         int last = previousPage.lastIndexOf('/');
         String result = previousPage.substring(last + 1);
         if ("".equals(result)) result = "index.jsp";
-        return result;
+        return previousPage;
     }
 }

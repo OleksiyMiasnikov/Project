@@ -13,29 +13,29 @@
                 [user_details.jsp]
             </span>
             <p style="text-align: center; font-size: 22px;font-weight: bold">
-                *** Add new user ***
+                *** <fmt:message key="user_details_jsp.add_new_user"/> ***
             </p>
             <hr>
             <form action="controller" method="post">
                 <div>
                     <span class="header_key">
-                        Login
+                        <fmt:message key="data_login"/>
                     </span>
                     <input class="header_value" name="newLogin" value="${user.login}">
                     <input type="hidden" name="id" value="${user.id}">
                     <br>
                     <span class="header_key">
-                        Password
+                        <fmt:message key="data_password"/>
                     </span>
                     <input class="header_value" name="newPassword" value="${user.password}">
                     <br>
                     <span class="header_key">
-                        Email
+                        <fmt:message key="data_email"/>
                     </span>
                     <input class="header_value" name="newEmail" value="${user.email}" >
                     <br>
                     <span class="header_key">
-                        Role
+                        <fmt:message key="data_role"/>
                     </span>
                     <select class="header_value" name="newRole" value="${user.role.name}">
                     <option> ${user.role.name} </option>
@@ -48,8 +48,12 @@
                 </div>
                   <hr>
                   <br>
-                  <button type="submit" name="command" value="AddUserDetails">Ok</button>
-                  <button type="submit" name="command" value="Show users">Cancel</button>
+                  <button type="submit" name="command" value="command.add_user_details">
+                        <fmt:message key="button_submit_ok"/>
+                  </button>
+                  <button type="submit" name="command" value="command.show_users">
+                        <fmt:message key="button_submit_cancel"/>
+                  </button>
                </div>
             </form>
         </div>

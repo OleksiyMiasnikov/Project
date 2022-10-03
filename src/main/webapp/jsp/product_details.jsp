@@ -10,28 +10,28 @@
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
                     <c:choose>
                         <c:when test="${result.id == 0}">
-                            *** New product ***
+                            *** <fmt:message key="command.new_product"/> ***
                         </c:when>
                         <c:otherwise>
-                            *** Update product ***
+                            *** <fmt:message key="command.update_product"/> ***
                         </c:otherwise>
                     </c:choose>
                 </p>
                 <hr>
                 <c:if test="${result.id != 0}">
                     <span class="header_key">
-                        Id
+                        <fmt:message key="data_id"/>
                     </span>
                     <input class="header_value" name="newId" value = ${result.id}>
                     <br>
                 </c:if>
                 <span class="header_key">
-                    Product name
+                    <fmt:message key="data_product_name"/>
                 </span>
                 <input class="header_value" name="newName" value="${result.name}">
                 <br>
                 <span class="header_key">
-                    Unit
+                    <fmt:message key="data_unit"/>
                 </span>
                 <select class="header_value" name="newUnit" value="${result.unit.labelUa}">
                 <option>
@@ -51,11 +51,11 @@
                 <br>
                 <hr>
                 <p>
-                    <button class="submit_button" type="submit" name="command" value="Create product">
-                        Ok
+                    <button class="submit_button" type="submit" name="command" value="command.create_product">
+                        <fmt:message key="button_submit_ok"/>
                     </button>
-                    <button class="submit_button" type="submit" name="command" value="List of products">
-                        Cancel
+                    <button class="submit_button" type="submit" name="command" value="command.list_of_products">
+                        <fmt:message key="button_submit_cancel"/>
                     </button>
                 </p>
             </div>

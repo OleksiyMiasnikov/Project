@@ -8,18 +8,18 @@
                     [warehouse_list.jsp]
                 </span>
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
-                    *** Remains in warehouse ***
+                    *** <fmt:message key="warehouse_list_jsp.remains_in_warehouse"/> ***
                 </p>
                 <hr>
                 <span class="header_key" style="width: 170px;">
-                    Total quantity :
+                    <fmt:message key="data_total_quantity"/> :
                 </span>
                 <span>
                     ${total_quantity}
                 </span>
                 <br>
                 <span class="header_key" style="width: 170px;">
-                    Total amount :
+                    <fmt:message key="data_total_amount"/> :
                 </span>
                 <span>
                     ${total_amount}
@@ -27,7 +27,7 @@
                 <hr>
                 <div class=table_header>
                     <span class=table_header style="width: 50px;">
-                        Id
+                        <fmt:message key="data_id"/>
                         <button type="submit"
                                 name="command"
                                 id="delete_button"
@@ -38,7 +38,7 @@
                         </button>
                     </span>
                     <span class=table_header style="width: 200px;">
-                        Product name
+                        <fmt:message key="data_product_name"/>
                         <button type="submit"
                                 name="command"
                                 id="delete_button"
@@ -49,13 +49,13 @@
                         </button>
                     </span>
                     <span class=table_header style="width: 50px;">
-                        Unit
+                        <fmt:message key="data_unit"/>
                     </span>
-                    <span class=table_header style="width: 100px;">
-                        Quantity
+                    <span class=table_header style="width: 100px;text-align: center;">
+                        <fmt:message key="data_quantity"/>
                     </span>
                     <span class=table_header style="width: 100px;text-align: right;">
-                        Price
+                        <fmt:message key="data_price"/>
                     </span>
                 </div>
                 <br>
@@ -66,14 +66,14 @@
                             ${item.id}
                         </span>
                         <span class=item style="width: 200px;text-align: center;">
-                            <a href="controller?command=New product&selectedProduct=${item.id}">
+                            <a href="${pageContext.request.contextPath}/controller?command=command.new_product&selectedProduct=${item.id}">
                                 ${item.product.name}
                             </a>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
                             ${item.product.unit.labelUa}
                         </span>
-                        <span class=item style="width: 100px;text-align: right;">
+                        <span class=item style="width: 100px;text-align: center;">
                             ${item.quantity}
                         </span>
                         <span class=item style="width: 100px;text-align: right;">

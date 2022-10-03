@@ -21,18 +21,18 @@
                <input name="command" value="authorization" hidden="hidden">
                <div class="row">
                   <i class="fas fa-user"></i>
-                  <input name="login" placeholder="<fmt:message key='index_jsp.login'/>">
+                  <input name="login" placeholder="<fmt:message key='data_login'/>">
                </div>
                <div class="row">
                   <i class="fas fa-lock"></i>
-                  <input type="password" name="password" placeholder="<fmt:message key='index_jsp.password'/>" id="pass" required>
+                  <input type="password" name="password" placeholder="<fmt:message key='data_password'/>" id="pass" required>
                   <i class="fas fa-eye-slash" id="eye" onclick="changingVisiabilityOfPassword()"></i>
                </div>
                <p class="error">
                     ${incorrectUser}
                </p>
                <div class="row button">
-                  <input type="submit" value="<fmt:message key='index_jsp.login'/>">
+                  <input type="submit" value="<fmt:message key='data_login'/>">
                </div>
             </form>
          </div>

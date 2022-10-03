@@ -2,11 +2,24 @@
     position: absolute;
     right: 5px;
     top: 20px;
-    width: 100px;
+    width: 120px;
     padding: 10px;
     margin: 10px;
 }
 
 .locale button{
-    padding: 8px;
+    margin: 5px;
+    width: 25px;
+    high: 15px;
+    background: transparent;
+    border:none;
+}
+
+.UA_button{
+//        background-image: src="${pageContext.request.contextPath}/images/UA.png";
+    width : 30px;
+    height : 25px;
+
+
+
 }

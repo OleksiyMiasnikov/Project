@@ -9,29 +9,29 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/locale.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
     </head>
 
     <body>
         <%@ include file="/jsp/locale.jspf" %>
         <form id="controller_form" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="sideBar">
-                [header.jsp]
-                <br>
                 <div class="employee">
-                    ${employee.user.login} (${employee.user.role.name}) [${employee.locale}]
+                    ${employee.user.login} (${employee.user.role.name})
                 </div>
                 <br>
                 <br>
                 <c:forEach items="${employee.menuItems}" var="item">
-                    <input type="submit" value="${item}" name="command">
+                    <button class="side_bar_button" type="submit" name="command" value="${item}" >
+                        <fmt:message key="${item}"/>
+                    </button>
                     <br>
                 </c:forEach>
                 <br>
                 <br>
-                <br>
-                <br>
-                <input type="submit" value="Log out" name="command">
+                <button class="side_bar_button" type="submit" name="command" value="command.log_out" >
+                    <fmt:message key="command.log_out"/>
+                </button>
             </div>
     </body>
 </html>
