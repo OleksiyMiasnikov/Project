@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<script src=js/pagination.js></script>
+<script src=${pageContext.request.contextPath}/js/pagination.js></script>
 <div class="pagination">
     <button onclick="firstPage();" name="command" value="${command_name}">
         <i class="fa fa-angle-double-left"> </i>

@@ -43,7 +43,7 @@
                              ${item.id}
                         </span>
                         <span class="item" style="width: 200px;text-align: center;">
-                             <a href="controller?command=Update user&selectedUser=${item.id}">
+                             <a href="${pageContext.request.contextPath}/controller?command=Update user&selectedUser=${item.id}">
                                 ${item.login}
                              </a>
                         </span>

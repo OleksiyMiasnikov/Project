@@ -23,8 +23,10 @@ public class ChangeLocale implements Command {
        // List<String> list = ((Employee) req.getSession().getAttribute("employee")).getMenuItems();
       //  logger.info(Arrays.asList(list));
         Employee employee = (Employee) req.getSession().getAttribute("employee");
-        employee.setLocale(lang);
-        req.getSession().setAttribute("employee", employee);
+        if (employee != null) {
+            employee.setLocale(lang);
+            req.getSession().setAttribute("employee", employee);
+        }
         String previousPage = req.getHeader("referer");
         int last = previousPage.lastIndexOf('/');
         String result = previousPage.substring(last + 1);
