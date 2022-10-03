@@ -46,7 +46,11 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     }
 
     @Override
-    public void sessionCreated(HttpSessionEvent se) {
+    public void sessionCreated(HttpSessionEvent event) {
+        event.getSession().setAttribute("locale",
+                event.getSession()
+                    .getServletContext()
+                    .getInitParameter("javax.servlet.jsp.jstl.fmt.locale"));
     /*    logger.info("Session created: "
                 + se.getSession()
                 + ". Employee: "

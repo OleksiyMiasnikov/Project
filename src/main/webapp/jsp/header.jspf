@@ -6,27 +6,25 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/locale.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/locale.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
     </head>
 
     <body>
         <%@ include file="/jsp/locale.jspf" %>
-        <form id="controller_form" action="controller" method="post">
+        <form id="controller_form" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="sideBar">
                 [header.jsp]
                 <br>
                 <div class="employee">
-                    ${employee.user.login} (${employee.user.role.name})-
-                    ${locale}-
-                    ${sessionScope.locale}-
+                    ${employee.user.login} (${employee.user.role.name}) [${employee.locale}]
                 </div>
                 <br>
                 <br>
                 <c:forEach items="${employee.menuItems}" var="item">
-                    <input type="submit" value="${item}" id="${item}" name="command">
+                    <input type="submit" value="${item}" name="command">
                     <br>
                 </c:forEach>
                 <br>

@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.myProject.util.Constants.START_PAGE;
 
@@ -20,21 +22,29 @@ public class Authorization implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         logger.info("login is \"" + login + "\".");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);
+        logger.info(req.getSession().getAttribute("locale"));
         if (user != null && password.equals(user.getPassword())) {
-            Employee employee = Employee.createEmployee(user);
+            Employee employee =
+                    Employee.createEmployee(user,
+                            req.getSession().getAttribute("locale").toString());
             req.getSession().setAttribute("employee", employee);
             logger.info(employee);
             req.getSession().setAttribute("incorrectUser", "");
             return "controller?command=" + employee.getStartCommand();
         } else {
+            ResourceBundle bundle = ResourceBundle
+                    .getBundle("resources",
+                            Locale.forLanguageTag(
+                                    req.getSession()
+                                            .getAttribute("current_locale").toString())
+                    );
             req.getSession().setAttribute("incorrectUser",
-                    "Incorrect login or password!");
+                    bundle.getString("index_jsp.error"));
             return START_PAGE;
         }
     }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 
 @WebListener
@@ -50,7 +51,9 @@ public class ContextListener implements ServletContextListener, ServletContextAt
 
         // save descriptions to servlet context
         context.setAttribute("locales", locales);
+
         logger.info("locales: " + locales.toString());
+        logger.info("Current locale: " + context.getInitParameter("javax.servlet.jsp.jstl.fmt.locale"));
     }
 
     @Override
