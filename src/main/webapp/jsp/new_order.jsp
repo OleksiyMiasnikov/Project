@@ -12,16 +12,16 @@
             <input id="pcs" value="${pcs}" hidden="hidden">
             <div class="dataBox">
                 <span style="font-size: 8px;">
-                    [new_order.jsp]
+                    [new_order.jsp] ${operation}
                 </span>
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
                     ***
-                    <fmt:message key="new_order.new_order"/>
+                    <fmt:message key="new_order.new_${operation}"/>
                     ***
                 </p>
                 <hr>
                 <span class="header_key">
-                    <fmt:message key="new_order.order_id"/>
+                    <fmt:message key="new_order.${operation}_id"/>
                 </span>
                 <span class="header_value" >
                     ${order.id}

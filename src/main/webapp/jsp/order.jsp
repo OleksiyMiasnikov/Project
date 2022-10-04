@@ -87,7 +87,7 @@
                                 ${element.product.name}
                             </span>
                             <span class="item" style="width: 60px;">
-                                ${element.product.unit.labelUa}
+                                <fmt:message key="${element.product.unit}"/>
                             </span>
                             <span class="item" style="width: 90px;">
                                 ${element.quantity}
