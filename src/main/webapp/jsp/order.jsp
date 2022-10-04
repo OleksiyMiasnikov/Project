@@ -12,6 +12,7 @@
     <body>
         <%@ include file="/jsp/header.jspf" %>
             <div class="dataBox">
+                <input id="userRole" value="${employee.user.role.name}" hidden="hidden">
                 <span style="font-size: 8px;">
                     [order.jsp]
                 </span>
@@ -55,7 +56,7 @@
                     <span class="table_header" style="width: 40px;">
                         <fmt:message key="data_id"/>
                     </span>
-                    <span class="table_header" style="width: 200px;">
+                    <span class="table_header" style="width: 180px;">
                         <fmt:message key="data_product_name"/>
                     </span>
                     <span class="table_header" style="width: 60px;">
@@ -83,7 +84,7 @@
                             <span class="item" style="width: 40px;">
                                 ${element.id}
                             </span>
-                            <span class="item" style="width: 200px;">
+                            <span class="item" style="width: 180px;">
                                 ${element.product.name}
                             </span>
                             <span class="item" style="width: 60px;">

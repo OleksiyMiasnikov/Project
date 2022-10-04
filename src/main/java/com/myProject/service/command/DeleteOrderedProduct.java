@@ -19,11 +19,16 @@ public class DeleteOrderedProduct implements Command {
         logger.info("execute ");
         String[] products = req.getParameterMap().get("products");
         String strId = req.getParameter("order_id");
+        String operation = (String) req.getSession().getAttribute("operation");
         if (products != null && strId != null) {
             CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
-            cashierManager.deleteProductsInOrder(strId, products);
+            if (cashierManager.deleteProductsInOrder(strId, products)) {
+                return "controller?command=command.orders";
+            }
         }
-        logger.info("finished ");
-        return "controller?command=" + ORDERS_COMMAND;
+        return "controller?command=command.serve_order&id=" +
+                strId +
+                "&operation=" +
+                operation;
     }
 }

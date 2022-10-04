@@ -245,7 +245,7 @@ public class CashierManager {
         }
     }
 
-    public void deleteProductsInOrder(String strId, String[] orderDetailsArray) throws DaoException {
+    public boolean deleteProductsInOrder(String strId, String[] orderDetailsArray) throws DaoException {
         // 1. product loop
         // 1.1 in loop - increase product in warehouse by product_id from OrderDetails
         // 1.2 delete OrderDetails by id
@@ -265,15 +265,16 @@ public class CashierManager {
                         .updateQuantity(con,
                                 orderDetails.getQuantity(),
                                 orderDetails.getProduct().getId());
-                con.commit();
                 orderDetailsDao.delete(con, orderDetails.getId());
-                con.commit();
             }
+            con.commit();
             if (orderDetailsDao.readByOrderId(con, 0, 1000, orderId).isEmpty()) {
                 logger.info("Order is empty");
                 orderDao.delete(con, orderId);
                 con.commit();
+                return true;
             }
+            return false;
         } catch (SQLException e) {
             try {
                 if (con != null) con.rollback();
