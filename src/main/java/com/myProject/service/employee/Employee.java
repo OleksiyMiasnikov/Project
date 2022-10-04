@@ -8,9 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
@@ -30,6 +28,13 @@ public abstract class Employee implements Serializable {
         this.menuItems = new ArrayList<>(Arrays.asList(items));
     }
     public List<String> getMenuItems() {
+        return menuItems;
+    }
+    public List<String> getLocalMenuItems() {
+        ResourceBundle bundle = ResourceBundle
+                .getBundle("resources", Locale.forLanguageTag(locale));
+        String sss = bundle.getString("index_jsp.error");
+
         return menuItems;
     }
 

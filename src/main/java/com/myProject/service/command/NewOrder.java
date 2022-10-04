@@ -43,12 +43,12 @@ public class NewOrder implements Command {
         String exitCommandName;
         if ("IN".equals(direction)) {
             operation = "income";
-            exitCommandName = INCOMES_COMMAND;
-            commandName = NEW_INCOME_COMMAND;
+            exitCommandName = "command.incomes";
+            commandName = "command.new_income";
         } else {
             operation = "order";
-            exitCommandName = ORDERS_COMMAND;
-            commandName = NEW_ORDER_COMMAND;
+            exitCommandName = "command.orders";
+            commandName = "command.new_order";
         }
         if (button == null) button = "First invoke";
         switch (button) {
@@ -62,7 +62,7 @@ public class NewOrder implements Command {
             case "Log out" :
                 currentOrder = null;
                 logger.info("Log out pressed");
-                return "controller?command=" + LOGOUT_COMMAND;
+                return "controller?command=command.log_out";
             case "Save" :
                 logger.info("Save pressed");
                 addOrderDetails(req);

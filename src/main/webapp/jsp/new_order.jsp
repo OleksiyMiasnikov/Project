@@ -15,32 +15,34 @@
                     [new_order.jsp]
                 </span>
                 <p style="text-align: center; font-size: 22px;font-weight: bold">
-                    *** New ${operation} ***
+                    ***
+                    <fmt:message key="new_order.new_order"/>
+                    ***
                 </p>
                 <hr>
                 <span class="header_key">
-                    Order id
+                    <fmt:message key="new_order.order_id"/>
                 </span>
                 <span class="header_value" >
                     ${order.id}
                 </span>
                 <br>
                 <span class="header_key">
-                    Date
+                    <fmt:message key="data_date"/>
                 </span>
                 <span class="header_value" >
                     ${order.date}
                 </span>
                 <br>
                 <span class="header_key">
-                    Cashier
+                    <fmt:message key="data_cashier"/>
                 </span>
                 <span class="header_value">
                     ${order.user.login}
                 </span>
                 <br>
                 <span class="header_key">
-                    Total Amount
+                    <fmt:message key="data_total_amount"/>
                 </span>
                 <input class="header_value"
                         name="total"
@@ -60,7 +62,7 @@
                         name="newProductId"
                         id="newProductId"
                         onchange="idUpdated();"
-                        placeholder="id"
+                        placeholder='<fmt:message key="data_id"/>'
                         style="width: 100px;">
                 <datalist id="idList">
                     <c:forEach var="item" items="${warehouse }">
@@ -73,7 +75,7 @@
                         list="productList"
                         name="newProduct"
                         id="newProduct"
-                        placeholder="product name"
+                        placeholder='<fmt:message key="data_product_name"/>'
                         onchange="productUpdated();"
                         style="width: 250px;text-align: center;">
                 <datalist id="productList">
@@ -87,7 +89,7 @@
                         id="newQuantity"
                         type="number"
                         step="0.001"
-                        placeholder="quantity"
+                        placeholder='<fmt:message key="data_quantity"/>'
                         default value="0"
                         min="0"
                         onchange="quantityUpdated();"
@@ -95,13 +97,13 @@
                         max=5>
                 <input name="newUnit"
                         id="newUnit"
-                        placeholder="unit"
+                        placeholder='<fmt:message key="data_unit"/>'
                         style="width: 70px;"
                         disabled>
                 <input name="newPrice"
                         id="newPrice"
                         type="number"
-                        placeholder="price"
+                        placeholder='<fmt:message key="data_price"/>'
                         step="0.01"
                         onchange="updateAmount();"
                         style="width: 100px;">
@@ -114,11 +116,21 @@
                 </button>
                 <br>
                 <hr>
-                <span class="table_header" style="width: 50px;">Id</span>
-                <span class="table_header" style="width: 200px;">Product name</span>
-                <span class="table_header" style="width: 50px;">Unit</span>
-                <span class="table_header" style="width: 100px;">Quantity</span>
-                <span class="table_header" style="width: 100px;">Price</span>
+                <span class="table_header" style="width: 50px;">
+                    <fmt:message key="data_id"/>
+                </span>
+                <span class="table_header" style="width: 200px;">
+                    <fmt:message key="data_product_name"/>
+                </span>
+                <span class="table_header" style="width: 50px;">
+                    <fmt:message key="data_unit"/>
+                </span>
+                <span class="table_header" style="width: 100px;">
+                    <fmt:message key="data_quantity"/>
+                </span>
+                <span class="table_header" style="width: 100px;">
+                    <fmt:message key="data_price"/>
+                </span>
                 <br>
                 <hr>
                 <div class=data_list style="height: 200px;">
@@ -150,18 +162,21 @@
                 </c:if>
                 <br>
                 <div class="submit_button">
-                    <input  name="command" value="New order" hidden="hidden">
+                    <input  name="command" value="command.new_order" hidden="hidden">
                     <input  name="direction" value="${direction}" hidden="hidden">
                     <button type="submit" name="button" value="Complete">
-                        Complete
+                            <fmt:message key="button_submit_complete"/>
                     </button>
                     <br>
-                    <button style="margin-left: 20px;" type="submit" name="button" value="Cancel">
-                        Cancel
+                    <button style="margin-left: 20px;"
+                        type="submit"
+                        name="button"
+                        value="Cancel">
+                            <fmt:message key="button_submit_cancel"/>
                     </button>
                 </div>
             </div>
         </form>
-        <script src="js/new_order.js"></script>
+        <script src="${pageContext.request.contextPath}/js/new_order.js"></script>
     </body>
 </html>

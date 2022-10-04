@@ -14,7 +14,7 @@
                 <div class=table_header>
                     <button type="submit"
                             name="command"
-                            value="Delete user"
+                            value="command.delete_user"
                             class="table_header"
                             style="width: 50px; color: black;">
                          <i class="fa-solid fa-trash-can"></i>
