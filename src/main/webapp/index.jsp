@@ -12,6 +12,13 @@
    </head>
 
    <body>
+      <img  class="cs_image"
+            style="position: fixed;
+                   width: 200px;
+                   height: 200px;
+                   top: 75%;
+                   left: 85%;"
+            src="${pageContext.request.contextPath}/images/1.png">
       <%@ include file="/jsp/locale.jspf" %>
       <script src="js/login.js"></script>
       <div class="container">

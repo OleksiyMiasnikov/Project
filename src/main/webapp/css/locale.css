@@ -16,10 +16,6 @@
 }
 
 .UA_button{
-//        background-image: src="${pageContext.request.contextPath}/images/UA.png";
     width : 30px;
     height : 25px;
-
-
-
 }

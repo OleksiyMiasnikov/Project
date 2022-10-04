@@ -24,12 +24,15 @@ public class UserDaoImpl implements UserDao {
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
                 return buildUser(resultSet);
-            } else {
-                return null;
             }
+            return null;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -48,8 +51,12 @@ public class UserDaoImpl implements UserDao {
                 userList.add(buildUser(resultSet));
             }
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
         Collections.sort(userList);
         return userList;
@@ -66,12 +73,15 @@ public class UserDaoImpl implements UserDao {
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
                 return buildUser(resultSet);
-            } else {
-                return null;
             }
+            return null;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -90,15 +100,17 @@ public class UserDaoImpl implements UserDao {
             if (resultSet.next()) {
                 newUser.setId(resultSet.getLong(1));
                 return newUser;
-            } else {
-                throw new DaoException("Duplicate entry");
             }
+            throw new DaoException("Duplicate entry");
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
-
 
     public boolean delete(Connection con, Long id) throws SQLException {
         try (PreparedStatement pstmt = con.prepareStatement(DELETE_USER)) {
@@ -141,8 +153,12 @@ public class UserDaoImpl implements UserDao {
             resultSet.next();
             return resultSet.getInt("rows_total");
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 }

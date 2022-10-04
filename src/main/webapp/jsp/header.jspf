@@ -14,6 +14,13 @@
 
     <body>
         <%@ include file="/jsp/locale.jspf" %>
+        <img  class="cs_image"
+                    style="position: fixed;
+                           width: 200px;
+                           height: 200px;
+                           top: 75%;
+                           left: 85%"
+                    src="${pageContext.request.contextPath}/images/1.png">
         <form id="controller_form" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="sideBar">
                 <div class="employee">

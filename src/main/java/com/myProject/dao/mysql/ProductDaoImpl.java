@@ -93,7 +93,8 @@ public class ProductDaoImpl implements ProductDao {
         product.setId(resultSet.getLong(1));
         product.setName(resultSet.getString(2));
         product.setPrice(resultSet.getDouble(3));
-        product.setUnit(Unit.valueOf(resultSet.getString(4)));
+        String unit = resultSet.getString(4);
+        product.setUnit(Unit.valueOf(unit));
         return product;
     }
 
