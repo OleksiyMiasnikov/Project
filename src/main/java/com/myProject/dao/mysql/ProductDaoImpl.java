@@ -40,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             pstmt = con.prepareStatement(INSERT_PRODUCT, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, entity.getName());
-            pstmt.setString(2, entity.getUnit().getLabelUa());
+            pstmt.setString(2, entity.getUnit().toString());
             pstmt.setDouble(3, entity.getPrice());
             pstmt.executeUpdate();
             resultSet = pstmt.getGeneratedKeys();
@@ -60,7 +60,7 @@ public class ProductDaoImpl implements ProductDao {
     public void update(Connection con, Product entity) throws SQLException {
         try (PreparedStatement pstmt = con.prepareStatement(UPDATE_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, entity.getName());
-            pstmt.setString(2, entity.getUnit().getLabelUa());
+            pstmt.setString(2, entity.getUnit().toString());
             pstmt.setDouble(3, entity.getPrice());
             pstmt.setLong(4, entity.getId());
             pstmt.executeUpdate();
@@ -93,7 +93,7 @@ public class ProductDaoImpl implements ProductDao {
         product.setId(resultSet.getLong(1));
         product.setName(resultSet.getString(2));
         product.setPrice(resultSet.getDouble(3));
-        product.setUnit(Unit.valueOfLabel(resultSet.getString(4)));
+        product.setUnit(Unit.valueOf(resultSet.getString(4)));
         return product;
     }
 

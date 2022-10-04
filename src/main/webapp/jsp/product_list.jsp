@@ -38,7 +38,7 @@
                             </a>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
-                            ${item.unit.labelUa}
+                            <fmt:message key="${item.unit}"/>
                         </span>
                         <span class=item style="width: 150px;text-align: right;">
                             ${item.price}

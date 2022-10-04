@@ -71,7 +71,7 @@
                             </a>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
-                            ${item.product.unit.labelUa}
+                            <fmt:message key="${item.product.unit}"/>
                         </span>
                         <span class=item style="width: 100px;text-align: center;">
                             ${item.quantity}
