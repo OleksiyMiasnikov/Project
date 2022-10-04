@@ -46,7 +46,7 @@
                     <button type="submit"
                             id="delete_button"
                             name="command"
-                            value="Delete ordered product"
+                            value="command.delete_ordered_product"
                             class="table_header"
                             style="width: 40px; color: black;"
                             hidden="hidden">

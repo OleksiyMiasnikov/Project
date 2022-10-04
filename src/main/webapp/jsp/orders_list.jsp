@@ -33,7 +33,7 @@
                             name="command"
                             id="delete_button"
                             hidden="hidden"
-                            value="Delete order"
+                            value="command.delete_order"
                             class="table_header"
                             style="width: 50px; color: black;">
                          <i class="fa-solid fa-trash-can"></i>
@@ -86,6 +86,6 @@
                 </c:if>
             </div>
         </form>
-        <script src="js/order.js"></script>
+        <script src="${pageContext.request.contextPath}/js/order.js"></script>
     </body>
 </html>
