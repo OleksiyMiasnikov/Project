@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.myProject.util.Constants.PATH;
+
 public class ReportX implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportX.class);
     @Override
@@ -25,11 +27,7 @@ public class ReportX implements Command {
         List<Report> list = manager.createReport();
         //System.out.println(Arrays.asList(list));
         req.getSession().setAttribute("reports", list);
-        return req.getHeader("referer");
+        return PATH + "report_x.jsp";
     }
 
-    @Override
-    public String toString() {
-        return "ReportX{}";
-    }
 }
