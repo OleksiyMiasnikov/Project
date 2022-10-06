@@ -45,6 +45,26 @@ public class Constants {
     public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ? AND `reported` = 0";
     public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ? AND `reported` = 0";
 
+    public static final String X_REPORT =
+            "SELECT `r_time`, " +
+                    "`product`.`name` AS `r_product`," +
+                    "`product`.`unit` AS `r_unit`," +
+                    "SUM(`r_quantity`) AS `r_t_quantity`," +
+                    "r_price" +
+            "FROM `product` JOIN" +
+                    "(SELECT `order`.`time`  AS `r_time`, " +
+                            "`order_details`.`product_id` AS `r_product_id`," +
+                            "`order_details`.`quantity` AS `r_quantity`," +
+                            "`order_details`.`price`  AS `r_price`" +
+                    "FROM `order`" +
+                    "JOIN `order_details`" +
+                    "ON `order`.`id` = `order_details`.`order_id`" +
+                    "WHERE `order`.`direction` = 'OUT'" +
+                    "AND `order`.`reported` = 0) AS `r_order`" +
+            "ON `product`.`id` = `r_order`.`r_product_id`" +
+            "GROUP BY `r_product`" +
+            "ORDER BY `r_product` ASC";
+
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ? LIMIT ?, ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
