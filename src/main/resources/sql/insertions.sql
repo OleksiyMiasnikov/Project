@@ -16,18 +16,8 @@ VALUES
 (4, 'Clode', 'c@c', '3333', 3),
 (5, 'Den', 'd@d', '4444', 4);
 
-INSERT INTO `unit` (`name`)
-VALUES
-('KG'),
-('PCS');
 
-INSERT INTO `in_out` (`value`)
-VALUES
-('IN'),
-('OUT');
-
-
-INSERT INTO `product` (`id`, `name`, `unit_name`, `price`)
+INSERT INTO `product` (`id`, `name`, `unit`, `price`)
 VALUES
 (1, 'мінеральна вода 1л','PCS', 15.50),
 (2, 'чай Greenfield','PCS', 160.00),
@@ -62,13 +52,13 @@ VALUES
 (13, 40, 13),
 (14, 10, 14);
 
-INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`)
+INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`, `reported`)
 VALUES
-( 1, 3, '2022-09-15 13:15:25', 521.5, 'OUT'),
-( 2, 3, '2022-09-15 14:20:25', 625, 'OUT'),
-( 3, 3, '2022-09-16 11:03:15', 1640.16, 'OUT'),
-( 4, 3, '2022-09-17 09:45:50', 10662.57, 'OUT'),
-( 5, 3, '2022-09-17 10:33:18', 348.63, 'OUT');
+( 1, 3, '2022-09-15 13:15:25', 521.5, 'OUT', 0),
+( 2, 3, '2022-09-15 14:20:25', 625, 'OUT', 0),
+( 3, 3, '2022-09-16 11:03:15', 1640.16, 'OUT', 0),
+( 4, 3, '2022-09-17 09:45:50', 10662.57, 'OUT', 0),
+( 5, 3, '2022-09-17 10:33:18', 348.63, 'OUT', 0);
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`)
 VALUES
@@ -87,10 +77,10 @@ VALUES
 (13, 5,13, 2, 20.0),
 (14, 5,14, 1, 45.88);
 
-INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`)
+INSERT INTO `order` (`id`, `user_id`, `time`, `totalAmount`, `direction`, `reported`)
 VALUES
-( 6, 5, '2022-09-15 16:35:25', 5988.8, 'IN'),
-( 7, 5, '2022-09-17 13:23:18', 696.44, 'IN');
+( 6, 5, '2022-09-15 16:35:25', 5988.8, 'IN', 0),
+( 7, 5, '2022-09-17 13:23:18', 696.44, 'IN', 0);
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `quantity`, `price`)
 VALUES

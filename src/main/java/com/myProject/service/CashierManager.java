@@ -3,8 +3,10 @@ package com.myProject.service;
 import com.myProject.dao.DaoFactory;
 import com.myProject.dao.OrderDao;
 import com.myProject.dao.OrderDetailsDao;
+import com.myProject.dto.Report;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
+import com.myProject.service.command.ReportX;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -314,15 +316,14 @@ public class CashierManager {
         }
     }
 
-
-/*    public Order createIncome(Order currentOrder) throws DaoException {
-        logger.info("Start creating income");
+    public List<Report> createReport() throws DaoException {
+        logger.info("Start collecting data for report");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.createIncome(con, currentOrder);
+            return orderDao.createReport(con);
         } catch (SQLException e) {
-            throw new DaoException("Unable creating income" + e);
+            throw new DaoException("Cannot collect data for report", e);
         } finally {
             try {
                 if (con != null) con.close();
@@ -332,36 +333,4 @@ public class CashierManager {
         }
     }
 
-        //Deprecated
-    public OrderDetails createIncomeDetails(OrderDetails orderDetails) throws DaoException {
-        logger.info("Start creating details of income #" + orderDetails.getOrder().getId());
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            con.setAutoCommit(false);
-            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con, orderDetails.getQuantity(),orderDetails.getProduct().getId());
-            OrderDetails result = orderDetailsDao.create(con, orderDetails);
-            con.commit();
-            return result;
-        } catch (SQLException e) {
-            try {
-                if (con != null) con.rollback();
-            } catch (SQLException ex) {
-                logger.error("Connection is null.  " + ex);
-            }
-            logger.error("Unable to create income details. Rollback.");
-            throw new DaoException("Unable to create income details. Rollback. " + e);
-        } finally {
-            try {
-                if (con != null) {
-                    con.setAutoCommit(true);
-                    con.close();
-                }
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-    */
 }

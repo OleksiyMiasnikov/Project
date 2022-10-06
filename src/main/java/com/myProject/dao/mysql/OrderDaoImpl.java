@@ -1,12 +1,16 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.UserDao;
+import com.myProject.dto.Report;
 import com.myProject.entitie.Order;
 import com.myProject.dao.OrderDao;
+import com.myProject.entitie.Unit;
+import com.myProject.service.command.ReportX;
 
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,6 +192,40 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();
         }
+    }
+
+    @Override
+    public List<Report> createReport(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        List<Report> list = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(X_REPORT);
+            resultSet = stmt.getResultSet();
+            while (resultSet.next()) {
+                list.add(buildReport(resultSet));
+            }
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return list;
+    }
+
+    private Report buildReport(ResultSet resultSet) throws SQLException {
+        return Report.builder()
+                .date(resultSet.getTimestamp(1))
+                .productId(resultSet.getLong(2))
+                .productName(resultSet.getString(3))
+                .unit(Unit.valueOf(resultSet.getString(4)))
+                .quantity(resultSet.getDouble(5))
+                .price(resultSet.getDouble(6))
+                .build();
     }
 
     @Override

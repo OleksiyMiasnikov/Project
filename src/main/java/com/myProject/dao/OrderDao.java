@@ -1,6 +1,8 @@
 package com.myProject.dao;
 
+import com.myProject.dto.Report;
 import com.myProject.entitie.Order;
+import com.myProject.service.command.ReportX;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,4 +21,6 @@ public interface OrderDao extends Dao<Long, Order> {
     int findRowsTotal(Connection con, String direction) throws SQLException;
 
     Map<String, Double> Totals(Connection con, String direction) throws SQLException;
+
+    List<Report> createReport(Connection con) throws SQLException;
 }

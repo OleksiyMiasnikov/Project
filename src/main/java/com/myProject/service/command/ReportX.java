@@ -1,5 +1,8 @@
 package com.myProject.service.command;
 
+import com.myProject.dto.Report;
+import com.myProject.entitie.User;
+import com.myProject.service.CashierManager;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -9,14 +12,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class ReportX implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportX.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Starting preparing X report");
-        logger.info(req.getParameter("command"));
-        String role = ((Employee) req.getSession().getAttribute("employee")).getUser().getRole().getName();
+        User user = ((Employee) req.getSession().getAttribute("employee")).getUser();
+        CashierManager manager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
+        List<Report> list = manager.createReport();
+        //System.out.println(Arrays.asList(list));
+        req.getSession().setAttribute("reports", list);
         return req.getHeader("referer");
+    }
+
+    @Override
+    public String toString() {
+        return "ReportX{}";
     }
 }
