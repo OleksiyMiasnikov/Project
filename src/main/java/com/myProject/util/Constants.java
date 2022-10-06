@@ -35,15 +35,15 @@ public class Constants {
     public static final int ERROR_CODE_OUT_OF_RANGE = 1264;
 
     // SQL OrderDao constants
-    public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (SELECT SUM(`quantity`*`price`) FROM `order_details` WHERE `order_id`=? GROUP BY `order_id`) WHERE id = ?";
-    public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT' LIMIT ?,?";
-    public static final String SELECT_ALL_INCOMES_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN' LIMIT ?,?";
-    public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ?";
-    public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, ?)";
-    public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN')";
-    public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ?";
-    public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ?";
-    public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ?";
+    public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (SELECT SUM(`quantity`*`price`) FROM `order_details` WHERE `order_id`=? GROUP BY `order_id`) WHERE id = ? AND `reported` = 0";
+    public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT' AND `reported` = 0 LIMIT ?,?";
+    public static final String SELECT_ALL_INCOMES_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN' AND `reported` = 0 LIMIT ?,?";
+    public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ? AND `reported` = 0";
+    public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, ?, 0)";
+    public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN', 0)";
+    public static final String DELETE_ORDER = "DELETE FROM `order` WHERE `id` = ? AND `reported` = 0";
+    public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ? AND `reported` = 0";
+    public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ? AND `reported` = 0";
 
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ? LIMIT ?, ?";
@@ -69,7 +69,8 @@ public class Constants {
     public static final String DELETE_ORDER_COMMAND = "command.delete_order";//"Delete order";
     public static final String DELETE_ORDER_PRODUCT_COMMAND = "command.delete_ordered_product";//"Delete ordered product";
     public static final String NEW_ORDER_COMMAND = "command.new_order";//"New order";
-    public static final String REPORTS_COMMAND = "command.reports";//"Reports";
+    public static final String X_REPORT_COMMAND = "command.x_reports";//"ReportX";
+    public static final String Z_REPORT_COMMAND = "command.z_reports";//"ReportX";
     public static final String NEW_PRODUCT_COMMAND = "command.new_product";//"New product";
     public static final String CREATE_PRODUCT_COMMAND = "command.create_product";//"Create product";
     public static final String LIST_OF_PRODUCT_COMMAND = "command.list_of_products";//"List of products";
