@@ -1,7 +1,7 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.UserDao;
-import com.myProject.dao.entitie.Order;
+import com.myProject.entitie.Order;
 import com.myProject.dao.OrderDao;
 
 

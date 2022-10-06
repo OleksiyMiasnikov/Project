@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Warehouse;
+import com.myProject.entitie.Warehouse;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.CommodityExpertManager;
 

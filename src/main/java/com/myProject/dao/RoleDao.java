@@ -1,6 +1,6 @@
 package com.myProject.dao;
 
-import com.myProject.dao.entitie.Role;
+import com.myProject.entitie.Role;
 
 public interface RoleDao extends Dao<Long, Role>{
 

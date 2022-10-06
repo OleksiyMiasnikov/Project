@@ -1,4 +1,4 @@
-package com.myProject.dao.entitie;
+package com.myProject.entitie;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -70,7 +70,7 @@ public class Product implements Serializable, Comparable<Product>{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", unit='" + unit.labelUa + '\'' +
+                ", unit='" + unit + '\'' +
                 '}';
     }
 

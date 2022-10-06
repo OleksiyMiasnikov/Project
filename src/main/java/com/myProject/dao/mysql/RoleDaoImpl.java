@@ -1,7 +1,7 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.RoleDao;
-import com.myProject.dao.entitie.Role;
+import com.myProject.entitie.Role;
 
 import java.sql.*;
 import java.util.ArrayList;

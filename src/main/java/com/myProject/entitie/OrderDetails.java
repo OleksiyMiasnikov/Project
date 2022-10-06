@@ -1,4 +1,4 @@
-package com.myProject.dao.entitie;
+package com.myProject.entitie;
 
 import java.io.Serializable;
 import java.util.Objects;

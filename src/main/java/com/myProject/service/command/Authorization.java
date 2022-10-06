@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.User;
+import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
@@ -21,7 +21,7 @@ public class Authorization implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Authorization.class);
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         logger.info("login is \"" + login + "\".");
@@ -37,14 +37,7 @@ public class Authorization implements Command {
             req.getSession().setAttribute("incorrectUser", "");
             return "controller?command=" + employee.getStartCommand();
         } else {
-            ResourceBundle bundle = ResourceBundle
-                    .getBundle("resources",
-                            Locale.forLanguageTag(
-                                    req.getSession()
-                                            .getAttribute("current_locale").toString())
-                    );
-            req.getSession().setAttribute("incorrectUser",
-                    bundle.getString("index_jsp.error"));
+            req.getSession().setAttribute("incorrectUser","index_jsp.error");
             return START_PAGE;
         }
     }

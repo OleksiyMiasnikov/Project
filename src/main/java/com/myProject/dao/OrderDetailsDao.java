@@ -1,6 +1,6 @@
 package com.myProject.dao;
 
-import com.myProject.dao.entitie.OrderDetails;
+import com.myProject.entitie.OrderDetails;
 
 import java.sql.Connection;
 import java.sql.SQLException;

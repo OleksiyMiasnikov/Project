@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Product;
-import com.myProject.dao.entitie.Unit;
+import com.myProject.entitie.Product;
+import com.myProject.entitie.Unit;
 import com.myProject.service.CommodityExpertManager;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +20,7 @@ public class ServeProduct implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- ServeProduct ---");
         String strId = req.getParameter("selectedProduct");
-        Product product = new Product(0L,"", Unit.valueOfLabel("шт"), 1d);
+        Product product = new Product(0L,"", Unit.PCS, 1d);
         if (strId != null) {
             CommodityExpertManager manager =
                     (CommodityExpertManager) req.getSession().getServletContext().getAttribute("CommodityExpertManager");

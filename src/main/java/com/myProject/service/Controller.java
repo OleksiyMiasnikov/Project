@@ -26,7 +26,7 @@ public class Controller extends HttpServlet {
         logger.info(commandName);
         try {
             address = Receiver.runCommand(req, resp, commandName);
-        } catch (DaoException e) {
+        } catch (DaoException | ServletException | IOException e) {
             req.getSession().setAttribute("error_message", e.getMessage());
             req.getSession().setAttribute("error_cause", e.getCause().getMessage());
         }

@@ -13,13 +13,7 @@
     <body>
         [error_page.jsp]
         <hr>
-        <c:if test="${!empty error_message}">
-            ${error_message}
-        </c:if>
-        <hr
-        <c:if test="${!empty error_cause}">
-            ${error_cause}
-        </c:if>
+        Null pointer error !
         <hr>
     </body>
 </html>

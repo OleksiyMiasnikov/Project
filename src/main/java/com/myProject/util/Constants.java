@@ -17,12 +17,12 @@ public class Constants {
 
 
     // SQL ProductDao constants
-    public static final String SELECT_ALL_PRODUCT_WITH_LIMIT = "SELECT `id`, `name`, `price`, `unit_name` FROM `product` LIMIT ?, ?";
-    public static final String SELECT_ALL_PRODUCT = "SELECT `id`, `name`, `price`, `unit_name` FROM `product`";
-    public static final String SELECT_ALL_PRODUCT_FROM_WAREHOUSE = "SELECT `product`.`id`,  `product`.`name`,  `product`.`price`,  `product`.`unit_name`, `warehouse`.`quantity` FROM `product` JOIN `warehouse` ON `product`.`id`=`warehouse`.`product_id`";
+    public static final String SELECT_ALL_PRODUCT_WITH_LIMIT = "SELECT `id`, `name`, `price`, `unit` FROM `product` LIMIT ?, ?";
+    public static final String SELECT_ALL_PRODUCT = "SELECT `id`, `name`, `price`, `unit` FROM `product`";
+    public static final String SELECT_ALL_PRODUCT_FROM_WAREHOUSE = "SELECT `product`.`id`,  `product`.`name`,  `product`.`price`,  `product`.`unit`, `warehouse`.`quantity` FROM `product` JOIN `warehouse` ON `product`.`id`=`warehouse`.`product_id`";
     public static final String INSERT_PRODUCT = "INSERT INTO product VALUES (default, ?, ?, ?)";
-    public static final String READ_PRODUCT_BY_ID = "SELECT `id`, `name`, `price`, `unit_name` FROM `product` WHERE `id` = ?";
-    public static final String UPDATE_PRODUCT = "UPDATE product SET name = ?, unit_name = ?, price = ? WHERE id = ?";
+    public static final String READ_PRODUCT_BY_ID = "SELECT `id`, `name`, `price`, `unit` FROM `product` WHERE `id` = ?";
+    public static final String UPDATE_PRODUCT = "UPDATE `product` SET `name` = ?, `unit` = ?, `price` = ? WHERE `id` = ?";
     public static final String COUNT_ROWS_IN_PRODUCT = "SELECT count(*) AS `rows_total` FROM `product`";
 
 

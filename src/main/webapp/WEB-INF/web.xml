@@ -23,12 +23,7 @@
   
   <error-page>
     <exception-type>java.lang.NullPointerException</exception-type>
-    <location>/npe</location>
-  </error-page>
-
-  <error-page>
-    <exception-type>com.myProject.service.exception.DaoException</exception-type>
-    <location>/dbe</location>
+    <location>/jsp/error_page_npe.jsp</location>
   </error-page>
 
   <context-param>

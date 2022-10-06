@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Role;
+import com.myProject.entitie.Role;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;

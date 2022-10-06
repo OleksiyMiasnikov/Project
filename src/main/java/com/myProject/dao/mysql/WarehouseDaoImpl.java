@@ -2,7 +2,7 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
-import com.myProject.dao.entitie.Warehouse;
+import com.myProject.entitie.Warehouse;
 
 import java.sql.*;
 import java.util.ArrayList;

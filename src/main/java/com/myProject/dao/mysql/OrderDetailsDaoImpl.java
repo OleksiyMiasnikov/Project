@@ -2,9 +2,8 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.OrderDetailsDao;
-import com.myProject.dao.UserDao;
-import com.myProject.dao.entitie.Order;
-import com.myProject.dao.entitie.OrderDetails;
+import com.myProject.entitie.Order;
+import com.myProject.entitie.OrderDetails;
 
 import java.sql.*;
 import java.util.ArrayList;

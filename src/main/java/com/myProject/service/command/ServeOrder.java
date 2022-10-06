@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Order;
-import com.myProject.dao.entitie.OrderDetails;
+import com.myProject.entitie.Order;
+import com.myProject.entitie.OrderDetails;
 import com.myProject.service.CashierManager;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;

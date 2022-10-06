@@ -16,18 +16,6 @@ CREATE SCHEMA IF NOT EXISTS `cash_register` DEFAULT CHARACTER SET utf8 ;
 USE `cash_register` ;
 
 -- -----------------------------------------------------
--- Table `cash_register`.`unit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cash_register`.`unit` ;
-
-CREATE TABLE IF NOT EXISTS `cash_register`.`unit` (
-  `name` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`name`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `cash_register`.`product`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `cash_register`.`product` ;
@@ -35,16 +23,10 @@ DROP TABLE IF EXISTS `cash_register`.`product` ;
 CREATE TABLE IF NOT EXISTS `cash_register`.`product` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `unit_name` VARCHAR(10) NOT NULL,
+  `unit` VARCHAR(10) NOT NULL,
   `price` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`id`, `unit_name`),
-  INDEX `fk_goods_unit1_idx` (`unit_name` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-  CONSTRAINT `fk_goods_unit1`
-    FOREIGN KEY (`unit_name`)
-    REFERENCES `cash_register`.`unit` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 

@@ -1,8 +1,8 @@
 package com.myProject.service;
 
 import com.myProject.dao.ProductDao;
-import com.myProject.dao.entitie.Product;
-import com.myProject.dao.entitie.Warehouse;
+import com.myProject.entitie.Product;
+import com.myProject.entitie.Warehouse;
 import com.myProject.dao.WarehouseDao;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;

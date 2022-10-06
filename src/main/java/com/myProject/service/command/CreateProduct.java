@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Product;
-import com.myProject.dao.entitie.Unit;
+import com.myProject.entitie.Product;
+import com.myProject.entitie.Unit;
 import com.myProject.service.CommodityExpertManager;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +39,7 @@ public class CreateProduct implements Command {
                     .getServletContext()
                     .getAttribute("CommodityExpertManager");
 
-        Product newProduct = new Product(id, name, Unit.valueOfLabel(unit), price);
+        Product newProduct = new Product(id, name, Unit.valueOf(unit), price);
         if (id == 0L) {
             if (commodityExpertManager.create(newProduct) != null) {
                 logger.info(name + " added");

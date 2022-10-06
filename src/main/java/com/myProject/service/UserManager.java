@@ -2,8 +2,8 @@ package com.myProject.service;
 
 import com.myProject.dao.RoleDao;
 import com.myProject.dao.UserDao;
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.entitie.User;
+import com.myProject.entitie.Role;
+import com.myProject.entitie.User;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;

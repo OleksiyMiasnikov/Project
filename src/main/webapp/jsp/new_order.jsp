@@ -20,6 +20,9 @@
                     ***
                 </p>
                 <hr>
+                <input id="KG" hidden="hidden" value='<fmt:message key="KG"/>'>
+                <input id="PCS" hidden="hidden" value='<fmt:message key="PCS"/>'>
+                <br>
                 <span class="header_key">
                     <fmt:message key="new_order.${operation}_id"/>
                 </span>
@@ -53,7 +56,7 @@
                 <hr>
                 <select id="AllProducts" hidden="hidden">
                     <c:forEach var="item" items="${warehouse }">
-                        <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit.labelUa}|${item.quantity } ">
+                        <option value="${item.product.id }|${item.product.name }|${item.product.price }|${item.product.unit}|${item.quantity } ">
                         </option>
                     </c:forEach>
                 </select>
@@ -145,7 +148,7 @@
                             ${element.product.name}
                         </span>
                         <span class="item" style="width: 50px;">
-                            ${element.product.unit.labelUa}
+                            <fmt:message key="${element.product.unit}"/>
                         </span>
                         <span class="item" style="width: 100px;" type="number" step="0.001">
                             ${element.quantity}

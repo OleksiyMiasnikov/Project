@@ -1,8 +1,8 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.UserDao;
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.entitie.User;
+import com.myProject.entitie.Role;
+import com.myProject.entitie.User;
 import com.myProject.service.exception.DaoException;
 
 import java.sql.*;

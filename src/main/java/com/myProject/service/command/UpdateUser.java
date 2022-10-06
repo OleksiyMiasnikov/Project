@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.entitie.User;
+import com.myProject.entitie.Role;
+import com.myProject.entitie.User;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
-import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 
 public class UpdateUser implements Command {

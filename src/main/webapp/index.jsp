@@ -8,17 +8,10 @@
       <link rel="stylesheet" href="css/login.css">
       <link rel="stylesheet" href="css/locale.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxanium"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
    </head>
 
    <body>
-      <img  class="cs_image"
-                  style="position: fixed;
-                         width: 500px;
-                         height: 500px;
-                         top: 45%;
-                         left: 70%"
-                  src="${pageContext.request.contextPath}/images/cash_register1.png">
       <%@ include file="/jsp/locale.jspf" %>
       <script src="js/login.js"></script>
       <div class="container">
@@ -36,7 +29,9 @@
                   <i class="fas fa-eye-slash" id="eye" onclick="changingVisiabilityOfPassword()"></i>
                </div>
                <p class="error">
-                    ${incorrectUser}
+                    <c:if test="${!empty incorrectUser}">
+                        <fmt:message key="${incorrectUser}"/>
+                    </c:if>
                </p>
                <div class="row button">
                   <input type="submit" value="<fmt:message key='data_login'/>">

@@ -1,7 +1,7 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Role;
-import com.myProject.dao.entitie.User;
+import com.myProject.entitie.Role;
+import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -11,8 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 
 public class AddUserDetails implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(AddUserDetails.class);

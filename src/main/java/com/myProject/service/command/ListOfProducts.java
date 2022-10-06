@@ -1,6 +1,6 @@
 package com.myProject.service.command;
 
-import com.myProject.dao.entitie.Product;
+import com.myProject.entitie.Product;
 import com.myProject.service.CommodityExpertManager;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
