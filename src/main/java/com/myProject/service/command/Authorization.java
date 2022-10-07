@@ -27,7 +27,7 @@ public class Authorization implements Command {
         logger.info("login is \"" + login + "\".");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);
-        logger.info(req.getSession().getAttribute("locale"));
+       // logger.info(req.getSession().getAttribute("locale"));
         if (user != null && password.equals(user.getPassword())) {
             Employee employee =
                     Employee.createEmployee(user,

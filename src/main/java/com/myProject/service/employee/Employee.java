@@ -12,7 +12,7 @@ import java.util.*;
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
-    private List<String> menuItems;
+    private Deque<List<String>> stackOfMenuItems;
     private final String startCommand;
     private String locale;
 
@@ -20,18 +20,22 @@ public abstract class Employee implements Serializable {
         this.user = user;
         this.locale = locale;
         this.startCommand = startCommand;
-        this.menuItems = new ArrayList<>(Arrays.asList(items));
+        stackOfMenuItems = new ArrayDeque<>();
+        stackOfMenuItems.push(new ArrayList<>(Arrays.asList(items)));
     }
 
     public User getUser() {
         return user;
     }
     public List<String> getMenuItems() {
-        return menuItems;
+        return stackOfMenuItems.peek();
+    }
+    public void popMenuItems() {
+        stackOfMenuItems.pop();
     }
 
     public void setMenuItems(List<String> menuItems) {
-        this.menuItems = menuItems;
+        this.stackOfMenuItems.push(menuItems);
     }
 
     public String getStartCommand() {
@@ -63,7 +67,7 @@ public abstract class Employee implements Serializable {
     public String toString() {
         return "Employee{" +
                 "user=" + user +
-                ", menuItems=" + menuItems +
+                ", menuItems=" + stackOfMenuItems.peek() +
                 ", startCommand='" + startCommand + '\'' +
                 ", locale='" + locale + '\'' +
                 '}';
