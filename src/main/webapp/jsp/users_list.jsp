@@ -7,7 +7,7 @@
                 <span style="font-size: 8px;">
                     [users_list.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     *** <fmt:message key="user_list_jsp.list_of_users"/> ***
                 </p>
                 <hr>

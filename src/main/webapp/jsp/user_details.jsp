@@ -12,7 +12,7 @@
             <span style="font-size: 8px;">
                 [user_details.jsp]
             </span>
-            <p style="text-align: center; font-size: 22px;font-weight: bold">
+            <p class="header_title">
                 *** <fmt:message key="user_details_jsp.add_new_user"/> ***
             </p>
             <hr>

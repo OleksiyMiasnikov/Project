@@ -4,9 +4,9 @@ import com.myProject.dao.DaoFactory;
 import com.myProject.dao.OrderDao;
 import com.myProject.dao.OrderDetailsDao;
 import com.myProject.dto.Report;
+import com.myProject.dto.ReportItem;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
-import com.myProject.service.command.ReportX;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +14,7 @@ import org.apache.logging.log4j.core.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -316,12 +317,18 @@ public class CashierManager {
         }
     }
 
-    public List<Report> createReport() throws DaoException {
+    public Report createReport() throws DaoException {
         logger.info("Start collecting data for report");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.createReport(con);
+            List<ReportItem> list = orderDao.createReport(con);
+            Date[] dates = orderDao.determineDates(con);
+            return Report.builder()
+                    .startDate(dates[0])
+                    .endDate(dates[1])
+                    .list(list)
+                    .build();
         } catch (SQLException e) {
             throw new DaoException("Cannot collect data for report", e);
         } finally {

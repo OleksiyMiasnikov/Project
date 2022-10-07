@@ -7,7 +7,7 @@
                 <span style="font-size: 8px;">
                     [warehouse_list.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     *** <fmt:message key="warehouse_list_jsp.remains_in_warehouse"/> ***
                 </p>
                 <hr>

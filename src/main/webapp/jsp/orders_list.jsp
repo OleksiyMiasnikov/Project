@@ -7,7 +7,7 @@
                 <span style="font-size: 8px;">
                     [orders_list.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     *** <fmt:message key="order_list_jst.list_of"/>
                     <fmt:message key="${operation}"/> ***
                 </p>

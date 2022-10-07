@@ -53,7 +53,6 @@ public class ContextListener implements ServletContextListener, ServletContextAt
         context.setAttribute("locales", locales);
 
         logger.info("locales: " + locales.toString());
-        logger.info("Current locale: " + context.getInitParameter("javax.servlet.jsp.jstl.fmt.locale"));
     }
 
     @Override

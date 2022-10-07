@@ -1,11 +1,11 @@
 package com.myProject.dao;
 
-import com.myProject.dto.Report;
+import com.myProject.dto.ReportItem;
 import com.myProject.entitie.Order;
-import com.myProject.service.command.ReportX;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,5 +22,7 @@ public interface OrderDao extends Dao<Long, Order> {
 
     Map<String, Double> Totals(Connection con, String direction) throws SQLException;
 
-    List<Report> createReport(Connection con) throws SQLException;
+    List<ReportItem> createReport(Connection con) throws SQLException;
+
+    Date[] determineDates(Connection con) throws SQLException;
 }

@@ -43,6 +43,13 @@ body {
     box-shadow: 10px 5px 5px black;
 }
 
+.header_title {
+    text-align: center;
+    height:10px;
+    font-size: 22px;
+    font-weight: bold
+}
+
 .data_list {
     margin: auto;
     height: 380px;

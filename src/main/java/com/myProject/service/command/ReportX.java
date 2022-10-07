@@ -12,8 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+
 
 import static com.myProject.util.Constants.PATH;
 
@@ -22,11 +21,14 @@ public class ReportX implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Starting preparing X report");
-        User user = ((Employee) req.getSession().getAttribute("employee")).getUser();
         CashierManager manager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
-        List<Report> list = manager.createReport();
-        //System.out.println(Arrays.asList(list));
-        req.getSession().setAttribute("reports", list);
+        String seniorCashier = ((Employee) req.getSession()
+                .getAttribute("employee"))
+                .getUser()
+                .getLogin();
+        Report report = manager.createReport();
+        report.setSeniorCashier(seniorCashier);
+        req.getSession().setAttribute("report", report);
         return PATH + "report_x.jsp";
     }
 

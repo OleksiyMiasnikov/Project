@@ -7,7 +7,7 @@
                 <span style="font-size: 8px;">
                     [product_details.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     <c:choose>
                         <c:when test="${result.id == 0}">
                             *** <fmt:message key="command.new_product"/> ***

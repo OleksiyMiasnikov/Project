@@ -7,17 +7,32 @@
                 <span style="font-size: 8px;">
                     [report_x.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     *** Report X ***
                 </p>
                 <hr>
-                <span class="header_key" style="width: 170px;">
+                <span class="header_key" style="width: 130px;">
+                    Start date :
+                </span>
+                <span>
+                    ${report.startDate}
+                </span>
+                <br>
+                <span class="header_key" style="width: 130px;">
+                    End date :
+                </span>
+                <span>
+                    ${report.endDate}
+                </span>
+                <br>
+                <span class="header_key" style="width: 130px;">
                     Senior cashier :
                 </span>
                 <span>
-                    ${employee.user.login}
+                    ${report.seniorCashier}
                 </span>
                 <br>
+                <hr>
                 <div class=table_header>
                     <span class=table_header style="width: 50px;">
                         <fmt:message key="data_id"/>
@@ -41,7 +56,7 @@
                 <br>
                 <hr>
                 <div class=data_list>
-                    <c:forEach var="item" items="${reports}">
+                    <c:forEach var="item" items="${report.list}">
                         <span class="item" style="width: 50px;text-align: center;">
                             ${item.productId}
                         </span>

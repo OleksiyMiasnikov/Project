@@ -45,9 +45,8 @@ public class Constants {
     public static final String COUNT_ROWS_IN_ORDER = "SELECT count(*) AS `rows_total` FROM `order` WHERE `direction` = ? AND `reported` = 0";
     public static final String TOTALS_ORDERS = "SELECT COUNT(*) AS `total_quantity`, SUM(`totalAmount`) AS `total_amount` FROM `order` WHERE `direction` = ? AND `reported` = 0";
 
-    public static final String X_REPORT =
-            "SELECT `r_time`, " +
-                    "`product`.`id` AS `r_id`, " +
+    public static final String X_REPORT_ITEMS =
+            "SELECT `product`.`id` AS `r_id`, " +
                     "`product`.`name` AS `r_product`, " +
                     "`product`.`unit` AS `r_unit`, " +
                     "SUM(`o_quantity`) AS `r_quantity`, " +
@@ -63,6 +62,12 @@ public class Constants {
                     "ON `product`.`id` = `r_order`.`r_product_id` " +
                     "GROUP BY `r_product` " +
                     "ORDER BY `r_product` ASC";
+
+    public static final String X_REPORT_DATES =
+            "SELECT MIN(`time`)  AS `min_date`, " +
+                   "MAX(`time`)  AS `max_date` " +
+            "FROM `order` " +
+            "WHERE `order`.`direction` = 'OUT' AND `order`.`reported` = 0";
 
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ? LIMIT ?, ?";

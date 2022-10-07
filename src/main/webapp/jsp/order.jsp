@@ -16,7 +16,7 @@
                 <span style="font-size: 8px;">
                     [order.jsp]
                 </span>
-                <p style="text-align: center; font-size: 22px;font-weight: bold">
+                <p class="header_title">
                     ***
                     <fmt:message key="order_jsp.${operation}_details"/>
                     ***

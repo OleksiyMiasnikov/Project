@@ -1,11 +1,10 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.dao.UserDao;
-import com.myProject.dto.Report;
+import com.myProject.dto.ReportItem;
 import com.myProject.entitie.Order;
 import com.myProject.dao.OrderDao;
 import com.myProject.entitie.Unit;
-import com.myProject.service.command.ReportX;
 
 
 import java.sql.*;
@@ -195,13 +194,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Report> createReport(Connection con) throws SQLException {
+    public List<ReportItem> createReport(Connection con) throws SQLException {
         Statement stmt = null;
         ResultSet resultSet = null;
-        List<Report> list = new ArrayList<>();
+        List<ReportItem> list = new ArrayList<>();
         try {
             stmt = con.createStatement();
-            stmt.executeQuery(X_REPORT);
+            stmt.executeQuery(X_REPORT_ITEMS);
             resultSet = stmt.getResultSet();
             while (resultSet.next()) {
                 list.add(buildReport(resultSet));
@@ -217,15 +216,37 @@ public class OrderDaoImpl implements OrderDao {
         return list;
     }
 
-    private Report buildReport(ResultSet resultSet) throws SQLException {
-        return Report.builder()
-                .date(resultSet.getTimestamp(1))
-                .productId(resultSet.getLong(2))
-                .productName(resultSet.getString(3))
-                .unit(Unit.valueOf(resultSet.getString(4)))
-                .quantity(resultSet.getDouble(5))
-                .price(resultSet.getDouble(6))
+    private ReportItem buildReport(ResultSet resultSet) throws SQLException {
+        return ReportItem.builder()
+                .productId(resultSet.getLong(1))
+                .productName(resultSet.getString(2))
+                .unit(Unit.valueOf(resultSet.getString(3)))
+                .quantity(resultSet.getDouble(4))
+                .price(resultSet.getDouble(5))
                 .build();
+    }
+
+    @Override
+    public Date[] determineDates(Connection con) throws SQLException {
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        Date[] dates = new Date[2];
+        try {
+            stmt = con.createStatement();
+            stmt.executeQuery(X_REPORT_DATES);
+            resultSet = stmt.getResultSet();
+            resultSet.next();
+            dates[0] =resultSet.getTimestamp(1);
+            dates[1] =resultSet.getTimestamp(2);
+            return dates;
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
     }
 
     @Override
