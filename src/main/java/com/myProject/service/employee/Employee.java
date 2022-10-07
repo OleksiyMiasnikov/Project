@@ -12,13 +12,9 @@ import java.util.*;
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
-    private final List<String> menuItems;
+    private List<String> menuItems;
     private final String startCommand;
     private String locale;
-
-    public User getUser() {
-        return user;
-    }
 
     public Employee(User user, String locale, String startCommand, String ... items) {
         this.user = user;
@@ -26,15 +22,16 @@ public abstract class Employee implements Serializable {
         this.startCommand = startCommand;
         this.menuItems = new ArrayList<>(Arrays.asList(items));
     }
+
+    public User getUser() {
+        return user;
+    }
     public List<String> getMenuItems() {
         return menuItems;
     }
-    public List<String> getLocalMenuItems() {
-        ResourceBundle bundle = ResourceBundle
-                .getBundle("resources", Locale.forLanguageTag(locale));
-        String sss = bundle.getString("index_jsp.error");
 
-        return menuItems;
+    public void setMenuItems(List<String> menuItems) {
+        this.menuItems = menuItems;
     }
 
     public String getStartCommand() {

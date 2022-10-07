@@ -39,6 +39,9 @@ public class Receiver {
         commandMap.put(ORDERS_COMMAND, new Orders());
         commandMap.put(MOVIES_COMMAND, new Movies());
         commandMap.put(LOCALE_COMMAND, new ChangeLocale());
+        commandMap.put(BACK_COMMAND, new Back());
+        commandMap.put(PRINT_REPORT_COMMAND, new PrintReport());
+        commandMap.put(SEND_REPORT_COMMAND, new SendReport());
     }
 
     public static Command getCommand(String commandName) {

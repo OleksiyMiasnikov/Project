@@ -107,4 +107,7 @@ public class Constants {
     public static final String LOGOUT_COMMAND = "command.log_out";//"Log out";
     public static final String SERVE_ORDER_COMMAND = "command.serve_order";//"Serve order";
     public static final String LOCALE_COMMAND = "change_locale";
+    public static final String BACK_COMMAND = "command.back";
+    public static final String PRINT_REPORT_COMMAND = "command.print_report";
+    public static final String SEND_REPORT_COMMAND = "command.send_report";
 }
