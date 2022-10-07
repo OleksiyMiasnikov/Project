@@ -12,6 +12,7 @@ public class ReportItem implements Serializable, Comparable<Order>{
     private Unit unit;
     private double quantity;
     private double price;
+    private double amount;
 
     public ReportItem() {
     }
@@ -22,6 +23,7 @@ public class ReportItem implements Serializable, Comparable<Order>{
         this.unit = unit;
         this.quantity = quantity;
         this.price = price;
+        this.amount = quantity * price;
     }
 
     public static ReportItemBuilder builder() {
@@ -83,6 +85,10 @@ public class ReportItem implements Serializable, Comparable<Order>{
 
     public double getPrice() {
         return price;
+    }
+
+    public double getAmount() {
+        return amount;
     }
 
     @Override

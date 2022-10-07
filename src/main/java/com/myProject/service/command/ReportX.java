@@ -1,7 +1,6 @@
 package com.myProject.service.command;
 
 import com.myProject.dto.Report;
-import com.myProject.entitie.User;
 import com.myProject.service.CashierManager;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;

@@ -1,21 +1,35 @@
 package com.myProject.dto;
 
+import com.myProject.entitie.Unit;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 public class Report {
-    private Date startDate;
-    private Date endDate;
+    private final Date startDate;
+    private final Date endDate;
     private String seniorCashier;
-    private List<ReportItem> list;
+    private final List<ReportItem> list;
+    private final double kgTotal;
+    private final int pcsTotal;
+    private final double amountTotal;
 
     public Report(Date startDate, Date endDate, String seniorCashier, List<ReportItem> list) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.seniorCashier = seniorCashier;
         this.list = list;
+        kgTotal = list.stream()
+                .mapToDouble(r -> (r.getUnit().equals(Unit.KG)) ? r.getQuantity():0)
+                .sum();
+        pcsTotal = (int) list.stream()
+                .mapToDouble(r -> (r.getUnit().equals(Unit.PCS)) ? r.getQuantity():0)
+                .sum();
+        amountTotal = list.stream()
+                .mapToDouble(ReportItem::getAmount)
+                .sum();
     }
 
     public static ReportBuilder builder() {
@@ -23,11 +37,11 @@ public class Report {
     }
 
     public static class ReportBuilder {
-
         private Date startDate;
         private Date endDate;
         private String seniorCashier;
         private List<ReportItem> list;
+
         public ReportBuilder() {
         }
 
@@ -49,7 +63,10 @@ public class Report {
         }
 
         public Report build() {
-            return new Report(startDate, endDate, seniorCashier, list);
+            return new Report(startDate,
+                    endDate,
+                    seniorCashier,
+                    list);
         }
     }
     public Date getStartDate() {
@@ -70,5 +87,17 @@ public class Report {
 
     public List<ReportItem> getList() {
         return list;
+    }
+
+    public double getKgTotal() {
+        return kgTotal;
+    }
+
+    public int getPcsTotal() {
+        return pcsTotal;
+    }
+
+    public double getAmountTotal() {
+        return amountTotal;
     }
 }

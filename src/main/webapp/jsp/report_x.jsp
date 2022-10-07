@@ -4,29 +4,26 @@
         <%@ include file="/jsp/header.jspf" %>
         <script src=js/pagination.js></script>
             <div class="dataBox">
-                <span style="font-size: 8px;">
-                    [report_x.jsp]
-                </span>
                 <p class="header_title">
-                    *** Report X ***
+                    *** <fmt:message key="report_x_jsp.report_x"/> ***
                 </p>
                 <hr>
-                <span class="header_key" style="width: 130px;">
-                    Start date :
+                <span class="header_key" style="width: 140px;">
+                    <fmt:message key="report_x_jsp.start_date"/> :
                 </span>
                 <span>
                     ${report.startDate}
                 </span>
                 <br>
-                <span class="header_key" style="width: 130px;">
-                    End date :
+                <span class="header_key" style="width: 140px;">
+                    <fmt:message key="report_x_jsp.end_date"/> :
                 </span>
                 <span>
                     ${report.endDate}
                 </span>
                 <br>
-                <span class="header_key" style="width: 130px;">
-                    Senior cashier :
+                <span class="header_key" style="width: 140px;">
+                    <fmt:message key="data_senior_cashier"/> :
                 </span>
                 <span>
                     ${report.seniorCashier}
@@ -60,7 +57,7 @@
                         <span class="item" style="width: 50px;text-align: center;">
                             ${item.productId}
                         </span>
-                        <span class="item" style="width: 170px;text-align: center;">
+                        <span class="item" style="width: 170px;text-align: left;">
                             ${item.productName}
                         </span>
                         <span class="item" style="width: 50px;text-align: center;">
@@ -72,15 +69,33 @@
                         <span class="item" style="width: 70px;text-align: right;">
                             ${item.price}
                         </span>
-                        <input value="${item.price * item.quantity}"
-                                type="number"
-                                step="0.01"
-                                style="width: 80px;
-                                text-align: right;"
-                                disabled>
+                        <span class="item" style="width: 80px;text-align: right;">
+                            ${item.amount}
+                        </span>
                         <br>
                         <hr>
                     </c:forEach>
+                    <hr>
+                    <span class="header_key" style="width: 140px;">
+                        <fmt:message key="data_kg_total"/> :
+                    </span>
+                    <span>
+                        ${report.kgTotal}
+                    </span>
+                    <br>
+                    <span class="header_key" style="width: 140px;">
+                        <fmt:message key="data_pcs_total"/> :
+                    </span>
+                    <span>
+                        ${report.pcsTotal}
+                    </span>
+                    <br>
+                    <span class="header_key" style="width: 140px;">
+                        <fmt:message key="data_total_amount"/> :
+                    </span>
+                    <span>
+                        ${report.amountTotal}
+                    </span>
                 </div>
                 <br>
             </div>
