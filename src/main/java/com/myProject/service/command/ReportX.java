@@ -12,8 +12,6 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
-import org.apache.pdfbox.pdmodel.font.PDType1CFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,8 +37,8 @@ public class ReportX implements Command {
 
         Report report = manager.createReport();
         report.setSeniorCashier(employee.getUser().getLogin());
-        String pathPDF = createPDF(report);
-        req.getSession().setAttribute("report", report);
+        String filePDF = createPDF(req, report);
+        req.getSession().setAttribute("pdf", filePDF);
         employee.setMenuItems(new ArrayList<>(Arrays
                 .asList(PRINT_REPORT_COMMAND,
                         SEND_REPORT_COMMAND,
@@ -50,7 +48,7 @@ public class ReportX implements Command {
         return PATH + "report_x.jsp";
     }
 
-    private String createPDF(Report report) throws IOException {
+    private String createPDF(HttpServletRequest req, Report report) throws IOException {
         logger.info("start PDF creating");
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
@@ -116,9 +114,10 @@ public class ReportX implements Command {
         stream.close();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
-        document.save("d:\\" + dtf.format(now) + "_X_report.pdf");
+        String file = "/out/" + dtf.format(now) + "_X_report.pdf";
+        document.save(req.getServletContext().getRealPath(file));
         document.close();
-        return null;
+        return file;
     }
 
 }
