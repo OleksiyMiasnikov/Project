@@ -4,6 +4,7 @@ import com.myProject.dao.ProductDao;
 import com.myProject.dao.OrderDetailsDao;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
+import com.myProject.entitie.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -132,6 +133,39 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
         } finally {
             if (resultSet != null) resultSet.close();
             if (pstmt != null) pstmt.close();
+        }
+    }
+
+    @Override
+    public OrderDetails readByOrderAndProduct(Connection con, Order order, Product product) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(READ_ORDER_DETAILS_BY_ORDER_ID_AND_PRODUCT_ID);
+            pstmt.setLong(1, order.getId());
+            pstmt.setLong(2, product.getId());
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
+            if (resultSet.next()) {
+                return new OrderDetails(resultSet.getLong(1),
+                        order,
+                        product,
+                        resultSet.getDouble(4),
+                        resultSet.getDouble(5));
+            }
+            return null;
+        } finally {
+            if (resultSet != null) resultSet.close();
+            if (pstmt != null) pstmt.close();
+        }
+    }
+
+    @Override
+    public void updateQuantityInOrderDetail(Connection con, long id, double quantity) throws SQLException {
+        try (PreparedStatement pstmt = con.prepareStatement(UPDATE_QUANTITY_BY_ID);){
+            pstmt.setDouble(1, quantity);
+            pstmt.setLong(2, id);
+            pstmt.execute();
         }
     }
 

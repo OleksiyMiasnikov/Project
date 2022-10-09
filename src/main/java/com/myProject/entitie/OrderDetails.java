@@ -13,6 +13,14 @@ public class OrderDetails implements Serializable, Comparable<OrderDetails> {
     public OrderDetails() {
     }
 
+    public OrderDetails(long id, Order order, Product product, double quantity, double price) {
+        this.id = id;
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     public long getId() {
         return id;
     }

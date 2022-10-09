@@ -77,15 +77,20 @@ public class NewOrder implements Command {
             currentOrder = cashierManager.createOrder(currentOrder, direction);
         }
 
-        OrderDetails orderDetails = new OrderDetails();
-        orderDetails.setOrder(currentOrder);
-        orderDetails.setQuantity(Double.parseDouble(req.getParameter("newQuantity")));
-        orderDetails.setPrice(Double.parseDouble(req.getParameter("newPrice")));
-        orderDetails.setProduct(commodityExpertManager.read(Long.parseLong(req.getParameter("newProductId"))));
-        orderDetails = cashierManager.createOrderDetails(orderDetails, direction);
+        double price = Double.parseDouble(req.getParameter("newPrice"));
+        double quantity = Double.parseDouble(req.getParameter("newQuantity"));
+        Product product = commodityExpertManager.read(Long.parseLong(req.getParameter("newProductId")));
+        OrderDetails orderDetail = cashierManager
+                .findOrderDetailByOrderAndProduct(currentOrder, product);
+        if (orderDetail != null && Double.compare(price, orderDetail.getPrice()) == 0) {
+            cashierManager.updateQuantityInOrderDetail(orderDetail.getId(), quantity);
+        } else {
+            orderDetail = new OrderDetails(0L, currentOrder, product, quantity, price);
+            orderDetail = cashierManager.createOrderDetails(orderDetail, direction);
+        }
         cashierManager.updateTotal(currentOrder.getId());
         currentOrder.setTotalAmount(cashierManager.read(currentOrder.getId()).getTotalAmount());
-        logger.info("Added order details: " + orderDetails);
+        logger.info("Added order details: " + orderDetail);
     }
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws DaoException {

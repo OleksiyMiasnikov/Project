@@ -132,14 +132,13 @@ public class ReportX implements Command {
             stream.newLineAtOffset(0, -rowHeight);
             stream.endText();
             stream.close();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm_ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy-HH_mm_ss");
             LocalDateTime now = LocalDateTime.now();
             file = "/out/" + dtf.format(now) + "-X_report.pdf";
             document.save(req.getServletContext().getRealPath(file));
         }
         logger.info("finish creating report in pdf");
         return file;
-
     }
 
 }

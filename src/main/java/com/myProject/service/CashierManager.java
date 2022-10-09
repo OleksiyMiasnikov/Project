@@ -7,6 +7,7 @@ import com.myProject.dto.Report;
 import com.myProject.dto.ReportItem;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
+import com.myProject.entitie.Product;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -175,22 +176,6 @@ public class CashierManager {
         }
     }
 
-    public List<OrderDetails> detailsByOrderId(long id) throws DaoException {
-        logger.info("Start getting details of order #" + id);
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            return orderDetailsDao.readByOrderId(con, 0, 1000, id);
-        } catch (SQLException e) {
-            throw new DaoException("Cannot getting details of order #" + id, e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
 
     public void deleteAll(String[] orders) throws DaoException {
         for (String order: orders) {
@@ -301,23 +286,6 @@ public class CashierManager {
         }
     }
 
-    public List<OrderDetails> findAllOrderDetails(int from, int size, long id) throws DaoException {
-        logger.info("Start finding all orders or incomes");
-        Connection con = null;
-        try {
-            con = ConnectionPool.getInstance().getConnection();
-            return orderDetailsDao.readByOrderId(con, from, size, id);
-        } catch (SQLException e) {
-            throw new DaoException("Cannot find all orders", e);
-        } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                logger.error("Can not close connection!" + e);
-            }
-        }
-    }
-
     public Report createReport(String typeOfReport) throws DaoException {
         logger.info("Start collecting data for report");
         Connection con = null;
@@ -356,4 +324,73 @@ public class CashierManager {
         }
     }
 
+
+    /*
+        public List<OrderDetails> detailsByOrderId(long id) throws DaoException {
+            logger.info("Start getting details of order #" + id);
+            Connection con = null;
+            try {
+                con = ConnectionPool.getInstance().getConnection();
+                return orderDetailsDao.readByOrderId(con, 0, 1000, id);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot getting details of order #" + id, e);
+            } finally {
+                try {
+                    if (con != null) con.close();
+                } catch (SQLException e) {
+                    logger.error("Can not close connection!" + e);
+                }
+            }
+        }
+    */
+    public List<OrderDetails> findAllOrderDetails(int from, int size, long id) throws DaoException {
+        logger.info("Start finding all orders or incomes");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.readByOrderId(con, from, size, id);
+        } catch (SQLException e) {
+            throw new DaoException("Cannot find all orders", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public OrderDetails findOrderDetailByOrderAndProduct(Order order, Product product) throws DaoException {
+        logger.info("Start finding order_detail by order and product");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            return orderDetailsDao.readByOrderAndProduct(con, order, product);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to find order_detail by order and product", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
+
+    public void updateQuantityInOrderDetail(long id, double quantity) throws DaoException {
+        logger.info("Start updating quantity in order_detail");
+        Connection con = null;
+        try {
+            con = ConnectionPool.getInstance().getConnection();
+            orderDetailsDao.updateQuantityInOrderDetail(con, id, quantity);
+        } catch (SQLException e) {
+            throw new DaoException("Unable to update quantity in order_detail", e);
+        } finally {
+            try {
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                logger.error("Can not close connection!" + e);
+            }
+        }
+    }
 }

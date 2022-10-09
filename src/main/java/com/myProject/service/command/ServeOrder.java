@@ -28,7 +28,7 @@ public class ServeOrder implements Command {
                         .getServletContext()
                         .getAttribute("CashierManager");
         Order order = manager.read(id);
-        List<OrderDetails> orderDetailsList = manager.detailsByOrderId(id);
+        List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);
         req.setAttribute("orderDetails", orderDetailsList);
         req.setAttribute("order", order);
         if ("orders".equals(operation)) {

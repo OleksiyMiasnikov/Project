@@ -1,6 +1,8 @@
 package com.myProject.dao;
 
+import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
+import com.myProject.entitie.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,4 +15,7 @@ public interface OrderDetailsDao extends Dao<Long, OrderDetails> {
 
     int findRowsTotal(Connection con, long id) throws SQLException;
 
+    OrderDetails readByOrderAndProduct(Connection con, Order order, Product product) throws SQLException;
+
+    void updateQuantityInOrderDetail(Connection con, long id, double quantity) throws SQLException;
 }

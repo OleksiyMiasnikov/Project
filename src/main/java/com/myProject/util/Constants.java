@@ -78,6 +78,12 @@ public class Constants {
 
     // SQL OrderDetailsDao constants
     public static final String READ_ORDER_DETAILS_BY_ORDER_ID = "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` FROM `order_details` WHERE `order_id` = ? LIMIT ?, ?";
+    public static final String READ_ORDER_DETAILS_BY_ORDER_ID_AND_PRODUCT_ID =
+            "SELECT `id`, `order_id`, `product_id`, `quantity`, `price` " +
+            "FROM `order_details` " +
+            "WHERE `order_id` = ? " +
+                    "AND `product_id` = ?";
+    public static final String UPDATE_QUANTITY_BY_ID = "UPDATE `order_details` SET `quantity` =  `quantity` + ? WHERE id = ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
     public static final String DELETE_ORDER_DETAILS = "DELETE FROM `order_details` WHERE `id` = ?";
     public static final String DELETE_ORDER_DETAILS_BY_ORDER_ID = "DELETE FROM `order_details` WHERE `order_id` = ?";
