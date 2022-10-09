@@ -41,6 +41,10 @@
     <param-value>/WEB-INF/locales.properties</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>bahnschrift</param-name>
+    <param-value>/fonts/bahnschrift.ttf</param-value>
+  </context-param>
 
 
 </web-app>
