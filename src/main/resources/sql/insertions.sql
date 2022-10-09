@@ -10,11 +10,11 @@ VALUES
 
 INSERT INTO `user` (`id`, `login`, `email`, `password`, `role_id`)
 VALUES
-(1, 'admin', 'admin@admin', 'admin', 1),
-(2, 'Alex', 'alex@alex', '1111', 1),
-(3, 'Bob', 'b@b', '2222', 2),
-(4, 'Clode', 'c@c', '3333', 3),
-(5, 'Den', 'd@d', '4444', 4);
+(1, 'admin', 'admin@admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(2, 'Alex', 'alex@alex', 'b59c67bf196a4758191e42f76670ceba', 1),
+(3, 'Bob', 'b@b', '934b535800b1cba8f96a5d72f72f1611', 2),
+(4, 'Clode', 'c@c', '2be9bd7a3434f7038ca27d1918de58bd', 3),
+(5, 'Den', 'd@d', 'dbc4d84bfcfe2284ba11beffb853a8c4', 4);
 
 
 INSERT INTO `product` (`id`, `name`, `unit`, `price`)

@@ -4,6 +4,7 @@ import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
 import com.myProject.service.exception.DaoException;
+import com.myProject.util.EncryptPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -19,7 +20,7 @@ public class AddUserDetails implements Command {
         logger.info("started");
         long id = 0L;
         String login = req.getParameter("newLogin");
-        String password = req.getParameter("newPassword");
+        String password = EncryptPassword.encrypt(req.getParameter("newPassword"));
         String email = req.getParameter("newEmail");
         String role = req.getParameter("newRole");
         String strId = req.getParameter("id");

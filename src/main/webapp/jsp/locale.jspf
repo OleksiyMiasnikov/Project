@@ -16,5 +16,4 @@
     </form>
     <fmt:setLocale value="${locale}" scope="session"/>
     <fmt:setBundle basename="resources"/>
-    <c:set var="current_locale" value="${locale}" scope="session"/>
 </html>

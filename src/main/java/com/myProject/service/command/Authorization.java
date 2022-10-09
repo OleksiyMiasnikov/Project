@@ -4,6 +4,7 @@ import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
 import com.myProject.service.employee.Employee;
 import com.myProject.service.exception.DaoException;
+import com.myProject.util.EncryptPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -11,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -23,7 +26,8 @@ public class Authorization implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
         String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String password = EncryptPassword.encrypt(req.getParameter("password"));
+
         logger.info("login is \"" + login + "\".");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);
@@ -41,4 +45,5 @@ public class Authorization implements Command {
             return START_PAGE;
         }
     }
+
 }

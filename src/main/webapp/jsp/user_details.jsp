@@ -27,12 +27,12 @@
                     <span class="header_key">
                         <fmt:message key="data_password"/>
                     </span>
-                    <input class="header_value" name="newPassword" value="${user.password}">
+                    <input class="header_value" type="password" name="newPassword" value="${user.password}">
                     <br>
                     <span class="header_key">
                         <fmt:message key="data_email"/>
                     </span>
-                    <input class="header_value" name="newEmail" value="${user.email}" >
+                    <input class="header_value" type="email" name="newEmail" value="${user.email}" >
                     <br>
                     <span class="header_key">
                         <fmt:message key="data_role"/>
