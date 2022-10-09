@@ -96,8 +96,7 @@
                         default value="0"
                         min="0"
                         onchange="quantityUpdated();"
-                        style="width: 100px;"
-                        max=5>
+                        style="width: 100px;">
                 <input name="newUnit"
                         id="newUnit"
                         placeholder='<fmt:message key="data_unit"/>'

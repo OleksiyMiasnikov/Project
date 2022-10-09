@@ -13,6 +13,9 @@
     </head>
 
     <body>
+        <title>
+            <fmt:message key="${title}"/>
+        </title>
         <%@ include file="/jsp/locale.jspf" %>
         <form id="controller_form" action="${pageContext.request.contextPath}/controller" method="post">
             <div class="sideBar">

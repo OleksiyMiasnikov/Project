@@ -19,7 +19,7 @@ public class CreateProduct implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("===========Start================");
+        logger.info("Start creating new product");
         String name = req.getParameter("newName");
         if ("".equals(name)) return "controller?command=" + LIST_OF_PRODUCT_COMMAND;
         String unit = req.getParameter("newUnit");
@@ -38,7 +38,6 @@ public class CreateProduct implements Command {
             (CommodityExpertManager) req.getSession()
                     .getServletContext()
                     .getAttribute("CommodityExpertManager");
-
         Product newProduct = new Product(id, name, Unit.valueOf(unit), price);
         if (id == 0L) {
             if (commodityExpertManager.create(newProduct) != null) {
@@ -50,7 +49,6 @@ public class CreateProduct implements Command {
             commodityExpertManager.update(newProduct);
             logger.info(name + " updated");
         }
-
         return "controller?command=command.list_of_products";
     }
 }

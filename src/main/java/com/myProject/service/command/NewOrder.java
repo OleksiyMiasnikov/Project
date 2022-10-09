@@ -76,6 +76,7 @@ public class NewOrder implements Command {
         if (currentOrder.getId() == 0) {
             currentOrder = cashierManager.createOrder(currentOrder, direction);
         }
+
         OrderDetails orderDetails = new OrderDetails();
         orderDetails.setOrder(currentOrder);
         orderDetails.setQuantity(Double.parseDouble(req.getParameter("newQuantity")));
@@ -124,5 +125,6 @@ public class NewOrder implements Command {
         req.getSession().setAttribute("operation", operation);
         req.getSession().setAttribute("pcs", "шт");
         req.getSession().setAttribute("order", currentOrder);
+        req.getSession().setAttribute("title", "command.new_" + operation);
     }
 }

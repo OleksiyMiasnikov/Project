@@ -34,6 +34,7 @@ public class ShowUsers implements Command {
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", SHOW_USERS_COMMAND);
         req.getSession().setAttribute("result", userList);
+        req.getSession().setAttribute("title", "command.show_users");
         return PATH + "users_list.jsp";
     }
 }

@@ -250,6 +250,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void closeReportedOrders(Connection con) throws SQLException {
+        try (Statement stmt = con.createStatement()){
+            stmt.execute(Z_REPORT_CLOSE_ORDERS);
+        }
+    }
+
+    @Override
     public Order create(Connection con, Order entity) throws SQLException {
         return null;
     }

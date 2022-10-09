@@ -35,7 +35,13 @@ public class ReportX implements Command {
         Employee employee =
                 (Employee) req.getSession().getAttribute("employee");
 
-        Report report = manager.createReport();
+        String typeOfReport = "X_report";
+        String title = "command.x_reports";
+        if ("YES".equals(req.getParameter("z_report"))) {
+            typeOfReport = "Z_report";
+            title = "command.y_reports";
+        }
+        Report report = manager.createReport(typeOfReport);
         report.setSeniorCashier(employee.getUser().getLogin());
         String filePDF = createPDF(req, report);
         req.getSession().setAttribute("pdf", filePDF);
@@ -44,93 +50,96 @@ public class ReportX implements Command {
                         SEND_REPORT_COMMAND,
                         BACK_COMMAND)));
         req.getSession().setAttribute("employee", employee);
-
+        req.getSession().setAttribute("title", title);
         return PATH + "report_x.jsp";
     }
 
     private String createPDF(HttpServletRequest req, Report report) throws IOException {
-        logger.info("start PDF creating");
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        document.addPage(page);
+        logger.info("start creating report in pdf");
+        String file;
+        try (PDDocument document = new PDDocument())
+        {
+            PDPage page = new PDPage();
+            document.addPage(page);
 
+            PDPageContentStream stream = new PDPageContentStream(document, page);
 
-        PDPageContentStream stream = new PDPageContentStream(document, page);
-        String fontFile = req.getServletContext().getInitParameter("bahnschrift");
-        PDFont font = PDType0Font.load(document,
-                new FileInputStream(fontFile),
-                false);
+            String path = req.getServletContext().getRealPath("/WEB-INF/fonts/bahnschrift.ttf");
 
-        int pageHeight = (int) page.getTrimBox().getHeight();
-        int pageWidth = (int) page.getTrimBox().getWidth();
-        int xCoordinate = 50;
-        int yCoordinate = pageHeight - 50;
-        int rowHeight = 24;
+            PDFont font = PDType0Font.load(document,
+                    new FileInputStream(path),
+                    false);
 
-        stream.beginText();
-        stream.setFont(font, 14);
-        stream.newLineAtOffset(xCoordinate, yCoordinate);
-        stream.showText("*** Report X ***");
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("------------------------------------------------------------------------------");
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Start date: " + report.getStartDate());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("End date  : " + report.getEndDate());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Senior cashier: " + report.getSeniorCashier());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("------------------------------------------------------------------------------");
-        stream.setFont(font, 12);
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Id");
-        stream.newLineAtOffset(40, 0);
-        stream.showText("Product name");
-        stream.newLineAtOffset(200, 0);
-        stream.showText("Unit");
-        stream.newLineAtOffset(40, 0);
-        stream.showText("Quantity");
-        stream.newLineAtOffset(70, 0);
-        stream.showText("Price");
-        stream.newLineAtOffset(100, 0);
-        stream.showText("Amount");
-        stream.newLineAtOffset(-450, -rowHeight);
-        stream.setFont(font, 14);
-        stream.showText("------------------------------------------------------------------------------");
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.setFont(font, 12);
-        for (ReportItem element : report.getList()) {
-            stream.showText(String.valueOf(element.getProductId()));
+            int pageHeight = (int) page.getTrimBox().getHeight();
+            int xCoordinate = 50;
+            int yCoordinate = pageHeight - 50;
+            int rowHeight = 24;
+
+            stream.beginText();
+            stream.setFont(font, 14);
+            stream.newLineAtOffset(xCoordinate, yCoordinate);
+            stream.showText("*** Report X ***");
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("------------------------------------------------------------------------------");
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Start date: " + report.getStartDate());
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("End date  : " + report.getEndDate());
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Senior cashier: " + report.getSeniorCashier());
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("------------------------------------------------------------------------------");
+            stream.setFont(font, 12);
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Id");
             stream.newLineAtOffset(40, 0);
-            stream.showText(element.getProductName());
+            stream.showText("Product name");
             stream.newLineAtOffset(200, 0);
-            stream.showText(String.valueOf(element.getUnit().getLabel()));
+            stream.showText("Unit");
             stream.newLineAtOffset(40, 0);
-            stream.showText(String.valueOf(element.getQuantity()));
+            stream.showText("Quantity");
             stream.newLineAtOffset(70, 0);
-            stream.showText(String.valueOf(element.getPrice()));
+            stream.showText("Price");
             stream.newLineAtOffset(100, 0);
-            stream.showText(String.format("%-7.2f", element.getAmount()));
+            stream.showText("Amount");
             stream.newLineAtOffset(-450, -rowHeight);
+            stream.setFont(font, 14);
+            stream.showText("------------------------------------------------------------------------------");
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.setFont(font, 12);
+            for (ReportItem element : report.getList()) {
+                stream.showText(String.valueOf(element.getProductId()));
+                stream.newLineAtOffset(40, 0);
+                stream.showText(element.getProductName());
+                stream.newLineAtOffset(200, 0);
+                stream.showText(String.valueOf(element.getUnit().getLabel()));
+                stream.newLineAtOffset(40, 0);
+                stream.showText(String.valueOf(element.getQuantity()));
+                stream.newLineAtOffset(70, 0);
+                stream.showText(String.valueOf(element.getPrice()));
+                stream.newLineAtOffset(100, 0);
+                stream.showText(String.format("%-7.2f", element.getAmount()));
+                stream.newLineAtOffset(-450, -rowHeight);
+            }
+            stream.setFont(font, 14);
+            stream.showText("------------------------------------------------------------------------------");
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Total quantity (kg): " + String.format("%-7.2f", report.getKgTotal()));
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Total quantity (pcs): " + String.format("%-7d", report.getPcsTotal()));
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.showText("Total amount: " + String.format("%-7.2f", report.getAmountTotal()));
+            stream.newLineAtOffset(0, -rowHeight);
+            stream.endText();
+            stream.close();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm_ss");
+            LocalDateTime now = LocalDateTime.now();
+            file = "/out/" + dtf.format(now) + "-X_report.pdf";
+            document.save(req.getServletContext().getRealPath(file));
         }
-        stream.setFont(font, 14);
-        stream.showText("------------------------------------------------------------------------------");
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Total quantity (kg): " + report.getKgTotal());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Total quantity (pcs): " + report.getPcsTotal());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.showText("Total amount: " + report.getAmountTotal());
-        stream.newLineAtOffset(0, -rowHeight);
-        stream.endText();
-
-        stream.close();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm");
-        LocalDateTime now = LocalDateTime.now();
-        String file = "/out/" + dtf.format(now) + "_X_report.pdf";
-        document.save(req.getServletContext().getRealPath(file));
-        document.close();
+        logger.info("finish creating report in pdf");
         return file;
+
     }
 
 }

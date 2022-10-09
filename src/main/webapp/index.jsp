@@ -9,6 +9,9 @@
       <link rel="stylesheet" href="css/locale.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
+      <title>
+         <fmt:message key="index_jsp_title"/>
+      </title>
    </head>
 
    <body>

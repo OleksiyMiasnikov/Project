@@ -228,6 +228,7 @@ public class CashierManager {
                 con.commit();
                 return true;
             }
+            orderDao.updateTotal(con, orderId);
             return false;
         } catch (SQLException e) {
             try {
@@ -317,23 +318,38 @@ public class CashierManager {
         }
     }
 
-    public Report createReport() throws DaoException {
+    public Report createReport(String typeOfReport) throws DaoException {
         logger.info("Start collecting data for report");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            con.setAutoCommit(false);
             List<ReportItem> list = orderDao.createReport(con);
             Date[] dates = orderDao.determineDates(con);
+            if ("Z_report".equals(typeOfReport)) {
+                orderDao.closeReportedOrders(con);
+            }
+            con.commit();
             return Report.builder()
                     .startDate(dates[0])
                     .endDate(dates[1])
                     .list(list)
                     .build();
         } catch (SQLException e) {
+            try {
+                if (con != null) con.rollback();
+            } catch (SQLException ex) {
+                logger.info("Connection is null.  " + ex);
+            }
+            logger.error("Unable to collect data for report. Rollback.");
             throw new DaoException("Cannot collect data for report", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }

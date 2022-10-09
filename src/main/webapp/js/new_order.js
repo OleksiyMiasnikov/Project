@@ -24,10 +24,12 @@ function idUpdated() {
             document.getElementById("newProduct").value = productDetails[1];
             if (productDetails[3] === "PCS") {
                 document.getElementById("newQuantity").step = 1;
+                document.getElementById("newQuantity").min = 1;
                 document.getElementById("newUnit").value = document.getElementById("PCS").value
 
             } else {
                 document.getElementById("newQuantity").step = 0.05;
+                document.getElementById("newQuantity").min = 0.1;
                 document.getElementById("newUnit").value = document.getElementById("KG").value
             }
             document.getElementById("newPrice").value = productDetails[2];
@@ -46,10 +48,12 @@ function productUpdated(){
             document.getElementById("newProductId").value = productDetails[0];
             if (productDetails[3] === "PCS") {
                 document.getElementById("newQuantity").step = 1;
+                document.getElementById("newQuantity").min = 1;
                 document.getElementById("newUnit").value = document.getElementById("PCS").value
 
             } else {
                 document.getElementById("newQuantity").step = 0.05;
+                document.getElementById("newQuantity").min = 0.1;
                 document.getElementById("newUnit").value = document.getElementById("KG").value
             }
             document.getElementById("newPrice").value = productDetails[2];

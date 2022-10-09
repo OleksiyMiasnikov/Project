@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.myProject.util.Constants.PATH;
+
 
 public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
@@ -25,7 +27,7 @@ public class UpdateUser implements Command {
         req.setAttribute("user", user);
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
         req.setAttribute("roles", rolesList);
-      //  req.getRequestDispatcher("user_details.jsp").forward(req, resp);
-        return "jsp/user_details.jsp";
+        req.getSession().setAttribute("title", "command.update_user");
+        return  PATH + "user_details.jsp";
     }
 }

@@ -37,6 +37,7 @@ public class Remains implements Command {
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", REMAINS_COMMAND);
+        req.getSession().setAttribute("title", "command.remains");
         return PATH + "warehouse_list.jsp";
     }
 }

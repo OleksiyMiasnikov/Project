@@ -25,4 +25,6 @@ public interface OrderDao extends Dao<Long, Order> {
     List<ReportItem> createReport(Connection con) throws SQLException;
 
     Date[] determineDates(Connection con) throws SQLException;
+
+    void closeReportedOrders(Connection con) throws SQLException;
 }

@@ -27,7 +27,6 @@ public class Authorization implements Command {
         logger.info("login is \"" + login + "\".");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);
-       // logger.info(req.getSession().getAttribute("locale"));
         if (user != null && password.equals(user.getPassword())) {
             Employee employee =
                     Employee.createEmployee(user,
@@ -38,6 +37,7 @@ public class Authorization implements Command {
             return "controller?command=" + employee.getStartCommand();
         } else {
             req.getSession().setAttribute("incorrectUser","index_jsp.error");
+            req.getSession().setAttribute("title", "error_page_jsp");
             return START_PAGE;
         }
     }

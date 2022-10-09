@@ -16,7 +16,7 @@ public class DeleteOrderedProduct implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrderedProduct.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("execute ");
+        logger.info("deleting ordered product");
         String[] products = req.getParameterMap().get("products");
         String strId = req.getParameter("order_id");
         String operation = (String) req.getSession().getAttribute("operation");

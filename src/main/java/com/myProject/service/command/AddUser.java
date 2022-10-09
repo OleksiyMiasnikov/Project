@@ -20,6 +20,7 @@ public class AddUser implements Command{
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
         req.getSession().setAttribute("roles", rolesList);
+        req.getSession().setAttribute("title", "command.add_user");
         return PATH + "user_details.jsp";
     }
 }

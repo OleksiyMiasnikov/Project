@@ -35,6 +35,7 @@ public class ListOfProducts implements Command {
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);
         req.getSession().setAttribute("command_name", LIST_OF_PRODUCT_COMMAND);
+        req.getSession().setAttribute("title", "command.list_of_products");
         return PATH + "product_list.jsp";
     }
 }

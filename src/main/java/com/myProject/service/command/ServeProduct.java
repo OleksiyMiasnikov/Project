@@ -29,7 +29,7 @@ public class ServeProduct implements Command {
         req.getSession().setAttribute("units", Unit.values());
         req.getSession().setAttribute("result", product);
         req.getSession().setAttribute("Fragment", "/ProductFragment");
-        //return MAIN_PAGE;
+        req.getSession().setAttribute("title", "command.update_product");
         return PATH + "product_details.jsp";
     }
 }
