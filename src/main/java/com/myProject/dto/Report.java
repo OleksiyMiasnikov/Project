@@ -11,23 +11,23 @@ public class Report {
     private final Date startDate;
     private final Date endDate;
     private String seniorCashier;
-    private final List<ReportItem> list;
+    private final List<ReportItem> reportList;
     private final double kgTotal;
     private final int pcsTotal;
     private final double amountTotal;
 
-    public Report(Date startDate, Date endDate, String seniorCashier, List<ReportItem> list) {
+    public Report(Date startDate, Date endDate, String seniorCashier, List<ReportItem> reportList) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.seniorCashier = seniorCashier;
-        this.list = list;
-        kgTotal = list.stream()
+        this.reportList = reportList;
+        kgTotal = reportList.stream()
                 .mapToDouble(r -> (r.getUnit().equals(Unit.KG)) ? r.getQuantity():0)
                 .sum();
-        pcsTotal = (int) list.stream()
+        pcsTotal = (int) reportList.stream()
                 .mapToDouble(r -> (r.getUnit().equals(Unit.PCS)) ? r.getQuantity():0)
                 .sum();
-        amountTotal = list.stream()
+        amountTotal = reportList.stream()
                 .mapToDouble(ReportItem::getAmount)
                 .sum();
     }
@@ -85,8 +85,8 @@ public class Report {
         this.seniorCashier = seniorCashier;
     }
 
-    public List<ReportItem> getList() {
-        return list;
+    public List<ReportItem> getReportList() {
+        return reportList;
     }
 
     public double getKgTotal() {
@@ -107,10 +107,40 @@ public class Report {
                 "startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", seniorCashier='" + seniorCashier + '\'' +
-                ", list=" + list +
+                ", list=" + reportList +
                 ", kgTotal=" + kgTotal +
                 ", pcsTotal=" + pcsTotal +
                 ", amountTotal=" + amountTotal +
                 "}\n";
+    }
+
+    public List<String> toStrings() {
+        List<String> list = new ArrayList<>();
+        list.add("*** Report X ***");
+        list.add("------------------------------------------------------------------------------");
+        list.add("Start date: " + startDate);
+        list.add("End date  : " + endDate);
+        list.add("Senior cashier: " + seniorCashier);
+        list.add("------------------------------------------------------------------------------");
+        list.add(String.format("%-5s", "Id") +
+                String.format("%-30s", "Product name") +
+                String.format("%-5s", "Unit") +
+                String.format("%-10s", "Quantity") +
+                String.format("%-13s", "Price") +
+                String.format("%-13s", "Amount"));
+        list.add("------------------------------------------------------------------------------");
+        for (ReportItem element : reportList) {
+            list.add(String.format("%-5d", element.getProductId()) +
+                    String.format("%-30s", element.getProductName()) +
+                    String.format("%-5s", element.getUnit().getLabel()) +
+                    String.format("% 7.2f", element.getQuantity()) +
+                    String.format("% 11.2f", element.getPrice()) +
+                    String.format("% 12.2f", element.getAmount()));
+        }
+        list.add("------------------------------------------------------------------------------");
+        list.add("Total quantity (kg): " + String.format("%-7.2f", kgTotal));
+        list.add("Total quantity (pcs): " + String.format("%-7d", pcsTotal));
+        list.add("Total amount: " + String.format("%-9.2f", amountTotal));
+        return list;
     }
 }

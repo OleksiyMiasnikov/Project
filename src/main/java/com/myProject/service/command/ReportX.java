@@ -16,8 +16,6 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -46,15 +44,6 @@ public class ReportX implements Command {
         Report report = manager.createReport(typeOfReport);
         report.setSeniorCashier(employee.getUser().getLogin());
         String filePDF = createPDF(req, report);
-        /*
-        if (Desktop.isDesktopSupported()) {
-            try {
-               // File myFile = new File(filePDF);
-                Desktop.getDesktop().open(new File(req.getServletContext().getRealPath(filePDF)));
-            } catch (IOException ex) {
-                // no application registered for PDFs
-            }
-        }*/
         req.getSession().setAttribute("pdf", filePDF);
         employee.setMenuItems(new ArrayList<>(Arrays
                 .asList(PRINT_REPORT_COMMAND,
@@ -62,9 +51,7 @@ public class ReportX implements Command {
                         BACK_COMMAND)));
         req.getSession().setAttribute("employee", employee);
         req.getSession().setAttribute("title", title);
-        System.out.printf(report.toString());
-        //return PATH + "report_x2.jsp";
-        return "ReportPDF";
+        return PATH + "report_x.jsp";
     }
 
     private String createPDF(HttpServletRequest req, Report report) throws IOException {
@@ -72,17 +59,13 @@ public class ReportX implements Command {
         String file;
         try (PDDocument document = new PDDocument())
         {
+            String path = req.getServletContext().getRealPath("/WEB-INF/fonts/bahnschrift.ttf");
             PDPage page = new PDPage();
             document.addPage(page);
-
             PDPageContentStream stream = new PDPageContentStream(document, page);
-
-            String path = req.getServletContext().getRealPath("/WEB-INF/fonts/bahnschrift.ttf");
-
             PDFont font = PDType0Font.load(document,
                     new FileInputStream(path),
                     false);
-
             int pageHeight = (int) page.getTrimBox().getHeight();
             int xCoordinate = 50;
             int yCoordinate = pageHeight - 50;
@@ -90,20 +73,27 @@ public class ReportX implements Command {
 
             stream.beginText();
             stream.setFont(font, 14);
+            stream.setLeading(rowHeight);
             stream.newLineAtOffset(xCoordinate, yCoordinate);
             stream.showText("*** Report X ***");
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("------------------------------------------------------------------------------");
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("Start date: " + report.getStartDate());
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("End date  : " + report.getEndDate());
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("Senior cashier: " + report.getSeniorCashier());
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("------------------------------------------------------------------------------");
             stream.setFont(font, 12);
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.showText("Id");
             stream.newLineAtOffset(40, 0);
             stream.showText("Product name");
@@ -115,12 +105,14 @@ public class ReportX implements Command {
             stream.showText("Price");
             stream.newLineAtOffset(100, 0);
             stream.showText("Amount");
-            stream.newLineAtOffset(-450, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLineAtOffset(-450,  - rowHeight);
             stream.setFont(font, 14);
             stream.showText("------------------------------------------------------------------------------");
-            stream.newLineAtOffset(0, -rowHeight);
+            yCoordinate -= rowHeight;
+            stream.newLine();
             stream.setFont(font, 12);
-            for (ReportItem element : report.getList()) {
+            for (ReportItem element : report.getReportList()) {
                 stream.showText(String.valueOf(element.getProductId()));
                 stream.newLineAtOffset(40, 0);
                 stream.showText(element.getProductName());
@@ -132,17 +124,42 @@ public class ReportX implements Command {
                 stream.showText(String.valueOf(element.getPrice()));
                 stream.newLineAtOffset(100, 0);
                 stream.showText(String.format("%-7.2f", element.getAmount()));
-                stream.newLineAtOffset(-450, -rowHeight);
+                stream.newLineAtOffset(-450,  0);
+                stream.newLine();
+                yCoordinate -= rowHeight;
+                if (yCoordinate < 50) {
+                    stream.endText();
+                    stream.close();
+                    PDPage newPage = new PDPage();
+                    document.addPage(newPage);
+                    stream = new PDPageContentStream(document, newPage);
+                    stream.beginText();
+                    stream.setFont(font, 12);
+                    yCoordinate = pageHeight - 50;
+                    stream.newLineAtOffset(xCoordinate,  yCoordinate);
+                    stream.setLeading(rowHeight);
+                }
+            }
+            if (yCoordinate < 4 * rowHeight + 50) {
+                stream.endText();
+                stream.close();
+                PDPage newPage = new PDPage();
+                document.addPage(newPage);
+                stream = new PDPageContentStream(document, newPage);
+                stream.beginText();
+                yCoordinate = pageHeight - 50;
+                stream.newLineAtOffset(xCoordinate,  yCoordinate);
+                stream.setLeading(rowHeight);
             }
             stream.setFont(font, 14);
             stream.showText("------------------------------------------------------------------------------");
-            stream.newLineAtOffset(0, -rowHeight);
+            stream.newLine();
             stream.showText("Total quantity (kg): " + String.format("%-7.2f", report.getKgTotal()));
-            stream.newLineAtOffset(0, -rowHeight);
+            stream.newLine();
             stream.showText("Total quantity (pcs): " + String.format("%-7d", report.getPcsTotal()));
-            stream.newLineAtOffset(0, -rowHeight);
+            stream.newLine();
             stream.showText("Total amount: " + String.format("%-7.2f", report.getAmountTotal()));
-            stream.newLineAtOffset(0, -rowHeight);
+            stream.newLine();
             stream.endText();
             stream.close();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy-HH_mm_ss");
@@ -153,5 +170,4 @@ public class ReportX implements Command {
         logger.info("finish creating report in pdf");
         return file;
     }
-
 }

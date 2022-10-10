@@ -10,4 +10,6 @@
               password="18De1975"
               driverClassName="com.mysql.cj.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/cash_register?autoReconnect=true"/>
+
+    <Resources antiResourceLocking="false" cachingAllowed="false" />
 </Context>
