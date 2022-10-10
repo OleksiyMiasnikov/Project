@@ -3,7 +3,8 @@
 <body>
         <%@ include file="/jsp/header.jspf" %>
             <div class="dataBox">
-                <iframe src="${pageContext.request.contextPath}${pdf}" width="560px" height="780px"></iframe>
+                ${pdf}
+                <jsp:include page="/ReportPDF" flush="true" />
             </div>
         </form>
     </body>

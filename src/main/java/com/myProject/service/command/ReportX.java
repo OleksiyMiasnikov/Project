@@ -16,6 +16,8 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -44,6 +46,15 @@ public class ReportX implements Command {
         Report report = manager.createReport(typeOfReport);
         report.setSeniorCashier(employee.getUser().getLogin());
         String filePDF = createPDF(req, report);
+        /*
+        if (Desktop.isDesktopSupported()) {
+            try {
+               // File myFile = new File(filePDF);
+                Desktop.getDesktop().open(new File(req.getServletContext().getRealPath(filePDF)));
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }*/
         req.getSession().setAttribute("pdf", filePDF);
         employee.setMenuItems(new ArrayList<>(Arrays
                 .asList(PRINT_REPORT_COMMAND,
@@ -51,7 +62,9 @@ public class ReportX implements Command {
                         BACK_COMMAND)));
         req.getSession().setAttribute("employee", employee);
         req.getSession().setAttribute("title", title);
-        return PATH + "report_x.jsp";
+        System.out.printf(report.toString());
+        //return PATH + "report_x2.jsp";
+        return "ReportPDF";
     }
 
     private String createPDF(HttpServletRequest req, Report report) throws IOException {

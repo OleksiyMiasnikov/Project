@@ -100,4 +100,17 @@ public class Report {
     public double getAmountTotal() {
         return amountTotal;
     }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", seniorCashier='" + seniorCashier + '\'' +
+                ", list=" + list +
+                ", kgTotal=" + kgTotal +
+                ", pcsTotal=" + pcsTotal +
+                ", amountTotal=" + amountTotal +
+                "}\n";
+    }
 }
