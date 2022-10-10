@@ -7,11 +7,15 @@ import org.junit.jupiter.api.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DaoTest {
+public class UserDaoTest {
+    private UserDaoImpl userDao;
+    private static Connection con;
 
     private static final String CREATE_ROLE_TABLE =
             "CREATE TABLE IF NOT EXISTS `role` (" +
@@ -48,11 +52,8 @@ public class DaoTest {
     private static final String DROP_USER_TABLE = "DROP TABLE user";
     private static final String DROP_ROLE_TABLE = "DROP TABLE role";
 
-    private static Connection con;
-
     @BeforeAll
     static void globalSetUp() throws SQLException {
-        System.out.println("Global setUp start");
         String url = "jdbc:mysql://localhost:3306/db_test";
         Properties properties = new Properties();
         properties.put("user", "root");
@@ -60,35 +61,26 @@ public class DaoTest {
         properties.put("autoReconnect", "true");
         properties.put("characterEncoding", "UTF-8");
         properties.put("useUnicode", "true");
-
         con = DriverManager.getConnection(url, properties);
-
-        System.out.println("Global setUp finish");
     }
 
     @AfterAll
     static void globalTearDown() throws SQLException {
         con.close();
-        System.out.println("Connection closed!");
     }
-
-    private UserDaoImpl userDao;
 
     @BeforeEach
     void setUp() throws SQLException {
-        System.out.println("setUp started");
         userDao = (UserDaoImpl) DaoFactoryImpl.getInstance().getUserDao();
         con.createStatement().executeUpdate(CREATE_ROLE_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ROLE_TABLE);
         con.createStatement().executeUpdate(CREATE_USER_TABLE);
-        System.out.println("setUp finished");
     }
 
     @AfterEach
     void tearDown() throws SQLException {
         con.createStatement().executeUpdate(DROP_USER_TABLE);
         con.createStatement().executeUpdate(DROP_ROLE_TABLE);
-        System.out.println("dropped tables");
     }
 
     @Test
@@ -119,4 +111,24 @@ public class DaoTest {
         assertEquals("234@i",  user1.getEmail());
     }
 
+    @Test
+    void findUserByNameTest() throws SQLException {
+        User user = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        user = userDao.create(con, user);
+        User user1 = userDao.findByName(con, "Ivanov");
+        assertEquals(user, user1, "Two users must be equaled");
+    }
+    @Test
+    void findAllUsersTest() throws SQLException {
+        List<User> userList = new ArrayList<>();
+        User user1 = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        userList.add(userDao.create(con, user1));
+        User user2 = new User(0, "Petrov", "", "p@p", new Role(2, "cashier"));
+        userList.add(userDao.create(con, user2));
+        assertEquals(2, userDao.findRowsTotal(con));
+        assertEquals(userList, userDao.findAll(con, 0, 100));
+        user1 = userList.remove(1);
+        userDao.delete(con, user1.getId());
+        assertEquals(userList, userDao.findAll(con, 0, 100));
+    }
 }

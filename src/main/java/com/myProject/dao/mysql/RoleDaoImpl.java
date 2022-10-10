@@ -65,7 +65,6 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public void update(Connection con, Role entity){
-
     }
 
     @Override
