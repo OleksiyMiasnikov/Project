@@ -28,13 +28,6 @@
       <scope>runtime</scope>
     </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-      <scope>test</scope>
-    </dependency>
-
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -84,6 +77,14 @@
         <artifactId>icu4j</artifactId>
         <version>70.1</version>
     </dependency>
+
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.8.1</version>
+        <scope>test</scope>
+    </dependency>
+
 
   </dependencies>
 

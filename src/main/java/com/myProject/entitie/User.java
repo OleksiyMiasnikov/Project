@@ -17,6 +17,8 @@ public class User implements Serializable, Comparable<User> {
         this.email = email;
         this.role = role;
     }
+
+
     public User() {  }
 
     public long getId() {
