@@ -66,12 +66,12 @@ public class User implements Serializable, Comparable<User> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id;
+        return id == user.id && login.equals(user.login) && Objects.equals(password, user.password) && email.equals(user.email) && role.equals(user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, login, password, email, role);
     }
 
     @Override

@@ -11,57 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static com.myProject.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDaoTest {
     private UserDaoImpl userDao;
     private static Connection con;
 
-    private static final String CREATE_ROLE_TABLE =
-            "CREATE TABLE IF NOT EXISTS `role` (" +
-                    "  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
-                    "  `name` VARCHAR(45) NULL," +
-                    "  PRIMARY KEY (`id`)," +
-                    "  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)" +
-                    "ENGINE = InnoDB";
-    private static final String INSERT_DATA_IN_ROLE_TABLE =
-            "INSERT INTO `role` (`id`, `name`)" +
-                    "VALUES " +
-                    "(1, 'admin')," +
-                    "(2, 'cashier')," +
-                    "(3, 'senior cashier')," +
-                    "(4, 'commodity expert')";
-    private static final String CREATE_USER_TABLE =
-            "CREATE TABLE IF NOT EXISTS `user` (" +
-                    "`id` INT NOT NULL AUTO_INCREMENT, " +
-                    "`login` VARCHAR(45) NULL, " +
-                    "`password` VARCHAR(45) NULL, " +
-                    "`email` VARCHAR(100) NULL, " +
-                    "`role_id` INT UNSIGNED NOT NULL, " +
-                    "PRIMARY KEY (`id`, `role_id`), " +
-                    "UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE, " +
-                    "UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE, " +
-                    "INDEX `fk_users_roles1_idx` (`role_id` ASC) VISIBLE, " +
-                    "CONSTRAINT `fk_users_roles1` " +
-                    "FOREIGN KEY (`role_id`) " +
-                    "REFERENCES `cash_register`.`role` (`id`) " +
-                    "ON DELETE NO ACTION " +
-                    "ON UPDATE NO ACTION) " +
-                    "ENGINE = InnoDB";
 
-    private static final String DROP_USER_TABLE = "DROP TABLE user";
-    private static final String DROP_ROLE_TABLE = "DROP TABLE role";
 
     @BeforeAll
     static void globalSetUp() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/db_test";
-        Properties properties = new Properties();
-        properties.put("user", "root");
-        properties.put("password", "18De1975");
-        properties.put("autoReconnect", "true");
-        properties.put("characterEncoding", "UTF-8");
-        properties.put("useUnicode", "true");
-        con = DriverManager.getConnection(url, properties);
+        con = DriverManager.getConnection(CONNECTION_URL);
     }
 
     @AfterAll

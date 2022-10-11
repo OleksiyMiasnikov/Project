@@ -57,12 +57,15 @@ public class Order implements Serializable, Comparable<Order> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id;
+        return id == order.id &&
+                Double.compare(order.totalAmount, totalAmount) == 0 &&
+                user.equals(order.user) &&
+                date.equals(order.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, user, date, totalAmount);
     }
 
     @Override

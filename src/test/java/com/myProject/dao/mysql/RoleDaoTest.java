@@ -1,7 +1,6 @@
 package com.myProject.dao.mysql;
 
 import com.myProject.entitie.Role;
-import com.myProject.entitie.User;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
@@ -10,41 +9,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static com.myProject.TestConstants.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RoleDaoTest {
     private RoleDaoImpl roleDao;
     private static Connection con;
-
-   /* private static final String CREATE_SCHEMA_DB_TEST =
-            "CREATE SCHEMA IF NOT EXISTS `db_test` DEFAULT CHARACTER SET utf8;";
-            //"USE `cash_register`;";
-
-    private static final String DROP_SCHEMA_DB_TEST =
-            "DROP SCHEMA IF EXISTS `db_test`";*/
-
-    private static final String CREATE_ROLE_TABLE =
-            "CREATE TABLE IF NOT EXISTS `role` (" +
-                    "  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
-                    "  `name` VARCHAR(45) NULL," +
-                    "  PRIMARY KEY (`id`)," +
-                    "  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)" +
-                    "ENGINE = InnoDB";
-    private static final String INSERT_DATA_IN_ROLE_TABLE =
-            "INSERT INTO `role` (`id`, `name`)" +
-                    "VALUES " +
-                    "(1, 'admin')," +
-                    "(2, 'cashier')," +
-                    "(3, 'senior cashier')," +
-                    "(4, 'commodity expert')";
-    private static final String DROP_ROLE_TABLE = "DROP TABLE role";
-
     @BeforeAll
     static void globalSetUp() throws SQLException {
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?user=root&password=18De1975");
+        con = DriverManager.getConnection(CONNECTION_URL);
     }
 
     @AfterAll
