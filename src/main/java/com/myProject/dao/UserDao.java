@@ -8,4 +8,5 @@ import java.sql.SQLException;
 public interface UserDao extends Dao<Long, User>{
 
     int findRowsTotal(Connection con) throws SQLException;
+    User findByName(Connection con, String name) throws SQLException;
 }

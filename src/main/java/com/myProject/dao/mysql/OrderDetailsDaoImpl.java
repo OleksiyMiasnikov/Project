@@ -161,10 +161,10 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     }
 
     @Override
-    public void updateQuantityInOrderDetail(Connection con, long id, double quantity) throws SQLException {
+    public void update(Connection con, OrderDetails entity) throws SQLException {
         try (PreparedStatement pstmt = con.prepareStatement(UPDATE_QUANTITY_BY_ID);){
-            pstmt.setDouble(1, quantity);
-            pstmt.setLong(2, id);
+            pstmt.setDouble(1, entity.getQuantity());
+            pstmt.setLong(2, entity.getId());
             pstmt.execute();
         }
     }
@@ -183,12 +183,5 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     public List<OrderDetails> findAll(Connection con, int from, int size){
         return null;
     }
-    @Override
-    public OrderDetails findByName(Connection con, String name){
-        return null;
-    }
-    @Override
-    public void update(Connection con, OrderDetails entity) {
 
-    }
 }

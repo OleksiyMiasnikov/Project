@@ -43,10 +43,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            if ("IN".equals(direction)) {
-                return orderDao.findAllIncomes(con, from, size);
-            }
-            return orderDao.findAll(con, from, size);
+            return orderDao.findAll(con, direction, from, size);
         } catch (SQLException e) {
             throw new DaoException("Cannot find all orders", e);
         } finally {
@@ -377,12 +374,12 @@ public class CashierManager {
         }
     }
 
-    public void updateQuantityInOrderDetail(long id, double quantity) throws DaoException {
+    public void updateOrderDetail(OrderDetails entity) throws DaoException {
         logger.info("Start updating quantity in order_detail");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            orderDetailsDao.updateQuantityInOrderDetail(con, id, quantity);
+            orderDetailsDao.update(con, entity);
         } catch (SQLException e) {
             throw new DaoException("Unable to update quantity in order_detail", e);
         } finally {

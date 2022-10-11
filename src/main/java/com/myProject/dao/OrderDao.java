@@ -12,11 +12,9 @@ import java.util.Map;
 public interface OrderDao extends Dao<Long, Order> {
     void updateTotal(Connection con, long id) throws SQLException;
 
-    List<Order> findAllIncomes(Connection con, int from, int size) throws SQLException;
+    List<Order> findAll(Connection con, String direction, int from, int size) throws SQLException;
 
     Order create(Connection con, Order entity, String direction) throws SQLException;
-
-    Order createIncome(Connection con, Order currentOrder) throws SQLException;
 
     int findRowsTotal(Connection con, String direction) throws SQLException;
 

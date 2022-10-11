@@ -28,16 +28,27 @@ public class Constants {
 
     // SQL WarehouseDao constants
     public static final String SELECT_ALL_IN_WAREHOUSE_WITH_LIMIT = "SELECT `id`, `quantity`, `product_id` FROM `warehouse` WHERE `quantity` > 0 LIMIT ?, ?";
-    public static final String UPDATE_QUANTITY = "UPDATE `warehouse` SET `quantity` = `quantity` + ? WHERE `product_id` = ?";
-    public static final String RECOVERY_QUANTITY_AFTER_DELETING_ORDER = "UPDATE `warehouse`, `order_details` SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` WHERE `warehouse`.`product_id` = `order_details`.`product_id` AND `order_details`.`order_id` = ?";
+    public static final String UPDATE_QUANTITY =
+            "UPDATE `warehouse` " +
+            "SET `quantity` = `quantity` + ? " +
+            "WHERE `product_id` = ?";
+    public static final String RECOVERY_QUANTITY_AFTER_DELETING_ORDER =
+            "UPDATE `warehouse`, `order_details` " +
+            "SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` " +
+            "WHERE `warehouse`.`product_id` = `order_details`.`product_id` " +
+                    "AND `order_details`.`order_id` = ?";
     public static final String COUNT_ROWS_IN_WAREHOUSE = "SELECT count(*) AS `rows_total` FROM `warehouse`";
     public static final String TOTALS_WAREHOUSE = "SELECT SUM(`quantity`) AS `total_quantity`, SUM(`price`*`quantity`) AS `total_amount` FROM `warehouse` JOIN `product` ON `product`.`id` = `warehouse`.`product_id`";
     public static final int ERROR_CODE_OUT_OF_RANGE = 1264;
 
     // SQL OrderDao constants
     public static final String UPDATE_TOTAL_AMOUNT_BY_ID = "UPDATE `order` SET `totalAmount` =  (SELECT SUM(`quantity`*`price`) FROM `order_details` WHERE `order_id`=? GROUP BY `order_id`) WHERE id = ? AND `reported` = 0";
-    public static final String SELECT_ALL_ORDERS_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'OUT' AND `reported` = 0 LIMIT ?,?";
-    public static final String SELECT_ALL_INCOMES_WITH_LIMIT = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `direction` = 'IN' AND `reported` = 0 LIMIT ?,?";
+    public static final String SELECT_ALL_MOVIES_WITH_LIMIT =
+            "SELECT `id`, `user_id`, `time`, `totalAmount` " +
+            "FROM `order` " +
+            "WHERE `direction` = ? " +
+                    "AND `reported` = 0 " +
+            "LIMIT ?,?";
     public static final String READ_ORDER_BY_ID = "SELECT `id`, `user_id`, `time`, `totalAmount` FROM `order` WHERE `id` = ? AND `reported` = 0";
     public static final String CREATE_ORDER = "INSERT INTO `order` VALUES (default, ?, ?, ?, ?, 0)";
     public static final String CREATE_INCOME = "INSERT INTO `order` VALUES (default, ?, ?, ?, 'IN', 0)";
@@ -83,7 +94,10 @@ public class Constants {
             "FROM `order_details` " +
             "WHERE `order_id` = ? " +
                     "AND `product_id` = ?";
-    public static final String UPDATE_QUANTITY_BY_ID = "UPDATE `order_details` SET `quantity` =  `quantity` + ? WHERE id = ?";
+    public static final String UPDATE_QUANTITY_BY_ID =
+            "UPDATE `order_details` " +
+            "SET `quantity` =  `quantity` + ? " +
+            "WHERE id = ?";
     public static final String CREATE_ORDER_DETAILS = "INSERT INTO `order_details` VALUES (default, ?, ?, ?, ?)";
     public static final String DELETE_ORDER_DETAILS = "DELETE FROM `order_details` WHERE `id` = ?";
     public static final String DELETE_ORDER_DETAILS_BY_ORDER_ID = "DELETE FROM `order_details` WHERE `order_id` = ?";

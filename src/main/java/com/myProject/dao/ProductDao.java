@@ -8,6 +8,5 @@ import java.util.Map;
 
 public interface ProductDao extends Dao<Long, Product>{
     int findRowsTotal(Connection con) throws SQLException;
-
     Map<String, Double> Totals(Connection con) throws SQLException;
 }

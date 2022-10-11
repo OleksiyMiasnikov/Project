@@ -19,6 +19,13 @@ public class RoleDaoTest {
     private RoleDaoImpl roleDao;
     private static Connection con;
 
+   /* private static final String CREATE_SCHEMA_DB_TEST =
+            "CREATE SCHEMA IF NOT EXISTS `db_test` DEFAULT CHARACTER SET utf8;";
+            //"USE `cash_register`;";
+
+    private static final String DROP_SCHEMA_DB_TEST =
+            "DROP SCHEMA IF EXISTS `db_test`";*/
+
     private static final String CREATE_ROLE_TABLE =
             "CREATE TABLE IF NOT EXISTS `role` (" +
                     "  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
@@ -37,14 +44,7 @@ public class RoleDaoTest {
 
     @BeforeAll
     static void globalSetUp() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/db_test";
-        Properties properties = new Properties();
-        properties.put("user", "root");
-        properties.put("password", "18De1975");
-        properties.put("autoReconnect", "true");
-        properties.put("characterEncoding", "UTF-8");
-        properties.put("useUnicode", "true");
-        con = DriverManager.getConnection(url, properties);
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?user=root&password=18De1975");
     }
 
     @AfterAll

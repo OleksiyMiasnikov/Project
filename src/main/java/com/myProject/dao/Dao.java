@@ -17,5 +17,4 @@ public interface Dao<K, T> {
 
     List<T> findAll(Connection con, int from, int size) throws SQLException;
 
-    T findByName(Connection con, String name) throws SQLException;
 }

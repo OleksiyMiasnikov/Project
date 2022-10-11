@@ -63,59 +63,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order createIncome(Connection con, Order currentOrder) throws SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-        try {
-            pstmt = con.prepareStatement(CREATE_INCOME, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setLong(1, currentOrder.getUser().getId());
-            pstmt.setTimestamp(2, new Timestamp(currentOrder.getDate().getTime()));
-            pstmt.setDouble(3, currentOrder.getTotalAmount());
-            pstmt.executeUpdate();
-            resultSet = pstmt.getGeneratedKeys();
-            if (resultSet.next()) {
-                currentOrder.setId(resultSet.getLong(1));
-                return currentOrder;
-            } else {
-                return null;
-            }
-        } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
-        }
-    }
-
-    @Override
-    public List<Order> findAll(Connection con, int from, int size) throws SQLException {
+    public List<Order> findAll(Connection con, String direction, int from, int size) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         List<Order> orderList = new ArrayList<>();
         try {
-            pstmt = con.prepareStatement(SELECT_ALL_ORDERS_WITH_LIMIT);
-            pstmt.setInt(1, from);
-            pstmt.setInt(2, size);
-            pstmt.executeQuery();
-            resultSet = pstmt.getResultSet();
-            UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
-            while (resultSet.next()) {
-                orderList.add(buildOrder(con, userDao, resultSet));
-            }
-        } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
-        }
-        return orderList;
-    }
-
-    @Override
-    public List<Order> findAllIncomes(Connection con, int from, int size) throws SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-        List<Order> orderList = new ArrayList<>();
-        try {
-            pstmt = con.prepareStatement(SELECT_ALL_INCOMES_WITH_LIMIT);
-            pstmt.setInt(1, from);
-            pstmt.setInt(2, size);
+            pstmt = con.prepareStatement(SELECT_ALL_MOVIES_WITH_LIMIT);
+            pstmt.setString(1, direction);
+            pstmt.setInt(2, from);
+            pstmt.setInt(3, size);
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
             UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
@@ -262,11 +218,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void update(Connection con, Order entity){
+    public List<Order> findAll(Connection con, int from, int size) throws SQLException {
+        return null;
     }
 
     @Override
-    public Order findByName(Connection con, String name){
-        return null;
+    public void update(Connection con, Order entity){
     }
+
 }

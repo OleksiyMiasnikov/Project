@@ -17,5 +17,4 @@ public interface OrderDetailsDao extends Dao<Long, OrderDetails> {
 
     OrderDetails readByOrderAndProduct(Connection con, Order order, Product product) throws SQLException;
 
-    void updateQuantityInOrderDetail(Connection con, long id, double quantity) throws SQLException;
 }

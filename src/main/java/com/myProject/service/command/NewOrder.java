@@ -83,7 +83,8 @@ public class NewOrder implements Command {
         OrderDetails orderDetail = cashierManager
                 .findOrderDetailByOrderAndProduct(currentOrder, product);
         if (orderDetail != null && Double.compare(price, orderDetail.getPrice()) == 0) {
-            cashierManager.updateQuantityInOrderDetail(orderDetail.getId(), quantity);
+            orderDetail.setQuantity(orderDetail.getQuantity() + quantity);
+            cashierManager.updateOrderDetail(orderDetail);
         } else {
             orderDetail = new OrderDetails(0L, currentOrder, product, quantity, price);
             orderDetail = cashierManager.createOrderDetails(orderDetail, direction);

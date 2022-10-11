@@ -63,6 +63,14 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
+    public void recoveryAfterDeletingOrder(Connection con, long id) throws SQLException {
+        try (PreparedStatement pstmt = con.prepareStatement(RECOVERY_QUANTITY_AFTER_DELETING_ORDER)) {
+            pstmt.setLong(1, id);
+            pstmt.executeUpdate();
+        }
+    }
+
+    @Override
     public int findRowsTotal(Connection con) throws SQLException {
         Statement stmt = null;
         ResultSet resultSet = null;
@@ -79,14 +87,6 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public void recoveryAfterDeletingOrder(Connection con, long id) throws SQLException {
-        try (PreparedStatement pstmt = con.prepareStatement(RECOVERY_QUANTITY_AFTER_DELETING_ORDER)) {
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
-        }
-    }
-
-    @Override
     public Warehouse read(Connection con, Long id){
         return null;
     }
@@ -97,15 +97,7 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public Warehouse findByName(Connection con, String name){
-        return null;
-    }
-
-    @Override
-    public void update(Connection con, Warehouse entity){
-
-    }
-
+    public void update(Connection con, Warehouse entity){ }
     @Override
     public boolean delete(Connection con, Long id){
         return false;

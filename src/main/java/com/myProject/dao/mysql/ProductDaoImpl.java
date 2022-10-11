@@ -99,16 +99,6 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product findByName(Connection con, String name){
-        return null;
-    }
-
-    @Override
-    public boolean delete(Connection con, Long id){
-        return false;
-    }
-
-    @Override
     public int findRowsTotal(Connection con) throws SQLException {
         Statement stmt = null;
         ResultSet resultSet = null;
@@ -141,5 +131,10 @@ public class ProductDaoImpl implements ProductDao {
             if (resultSet != null) resultSet.close();
             if (stmt != null) stmt.close();
         }
+    }
+
+    @Override
+    public boolean delete(Connection con, Long id){
+        return false;
     }
 }
