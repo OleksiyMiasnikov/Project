@@ -112,7 +112,7 @@ public class ReportItem implements Serializable, Comparable<Order>{
     @Override
     public String toString() {
         return "ReportItem{" +
-                ", productId=" + productId +
+                "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", unit=" + unit +
                 ", quantity=" + quantity +

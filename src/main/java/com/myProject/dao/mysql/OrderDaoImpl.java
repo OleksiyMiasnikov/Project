@@ -29,12 +29,15 @@ public class OrderDaoImpl implements OrderDao {
             UserDao userDao = DaoFactoryImpl.getInstance().getUserDao();
             if (resultSet.next()) {
                 return buildOrder(con, userDao, resultSet);
-            } else {
-                return null;
             }
+            return null;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -53,12 +56,15 @@ public class OrderDaoImpl implements OrderDao {
             if (resultSet.next()) {
                 entity.setId(resultSet.getLong(1));
                 return entity;
-            } else {
-                return null;
             }
+            return null;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -130,7 +136,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Map<String, Double> Totals(Connection con, String direction) throws SQLException {
+    public Map<String, Double> totals(Connection con, String direction) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
         try {

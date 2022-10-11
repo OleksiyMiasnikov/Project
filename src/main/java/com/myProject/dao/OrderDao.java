@@ -18,7 +18,7 @@ public interface OrderDao extends Dao<Long, Order> {
 
     int findRowsTotal(Connection con, String direction) throws SQLException;
 
-    Map<String, Double> Totals(Connection con, String direction) throws SQLException;
+    Map<String, Double> totals(Connection con, String direction) throws SQLException;
 
     List<ReportItem> createReport(Connection con) throws SQLException;
 

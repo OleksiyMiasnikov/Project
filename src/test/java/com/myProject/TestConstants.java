@@ -118,4 +118,34 @@ public class TestConstants {
                     "(14, 5,14, 1, 45.88)";
     public static final String DROP_ORDER_DETAILS_TABLE = "DROP TABLE `order_details`";
 
+    public static final String CREATE_PRODUCT_TABLE =
+            "CREATE TABLE IF NOT EXISTS `product` (" +
+                    "  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT," +
+                    "  `name` VARCHAR(45) NULL," +
+                    "  `unit` VARCHAR(10) NOT NULL," +
+                    "  `price` DECIMAL(10,2) NULL," +
+                    "  PRIMARY KEY (`id`)," +
+                    "  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)" +
+                    "ENGINE = InnoDB;";
+
+    public static final String INSERT_DATA_IN_PRODUCT_TABLE =
+            "INSERT INTO `product` (`id`, `name`, `unit`, `price`)" +
+                    "VALUES" +
+                    "(1, 'мінеральна вода 1л','PCS', 15.50)," +
+                    "(2, 'чай Greenfield','PCS', 160.00)," +
+                    "(3, 'цукор','KG', 25.00)," +
+                    "(4, 'сосиски', 'KG', 120.00)," +
+                    "(5, 'молоко 1л', 'PCS', 35.80)," +
+                    "(6,'cellphone', 'PCS', 1023.56)," +
+                    "(7,'glasses', 'PCS', 25.38)," +
+                    "(8,'кілька в томаті 240гр', 'PCS', 60.0)," +
+                    "(9,'сир Cheddar 1.033', 'PCS', 400.51)," +
+                    "(10,'Кава в зернах Lavazza', 'PCS', 959.0)," +
+                    "(11,'pencil', 'PCS', 15.45)," +
+                    "(12,'пиво', 'PCS', 31.0)," +
+                    "(13,'сіль', 'KG', 20.0)," +
+                    "(14,'олія Олейна 1,0 л', 'PCS', 60.35)," +
+                    "(15,'шампунь', 'PCS', 45.88);";
+    public static final String DROP_PRODUCT_TABLE = "DROP TABLE `product`";
+
 }

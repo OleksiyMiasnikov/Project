@@ -254,7 +254,7 @@ public class CashierManager {
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
-            return orderDao.Totals(con, direction);
+            return orderDao.totals(con, direction);
         } catch (SQLException e) {
             throw new DaoException("Unable to determine orders totals", e);
         } finally {
