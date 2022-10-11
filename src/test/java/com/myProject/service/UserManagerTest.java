@@ -1,68 +1,71 @@
 package com.myProject.service;
 
-import com.myProject.dao.DaoFactory;
+import com.myProject.dao.RoleDao;
+import com.myProject.dao.UserDao;
 import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
-import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
-import static com.myProject.util.Constants.CONTEXT_NAME;
+
+import static com.myProject.TestConstants.CONNECTION_URL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.*;
 
-public class UserManagerTest {
 
+public class UserManagerTest extends Mockito {
+    @Mock
+    private UserDao userDao;
+    @Mock
+    private RoleDao roleDao;
+    @Mock
+    private Connection con;
+    @Mock
+    private ConnectionPool pool;
     private UserManager manager;
 
+    public UserManagerTest() {
+        MockitoAnnotations.initMocks(this);
+        this.manager = UserManager
+                .getInstance(userDao, roleDao);
+    }
+
     @BeforeAll
-    static void globalSetUp() {
+    static void globalSetUp(){
+
     }
 
     @AfterAll
-    static void globalTearDown() {
+    static void globalTearDown(){
+
     }
 
     @BeforeEach
-    void setUp()  {
-        manager = UserManager
-                .getInstance(DaoFactory.getInstance().getUserDao(),
-                             DaoFactory.getInstance().getRoleDao());
+    void setUp(){
+
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown(){
+
     }
 
     @Test
-    void test() throws SQLException, ClassNotFoundException, NoSuchMethodException {
-      /*  Class<?> _class = Class.forName("com.myProject.util.ConnectionPool");
-       // Constructor<?> _constructor = _class.getConstructor(new Class<?>[]{String.class});
-        Method method = _class.getMethod("getConnection",null);*/
+    void test() throws SQLException {
+        final Connection con = mock(Connection.class);
+        final ConnectionPool pool = mock(ConnectionPool.class);
+        when(pool.getConnection()).thenReturn(con);
 
-
-/*
-        ConnectionPool pool = new ConnectionPool() {
-            @Override
-            public Connection getConnection() throws DaoException {
-                return DriverManager.getConnection("jdbc:mysql://localhost:3306/db_test?user=root&password=18De1975");
-            }
-        }*/
-        /*User user1 = new User(0, "Petrenko", "", "p@p", new Role(1, "admin"));
-        user1 = manager.addUser(user1);
-        User user2 = manager.read(user1.getId());
-        assertEquals(user1, user2);*/
+        given(userDao.findRowsTotal(con))
+                .willReturn(5);
+        assertEquals(manager.findRowsTotal(), 5);
     }
 
 }

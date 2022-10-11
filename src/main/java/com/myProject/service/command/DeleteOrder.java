@@ -22,7 +22,7 @@ public class DeleteOrder implements Command {
             CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
             cashierManager.deleteAll(orders);
         }
-        logger.info("finished ");
+        logger.info("finished");
         return "controller?command=" + ORDERS_COMMAND;
     }
 }

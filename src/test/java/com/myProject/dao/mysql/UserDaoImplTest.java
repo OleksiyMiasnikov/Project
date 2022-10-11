@@ -9,16 +9,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import static com.myProject.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDaoTest {
+public class UserDaoImplTest {
     private UserDaoImpl userDao;
     private static Connection con;
-
-
 
     @BeforeAll
     static void globalSetUp() throws SQLException {

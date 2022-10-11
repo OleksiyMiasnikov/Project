@@ -17,7 +17,7 @@ import java.util.Map;
 import static com.myProject.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OrderDaoTest {
+public class OrderDaoImplTest {
     private OrderDaoImpl orderDao;
     private OrderDetailsDaoImpl orderDetailsDao;
     private static Connection con;

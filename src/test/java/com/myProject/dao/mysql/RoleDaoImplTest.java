@@ -13,7 +13,7 @@ import java.util.List;
 import static com.myProject.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RoleDaoTest {
+public class RoleDaoImplTest {
     private RoleDaoImpl roleDao;
     private static Connection con;
     @BeforeAll
