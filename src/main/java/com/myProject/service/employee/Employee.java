@@ -64,6 +64,20 @@ public abstract class Employee implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return user.equals(employee.user) &&
+                startCommand.equals(employee.startCommand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, stackOfMenuItems, startCommand);
+    }
+
+    @Override
     public String toString() {
         return "Employee{" +
                 "user=" + user +

@@ -173,7 +173,6 @@ public class CashierManager {
         }
     }
 
-
     public void deleteAll(String[] orders) throws DaoException {
         for (String order: orders) {
             deleteOrder(Long.parseLong(order));
@@ -321,25 +320,6 @@ public class CashierManager {
         }
     }
 
-
-    /*
-        public List<OrderDetails> detailsByOrderId(long id) throws DaoException {
-            logger.info("Start getting details of order #" + id);
-            Connection con = null;
-            try {
-                con = ConnectionPool.getInstance().getConnection();
-                return orderDetailsDao.readByOrderId(con, 0, 1000, id);
-            } catch (SQLException e) {
-                throw new DaoException("Cannot getting details of order #" + id, e);
-            } finally {
-                try {
-                    if (con != null) con.close();
-                } catch (SQLException e) {
-                    logger.error("Can not close connection!" + e);
-                }
-            }
-        }
-    */
     public List<OrderDetails> findAllOrderDetails(int from, int size, long id) throws DaoException {
         logger.info("Start finding all orders or incomes");
         Connection con = null;

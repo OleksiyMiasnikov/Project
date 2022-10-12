@@ -27,7 +27,6 @@ public class Authorization implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
         String login = req.getParameter("login");
         String password = EncryptPassword.encrypt(req.getParameter("password"));
-
         logger.info("login is \"" + login + "\".");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);

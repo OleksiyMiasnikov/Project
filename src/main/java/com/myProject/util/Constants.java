@@ -8,7 +8,12 @@ public class Constants {
 
     // SQL UserDao constants
     public static final String SELECT_USER = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `login`= ?";
-    public static final String SELECT_ALL_USERS_WITH_LIMIT = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id`  LIMIT ?, ?";
+    public static final String SELECT_ALL_USERS_WITH_LIMIT =
+            "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` " +
+            "FROM `user` " +
+                    "JOIN `role` " +
+                    "ON `user`.`role_id` = `role`.`id`  " +
+            "LIMIT ?, ?";
     public static final String INSERT_USER = "INSERT INTO `user` VALUES (default, ?, ?, ?, ?)";
     public static final String READ_USER_BY_ID = "SELECT `user`.`id`, `login`, `password`, `email`, `role_id`, `name` as `role_name` FROM `user` JOIN `role` ON `user`.`role_id` = `role`.`id` WHERE `user`.`id` = ?";
     public static final String DELETE_USER = "DELETE FROM `user` WHERE `id` = ?";

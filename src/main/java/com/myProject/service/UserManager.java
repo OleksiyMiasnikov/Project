@@ -42,7 +42,9 @@ public class UserManager {
             throw new DaoException("Cannot find user " + login, e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -59,7 +61,9 @@ public class UserManager {
             throw new DaoException("Cannot find all users", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -76,7 +80,9 @@ public class UserManager {
             throw new DaoException("Cannot read user by id: " + id, e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -97,7 +103,9 @@ public class UserManager {
                     newUser.getEmail(), e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -115,7 +123,9 @@ public class UserManager {
             throw new DaoException("Cannot delete user " + userLogin, e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -132,7 +142,9 @@ public class UserManager {
             throw new DaoException("Cannot update user " + user.getLogin(), e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -149,7 +161,9 @@ public class UserManager {
             throw new DaoException("Cannot find all roles", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -166,21 +180,23 @@ public class UserManager {
             throw new DaoException("Cannot get id role", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
         }
     }
 
-    public void deleteAll(String[] users) throws DaoException {
+    public void deleteAll(String[] usersId) throws DaoException {
         logger.info("Start deleting uses");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
             con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             con.setAutoCommit(false);
-            for (String user : users) {
+            for (String user : usersId) {
                 userDao.delete(con, Long.parseLong(user));
             }
             con.commit();
@@ -214,7 +230,9 @@ public class UserManager {
             throw new DaoException("Unable to determine quantity of rows in table 'user'", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }

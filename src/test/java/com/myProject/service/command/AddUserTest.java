@@ -26,14 +26,15 @@ class AddUserTest {
     @Test
     void execute() throws DaoException, ServletException, IOException {
         UserManager manager = mock(UserManager.class);
-        List<Role> list = Arrays.asList(new Role(1, "test_admin"),
-                                        new Role(2, "test_cashier"));
-        when(manager.findAllRoles(0, 1000))
-                .thenReturn(list);
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
         ServletContext context = mock(ServletContext.class);
         HttpSession session = mock(HttpSession.class);
+
+        List<Role> list = Arrays.asList(new Role(1, "test_admin"),
+                                        new Role(2, "test_cashier"));
+        when(manager.findAllRoles(0, 1000))
+                .thenReturn(list);
         Map<String, Object> attr = new HashMap<>();
         Mockito.doAnswer(aInvocation ->
                 {

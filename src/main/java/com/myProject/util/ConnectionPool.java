@@ -38,9 +38,4 @@ public class ConnectionPool {
         }
         return connection;
     }
-
-    public static void destroyConnectionPool() {
-        //????
-    }
-
 }
