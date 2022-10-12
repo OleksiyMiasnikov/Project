@@ -79,18 +79,10 @@ class CashierManagerTest {
     }
 
     @Test
-    void deleteProductsInOrderTest() {
-    }
-
-    @Test
     void findAllTest() throws SQLException {
         assertEquals(0, manager.findAll(0, 1000, "IN").size());
         setConnection();
         assertEquals(5, manager.findAll(0, 1000, "OUT").size());
-    }
-
-    @Test
-    void readTest() {
     }
 
     @Test
@@ -117,53 +109,28 @@ class CashierManagerTest {
                 .map(Warehouse::getQuantity)
                 .reduce(0d, Double::sum);
         assertEquals(quantityAfter, quantityBefore + 10);
+        setConnection();
+        assertEquals(order, manager.read(order.getId()));
+        setConnection();
+        manager.deleteOrder(order.getId(), "IN");
+        setConnection();
+        Double quantityAfterDelete = commodityExpertManager.findAll(0, 1000)
+                .stream()
+                .filter(p -> (p.getId() == product.getId()))
+                .map(Warehouse::getQuantity)
+                .reduce(0d, Double::sum);
+        assertEquals(quantityAfterDelete, quantityBefore);
     }
 
     @Test
-    void createOrderDetailsTest() {
+    void findRowsTotalTest() throws DaoException {
+        assertEquals(5, manager.findRowsTotal("OUT"));
     }
 
     @Test
-    void updateTotalTest() {
-    }
-
-    @Test
-    void deleteOrderTest() {
-    }
-
-    @Test
-    void deleteAllTest() {
-    }
-
-    @Test
-    void testDeleteProductsInOrderTest() {
-    }
-
-    @Test
-    void findRowsTotalTest() {
-    }
-
-    @Test
-    void ordersTotalsTest() {
-    }
-
-    @Test
-    void findRowsTotalInOrderDetailsTest() {
-    }
-
-    @Test
-    void createReportTest() {
-    }
-
-    @Test
-    void findAllOrderDetailsTest() {
-    }
-
-    @Test
-    void findOrderDetailByOrderAndProductTest() {
-    }
-
-    @Test
-    void updateOrderDetailTest() {
+    void deleteProductInOrderTest() throws SQLException {
+        manager.deleteProductsInOrder("5", new String[] {"12", "13"});
+        setConnection();
+        assertEquals(277.63, manager.read(5).getTotalAmount());
     }
 }

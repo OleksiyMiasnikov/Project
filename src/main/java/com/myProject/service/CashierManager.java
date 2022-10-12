@@ -68,7 +68,9 @@ public class CashierManager {
             throw new DaoException("Cannot read order by id: " + id , e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -85,7 +87,9 @@ public class CashierManager {
             throw new DaoException("Cannot create order", e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
@@ -113,7 +117,9 @@ public class CashierManager {
             return result;
         } catch (SQLException e) {
             try {
-                if (con != null) con.rollback();
+                if (con != null) {
+                    con.rollback();
+                }
             } catch (SQLException ex) {
                 logger.error("Connection is null.  " + ex);
             }
@@ -141,21 +147,23 @@ public class CashierManager {
             throw new DaoException("Cannot update total amount in order " + id, e);
         } finally {
             try {
-                if (con != null) con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (SQLException e) {
                 logger.error("Can not close connection!" + e);
             }
         }
     }
 
-    public void deleteOrder(long id) throws DaoException {
+    public void deleteOrder(long id, String direction) throws DaoException {
         logger.info("Start deleting order");
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
             con.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             con.setAutoCommit(false);
-            DaoFactory.getInstance().getWarehouseDao().recoveryAfterDeletingOrder(con, id);
+            DaoFactory.getInstance().getWarehouseDao().recoveryAfterDeletingOrder(con, id, direction);
             orderDetailsDao.deleteByOrderId(con, id);
             con.commit();
             orderDao.delete(con, id);
@@ -182,7 +190,7 @@ public class CashierManager {
 
     public void deleteAll(String[] orders) throws DaoException {
         for (String order: orders) {
-            deleteOrder(Long.parseLong(order));
+            deleteOrder(Long.parseLong(order), "OUT");
         }
     }
 

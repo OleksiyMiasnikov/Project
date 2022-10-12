@@ -8,12 +8,12 @@ import java.sql.SQLException;
 
 public interface WarehouseDao extends Dao<Long, Warehouse> {
     /**
-     *
      * @param con
      * @param id
+     * @param direction
      * @throws SQLException
      */
-    void recoveryAfterDeletingOrder(Connection con, long id) throws SQLException;
+    void recoveryAfterDeletingOrder(Connection con, long id, String direction) throws SQLException;
 
     /**
      * updates quantity in table `warehouse` in row with product_id equal id

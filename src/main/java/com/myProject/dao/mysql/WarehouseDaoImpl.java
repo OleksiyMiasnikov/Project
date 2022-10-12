@@ -65,9 +65,14 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public void recoveryAfterDeletingOrder(Connection con, long id) throws SQLException {
+    public void recoveryAfterDeletingOrder(Connection con, long id, String direction) throws SQLException {
         try (PreparedStatement pstmt = con.prepareStatement(RECOVERY_QUANTITY_AFTER_DELETING_ORDER)) {
-            pstmt.setLong(1, id);
+            int sign = 1;
+            if ("IN".equals(direction)) {
+                sign = -1;
+            }
+            pstmt.setInt(1, sign);
+            pstmt.setLong(2, id);
             pstmt.executeUpdate();
         }
     }

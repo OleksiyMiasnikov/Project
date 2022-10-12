@@ -39,7 +39,7 @@ public class Constants {
             "WHERE `product_id` = ?";
     public static final String RECOVERY_QUANTITY_AFTER_DELETING_ORDER =
             "UPDATE `warehouse`, `order_details` " +
-            "SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` " +
+            "SET `warehouse`.`quantity` = `warehouse`.`quantity` + `order_details`.`quantity` * ? " +
             "WHERE `warehouse`.`product_id` = `order_details`.`product_id` " +
                     "AND `order_details`.`order_id` = ?";
     public static final String COUNT_ROWS_IN_WAREHOUSE = "SELECT count(*) AS `rows_total` FROM `warehouse`";

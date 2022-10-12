@@ -53,7 +53,7 @@ public class NewOrder implements Command {
         if (button == null) button = "First invoke";
         switch (button) {
             case "Cancel" :
-                cashierManager.deleteOrder(currentOrder.getId());
+                cashierManager.deleteOrder(currentOrder.getId(), "OUT");
             case "Complete" :
                 currentOrder = null;
                 req.getSession().removeAttribute("order");
