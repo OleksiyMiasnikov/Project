@@ -1,70 +1,57 @@
 package com.myProject.service;
 
-import com.myProject.dao.RoleDao;
-import com.myProject.dao.UserDao;
-import com.myProject.entitie.Role;
-import com.myProject.entitie.User;
+import com.myProject.dao.DaoFactory;
 import com.myProject.util.ConnectionPool;
 import org.junit.jupiter.api.*;
-import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-import static com.myProject.TestConstants.CONNECTION_URL;
+import static com.myProject.TestConstants.*;
+import static com.myProject.TestConstants.DROP_ROLE_TABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.*;
 
 
 public class UserManagerTest extends Mockito {
-    @Mock
-    private UserDao userDao;
-    @Mock
-    private RoleDao roleDao;
-    @Mock
-    private Connection con;
-    @Mock
-    private ConnectionPool pool;
-    private UserManager manager;
-
-    public UserManagerTest() {
-        MockitoAnnotations.initMocks(this);
-        this.manager = UserManager
-                .getInstance(userDao, roleDao);
-    }
+    private static UserManager manager;
+    private static Connection con;
 
     @BeforeAll
-    static void globalSetUp(){
-
+    static void globalSetUp() throws SQLException {
+        con = DriverManager.getConnection(CONNECTION_URL);
+        MockedStatic mocked = mockStatic(ConnectionPool.class);
+        ConnectionPool pool = mock(ConnectionPool.class);
+        when(ConnectionPool.getInstance()).thenReturn(pool);
+        when(pool.getConnection()).thenReturn(con);
+        manager = UserManager.getInstance(DaoFactory.getInstance().getUserDao(),
+                DaoFactory.getInstance().getRoleDao());
     }
 
     @AfterAll
-    static void globalTearDown(){
+    static void globalTearDown() throws SQLException {
 
     }
 
     @BeforeEach
-    void setUp(){
-
+    void setUp() throws SQLException {
+        con.createStatement().executeUpdate(CREATE_ROLE_TABLE);
+        con.createStatement().executeUpdate(INSERT_DATA_IN_ROLE_TABLE);
+        con.createStatement().executeUpdate(CREATE_USER_TABLE);
+        con.createStatement().executeUpdate(INSERT_DATA_IN_USER_TABLE);
     }
 
     @AfterEach
-    void tearDown(){
-
+    void tearDown() throws SQLException {
+        con = DriverManager.getConnection(CONNECTION_URL);
+        con.createStatement().executeUpdate(DROP_USER_TABLE);
+        con.createStatement().executeUpdate(DROP_ROLE_TABLE);
+        con.close();
     }
 
     @Test
     void test() throws SQLException {
-        final Connection con = mock(Connection.class);
-        final ConnectionPool pool = mock(ConnectionPool.class);
-        when(pool.getConnection()).thenReturn(con);
-
-        given(userDao.findRowsTotal(con))
-                .willReturn(5);
         assertEquals(manager.findRowsTotal(), 5);
     }
 
