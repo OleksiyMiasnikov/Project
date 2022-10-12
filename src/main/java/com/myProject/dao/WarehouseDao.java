@@ -1,5 +1,6 @@
 package com.myProject.dao;
 
+import com.myProject.entitie.Product;
 import com.myProject.entitie.Warehouse;
 
 import java.sql.Connection;
@@ -25,4 +26,6 @@ public interface WarehouseDao extends Dao<Long, Warehouse> {
     void updateQuantity(Connection con, double quantity, long id) throws SQLException;
 
     int findRowsTotal(Connection con) throws SQLException;
+
+    Warehouse readByProduct(Connection con, Product product) throws SQLException;
 }

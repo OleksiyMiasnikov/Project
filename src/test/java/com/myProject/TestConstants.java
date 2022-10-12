@@ -148,4 +148,36 @@ public class TestConstants {
                     "(15,'шампунь', 'PCS', 45.88);";
     public static final String DROP_PRODUCT_TABLE = "DROP TABLE `product`";
 
+    public static final String CREATE_WAREHOUSE_TABLE =
+            "CREATE TABLE IF NOT EXISTS `warehouse` (" +
+                    "  `id` INT NOT NULL AUTO_INCREMENT," +
+                    "  `quantity` DECIMAL(10,3) UNSIGNED NOT NULL," +
+                    "  `product_id` INT UNSIGNED NOT NULL," +
+                    "  PRIMARY KEY (`id`, `product_id`)," +
+                    "  INDEX `fk_warehouse_goods1_idx` (`product_id` ASC) VISIBLE," +
+                    "  CONSTRAINT `fk_warehouse_goods1`" +
+                    "    FOREIGN KEY (`product_id`)" +
+                    "    REFERENCES `cash_register`.`product` (`id`)" +
+                    "    ON DELETE NO ACTION" +
+                    "    ON UPDATE NO ACTION)";
+
+    public static final String INSERT_DATA_IN_WAREHOUSE_TABLE =
+            "INSERT INTO `warehouse` (`id`, `quantity`, `product_id`)" +
+                    "VALUES" +
+                    "(1, 30, 1)," +
+                    "(2, 5, 2)," +
+                    "(3, 40, 3)," +
+                    "(4, 10, 4)," +
+                    "(5, 20, 5)," +
+                    "(6, 30, 6)," +
+                    "(7, 5, 7)," +
+                    "(8, 40, 8)," +
+                    "(9, 10, 9)," +
+                    "(10, 20, 10)," +
+                    "(11, 30, 11)," +
+                    "(12, 5, 12)," +
+                    "(13, 40, 13)," +
+                    "(14, 10, 14);";
+    public static final String DROP_WAREHOUSE_TABLE = "DROP TABLE `warehouse`";
+
 }

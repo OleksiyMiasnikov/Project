@@ -38,7 +38,7 @@
                     <fmt:message key="${result.unit}"/>
                 </option>
                     <c:forEach var="item" items="${units }">
-                        <option value='<fmt:message key="${item}"/>'>
+                        <option value='${item}'>
                             <fmt:message key="${item}"/>
                         </option>
                     </c:forEach>

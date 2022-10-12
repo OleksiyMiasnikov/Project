@@ -3,11 +3,14 @@ package com.myProject.service;
 import com.myProject.dao.DaoFactory;
 import com.myProject.dao.OrderDao;
 import com.myProject.dao.OrderDetailsDao;
+import com.myProject.dao.WarehouseDao;
+import com.myProject.dao.mysql.WarehouseDaoImpl;
 import com.myProject.dto.Report;
 import com.myProject.dto.ReportItem;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.entitie.Product;
+import com.myProject.entitie.Warehouse;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
@@ -91,6 +94,7 @@ public class CashierManager {
 
     public OrderDetails createOrderDetails(OrderDetails orderDetails, String direction) throws DaoException {
         logger.info("Start creating details of order #" + orderDetails.getOrder().getId());
+        WarehouseDao warehouseDao = DaoFactory.getInstance().getWarehouseDao();
         Connection con = null;
         try {
             con = ConnectionPool.getInstance().getConnection();
@@ -98,9 +102,12 @@ public class CashierManager {
             con.setAutoCommit(false);
             int sign = 1;
             if ("OUT".equals(direction)) sign = -1;
-            DaoFactory.getInstance().getWarehouseDao().updateQuantity(con,
-                    sign * orderDetails.getQuantity(),
-                    orderDetails.getProduct().getId());
+            if (warehouseDao.readByProduct(con, orderDetails.getProduct()) == null) {
+                warehouseDao.create(con, new Warehouse(0, orderDetails.getQuantity(), orderDetails.getProduct()));
+            } else {
+                warehouseDao.updateQuantity(con, sign * orderDetails.getQuantity(),
+                        orderDetails.getProduct().getId());
+            }
             OrderDetails result = orderDetailsDao.create(con, orderDetails);
             con.commit();
             return result;

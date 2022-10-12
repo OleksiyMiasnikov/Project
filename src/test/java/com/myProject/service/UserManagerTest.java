@@ -1,8 +1,9 @@
 package com.myProject.service;
 
 import com.myProject.dao.DaoFactory;
-import com.myProject.dao.UserDao;
+import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
+import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
@@ -10,20 +11,19 @@ import org.mockito.Mockito;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import static com.myProject.TestConstants.*;
 import static com.myProject.TestConstants.DROP_ROLE_TABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class UserManagerTest extends Mockito {
     private static UserManager manager;
     @BeforeAll
-    static void globalSetUp() throws SQLException {
+    static void globalSetUp(){
         MockedStatic<ConnectionPool> mocked = mockStatic(ConnectionPool.class);
-        ConnectionPool pool = mock(ConnectionPool.class);
-        when(ConnectionPool.getInstance()).thenReturn(pool);
-        when(pool.getConnection()).thenReturn(DriverManager.getConnection(CONNECTION_URL));
         manager = UserManager.getInstance(DaoFactory.getInstance().getUserDao(),
                 DaoFactory.getInstance().getRoleDao());
     }
@@ -40,6 +40,7 @@ public class UserManagerTest extends Mockito {
         con.createStatement().executeUpdate(CREATE_USER_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_USER_TABLE);
         con.close();
+        setConnection();
     }
 
     @AfterEach
@@ -55,25 +56,72 @@ public class UserManagerTest extends Mockito {
         assertEquals(manager.findUser("admin").getId(), 1);
     }
 
-/*    @Test
+
+    @Test
     void findRowsTotalTest() throws SQLException {
         assertEquals(manager.findRowsTotal(), 5);
-    }*/
+    }
 
-
- /*   @Test
+    @Test
     void deleteAllTest() throws SQLException {
         manager.deleteAll(new String[]{"4", "5"});
-        //List<User> list = manager.findAllUsers(0, 1000);
+        setConnection();
+        List<User> list = manager.findAllUsers(0, 1000);
+        setConnection();
         assertEquals(manager.findRowsTotal(), 3);
-        //assertEquals(list.get(0).getLogin(), "admin");
-    }*/
-/*    @Test
+        setConnection();
+        assertEquals(list.get(0).getLogin(), "admin");
+    }
+
+    @Test
     void updateUserTest() throws SQLException {
         User user = manager.read(1L);
         user.setLogin("Taras");
+        setConnection();
         manager.updateUser(user);
+        setConnection();
         user = manager.read(1L);
         assertEquals(user.getLogin(), "Taras");
-    }*/
+    }
+
+    @Test
+    void addUserTest() throws SQLException {
+        User user = new User(0,
+                "Fedor",
+                "01234",
+                "fedor@gom",
+                new Role(2,"cashier"));
+        user = manager.addUser(user);
+        setConnection();
+        User newUser = manager.read(user.getId());
+        assertEquals(newUser, user);
+    }
+
+    @Test
+    void addDuplicateUserTest() throws SQLException {
+        User user = new User(0,
+                "Alex",
+                "01234",
+                "fedor@gom",
+                new Role(2,"cashier"));
+        assertThrows(DaoException.class, () -> manager.addUser(user));
+    }
+
+    @Test
+    void findAllRolesTest() throws SQLException {
+        assertEquals(manager.findAllRoles(0, 1000).size(), 4);
+    }
+
+    @Test
+    void getIdRoleTest() throws SQLException {
+        assertEquals(manager.getIdRole("senior cashier"), 3);
+    }
+
+
+    private void setConnection() throws SQLException {
+     ConnectionPool pool = mock(ConnectionPool.class);
+     when(ConnectionPool.getInstance()).thenReturn(pool);
+     when(pool.getConnection()).thenReturn(DriverManager.getConnection(CONNECTION_URL));
+    }
+
 }

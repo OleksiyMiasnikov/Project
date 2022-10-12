@@ -76,7 +76,6 @@ public class NewOrder implements Command {
         if (currentOrder.getId() == 0) {
             currentOrder = cashierManager.createOrder(currentOrder, direction);
         }
-
         double price = Double.parseDouble(req.getParameter("newPrice"));
         double quantity = Double.parseDouble(req.getParameter("newQuantity"));
         Product product = commodityExpertManager.read(Long.parseLong(req.getParameter("newProductId")));

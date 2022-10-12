@@ -45,6 +45,13 @@ public class Constants {
     public static final String COUNT_ROWS_IN_WAREHOUSE = "SELECT count(*) AS `rows_total` FROM `warehouse`";
     public static final String TOTALS_WAREHOUSE = "SELECT SUM(`quantity`) AS `total_quantity`, SUM(`price`*`quantity`) AS `total_amount` FROM `warehouse` JOIN `product` ON `product`.`id` = `warehouse`.`product_id`";
     public static final int ERROR_CODE_OUT_OF_RANGE = 1264;
+    public static final String FIND_IN_WAREHOUSE_BY_PRODUCT_ID =
+            "SELECT `id`, `quantity`, `product_id` " +
+            "FROM `warehouse` " +
+            "WHERE `product_id` = ?";
+    public static final String INSERT_WAREHOUSE = "INSERT INTO `warehouse` VALUES (default, ?, ?)";
+
+
 
     // SQL OrderDao constants
     public static final String UPDATE_TOTAL_AMOUNT_BY_ID =

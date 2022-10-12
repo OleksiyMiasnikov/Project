@@ -24,12 +24,15 @@ public class ProductDaoImpl implements ProductDao {
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
                 return buildProduct(resultSet);
-            } else {
-                return null;
             }
+            return null;
         }  finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -47,12 +50,15 @@ public class ProductDaoImpl implements ProductDao {
             if (resultSet.next()) {
                 entity.setId(resultSet.getLong(1));
                 return entity;
-            } else {
-                return null;
             }
+            return null;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
     }
 
@@ -82,8 +88,12 @@ public class ProductDaoImpl implements ProductDao {
                 productList.add(buildProduct(resultSet));
             }
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
         }
         return productList;
     }
@@ -109,8 +119,12 @@ public class ProductDaoImpl implements ProductDao {
             resultSet.next();
             return resultSet.getInt("rows_total");
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 
@@ -128,8 +142,12 @@ public class ProductDaoImpl implements ProductDao {
             result.put("total_amount", resultSet.getDouble("total_amount"));
             return result;
         } finally {
-            if (resultSet != null) resultSet.close();
-            if (stmt != null) stmt.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
         }
     }
 

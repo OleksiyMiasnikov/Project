@@ -2,7 +2,9 @@ package com.myProject.dao.mysql;
 
 import com.myProject.dao.ProductDao;
 import com.myProject.dao.WarehouseDao;
+import com.myProject.entitie.Product;
 import com.myProject.entitie.Warehouse;
+import com.myProject.service.exception.DaoException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -87,13 +89,59 @@ public class WarehouseDaoImpl implements WarehouseDao {
     }
 
     @Override
-    public Warehouse read(Connection con, Long id){
+    public Warehouse readByProduct(Connection con, Product product) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(FIND_IN_WAREHOUSE_BY_PRODUCT_ID);
+            pstmt.setLong(1, product.getId());
+            pstmt.executeQuery();
+            resultSet = pstmt.getResultSet();
+            if (resultSet.next()) {
+                return new Warehouse(resultSet.getLong(1),
+                        resultSet.getDouble(2),
+                        product);
+            }
+            return null;
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        }
+
+    }
+
+    @Override
+    public Warehouse read(Connection con, Long id) throws SQLException {
         return null;
     }
 
     @Override
-    public Warehouse create(Connection con, Warehouse entity){
-        return null;
+    public Warehouse create(Connection con, Warehouse entity) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            pstmt = con.prepareStatement(INSERT_WAREHOUSE, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setDouble(1, entity.getQuantity());
+            pstmt.setLong(2, entity.getProduct().getId());
+            pstmt.executeUpdate();
+            resultSet = pstmt.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getLong(1));
+                return entity;
+            }
+            throw new DaoException("Insertion failed");
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        }
     }
 
     @Override
