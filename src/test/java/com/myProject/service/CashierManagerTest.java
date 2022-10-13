@@ -6,7 +6,6 @@ import com.myProject.entitie.Order;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,20 +13,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 import static com.myProject.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class CashierManagerTest {
+class CashierManagerTest extends BeforeMockTests{
 
     private static CashierManager manager;
     private static UserManager userManager;
     private static CommodityExpertManager commodityExpertManager;
     @BeforeAll
     static void globalSetUp(){
-        //MockedStatic<ConnectionPool> mocked = mockStatic(ConnectionPool.class);
         manager = CashierManager.getInstance(DaoFactory.getInstance().getOrderDao(),
                 DaoFactory.getInstance().getOrderDetailsDao());
         userManager = UserManager.getInstance(DaoFactory.getInstance().getUserDao(),

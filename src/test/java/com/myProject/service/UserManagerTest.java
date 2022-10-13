@@ -17,13 +17,13 @@ import static com.myProject.TestConstants.*;
 import static com.myProject.TestConstants.DROP_ROLE_TABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 
-public class UserManagerTest extends Mockito {
+public class UserManagerTest extends BeforeMockTests {
     private static UserManager manager;
     @BeforeAll
     static void globalSetUp(){
-        MockedStatic<ConnectionPool> mocked = mockStatic(ConnectionPool.class);
         manager = UserManager.getInstance(DaoFactory.getInstance().getUserDao(),
                 DaoFactory.getInstance().getRoleDao());
     }
