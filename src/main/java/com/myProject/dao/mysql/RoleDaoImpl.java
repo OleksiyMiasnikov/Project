@@ -43,7 +43,10 @@ public class RoleDaoImpl implements RoleDao {
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
-                return new Role(resultSet.getLong(1), name);
+                return Role.builder()
+                        .id(resultSet.getLong(1))
+                        .name(name)
+                        .build();
             } else {
                 return null;
             }

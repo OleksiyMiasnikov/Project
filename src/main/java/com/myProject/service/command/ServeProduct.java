@@ -20,7 +20,12 @@ public class ServeProduct implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- ServeProduct ---");
         String strId = req.getParameter("selectedProduct");
-        Product product = new Product(0L,"", Unit.PCS, 1d);
+        Product product = Product.builder()
+                .id(0L)
+                .name("")
+                .unit(Unit.PCS)
+                .price(1d)
+                .build();
         if (strId != null) {
             CommodityExpertManager manager =
                     (CommodityExpertManager) req.getSession().getServletContext().getAttribute("CommodityExpertManager");

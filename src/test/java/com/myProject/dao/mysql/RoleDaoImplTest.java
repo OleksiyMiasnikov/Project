@@ -41,17 +41,17 @@ public class RoleDaoImplTest {
     @Test
     void findRoleTest() throws SQLException {
         List<Role> list = new ArrayList<>();
-        list.add(new Role(1, "admin"));
-        list.add(new Role(2, "cashier"));
-        list.add(new Role(3, "senior cashier"));
-        list.add(new Role(4, "commodity expert"));
+        list.add(Role.builder().id(1).name("admin").build());
+        list.add(Role.builder().id(2).name("cashier").build());
+        list.add(Role.builder().id(3).name("senior cashier").build());
+        list.add(Role.builder().id(4).name("commodity expert").build());
         Collections.sort(list);
         assertEquals(list, roleDao.findAll(con, 0, 1000));
     }
 
     @Test
     void findByName() throws SQLException {
-        Role role = new Role(1, "admin");
+        Role role = Role.builder().id(1).name("admin").build();
         assertEquals(role, roleDao.findByName(con, "admin"));
     }
 

@@ -90,7 +90,10 @@ public class UserManagerTest extends BeforeMockTests {
                 "Fedor",
                 "01234",
                 "fedor@gom",
-                new Role(2,"cashier"));
+                Role.builder()
+                        .id(2)
+                        .name("cashier")
+                        .build());
         user = manager.addUser(user);
         setConnection();
         User newUser = manager.read(user.getId());
@@ -103,7 +106,10 @@ public class UserManagerTest extends BeforeMockTests {
                 "Alex",
                 "01234",
                 "fedor@gom",
-                new Role(2,"cashier"));
+                Role.builder()
+                        .id(2)
+                        .name("cashier")
+                        .build());
         assertThrows(DaoException.class, () -> manager.addUser(user));
     }
 

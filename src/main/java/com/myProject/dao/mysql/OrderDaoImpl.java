@@ -117,12 +117,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     private Order buildOrder(Connection con, UserDao userDao, ResultSet resultSet) throws SQLException{
-        Order order = new Order();
-        order.setId(resultSet.getLong(1));
-        order.setUser(userDao.read(con, resultSet.getLong(2)));
-        order.setDate(resultSet.getTimestamp(3));
-        order.setTotalAmount(resultSet.getDouble(4));
-        return order;
+        return Order.builder()
+                .id(resultSet.getLong(1))
+                .user(userDao.read(con, resultSet.getLong(2)))
+                .date(resultSet.getTimestamp(3))
+                .totalAmount(resultSet.getDouble(4))
+                .build();
     }
 
     @Override

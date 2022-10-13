@@ -45,7 +45,7 @@ class AuthorizationTest {
                 "Alex",
                 "b59c67bf196a4758191e42f76670ceba",
                 "alex@alex",
-                new Role(1,"admin"));
+                Role.builder().id(1).name("admin").build());
         when(manager.findUser(anyString())).thenReturn(user);
 
         when(req.getSession().getAttribute("locale")).thenReturn("uk");
@@ -81,7 +81,7 @@ class AuthorizationTest {
                 "Alex",
                 "b59c67bf196a4758191e42f76670ceba",
                 "alex@alex",
-                new Role(1,"admin"));
+                Role.builder().id(1).name("admin").build());
         when(manager.findUser(anyString())).thenReturn(user);
 
         when(req.getSession().getAttribute("locale")).thenReturn("uk");

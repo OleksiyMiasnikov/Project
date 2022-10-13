@@ -1,7 +1,12 @@
 package com.myProject.entitie;
 
+import com.myProject.dto.Report;
+import com.myProject.dto.ReportItem;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Order implements Serializable, Comparable<Order> {
@@ -18,6 +23,41 @@ public class Order implements Serializable, Comparable<Order> {
         this.user = user;
         this.date = date;
         this.totalAmount = totalAmount;
+    }
+
+    public static OrderBuilder builder() {
+        return new OrderBuilder();
+    }
+
+    public static class OrderBuilder {
+        private long id;
+        private User user;
+        private Date date;
+        private double totalAmount;
+
+        public OrderBuilder() {
+        }
+
+        public OrderBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+        public OrderBuilder user(User user) {
+            this.user = user;
+            return this;
+        }
+        public OrderBuilder date(Date date) {
+            this.date = date;
+            return this;
+        }
+        public OrderBuilder totalAmount(double totalAmount) {
+            this.totalAmount = totalAmount;
+            return this;
+        }
+
+        public Order build() {
+            return new Order(id, user, date, totalAmount);
+        }
     }
 
     public long getId() {

@@ -138,7 +138,10 @@ public class UserDaoImpl implements UserDao {
         user.setLogin(resultSet.getString(2));
         user.setPassword(resultSet.getString(3));
         user.setEmail(resultSet.getString(4));
-        user.setRole(new Role(resultSet.getInt(5), resultSet.getString(6)));
+        user.setRole(Role.builder()
+                .id(resultSet.getInt(5))
+                .name(resultSet.getString(6))
+                .build());
         return user;
     }
 

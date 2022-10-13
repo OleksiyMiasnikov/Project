@@ -85,7 +85,12 @@ class CashierManagerTest extends BeforeMockTests{
     @Test
     void createOrderTest() throws SQLException {
         Instant date = Instant.now().truncatedTo(ChronoUnit.SECONDS );
-        Order order = new Order(0, userManager.read(2), Date.from(date),25);
+        Order order = Order.builder()
+                .id(0L)
+                .user(userManager.read(2))
+                .date(Date.from(date))
+                .totalAmount(25)
+                .build();
         setConnection();
         order = manager.createOrder(order, "IN");
         setConnection();
@@ -97,7 +102,13 @@ class CashierManagerTest extends BeforeMockTests{
                 .map(Warehouse::getQuantity)
                 .reduce(0d, Double::sum);
         setConnection();
-        OrderDetails orderDetails = new OrderDetails(0, order, product, 10, 25);
+        OrderDetails orderDetails = OrderDetails.builder()
+                .id(0L)
+                .order(order)
+                .product(product)
+                .quantity(10d)
+                .price(25d)
+                .build();
         orderDetails = manager.createOrderDetails(orderDetails, "IN");
         setConnection();
         Double quantityAfter = commodityExpertManager.findAll(0, 1000)

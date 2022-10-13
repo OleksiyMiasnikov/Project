@@ -22,6 +22,10 @@ public class CreateProduct implements Command {
         logger.info("Start creating new product");
         String name = req.getParameter("newName");
         if ("".equals(name)) return "controller?command=" + LIST_OF_PRODUCT_COMMAND;
+        CommodityExpertManager commodityExpertManager =
+                                (CommodityExpertManager) req.getSession()
+                                        .getServletContext()
+                                        .getAttribute("CommodityExpertManager");
         String unit = req.getParameter("newUnit");
         String strPrice = req.getParameter("newPrice");
         String strId = req.getParameter("newId");
@@ -34,11 +38,12 @@ public class CreateProduct implements Command {
         if (strId != null && !strId.equals("")) {
             id = Long.parseLong(strId);
         }
-        CommodityExpertManager commodityExpertManager =
-            (CommodityExpertManager) req.getSession()
-                    .getServletContext()
-                    .getAttribute("CommodityExpertManager");
-        Product newProduct = new Product(id, name, Unit.valueOf(unit), price);
+        Product newProduct = Product.builder()
+                .id(id)
+                .name(name)
+                .unit(Unit.valueOf(unit))
+                .price(price)
+                .build();
         if (id == 0L) {
             if (commodityExpertManager.create(newProduct) != null) {
                 logger.info(name + " added");

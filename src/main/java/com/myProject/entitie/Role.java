@@ -18,10 +18,36 @@ public class Role implements Serializable, Comparable<Role> {
     }
 
     public static Role newInstance(ResultSet resultSet) throws SQLException {
-        Role role = new Role();
-        role.setId(resultSet.getLong(1));
-        role.setName(resultSet.getString(2));
-        return role;
+        return Role.builder()
+                .id(resultSet.getLong(1))
+                .name(resultSet.getString(2))
+                .build();
+    }
+
+    public static RoleBuilder builder() {
+        return new RoleBuilder();
+    }
+
+    public static class RoleBuilder {
+        private long id;
+        private String name;
+
+        public RoleBuilder() {
+        }
+
+        public RoleBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public RoleBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Role build() {
+            return new Role(id, name);
+        }
     }
 
     public long getId() {

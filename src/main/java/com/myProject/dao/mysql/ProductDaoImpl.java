@@ -99,13 +99,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     private Product buildProduct(ResultSet resultSet) throws SQLException {
-        Product product = new Product();
-        product.setId(resultSet.getLong(1));
-        product.setName(resultSet.getString(2));
-        product.setPrice(resultSet.getDouble(3));
-        String unit = resultSet.getString(4);
-        product.setUnit(Unit.valueOf(unit));
-        return product;
+        return Product.builder()
+                .id(resultSet.getLong(1))
+                .name(resultSet.getString(2))
+                .unit(Unit.valueOf(resultSet.getString(4)))
+                .price(resultSet.getDouble(3))
+                .build();
     }
 
     @Override

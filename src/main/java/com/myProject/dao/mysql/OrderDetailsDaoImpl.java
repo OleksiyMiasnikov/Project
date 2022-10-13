@@ -147,11 +147,13 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
-                return new OrderDetails(resultSet.getLong(1),
-                        order,
-                        product,
-                        resultSet.getDouble(4),
-                        resultSet.getDouble(5));
+                return OrderDetails.builder()
+                        .id(resultSet.getLong(1))
+                        .order(order)
+                        .product(product)
+                        .quantity(resultSet.getDouble(4))
+                        .price(resultSet.getDouble(5))
+                        .build();
             }
             return null;
         } finally {
@@ -170,13 +172,13 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     }
 
     private OrderDetails buildOrderDetails(Connection con, ProductDao productDao, Order order, ResultSet resultSet) throws SQLException {
-        OrderDetails orderDetails = new OrderDetails();
-        orderDetails.setId(resultSet.getLong(1));
-        orderDetails.setOrder(order);
-        orderDetails.setProduct(productDao.read(con, resultSet.getLong(3)));
-        orderDetails.setQuantity(resultSet.getDouble(4));
-        orderDetails.setPrice(resultSet.getDouble(5));
-        return orderDetails;
+        return OrderDetails.builder()
+                .id(resultSet.getLong(1))
+                .order(order)
+                .product(productDao.read(con, resultSet.getLong(3)))
+                .quantity(resultSet.getDouble(4))
+                .price(resultSet.getDouble(5))
+                .build();
     }
 
     @Override

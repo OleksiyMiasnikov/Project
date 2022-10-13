@@ -43,7 +43,14 @@ public class UserDaoImplTest {
 
     @Test
     void userCreateAndCheckEqualityTest() throws SQLException {
-        User user = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        User user = new User(0,
+                "Ivanov",
+                "",
+                "i@i",
+                Role.builder()
+                        .id(1)
+                        .name("admin")
+                        .build());
         User user2 = userDao.create(con, user);
         assertEquals("Ivanov",  user.getLogin());
         assertEquals(user, user2, "Two users must be equaled if their logins are equaled");
@@ -51,9 +58,19 @@ public class UserDaoImplTest {
 
     @Test
     public void whenDuplicateLoginExceptionThrown() throws SQLException {
-        User user1 = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        User user1 = new User(0, "Ivanov", "", "i@i", Role.builder()
+                .id(1)
+                .name("admin")
+                .build());
         userDao.create(con, user1);
-        User user2 = new User(0, "Ivanov", "", "2@i", new Role(2, "cashier"));
+        User user2 = new User(0,
+                "Ivanov",
+                "",
+                "2@i",
+                Role.builder()
+                        .id(2)
+                        .name("cashier")
+                        .build());
         Exception exception = assertThrows(SQLException.class, () -> {
             userDao.create(con, user2);
         });
@@ -61,7 +78,10 @@ public class UserDaoImplTest {
 
     @Test
     void userUpdateTest() throws SQLException {
-        User user = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        User user = new User(0, "Ivanov", "", "i@i", Role.builder()
+                .id(1)
+                .name("admin")
+                .build());
         user = userDao.create(con, user);
         user.setEmail("234@i");
         userDao.update(con, user);
@@ -71,7 +91,10 @@ public class UserDaoImplTest {
 
     @Test
     void findUserByNameTest() throws SQLException {
-        User user = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        User user = new User(0, "Ivanov", "", "i@i", Role.builder()
+                .id(1)
+                .name("admin")
+                .build());
         user = userDao.create(con, user);
         User user1 = userDao.findByName(con, "Ivanov");
         assertEquals(user, user1, "Two users must be equaled");
@@ -79,9 +102,15 @@ public class UserDaoImplTest {
     @Test
     void findAllUsersTest() throws SQLException {
         List<User> userList = new ArrayList<>();
-        User user1 = new User(0, "Ivanov", "", "i@i", new Role(1, "admin"));
+        User user1 = new User(0, "Ivanov", "", "i@i", Role.builder()
+                .id(1)
+                .name("admin")
+                .build());
         userList.add(userDao.create(con, user1));
-        User user2 = new User(0, "Petrov", "", "p@p", new Role(2, "cashier"));
+        User user2 = new User(0, "Petrov", "", "p@p", Role.builder()
+                .id(2)
+                .name("cashier")
+                .build());
         userList.add(userDao.create(con, user2));
         assertEquals(2, userDao.findRowsTotal(con));
         assertEquals(userList, userDao.findAll(con, 0, 100));

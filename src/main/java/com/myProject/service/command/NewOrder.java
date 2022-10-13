@@ -85,7 +85,13 @@ public class NewOrder implements Command {
             orderDetail.setQuantity(orderDetail.getQuantity() + quantity);
             cashierManager.updateOrderDetail(orderDetail);
         } else {
-            orderDetail = new OrderDetails(0L, currentOrder, product, quantity, price);
+            orderDetail = OrderDetails.builder()
+                    .id(0L)
+                    .order(currentOrder)
+                    .product(product)
+                    .quantity(quantity)
+                    .price(price)
+                    .build();
             orderDetail = cashierManager.createOrderDetails(orderDetail, direction);
         }
         cashierManager.updateTotal(currentOrder.getId());
@@ -99,9 +105,10 @@ public class NewOrder implements Command {
         int currentPage = 1;
         int pagesTotal = 1;
         if (currentOrder == null) {
-            currentOrder = new Order();
-            currentOrder.setUser(((Employee) req.getSession().getAttribute("employee")).getUser());
-            currentOrder.setDate(new Timestamp(new Date().getTime()));
+            currentOrder = Order.builder()
+                    .user(((Employee) req.getSession().getAttribute("employee")).getUser())
+                    .date(new Timestamp(new Date().getTime()))
+                    .build();
             req.getSession().removeAttribute("order");
             req.getSession().removeAttribute("orderDetails");
         } else {

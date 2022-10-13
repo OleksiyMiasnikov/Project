@@ -31,8 +31,14 @@ class AddUserTest {
         ServletContext context = mock(ServletContext.class);
         HttpSession session = mock(HttpSession.class);
 
-        List<Role> list = Arrays.asList(new Role(1, "test_admin"),
-                                        new Role(2, "test_cashier"));
+        List<Role> list = Arrays.asList(Role.builder()
+                        .id(1)
+                        .name("test_admin")
+                        .build(),
+                Role.builder()
+                        .id(2)
+                        .name("test_cashier")
+                        .build());
         when(manager.findAllRoles(0, 1000))
                 .thenReturn(list);
         Map<String, Object> attr = new HashMap<>();

@@ -6,8 +6,8 @@ import java.util.Objects;
 public class Product implements Serializable, Comparable<Product>{
     private long id;
     private String name;
-    private double price;
     private Unit unit;
+    private double price;
 
     public Product() {
     }
@@ -17,6 +17,44 @@ public class Product implements Serializable, Comparable<Product>{
         this.name = name;
         this.unit = unit;
         this.price = price;
+    }
+
+    public static ProductBuilder builder() {
+        return new ProductBuilder();
+    }
+
+    public static class ProductBuilder {
+        private long id;
+        private String name;
+        private Unit unit;
+        private double price;
+
+        public ProductBuilder() {
+        }
+
+        public ProductBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public ProductBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ProductBuilder unit(Unit unit) {
+            this.unit = unit;
+            return this;
+        }
+
+        public ProductBuilder price(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Product build() {
+            return new Product(id, name, unit, price);
+        }
     }
 
     public long getId() {

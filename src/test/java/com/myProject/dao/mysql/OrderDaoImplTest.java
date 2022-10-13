@@ -65,7 +65,10 @@ public class OrderDaoImplTest {
                         "Bob",
                         "934b535800b1cba8f96a5d72f72f1611",
                         "b@b",
-                        new Role(2, "cashier")));
+                        Role.builder()
+                                .id(2)
+                                .name("cashier")
+                                .build()));
         assertEquals(order.getTotalAmount(),521.5);
     }
 
@@ -80,9 +83,17 @@ public class OrderDaoImplTest {
                 "Bob",
                 "934b535800b1cba8f96a5d72f72f1611",
                 "b@b",
-                new Role(2, "cashier"));
+                Role.builder()
+                        .id(2)
+                        .name("cashier")
+                        .build());
         Instant date = Instant.now().truncatedTo(ChronoUnit.SECONDS );
-        Order order = new Order(0, bob, Date.from(date),25);
+        Order order = Order.builder()
+                .id(0L)
+                .user(bob)
+                .date(Date.from(date))
+                .totalAmount(25)
+                .build();
         order = orderDao.create(con, order, "OUT");
         assertEquals(order, orderDao.read(con, order.getId()));
         order.getUser().setLogin("Den");
