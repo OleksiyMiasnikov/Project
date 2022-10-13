@@ -34,9 +34,9 @@ public class NewOrder implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("NewOrder started. Current order: " + currentOrder);
         cashierManager
-                = (CashierManager) req.getSession().getServletContext().getAttribute("CashierManager");
+                = (CashierManager) req.getServletContext().getAttribute("CashierManager");
         commodityExpertManager
-                = (CommodityExpertManager) req.getSession().getServletContext().getAttribute("CommodityExpertManager");
+                = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
         String button = req.getParameter("button");
         direction = req.getParameter("direction");
         if (direction == null) direction = "OUT";

@@ -8,7 +8,7 @@ import static com.myProject.util.Constants.*;
 
 public class Admin extends Employee{
     private static final Logger logger = (Logger) LogManager.getLogger(Admin.class);
-    public Admin(User user, String locale) {
-        super(user, locale, SHOW_USERS_COMMAND, ADD_USER_COMMAND);
+    public Admin(User user) {
+        super(user, SHOW_USERS_COMMAND, ADD_USER_COMMAND);
     }
 }

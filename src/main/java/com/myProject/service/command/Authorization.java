@@ -15,23 +15,25 @@ import java.io.IOException;
 
 import static com.myProject.util.Constants.START_PAGE;
 
-
+/**
+ * gets 'login' and 'password' from login page (index.jsp) parameters and finds user in database
+ * if user exists creates employee by this user end puts it into session
+ * else backs control to login page with error message
+ */
 public class Authorization implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Authorization.class);
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
+        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String login = req.getParameter("login");
         String password = EncryptPassword.encrypt(req.getParameter("password"));
         logger.info("login is \"" + login + "\".");
-        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.findUser(login);
         if (user != null && password.equals(user.getPassword())) {
-            Employee employee =
-                    Employee.createEmployee(user,
-                            req.getSession().getAttribute("locale").toString());
-            req.getSession().setAttribute("employee", employee);
+            Employee employee = Employee.createEmployee(user);
             logger.info(employee);
+            req.getSession().setAttribute("employee", employee);
             req.getSession().setAttribute("incorrectUser", "");
             return "controller?command=" + employee.getStartCommand();
         } else {

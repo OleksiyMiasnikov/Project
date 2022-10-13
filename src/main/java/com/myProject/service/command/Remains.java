@@ -18,7 +18,6 @@ public class Remains implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         CommodityExpertManager manager =
                 (CommodityExpertManager) req
-                        .getSession()
                         .getServletContext()
                         .getAttribute("CommodityExpertManager");
         String strPage = req.getParameter("page");

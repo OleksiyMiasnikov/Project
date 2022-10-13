@@ -58,8 +58,8 @@ class AuthorizationTest {
                 .when(session).setAttribute(anyString(), any());
         String result = Receiver.runCommand(req, resp,"authorization");
         assertEquals(result,"controller?command=command.show_users");
-        Employee employee = new Admin(user, "uk");
-        assertEquals((Employee) attr.get("employee"), employee);
+        Employee employee = new Admin(user);
+        assertEquals(attr.get("employee"), employee);
 
     }
 

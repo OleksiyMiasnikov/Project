@@ -12,6 +12,11 @@ import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
 
+/**
+ * class of AddUser command prepared data for jsp page
+ * @returns address of 'user_details.jsp'
+ */
+
 public class AddUser implements Command{
     private static final Logger logger = (Logger) LogManager.getLogger(AddUser.class);
     @Override

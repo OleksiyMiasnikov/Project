@@ -21,7 +21,8 @@ public class DeleteOrderedProduct implements Command {
         String strId = req.getParameter("order_id");
         String operation = (String) req.getSession().getAttribute("operation");
         if (products != null && strId != null) {
-            CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
+            CashierManager cashierManager =
+                    (CashierManager) req.getServletContext().getAttribute("CashierManager");
             if (cashierManager.deleteProductsInOrder(strId, products)) {
                 return "controller?command=command.orders";
             }

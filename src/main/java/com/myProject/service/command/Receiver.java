@@ -31,7 +31,6 @@ public class Receiver {
         commandMap.put(LIST_OF_PRODUCT_COMMAND, new ListOfProducts());
         commandMap.put(NEW_INCOME_COMMAND, new NewIncome());
         commandMap.put(INCOMES_COMMAND, new Incomes());
-        commandMap.put(CREATE_DATABASE_COMMAND, new CreateDatabase());
         commandMap.put(DELETE_ORDER_COMMAND, new DeleteOrder());
         commandMap.put(DELETE_ORDER_PRODUCT_COMMAND, new DeleteOrderedProduct());
         commandMap.put(CREATE_PRODUCT_COMMAND, new CreateProduct());
@@ -44,9 +43,6 @@ public class Receiver {
         commandMap.put(SEND_REPORT_COMMAND, new SendReport());
     }
 
-    public static Command getCommand(String commandName) {
-        return commandMap.get(commandName);
-    }
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws NullPointerException, DaoException, ServletException, IOException {
         return commandMap.get(commandName).execute(req, resp);

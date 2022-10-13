@@ -24,8 +24,7 @@ public class ServeOrder implements Command {
         String operation = req.getParameter("operation");
         long id = Long.parseLong(strId);
         CashierManager manager =
-                (CashierManager) req.getSession()
-                        .getServletContext()
+                (CashierManager) req.getServletContext()
                         .getAttribute("CashierManager");
         Order order = manager.read(id);
         List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);

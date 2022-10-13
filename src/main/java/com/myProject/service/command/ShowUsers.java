@@ -20,7 +20,7 @@ public class ShowUsers implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start execute command -ShowUsers-");
-        UserManager manager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+        UserManager manager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
         if (strPage != null &&

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * pops list of menu items from stack and puts it into session attribute
+ */
 public class Back implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Back.class);
     @Override

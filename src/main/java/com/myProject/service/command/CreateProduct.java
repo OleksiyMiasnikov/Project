@@ -14,6 +14,12 @@ import java.io.IOException;
 
 import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
 
+/**
+ *  gets data from 'product_details.jsp'
+ *  if 'id' equals '0' creates new product else updates existed product
+ *  than pass control to 'command.list_of_products'
+ */
+
 public class CreateProduct implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(CreateProduct.class);
 
@@ -21,17 +27,17 @@ public class CreateProduct implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("Start creating new product");
         String name = req.getParameter("newName");
-        if ("".equals(name)) return "controller?command=" + LIST_OF_PRODUCT_COMMAND;
+        if ("".equals(name)) {
+            return "controller?command=" + LIST_OF_PRODUCT_COMMAND;
+        }
         CommodityExpertManager commodityExpertManager =
-                                (CommodityExpertManager) req.getSession()
-                                        .getServletContext()
+                                (CommodityExpertManager) req.getServletContext()
                                         .getAttribute("CommodityExpertManager");
-        String unit = req.getParameter("newUnit");
-        String strPrice = req.getParameter("newPrice");
-        String strId = req.getParameter("newId");
-        logger.info(name + "-" + unit + "-" + strPrice + "-" + strId);
         long id = 0L;
         double price = 0;
+        String strId = req.getParameter("newId");
+        String unit = req.getParameter("newUnit");
+        String strPrice = req.getParameter("newPrice");
         if (strPrice != null && !strPrice.equals("")) {
             price = Double.parseDouble(strPrice);
         }
@@ -39,11 +45,11 @@ public class CreateProduct implements Command {
             id = Long.parseLong(strId);
         }
         Product newProduct = Product.builder()
-                .id(id)
-                .name(name)
-                .unit(Unit.valueOf(unit))
-                .price(price)
-                .build();
+                                    .id(id)
+                                    .name(name)
+                                    .unit(Unit.valueOf(unit))
+                                    .price(price)
+                                    .build();
         if (id == 0L) {
             if (commodityExpertManager.create(newProduct) != null) {
                 logger.info(name + " added");

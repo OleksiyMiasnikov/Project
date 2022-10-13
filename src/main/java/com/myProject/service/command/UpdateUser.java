@@ -15,17 +15,20 @@ import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
 
-
+/**
+ *  prepares data for updating user by 'id' from request parameter 'selectedUser'
+ *  @return address of jsp page 'user_details.jsp'
+ */
 public class UpdateUser implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String userId = req.getParameter("selectedUser");
         logger.info("Start updating user: " + userId);
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
         User user = userManager.read(Long.parseLong(userId));
-        req.setAttribute("user", user);
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
+        req.setAttribute("user", user);
         req.setAttribute("roles", rolesList);
         req.getSession().setAttribute("title", "command.update_user");
         return  PATH + "user_details.jsp";

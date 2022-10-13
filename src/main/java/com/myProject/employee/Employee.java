@@ -14,11 +14,9 @@ public abstract class Employee implements Serializable {
     private final User user;
     private Deque<List<String>> stackOfMenuItems;
     private final String startCommand;
-    private String locale;
 
-    public Employee(User user, String locale, String startCommand, String ... items) {
+    public Employee(User user, String startCommand, String ... items) {
         this.user = user;
-        this.locale = locale;
         this.startCommand = startCommand;
         stackOfMenuItems = new ArrayDeque<>();
         stackOfMenuItems.push(List.of(items));
@@ -42,25 +40,17 @@ public abstract class Employee implements Serializable {
         return startCommand;
     }
 
-    public static Employee createEmployee(User user, String locale) throws DaoException {
+    public static Employee createEmployee(User user) throws DaoException {
         switch (user.getRole().getName()) {
-            case "admin": return new Admin(user, locale);
-            case "cashier": return new Cashier(user, locale);
-            case "commodity expert": return new CommodityExpert(user, locale);
-            case "senior cashier": return new SeniorCashier(user, locale);
+            case "admin": return new Admin(user);
+            case "cashier": return new Cashier(user);
+            case "commodity expert": return new CommodityExpert(user);
+            case "senior cashier": return new SeniorCashier(user);
             default: {
                 logger.error("Role is incorrect");
                 throw new DaoException("Role is incorrect");
             }
         }
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
     }
 
     @Override
@@ -83,7 +73,6 @@ public abstract class Employee implements Serializable {
                 "user=" + user +
                 ", menuItems=" + stackOfMenuItems.peek() +
                 ", startCommand='" + startCommand + '\'' +
-                ", locale='" + locale + '\'' +
                 '}';
     }
 }

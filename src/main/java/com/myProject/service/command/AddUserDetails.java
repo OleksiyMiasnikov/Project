@@ -13,33 +13,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * class of AddUserDetails command takes user details data from 'user_details.jsp' page
+ * create new user if 'id' equals '0' else update user by 'id'
+ * @return address of page 'command.show_users'
+ */
+
 public class AddUserDetails implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(AddUserDetails.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("started");
-        long id = 0L;
+        UserManager userManager =
+                (UserManager) req.getServletContext().getAttribute("UserManager");
         String login = req.getParameter("newLogin");
-        String password = EncryptPassword.encrypt(req.getParameter("newPassword"));
         String email = req.getParameter("newEmail");
         String role = req.getParameter("newRole");
         String strId = req.getParameter("id");
-        logger.info(role);
-        if (strId != null && !strId.equals("")) id = Long.parseLong(strId);
-        UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
+        String password = EncryptPassword.encrypt(req.getParameter("newPassword"));
+        long id = 0L;
+        if (strId != null && !strId.equals("")) {
+            id = Long.parseLong(strId);
+        }
         User newUser = User.builder()
                 .id(id)
                 .login(login)
                 .password(password)
                 .email(email)
                 .role(Role.builder()
-                            .id(userManager.getIdRole(role))
-                            .name(role)
-                            .build())
+                        .id(userManager.getIdRole(role))
+                        .name(role)
+                        .build())
                 .build();
-        logger.info(newUser);
         if (id == 0L) {
-            if (userManager.addUser(newUser) != null){
+            if (userManager.addUser(newUser) != null) {
                 logger.info(login + " added");
             } else {
                 logger.info("Unable to add user " + login);

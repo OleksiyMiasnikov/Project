@@ -12,17 +12,21 @@ import java.io.IOException;
 
 import static com.myProject.util.Constants.ORDERS_COMMAND;
 
+/**
+ *  gets array of orders from 'order_list.jsp' and invokes method to delete these orders
+ *  then passes control to command 'command.orders'
+ */
 public class DeleteOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrder.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("execute ");
+        logger.info("start deleting orders");
         String[] orders = req.getParameterMap().get("orders");
         if (orders != null) {
-            CashierManager cashierManager = (CashierManager) req.getServletContext().getAttribute("CashierManager");
+            CashierManager cashierManager =
+                    (CashierManager) req.getServletContext().getAttribute("CashierManager");
             cashierManager.deleteAll(orders);
         }
-        logger.info("finished");
         return "controller?command=" + ORDERS_COMMAND;
     }
 }

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * basic interface for pattern command
+ */
 public interface Command {
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException;
+    String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException;
 }

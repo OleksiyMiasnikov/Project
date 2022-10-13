@@ -33,8 +33,8 @@
                 <span class="header_key">
                     <fmt:message key="data_unit"/>
                 </span>
-                <select class="header_value" name="newUnit" value='<fmt:message key="${result.unit}"/>'>
-                <option>
+                <select class="header_value" name="newUnit" value="${result.unit}">
+                <option value='${result.unit}'>
                     <fmt:message key="${result.unit}"/>
                 </option>
                     <c:forEach var="item" items="${units }">

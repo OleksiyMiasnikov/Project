@@ -17,7 +17,7 @@ public class Movies implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         CashierManager manager =
-                (CashierManager) req.getSession().getServletContext().getAttribute("CashierManager");
+                (CashierManager) req.getServletContext().getAttribute("CashierManager");
 
         String strPage = req.getParameter("page");
         String direction = req.getParameter("direction");
