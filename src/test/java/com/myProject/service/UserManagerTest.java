@@ -86,14 +86,16 @@ public class UserManagerTest extends BeforeMockTests {
 
     @Test
     void addUserTest() throws SQLException {
-        User user = new User(0,
-                "Fedor",
-                "01234",
-                "fedor@gom",
-                Role.builder()
+        User user = User.builder()
+                .id(0L)
+                .login("Fedor")
+                .password("01234")
+                .email("fedor@gom")
+                .role(Role.builder()
                         .id(2)
                         .name("cashier")
-                        .build());
+                        .build())
+                .build();
         user = manager.addUser(user);
         setConnection();
         User newUser = manager.read(user.getId());
@@ -102,14 +104,16 @@ public class UserManagerTest extends BeforeMockTests {
 
     @Test
     void addDuplicateUserTest() throws SQLException {
-        User user = new User(0,
-                "Alex",
-                "01234",
-                "fedor@gom",
-                Role.builder()
+        User user = User.builder()
+                .id(0L)
+                .login("Alex")
+                .password("01234")
+                .email("fedor@gom")
+                .role(Role.builder()
                         .id(2)
                         .name("cashier")
-                        .build());
+                        .build())
+                .build();
         assertThrows(DaoException.class, () -> manager.addUser(user));
     }
 

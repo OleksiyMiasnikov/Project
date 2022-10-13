@@ -61,14 +61,16 @@ public class OrderDaoImplTest {
     void readOrderByIdTest() throws SQLException {
         Order order = orderDao.read(con,1L);
         assertEquals(order.getUser(),
-                new User(3,
-                        "Bob",
-                        "934b535800b1cba8f96a5d72f72f1611",
-                        "b@b",
-                        Role.builder()
-                                .id(2)
-                                .name("cashier")
-                                .build()));
+                User.builder()
+                        .id(3)
+                        .login("Bob")
+                        .password("934b535800b1cba8f96a5d72f72f1611")
+                        .email("b@b")
+                        .role(Role.builder()
+                                    .id(2)
+                                    .name("cashier")
+                                    .build())
+                        .build());
         assertEquals(order.getTotalAmount(),521.5);
     }
 
@@ -79,14 +81,16 @@ public class OrderDaoImplTest {
 
     @Test
     void createAndDeleteOrderTest() throws SQLException {
-        User bob = new User(3,
-                "Bob",
-                "934b535800b1cba8f96a5d72f72f1611",
-                "b@b",
-                Role.builder()
+        User bob = User.builder()
+                .id(3)
+                .login("Bob")
+                .password("934b535800b1cba8f96a5d72f72f1611")
+                .email("b@b")
+                .role(Role.builder()
                         .id(2)
                         .name("cashier")
-                        .build());
+                        .build())
+                .build();
         Instant date = Instant.now().truncatedTo(ChronoUnit.SECONDS );
         Order order = Order.builder()
                 .id(0L)

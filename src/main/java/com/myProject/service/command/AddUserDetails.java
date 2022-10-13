@@ -27,10 +27,16 @@ public class AddUserDetails implements Command {
         logger.info(role);
         if (strId != null && !strId.equals("")) id = Long.parseLong(strId);
         UserManager userManager = (UserManager) req.getSession().getServletContext().getAttribute("UserManager");
-        User newUser = new User(id, login, password, email, Role.builder()
-                .id(userManager.getIdRole(role))
-                .name(role)
-                .build());
+        User newUser = User.builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .email(email)
+                .role(Role.builder()
+                            .id(userManager.getIdRole(role))
+                            .name(role)
+                            .build())
+                .build();
         logger.info(newUser);
         if (id == 0L) {
             if (userManager.addUser(newUser) != null){

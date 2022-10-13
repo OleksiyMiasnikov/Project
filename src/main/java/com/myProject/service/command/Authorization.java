@@ -2,7 +2,7 @@ package com.myProject.service.command;
 
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
-import com.myProject.service.employee.Employee;
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.EncryptPassword;
 import org.apache.logging.log4j.LogManager;
@@ -12,10 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import static com.myProject.util.Constants.START_PAGE;
 

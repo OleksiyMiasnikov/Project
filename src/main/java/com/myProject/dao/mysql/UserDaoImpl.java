@@ -133,16 +133,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     private User buildUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong(1));
-        user.setLogin(resultSet.getString(2));
-        user.setPassword(resultSet.getString(3));
-        user.setEmail(resultSet.getString(4));
-        user.setRole(Role.builder()
-                .id(resultSet.getInt(5))
-                .name(resultSet.getString(6))
-                .build());
-        return user;
+        return User.builder()
+                .id(resultSet.getLong(1))
+                .login(resultSet.getString(2))
+                .password(resultSet.getString(3))
+                .email(resultSet.getString(4))
+                .role(Role.builder()
+                        .id(resultSet.getInt(5))
+                        .name(resultSet.getString(6))
+                        .build())
+                .build();
     }
 
     @Override

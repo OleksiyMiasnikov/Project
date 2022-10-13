@@ -21,6 +21,37 @@ public class Warehouse implements Serializable, Comparable<Warehouse> {
         this.product = product;
     }
 
+    public static WarehouseBuilder builder() {
+        return new WarehouseBuilder();
+    }
+
+    public static class WarehouseBuilder {
+        private long id;
+        private double quantity;
+        private Product product;
+
+        public WarehouseBuilder() {
+        }
+
+        public WarehouseBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public WarehouseBuilder quantity(double quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public WarehouseBuilder product(Product product) {
+            this.product = product;
+            return this;
+        }
+        public Warehouse build() {
+            return new Warehouse(id, quantity, product);
+        }
+    }
+
     public void setId(long id) {
         this.id = id;
     }

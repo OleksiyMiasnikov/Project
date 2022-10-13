@@ -1,4 +1,4 @@
-package com.myProject.service.employee;
+package com.myProject.employee;
 
 import com.myProject.entitie.User;
 

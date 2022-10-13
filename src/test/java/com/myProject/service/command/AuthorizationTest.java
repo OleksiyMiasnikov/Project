@@ -3,8 +3,8 @@ package com.myProject.service.command;
 import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
-import com.myProject.service.employee.Admin;
-import com.myProject.service.employee.Employee;
+import com.myProject.employee.Admin;
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.myProject.util.Constants.START_PAGE;
@@ -77,11 +75,16 @@ class AuthorizationTest {
         when(req.getParameter("login")).thenReturn("Alex");
         when(req.getParameter("password")).thenReturn("alex");
         when(req.getServletContext().getAttribute("UserManager")).thenReturn(manager);
-        User user = new User(2,
-                "Alex",
-                "b59c67bf196a4758191e42f76670ceba",
-                "alex@alex",
-                Role.builder().id(1).name("admin").build());
+        User user = User.builder()
+                        .id(2L)
+                        .login("Alex")
+                        .password("b59c67bf196a4758191e42f76670ceba")
+                        .email("alex@alex")
+                        .role(Role.builder()
+                                .id(1)
+                                .name("admin")
+                                .build())
+                        .build();
         when(manager.findUser(anyString())).thenReturn(user);
 
         when(req.getSession().getAttribute("locale")).thenReturn("uk");

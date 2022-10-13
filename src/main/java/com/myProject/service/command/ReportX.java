@@ -3,7 +3,7 @@ package com.myProject.service.command;
 import com.myProject.dto.Report;
 import com.myProject.dto.ReportItem;
 import com.myProject.service.CashierManager;
-import com.myProject.service.employee.Employee;
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -20,8 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import static com.myProject.util.Constants.*;
 
@@ -45,10 +44,7 @@ public class ReportX implements Command {
         report.setSeniorCashier(employee.getUser().getLogin());
         String filePDF = createPDF(req, report);
         req.getSession().setAttribute("pdf", filePDF);
-        employee.setMenuItems(new ArrayList<>(Arrays
-                .asList(PRINT_REPORT_COMMAND,
-                        SEND_REPORT_COMMAND,
-                        BACK_COMMAND)));
+        employee.setMenuItems(List.of(PRINT_REPORT_COMMAND, SEND_REPORT_COMMAND, BACK_COMMAND));
         req.getSession().setAttribute("employee", employee);
         req.getSession().setAttribute("title", title);
         return PATH + "report_x.jsp";

@@ -48,11 +48,11 @@ public class WarehouseDaoImpl implements WarehouseDao {
      * @throws SQLException
      */
     private Warehouse buildWarehouse(Connection con, ProductDao productDao, ResultSet resultSet) throws SQLException {
-        Warehouse warehouse = new Warehouse();
-        warehouse.setId(resultSet.getLong(1));
-        warehouse.setQuantity(resultSet.getDouble(2));
-        warehouse.setProduct(productDao.read(con, resultSet.getLong(3)));
-        return warehouse;
+        return Warehouse.builder()
+                .id(resultSet.getLong(1))
+                .quantity(resultSet.getDouble(2))
+                .product(productDao.read(con, resultSet.getLong(3)))
+                .build();
     }
 
     @Override
@@ -103,9 +103,11 @@ public class WarehouseDaoImpl implements WarehouseDao {
             pstmt.executeQuery();
             resultSet = pstmt.getResultSet();
             if (resultSet.next()) {
-                return new Warehouse(resultSet.getLong(1),
-                        resultSet.getDouble(2),
-                        product);
+                return Warehouse.builder()
+                        .id(resultSet.getLong(1))
+                        .quantity(resultSet.getDouble(2))
+                        .product(product)
+                        .build();
             }
             return null;
         } finally {

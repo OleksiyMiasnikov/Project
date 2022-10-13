@@ -4,7 +4,7 @@ import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.entitie.Product;
 import com.myProject.entitie.Warehouse;
-import com.myProject.service.employee.Employee;
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.CashierManager;
 import com.myProject.service.CommodityExpertManager;
@@ -124,7 +124,11 @@ public class NewOrder implements Command {
             List<Product> list = commodityExpertManager.findAllProducts(0, 1000);
             warehouseList = new ArrayList<>();
             for (Product element : list) {
-                warehouseList.add(new Warehouse(0, 100000d, element));
+                warehouseList.add(Warehouse.builder()
+                                .id(0L)
+                                .quantity(100000d)
+                                .product(element)
+                                .build());
             }
         } else {
             warehouseList = commodityExpertManager.findAll(0, 1000);

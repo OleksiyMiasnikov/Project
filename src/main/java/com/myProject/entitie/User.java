@@ -17,7 +17,49 @@ public class User implements Serializable, Comparable<User> {
         this.email = email;
         this.role = role;
     }
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
 
+    public static class UserBuilder {
+        private long id;
+        private String login;
+        private String password;
+        private String email;
+        private Role role;
+
+        public UserBuilder() {
+        }
+
+        public UserBuilder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public User build() {
+            return new User(id, login, password, email, role);
+        }
+    }
 
     public User() {  }
 

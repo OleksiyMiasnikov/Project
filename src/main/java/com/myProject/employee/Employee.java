@@ -1,4 +1,4 @@
-package com.myProject.service.employee;
+package com.myProject.employee;
 
 import com.myProject.entitie.User;
 import com.myProject.util.ConnectionPool;
@@ -21,7 +21,7 @@ public abstract class Employee implements Serializable {
         this.locale = locale;
         this.startCommand = startCommand;
         stackOfMenuItems = new ArrayDeque<>();
-        stackOfMenuItems.push(new ArrayList<>(Arrays.asList(items)));
+        stackOfMenuItems.push(List.of(items));
     }
 
     public User getUser() {

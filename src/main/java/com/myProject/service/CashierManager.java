@@ -107,7 +107,11 @@ public class CashierManager {
             int sign = 1;
             if ("OUT".equals(direction)) sign = -1;
             if (warehouseDao.readByProduct(con, orderDetails.getProduct()) == null) {
-                warehouseDao.create(con, new Warehouse(0, orderDetails.getQuantity(), orderDetails.getProduct()));
+                warehouseDao.create(con, Warehouse.builder()
+                                                    .id(0L)
+                                                    .quantity(orderDetails.getQuantity())
+                                                    .product(orderDetails.getProduct())
+                                                    .build());
             } else {
                 warehouseDao.updateQuantity(con, sign * orderDetails.getQuantity(),
                         orderDetails.getProduct().getId());
