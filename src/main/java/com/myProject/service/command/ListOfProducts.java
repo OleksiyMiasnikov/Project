@@ -14,17 +14,28 @@ import java.util.List;
 
 import static com.myProject.util.Constants.*;
 /**
- * Implementation of
+ * Implementation of LIST_OF_PRODUCT_COMMAND
  */
 public class ListOfProducts implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ListOfProducts.class);
+
+    /**
+     * prepares data for page 'product_list.jsp'
+     * checks number of current page in pagination,
+     * determines total number of pages
+     * and invokes DAO method to make appropriate selection in database
+     * puts result into session attribute
+     *
+     * @return relative address of 'product_list.jsp'
+     */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("Start execute command -ListOfProducts-");
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServletException, IOException {
+        logger.info("LIST_OF_PRODUCT_COMMAND executed");
         CommodityExpertManager manager =
                 (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
-        String strPage = req.getParameter("page");
         int currentPage = 1;
+        String strPage = req.getParameter("page");
         if (strPage != null &&
                 !"".equals(strPage) &&
                 LIST_OF_PRODUCT_COMMAND.equals(req.getSession().getAttribute("command_name"))) {
@@ -32,7 +43,6 @@ public class ListOfProducts implements Command {
         }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotalInProduct()/10d);
         List<Product> productList = manager.findAllProducts((currentPage - 1) * 10, 10);
-
         req.getSession().setAttribute("result", productList);
         req.getSession().setAttribute("page", currentPage);
         req.getSession().setAttribute("pages_total", pagesTotal);

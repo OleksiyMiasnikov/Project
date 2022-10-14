@@ -19,7 +19,9 @@ public class ChangeLocale implements Command {
      * @return address of previous page
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServletException, IOException {
+        logger.info("LOCALE_COMMAND executed");
         String lang = req.getParameter("lang");
         req.getSession().setAttribute("locale", lang);
         logger.info("Current locale: " + lang);

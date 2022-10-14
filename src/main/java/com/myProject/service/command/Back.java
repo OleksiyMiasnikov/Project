@@ -22,8 +22,9 @@ public class Back implements Command {
      * @return start command of current employee
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("\"Back\" pressed");
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServletException, IOException {
+        logger.info("BACK_COMMAND executed");
         Employee employee = (Employee) req.getSession().getAttribute("employee");
         employee.popMenuItems();
         req.getSession().setAttribute("employee", employee);

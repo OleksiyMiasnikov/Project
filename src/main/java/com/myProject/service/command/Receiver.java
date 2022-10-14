@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.myProject.util.Constants.*;
+
 /**
- *
+ * class Receiver has map with keys as names of commands and values instances of the corresponding commands classes
  */
 public class Receiver {
     private static final Map<String, Command> commandMap;
@@ -42,8 +43,12 @@ public class Receiver {
         commandMap.put(SHOW_USERS_COMMAND, new ShowUsers());
         commandMap.put(UPDATE_USER_COMMAND, new UpdateUser());
         commandMap.put(X_REPORT_COMMAND, new ReportX());
-        commandMap.put(Z_REPORT_COMMAND, new ReportZ());    }
+        commandMap.put(Z_REPORT_COMMAND, new ReportZ());
+    }
 
+    /**
+     * @return instance of command implementation which the specified to parameter 'commandName'
+     */
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws NullPointerException, DaoException, ServletException, IOException {
         return commandMap.get(commandName).execute(req, resp);

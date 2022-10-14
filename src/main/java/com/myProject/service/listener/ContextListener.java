@@ -1,19 +1,20 @@
 package com.myProject.service.listener;
 
 import com.myProject.dao.DaoFactory;
-import com.myProject.service.*;
-
+import com.myProject.service.CashierManager;
+import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.*;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextAttributeListener;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 
 @WebListener
@@ -52,10 +53,10 @@ public class ContextListener implements ServletContextListener, ServletContextAt
         // save descriptions to servlet context
         context.setAttribute("locales", locales);
 
-        logger.info("locales: " + locales.toString());
+        logger.info("locales: " + locales);
     }
 
-    @Override
+/*    @Override
     public void contextDestroyed(ServletContextEvent sce) {
         // Close all resources
         try {
@@ -64,20 +65,6 @@ public class ContextListener implements ServletContextListener, ServletContextAt
             logger.error("Can not deregister driver JDBC");
         }
         logger.info("Context is destroyed. Closing all resources");
-    }
+    }*/
 
-    @Override
-    public void attributeAdded(ServletContextAttributeEvent event) {
-        //logger.info("Added context attribute (" + event.getName() + "=" + event.getValue() + ")");
-    }
-
-    @Override
-    public void attributeRemoved(ServletContextAttributeEvent event) {
-      //  logger.info("Removed context attribute (" + event.getName() + "=" + event.getValue() + ")");
-    }
-
-    @Override
-    public void attributeReplaced(ServletContextAttributeEvent event) {
-       // logger.info("Replaced context attribute (" + event.getName() + "=" + event.getValue() + ")");
-    }
 }

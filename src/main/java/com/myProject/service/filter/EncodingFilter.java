@@ -7,7 +7,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-//@WebFilter("/*")
 public class EncodingFilter implements Filter {
     private static final Logger logger = (Logger) LogManager.getLogger(EncodingFilter.class);
     private String encoding;
@@ -24,6 +23,5 @@ public class EncodingFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         if (req.getCharacterEncoding() == null) req.setCharacterEncoding(encoding);
         filterChain.doFilter(servletRequest, servletResponse);
-        //logger.info("EncodingFilter");
     }
 }

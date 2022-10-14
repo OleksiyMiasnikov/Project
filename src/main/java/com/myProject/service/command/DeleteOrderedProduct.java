@@ -9,19 +9,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
- * Implementation of
+ * Implementation of DELETE_ORDER_PRODUCT_COMMAND
  */
-/**
- *  gets array of order details ids from 'order.jsp' and invokes method to delete these order details
- *  if there are some order details in current order returns 'order.jsp' to show this order
- *  else passes control to command 'command.orders'
- */
+
 public class DeleteOrderedProduct implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(DeleteOrderedProduct.class);
+
+    /**
+     * gets array of order details ids from 'order.jsp' and invokes method to delete these order details
+     *
+     * @return 'order.jsp' to show this order if there are some order details in current order
+     * else command ORDERS_COMMAND
+     */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("start deleting ordered product");
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServletException, IOException {
+        logger.info("DELETE_ORDER_PRODUCT_COMMAND executed");
         String strId = req.getParameter("order_id");
         String operation = (String) req.getSession().getAttribute("operation");
         String[] products = req.getParameterMap().get("products");

@@ -30,7 +30,9 @@ public class Authorization implements Command {
      * or address of login page if employee has not been authorized
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws NullPointerException, DaoException, ServletException, IOException {
+        logger.info("AUTHORIZATION_COMMAND executed");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String login = req.getParameter("login");
         String password = EncryptPassword.encrypt(req.getParameter("password"));
