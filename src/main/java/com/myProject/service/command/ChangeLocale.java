@@ -8,13 +8,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 /**
- * changes locale puts it into session attribute and backs control to previous page
+ * Implementation of LOCALE_COMMAND
  */
 public class ChangeLocale implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ChangeLocale.class);
-
+    /**
+     * changes locale, puts it into session attribute and backs control to previous page
+     *
+     * @return address of previous page
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         String lang = req.getParameter("lang");

@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * Implementation of
+ */
 public class ReportZ implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportZ.class);
     @Override

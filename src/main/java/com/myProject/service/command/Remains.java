@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.myProject.util.Constants.*;
-
+/**
+ * Implementation of
+ */
 public class Remains implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {

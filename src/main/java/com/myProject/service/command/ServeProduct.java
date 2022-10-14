@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.myProject.util.Constants.PATH;
-
+/**
+ * Implementation of
+ */
 /**
  *  prepares data for 'product_details.jsp'
  *  read product from database if 'id' is not equal '0'

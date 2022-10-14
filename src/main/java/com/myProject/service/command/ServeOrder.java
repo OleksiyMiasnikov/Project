@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
-
+/**
+ * Implementation of
+ */
 public class ServeOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeOrder.class);
     @Override

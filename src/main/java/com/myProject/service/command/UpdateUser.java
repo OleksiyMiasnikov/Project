@@ -14,13 +14,16 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
+/**
+ * Implementation of
+ */
 
+public class UpdateUser implements Command {
+    private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
 /**
  *  prepares data for updating user by 'id' from request parameter 'selectedUser'
  *  @return address of jsp page 'user_details.jsp'
  */
-public class UpdateUser implements Command {
-    private static final Logger logger = (Logger) LogManager.getLogger(UpdateUser.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");

@@ -14,17 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * class of AddUserDetails command takes user details data from 'user_details.jsp' page
- * create new user if 'id' equals '0' else update user by 'id'
- * @return address of page 'command.show_users'
+ * Implementation of ADD_USER_DETAILS_COMMAND
  */
-
 public class AddUserDetails implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(AddUserDetails.class);
 
+    /**
+     * takes user details data from 'user_details.jsp' page
+     * create new user if 'id' equals '0' else update user by 'id'
+     *
+     * @return command SHOW_USERS_COMMAND
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
-        logger.info("started");
+        logger.info("ADD_USER_DETAILS_COMMAND executed");
         UserManager userManager =
                 (UserManager) req.getServletContext().getAttribute("UserManager");
         String login = req.getParameter("newLogin");

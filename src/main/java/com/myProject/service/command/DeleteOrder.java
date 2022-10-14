@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.myProject.util.Constants.ORDERS_COMMAND;
-
+/**
+ * Implementation of
+ */
 /**
  *  gets array of orders from 'order_list.jsp' and invokes method to delete these orders
  *  then passes control to command 'command.orders'

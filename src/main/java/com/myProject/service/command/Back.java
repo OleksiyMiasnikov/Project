@@ -11,14 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * pops list of menu items from stack and puts it into session attribute
+ * Implementation of BACK_COMMAND
  */
 public class Back implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Back.class);
+
+    /**
+     * pops list of menu items from stack and puts it into session attribute
+     *
+     * @return start command of current employee
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("\"Back\" pressed");
-        Employee employee = (Employee)req.getSession().getAttribute("employee");
+        Employee employee = (Employee) req.getSession().getAttribute("employee");
         employee.popMenuItems();
         req.getSession().setAttribute("employee", employee);
         return "controller?command=" + employee.getStartCommand();

@@ -21,7 +21,9 @@ import java.util.Date;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
-
+/**
+ * Implementation of
+ */
 public class NewOrder implements Command {
     private Order currentOrder;
     private CashierManager cashierManager;

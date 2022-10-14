@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.myProject.util.Constants.*;
-
+/**
+ * Implementation of
+ */
 public class NewIncome implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(NewIncome.class);
     @Override

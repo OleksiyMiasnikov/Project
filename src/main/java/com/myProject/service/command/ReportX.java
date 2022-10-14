@@ -23,7 +23,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
-
+/**
+ * Implementation of
+ */
 public class ReportX implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportX.class);
     @Override

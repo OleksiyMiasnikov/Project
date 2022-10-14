@@ -14,15 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.myProject.util.Constants.START_PAGE;
-
 /**
- * gets 'login' and 'password' from login page (index.jsp) parameters and finds user in database
- * if user exists creates employee by this user end puts it into session
- * else backs control to login page with error message
+ * Implementation of AUTHORIZATION_COMMAND
+ * gets user data from login page and checks if such user exist
  */
 public class Authorization implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Authorization.class);
 
+    /**
+     * Gets 'login' and 'password' from login page (index.jsp) parameters and finds user in database
+     * if user exists creates employee by this user end puts it into session
+     * else backs control to login page with error message.
+     *
+     * @return start command of authorized employee
+     * or address of login page if employee has not been authorized
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws NullPointerException, DaoException, ServletException, IOException {
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
@@ -44,3 +50,5 @@ public class Authorization implements Command {
     }
 
 }
+
+
