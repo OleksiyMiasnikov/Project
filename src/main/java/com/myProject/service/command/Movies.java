@@ -3,24 +3,35 @@ package com.myProject.service.command;
 import com.myProject.entitie.Order;
 import com.myProject.service.CashierManager;
 import com.myProject.service.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import static com.myProject.util.Constants.*;
 /**
- * Implementation of
+ * Implementation of MOVIES_COMMAND
  */
 public class Movies implements Command {
+    private static final Logger logger = (Logger) LogManager.getLogger(Movies.class);
+
+    /**
+     *
+     * @return
+     */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServletException, IOException {
+        logger.info("MOVIES_COMMAND executed");
         CashierManager manager =
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
-
+        HttpSession session = req.getSession();
         String strPage = req.getParameter("page");
         String direction = req.getParameter("direction");
         String operation;
@@ -35,21 +46,20 @@ public class Movies implements Command {
         int currentPage = 1;
         if (strPage != null &&
                 !"null".equals(strPage) &&
-                commandName.equals(req.getSession().getAttribute("command_name"))) {
+                commandName.equals(session.getAttribute("command_name"))) {
             currentPage = Integer.parseInt(strPage);
         }
         int pagesTotal = (int)Math. ceil(manager.findRowsTotal(direction)/10d);
         List<Order> list = manager.findAll((currentPage - 1) * 10, 10, direction);
         Map<String, Double> totals = manager.ordersTotals(direction);
-        req.getSession().setAttribute("result", list);
-        req.getSession().setAttribute("total_amount", totals.get("total_amount"));
-        req.getSession().setAttribute("total_quantity", totals.get("total_quantity"));
-        req.getSession().setAttribute("result", list);
-        req.getSession().setAttribute("page", currentPage);
-        req.getSession().setAttribute("pages_total", pagesTotal);
-        req.getSession().setAttribute("command_name", commandName);
-        req.getSession().setAttribute("operation", operation);
-        req.getSession().setAttribute("title", "command." + operation);
+        session.setAttribute("total_amount", totals.get("total_amount"));
+        session.setAttribute("total_quantity", totals.get("total_quantity"));
+        session.setAttribute("result", list);
+        session.setAttribute("page", currentPage);
+        session.setAttribute("pages_total", pagesTotal);
+        session.setAttribute("command_name", commandName);
+        session.setAttribute("operation", operation);
+        session.setAttribute("title", "command." + operation);
         return PATH + "orders_list.jsp";
     }
 }

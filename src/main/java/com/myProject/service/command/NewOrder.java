@@ -14,6 +14,7 @@ import org.apache.logging.log4j.core.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
+
 /**
  * Implementation of
  */
@@ -30,8 +32,9 @@ public class NewOrder implements Command {
     private CommodityExpertManager commodityExpertManager;
     private String direction;
     private String operation;
-    String commandName;
+    private String commandName;
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrder.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("NewOrder started. Current order: " + currentOrder);
@@ -41,7 +44,9 @@ public class NewOrder implements Command {
                 = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
         String button = req.getParameter("button");
         direction = req.getParameter("direction");
-        if (direction == null) direction = "OUT";
+        if (direction == null) {
+            direction = "OUT";
+        }
         String exitCommandName;
         if ("IN".equals(direction)) {
             operation = "income";
@@ -52,24 +57,26 @@ public class NewOrder implements Command {
             exitCommandName = "command.orders";
             commandName = "command.new_order";
         }
-        if (button == null) button = "First invoke";
+        if (button == null) {
+            button = "First invoke";
+        }
         switch (button) {
-            case "Cancel" :
+            case "Cancel":
                 cashierManager.deleteOrder(currentOrder.getId(), "OUT");
-            case "Complete" :
+            case "Complete":
                 currentOrder = null;
                 req.getSession().removeAttribute("order");
                 req.getSession().removeAttribute("orderDetails");
                 return "controller?command=" + exitCommandName;
-            case "Log out" :
+            case "Log out":
                 currentOrder = null;
                 logger.info("Log out pressed");
                 return "controller?command=command.log_out";
-            case "Save" :
+            case "Save":
                 logger.info("Save pressed");
                 addOrderDetails(req);
             default:
-                showOrder(req, resp);
+                showOrder(req);
                 return PATH + "new_order.jsp";
         }
     }
@@ -101,48 +108,53 @@ public class NewOrder implements Command {
         logger.info("Added order details: " + orderDetail);
     }
 
-    private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    private void showOrder(HttpServletRequest req) throws DaoException {
         String strPage = req.getParameter("page");
+        HttpSession session = req.getSession();
         List<Warehouse> warehouseList;
         int currentPage = 1;
         int pagesTotal = 1;
         if (currentOrder == null) {
             currentOrder = Order.builder()
-                    .user(((Employee) req.getSession().getAttribute("employee")).getUser())
+                    .user(((Employee) session.getAttribute("employee")).getUser())
                     .date(new Timestamp(new Date().getTime()))
                     .build();
-            req.getSession().removeAttribute("order");
-            req.getSession().removeAttribute("orderDetails");
+            session.removeAttribute("order");
+            session.removeAttribute("orderDetails");
         } else {
             if (strPage != null &&
                     !"null".equals(strPage)) {
                 currentPage = Integer.parseInt(strPage);
             }
-            pagesTotal = (int)Math. ceil(cashierManager.findRowsTotalInOrderDetails(currentOrder.getId())/5d);
-            List<OrderDetails> list = cashierManager.findAllOrderDetails((currentPage - 1) * 5, 5, currentOrder.getId());
-            req.getSession().setAttribute("orderDetails", list);
+            pagesTotal = (int) Math.ceil(cashierManager.findRowsTotalInOrderDetails(currentOrder.getId()) / 5d);
+            List<OrderDetails> list =
+                    cashierManager.findAllOrderDetails((currentPage - 1) * 5,
+                            5,
+                            currentOrder.getId());
+            session.setAttribute("orderDetails", list);
         }
         if ("IN".equals(direction)) {
-            List<Product> list = commodityExpertManager.findAllProducts(0, 1000);
             warehouseList = new ArrayList<>();
-            for (Product element : list) {
-                warehouseList.add(Warehouse.builder()
-                                .id(0L)
-                                .quantity(100000d)
-                                .product(element)
-                                .build());
-            }
+            commodityExpertManager
+                    .findAllProducts(0, 1000)
+                    .forEach(p ->
+                            warehouseList.add(Warehouse.builder()
+                                    .id(0L)
+                                    .quantity(100000d)
+                                    .product(p)
+                                    .build())
+                    );
         } else {
             warehouseList = commodityExpertManager.findAll(0, 1000);
         }
-        req.getSession().setAttribute("warehouse", warehouseList);
-        req.getSession().setAttribute("page", currentPage);
-        req.getSession().setAttribute("pages_total", pagesTotal);
-        req.getSession().setAttribute("command_name", commandName);
-        req.getSession().setAttribute("direction", direction);
-        req.getSession().setAttribute("operation", operation);
-        req.getSession().setAttribute("pcs", "шт");
-        req.getSession().setAttribute("order", currentOrder);
-        req.getSession().setAttribute("title", "command.new_" + operation);
+        session.setAttribute("warehouse", warehouseList);
+        session.setAttribute("page", currentPage);
+        session.setAttribute("pages_total", pagesTotal);
+        session.setAttribute("command_name", commandName);
+        session.setAttribute("direction", direction);
+        session.setAttribute("operation", operation);
+        session.setAttribute("pcs", "шт");
+        session.setAttribute("order", currentOrder);
+        session.setAttribute("title", "command.new_" + operation);
     }
 }

@@ -22,21 +22,21 @@ public class ServeOrder implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
         logger.info("--- ServeOrder ---");
-        String strId = req.getParameter("id");
-        String operation = req.getParameter("operation");
-        long id = Long.parseLong(strId);
         CashierManager manager =
                 (CashierManager) req.getServletContext()
                         .getAttribute("CashierManager");
-        Order order = manager.read(id);
-        List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);
-        req.setAttribute("orderDetails", orderDetailsList);
-        req.setAttribute("order", order);
+        String operation = req.getParameter("operation");
         if ("orders".equals(operation)) {
             req.setAttribute("operation", "Order");
         } else {
             req.setAttribute("operation", "Income");
         }
+        String strId = req.getParameter("id");
+        long id = Long.parseLong(strId);
+        Order order = manager.read(id);
+        List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);
+        req.setAttribute("order", order);
+        req.setAttribute("orderDetails", orderDetailsList);
         return PATH + "order.jsp";
     }
 }

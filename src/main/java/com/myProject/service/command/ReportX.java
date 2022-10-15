@@ -35,7 +35,6 @@ public class ReportX implements Command {
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
         Employee employee =
                 (Employee) req.getSession().getAttribute("employee");
-
         String typeOfReport = "X_report";
         String title = "command.x_reports";
         if ("YES".equals(req.getParameter("z_report"))) {
@@ -46,9 +45,9 @@ public class ReportX implements Command {
         report.setSeniorCashier(employee.getUser().getLogin());
         String filePDF = createPDF(req, report);
         req.getSession().setAttribute("pdf", filePDF);
+        req.getSession().setAttribute("title", title);
         employee.setMenuItems(List.of(PRINT_REPORT_COMMAND, SEND_REPORT_COMMAND, BACK_COMMAND));
         req.getSession().setAttribute("employee", employee);
-        req.getSession().setAttribute("title", title);
         return PATH + "report_x.jsp";
     }
 
