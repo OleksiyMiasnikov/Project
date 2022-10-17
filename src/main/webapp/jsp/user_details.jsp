@@ -31,7 +31,8 @@
                             onchange="isPasswordChanged.value='YES'"
                             type="password"
                             name="newPassword"
-                            value="${user.password}">
+                            value="****">
+                    <input name="oldPassword" value="${user.password}" hidden="hidden">
                     <input id="isPasswordChanged" name="isPasswordChanged" value="NO" hidden="hidden">
                     <br>
                     <span class="header_key">

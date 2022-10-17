@@ -35,9 +35,9 @@ public class AddUserDetails implements Command {
         String email = req.getParameter("newEmail");
         String role = req.getParameter("newRole");
         String strId = req.getParameter("id");
-        String password = req.getParameter("newPassword");
+        String password = req.getParameter("oldPassword");
         if ("YES".equals(req.getParameter("isPasswordChanged"))) {
-            password = EncryptPassword.encrypt(password);
+            password = EncryptPassword.encrypt(req.getParameter("newPassword"));
         }
         long id = 0L;
         if (strId != null && !strId.equals("")) {
