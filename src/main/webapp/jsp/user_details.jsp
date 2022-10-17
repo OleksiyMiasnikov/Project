@@ -27,7 +27,12 @@
                     <span class="header_key">
                         <fmt:message key="data_password"/>
                     </span>
-                    <input class="header_value" type="password" name="newPassword" value="${user.password}">
+                    <input class="header_value"
+                            onchange="isPasswordChanged.value='YES'"
+                            type="password"
+                            name="newPassword"
+                            value="${user.password}">
+                    <input id="isPasswordChanged" name="isPasswordChanged" value="NO" hidden="hidden">
                     <br>
                     <span class="header_key">
                         <fmt:message key="data_email"/>
