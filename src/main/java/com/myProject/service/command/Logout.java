@@ -1,13 +1,12 @@
 package com.myProject.service.command;
 
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static com.myProject.util.Constants.START_PAGE;
 
@@ -23,8 +22,7 @@ public class Logout implements Command {
      * @return address of login page
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("LOGOUT_COMMAND executed");
         req.getSession().invalidate();
         return START_PAGE;

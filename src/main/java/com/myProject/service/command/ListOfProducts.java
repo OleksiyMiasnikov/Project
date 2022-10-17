@@ -2,17 +2,17 @@ package com.myProject.service.command;
 
 import com.myProject.entitie.Product;
 import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
+import static com.myProject.util.Constants.PATH;
 /**
  * Implementation of LIST_OF_PRODUCT_COMMAND
  */
@@ -29,8 +29,7 @@ public class ListOfProducts implements Command {
      * @return relative address of 'product_list.jsp'
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("LIST_OF_PRODUCT_COMMAND executed");
         CommodityExpertManager manager =
                 (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");

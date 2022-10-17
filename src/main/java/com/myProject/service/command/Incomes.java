@@ -1,15 +1,14 @@
 package com.myProject.service.command;
 
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.MOVIES_COMMAND;
 
 /**
  * Implementation of INCOMES_COMMAND
@@ -23,8 +22,7 @@ public class Incomes implements Command {
      * @return command MOVIES_COMMAND with appropriate parameters
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("INCOMES_COMMAND executed");
         return "controller?command=" + MOVIES_COMMAND + "&direction=IN&page=" + req.getParameter("page");
     }

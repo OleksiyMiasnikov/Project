@@ -3,14 +3,13 @@ package com.myProject.service.command;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.service.CashierManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
@@ -20,7 +19,7 @@ import static com.myProject.util.Constants.PATH;
 public class ServeOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeOrder.class);
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("--- ServeOrder ---");
         CashierManager manager =
                 (CashierManager) req.getServletContext()

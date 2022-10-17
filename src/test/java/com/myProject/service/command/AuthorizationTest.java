@@ -5,6 +5,7 @@ import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
 import com.myProject.employee.Admin;
 import com.myProject.employee.Employee;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.when;
 class AuthorizationTest {
 
     @Test
-    void successfulAuthorizationTest() throws DaoException, ServletException, IOException {
+    void successfulAuthorizationTest() throws DaoException, AppException {
         UserManager manager = mock(UserManager.class);
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
@@ -64,7 +65,7 @@ class AuthorizationTest {
     }
 
     @Test
-    void wrongPasswordTest() throws DaoException, ServletException, IOException {
+    void wrongPasswordTest() throws DaoException, AppException {
         UserManager manager = mock(UserManager.class);
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);

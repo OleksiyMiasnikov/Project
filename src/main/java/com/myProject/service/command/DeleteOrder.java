@@ -1,14 +1,13 @@
 package com.myProject.service.command;
 
 import com.myProject.service.CashierManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static com.myProject.util.Constants.ORDERS_COMMAND;
 
@@ -25,8 +24,7 @@ public class DeleteOrder implements Command {
      * @return command ORDERS_COMMAND
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("DELETE_ORDER_COMMAND executed");
         String[] orders = req.getParameterMap().get("orders");
         if (orders != null) {

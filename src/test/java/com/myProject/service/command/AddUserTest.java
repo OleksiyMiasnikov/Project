@@ -2,6 +2,7 @@ package com.myProject.service.command;
 
 import com.myProject.entitie.Role;
 import com.myProject.service.UserManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
 class AddUserTest {
 
     @Test
-    void execute() throws DaoException, ServletException, IOException {
+    void execute() throws DaoException, AppException {
         UserManager manager = mock(UserManager.class);
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);

@@ -2,17 +2,17 @@ package com.myProject.service.command;
 
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.PATH;
+import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 /**
  * Implementation of
  */
@@ -20,7 +20,7 @@ public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("Start execute command -ShowUsers-");
         UserManager manager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String strPage = req.getParameter("page");

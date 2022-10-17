@@ -1,6 +1,6 @@
 package com.myProject.service.exception;
 
-public class AppException extends DaoException{
+public class AppException extends Exception{
     public AppException(String message, Throwable e) {
         super(message, e);
     }

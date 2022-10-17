@@ -1,24 +1,24 @@
 package com.myProject.service.command;
 
 import com.myProject.entitie.Warehouse;
-import com.myProject.service.exception.DaoException;
 import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.exception.AppException;
+import com.myProject.service.exception.DaoException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.PATH;
+import static com.myProject.util.Constants.REMAINS_COMMAND;
 /**
  * Implementation of
  */
 public class Remains implements Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         HttpSession session = req.getSession();
         CommodityExpertManager manager =
                 (CommodityExpertManager) req

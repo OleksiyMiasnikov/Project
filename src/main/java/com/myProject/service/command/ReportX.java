@@ -2,8 +2,9 @@ package com.myProject.service.command;
 
 import com.myProject.dto.Report;
 import com.myProject.dto.ReportItem;
-import com.myProject.service.CashierManager;
 import com.myProject.employee.Employee;
+import com.myProject.service.CashierManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -13,7 +14,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
@@ -29,8 +29,12 @@ import static com.myProject.util.Constants.*;
 public class ReportX implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportX.class);
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("Starting preparing X report");
+        String filePDF = (String) req.getSession().getAttribute("pdf");
+        if (filePDF != null) {
+            return PATH + "report_x.jsp";
+        }
         CashierManager manager =
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
         Employee employee =
@@ -39,11 +43,15 @@ public class ReportX implements Command {
         String title = "command.x_reports";
         if ("YES".equals(req.getParameter("z_report"))) {
             typeOfReport = "Z_report";
-            title = "command.y_reports";
+            title = "command.z_reports";
         }
         Report report = manager.createReport(typeOfReport);
         report.setSeniorCashier(employee.getUser().getLogin());
-        String filePDF = createPDF(req, report);
+        try {
+            filePDF = createPDF(req, report);
+        } catch (IOException e) {
+            throw new AppException("Unable to create PDF file", e);
+        }
         req.getSession().setAttribute("pdf", filePDF);
         req.getSession().setAttribute("title", title);
         employee.setMenuItems(List.of(PRINT_REPORT_COMMAND, SEND_REPORT_COMMAND, BACK_COMMAND));
