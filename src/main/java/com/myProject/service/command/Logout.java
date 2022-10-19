@@ -22,7 +22,8 @@ public class Logout implements Command {
      * @return address of login page
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("LOGOUT_COMMAND executed");
         req.getSession().invalidate();
         return START_PAGE;

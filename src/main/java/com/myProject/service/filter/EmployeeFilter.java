@@ -6,8 +6,6 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,10 +23,12 @@ public class EmployeeFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         Employee employee = (Employee) req.getSession().getAttribute("employee");
         if ("/controller".equals(req.getServletPath()) &&
+                !"authorization".equals(req.getParameter("command")) &&
                 employee == null) {
+            logger.warn("Unauthorised access attempt");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
-        } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            return;
         }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

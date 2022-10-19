@@ -24,7 +24,8 @@ public class DeleteOrder implements Command {
      * @return command ORDERS_COMMAND
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("DELETE_ORDER_COMMAND executed");
         String[] orders = req.getParameterMap().get("orders");
         if (orders != null) {

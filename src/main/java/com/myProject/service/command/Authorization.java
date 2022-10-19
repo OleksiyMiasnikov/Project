@@ -1,8 +1,8 @@
 package com.myProject.service.command;
 
-import com.myProject.employee.Employee;
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.EncryptPassword;
@@ -29,7 +29,8 @@ public class Authorization implements Command {
      * or address of login page if employee has not been authorized
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("AUTHORIZATION_COMMAND executed");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String login = req.getParameter("login");

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.core.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.myProject.util.Constants.MOVIES_COMMAND;
+import static com.myProject.util.Constants.*;
 
 /**
  * Implementation of INCOMES_COMMAND
@@ -22,7 +22,8 @@ public class Incomes implements Command {
      * @return command MOVIES_COMMAND with appropriate parameters
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("INCOMES_COMMAND executed");
         return "controller?command=" + MOVIES_COMMAND + "&direction=IN&page=" + req.getParameter("page");
     }

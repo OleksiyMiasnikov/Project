@@ -25,7 +25,8 @@ public class AddUserDetails implements Command {
      * @return command SHOW_USERS_COMMAND
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("ADD_USER_DETAILS_COMMAND executed");
         UserManager userManager =
                 (UserManager) req.getServletContext().getAttribute("UserManager");

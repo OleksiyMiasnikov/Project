@@ -21,7 +21,8 @@ public class Back implements Command {
      * @return start command of current employee
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("BACK_COMMAND executed");
         Employee employee = (Employee) req.getSession().getAttribute("employee");
         employee.popMenuItems();

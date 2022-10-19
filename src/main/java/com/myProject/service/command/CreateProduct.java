@@ -28,7 +28,8 @@ public class CreateProduct implements Command {
      */
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("CREATE_PRODUCT_COMMAND executed");
         String name = req.getParameter("newName");
         if ("".equals(name)) {

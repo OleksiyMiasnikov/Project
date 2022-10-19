@@ -7,6 +7,7 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * Implementation of LOCALE_COMMAND
  */
@@ -18,7 +19,8 @@ public class ChangeLocale implements Command {
      * @return address of previous page
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("LOCALE_COMMAND executed");
         String lang = req.getParameter("lang");
         req.getSession().setAttribute("locale", lang);

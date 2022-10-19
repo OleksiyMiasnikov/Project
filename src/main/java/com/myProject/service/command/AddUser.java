@@ -1,6 +1,7 @@
 package com.myProject.service.command;
 
 import com.myProject.entitie.Role;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.UserManager;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,7 @@ public class AddUser implements Command {
      * @return address of 'user_details.jsp'
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("ADD_USER_COMMAND executed");
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
