@@ -2,15 +2,14 @@ package com.myProject.service.command;
 
 import com.myProject.entitie.Order;
 import com.myProject.service.CashierManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +25,7 @@ public class Movies implements Command {
      * @return
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("MOVIES_COMMAND executed");
         CashierManager manager =
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");

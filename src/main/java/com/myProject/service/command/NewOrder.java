@@ -1,27 +1,26 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.entitie.Product;
 import com.myProject.entitie.Warehouse;
-import com.myProject.employee.Employee;
-import com.myProject.service.exception.DaoException;
 import com.myProject.service.CashierManager;
 import com.myProject.service.CommodityExpertManager;
+import com.myProject.service.exception.AppException;
+import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.myProject.util.Constants.*;
+import static com.myProject.util.Constants.PATH;
 
 /**
  * Implementation of
@@ -36,7 +35,7 @@ public class NewOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrder.class);
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("NewOrder started. Current order: " + currentOrder);
         cashierManager
                 = (CashierManager) req.getServletContext().getAttribute("CashierManager");

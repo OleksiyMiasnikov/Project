@@ -1,11 +1,10 @@
 package com.myProject.service.command;
 
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public class Receiver {
      * @return instance of command implementation which the specified to parameter 'commandName'
      */
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
-            throws NullPointerException, DaoException, ServletException, IOException {
+            throws DaoException, AppException {
         return commandMap.get(commandName).execute(req, resp);
     }
 }

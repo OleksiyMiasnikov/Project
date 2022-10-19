@@ -19,8 +19,8 @@ import java.util.Properties;
 /**
  * Implementation of SEND_REPORT_COMMAND
  */
-public class SendReport implements Command {
-    private static final Logger logger = (Logger) LogManager.getLogger(SendReport.class);
+public class SendReport1 implements Command {
+    private static final Logger logger = (Logger) LogManager.getLogger(SendReport1.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("SEND_REPORT_COMMAND executed");
@@ -33,7 +33,7 @@ public class SendReport implements Command {
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);
                     }
@@ -54,6 +54,7 @@ public class SendReport implements Command {
             multipart.addBodyPart(attachmentPart);
             message.setContent(multipart);
             Transport.send(message);
+            System.out.println("Done");
         } catch (MessagingException | IOException e) {
             throw new AppException("Unable to send email", e);
         }

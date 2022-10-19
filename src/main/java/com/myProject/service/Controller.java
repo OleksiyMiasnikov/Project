@@ -1,6 +1,7 @@
 package com.myProject.service;
 
 import com.myProject.service.command.Receiver;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
@@ -25,7 +26,7 @@ public class Controller extends HttpServlet {
         logger.info(commandName);
         try {
             address = Receiver.runCommand(req, resp, commandName);
-        } catch (DaoException | ServletException | IOException e) {
+        } catch (DaoException | AppException e) {
             req.getSession().setAttribute("error_message", e.getMessage());
             req.getSession().setAttribute("error_cause", e.getCause().getMessage());
         }

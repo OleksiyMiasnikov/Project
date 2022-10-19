@@ -3,15 +3,14 @@ package com.myProject.service.command;
 import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
+import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.EncryptPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Implementation of ADD_USER_DETAILS_COMMAND
@@ -26,8 +25,7 @@ public class AddUserDetails implements Command {
      * @return command SHOW_USERS_COMMAND
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServletException, IOException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("ADD_USER_DETAILS_COMMAND executed");
         UserManager userManager =
                 (UserManager) req.getServletContext().getAttribute("UserManager");

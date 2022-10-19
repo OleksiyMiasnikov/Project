@@ -1,8 +1,9 @@
 package com.myProject.service.exception;
 
-import javax.mail.MessagingException;
-
-public class AppException extends DaoException{
+public class AppException extends Exception{
+    public AppException(String message, Throwable e) {
+        super(message, e);
+    }
     public AppException(Throwable e) {
         super(e);
     }
