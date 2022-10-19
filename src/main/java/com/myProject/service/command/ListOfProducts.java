@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.myProject.util.Constants.LIST_OF_PRODUCT_COMMAND;
-import static com.myProject.util.Constants.PATH;
+import static com.myProject.util.Constants.*;
 /**
  * Implementation of LIST_OF_PRODUCT_COMMAND
  */
@@ -29,7 +28,8 @@ public class ListOfProducts implements Command {
      * @return relative address of 'product_list.jsp'
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("LIST_OF_PRODUCT_COMMAND executed");
         CommodityExpertManager manager =
                 (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");

@@ -13,13 +13,15 @@ public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
     private Deque<List<String>> stackOfMenuItems;
+    private List<String> availableCommands;
     private final String startCommand;
 
-    public Employee(User user, String startCommand, String ... items) {
+    public Employee(User user, String startCommand, List<String> items, List<String> availableCommands) {
         this.user = user;
         this.startCommand = startCommand;
         stackOfMenuItems = new ArrayDeque<>();
-        stackOfMenuItems.push(List.of(items));
+        stackOfMenuItems.push(items);
+        this.availableCommands = availableCommands;
     }
 
     public User getUser() {
@@ -36,10 +38,6 @@ public abstract class Employee implements Serializable {
         this.stackOfMenuItems.push(menuItems);
     }
 
-    public String getStartCommand() {
-        return startCommand;
-    }
-
     public static Employee createEmployee(User user) throws DaoException {
         switch (user.getRole().getName()) {
             case "admin": return new Admin(user);
@@ -51,6 +49,14 @@ public abstract class Employee implements Serializable {
                 throw new DaoException("Role is incorrect");
             }
         }
+    }
+
+    public String getStartCommand() {
+        return startCommand;
+    }
+
+    public List<String> getAvailableCommands() {
+        return availableCommands;
     }
 
     @Override

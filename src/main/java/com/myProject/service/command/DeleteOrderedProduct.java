@@ -1,8 +1,8 @@
 package com.myProject.service.command;
 
-import com.myProject.service.CashierManager;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
+import com.myProject.service.CashierManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -23,7 +23,8 @@ public class DeleteOrderedProduct implements Command {
      * else command ORDERS_COMMAND
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("DELETE_ORDER_PRODUCT_COMMAND executed");
         String strId = req.getParameter("order_id");
         String operation = (String) req.getSession().getAttribute("operation");

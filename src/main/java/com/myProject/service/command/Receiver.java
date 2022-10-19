@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 
@@ -50,6 +51,11 @@ public class Receiver {
      */
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws DaoException, AppException {
-        return commandMap.get(commandName).execute(req, resp);
+        Employee employee = (Employee) req.getSession().getAttribute("employee");
+        if (employee == null && "authorization".equals(commandName) ||
+            employee != null && employee.getAvailableCommands().contains(commandName)) {
+            return commandMap.get(commandName).execute(req, resp);
+        }
+        throw new AppException("Unauthorised access attempt");
     }
 }

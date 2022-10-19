@@ -25,7 +25,8 @@ public class Movies implements Command {
      * @return
      */
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, AppException {
         logger.info("MOVIES_COMMAND executed");
         CashierManager manager =
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
