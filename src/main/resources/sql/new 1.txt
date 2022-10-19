@@ -1,0 +1,34 @@
+# login page
+index_jsp.form.title 				= Login Form
+index_jsp.login 					= Login
+index_jsp.password 					= Password
+index_jsp.error 					= Incorrect login or password!
+
+# commands
+command.show_users                 	= Show users
+command.add_user                   	= Add user
+command.adduserdetails             	= AddUserDetails
+command.update_user                	= Update user
+command.update_product             	= Update product
+command.create_database            	= Create database
+command.delete_user                	= Delete user
+command.delete_order               	= Delete order
+command.delete_ordered_product     	= Delete ordered product
+command.new_order                  	= New order
+command.reports                    	= Reports
+command.new_product                	= New product
+command.create_product             	= Create product
+command.list_of_products           	= List of products
+command.new_income                 	= New income
+command.incomes                    	= Incomes
+command.remains                    	= Remains
+command.orders                     	= Orders
+command.movies                     	= Movies
+command.log_out                    	= Log out
+command.serve_order                	= Serve order
+
+# admin page
+user_list_jsp.list_of_users			= List of users
+user_list_jsp.id					= Id
+user_list_jsp.user					= User
+user_list_jsp.role					= Role

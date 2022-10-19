@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/locale.css">
+</head>
+<html>
+    <form action="${pageContext.request.contextPath}/controller" method="post">
+        <div class="locale">
+            <button type="submit" name="lang" value="uk">
+                <img class="UA_button" src="${pageContext.request.contextPath}/images/UA.png">
+            </button>
+            <button type="submit" name="lang" value="en">
+                <img class="UA_button" src="${pageContext.request.contextPath}/images/UK.png">
+            </button>
+            <input name="command" value="change_locale" hidden="hidden" >
+        </div>
+    </form>
+    <fmt:setLocale value="${locale}" scope="session"/>
+    <fmt:setBundle basename="resources"/>
+</html>

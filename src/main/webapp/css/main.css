@@ -1,0 +1,123 @@
+body {
+    font-family: Arial;
+    background-color:gray;
+}
+
+.sideBar {
+    list-style-type: none;
+    margin: 0;
+    width: 18%;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.side_bar_button {
+    margin: 10px;
+    padding: 5px;
+    align-items: center;
+    width: 85%;
+    background-color: #04AA6D;
+    color: white;
+    font-size: 16px;
+    font-weight: 100;
+    border: 1px solid #048604;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.sideBar input:hover {
+     background: #068f5c;
+ }
+
+.employee {
+    text-align: center;
+}
+
+.dataBox {
+    margin: auto;
+    padding: 25px;
+    width: 570px;
+    background-color: white;
+    height: 790px;
+    font-family: Arial;
+    box-shadow: 10px 5px 5px black;
+}
+
+.header_title {
+    text-align: center;
+    height:10px;
+    font-size: 22px;
+    font-weight: bold
+}
+
+.data_list {
+    margin: auto;
+    height: 380px;
+}
+
+.item {
+    float: left;
+    text-align: center;
+    font-size: 14px;
+}
+
+.data_list input{
+    float: left;
+    text-align: center;
+}
+
+.table_header {
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.header_key{
+    float: none;
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.header_value{
+    float: none;
+    width: 150px;
+    text-align: center;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.submit_button{
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+hr {
+    border-top: 1px
+    dashed;
+}
+
+.pagination {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+.currency:after{
+    font-size: 10px;
+    content: '.00';
+}
+
+
+
+

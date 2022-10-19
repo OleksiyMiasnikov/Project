@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <Context>
-    <!-- Specify a JDBC datasource -->
     <Resource name="jdbc/projectConnectionPool"
-    auth="Container"
-    type="javax.sql.DataSource"
-    username="root"
-    password="18De1975"
-    driverClassName="com.mysql.cj.jdbc.Driver"
-    defaultAutoCommit="true"
-    defaultTransactionIsolation="READ_COMMITTED"
-    url="jdbc:mysql://localhost:3306/cash_register?autoReconnect=true"
-    maxActive="10"
-    maxIdle="4"/>
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="100"
+              maxIdle="30"
+              maxWaitMillis="10000"
+              username="root"
+              password="18De1975"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/cash_register?autoReconnect=true"/>
+
+    <Resources antiResourceLocking="false" cachingAllowed="false" />
 </Context>

@@ -1,11 +1,12 @@
 package com.myProject.dao;
 
-import com.myProject.dao.entitie.User;
-import com.myProject.exception.DbException;
+import com.myProject.entitie.User;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
-public interface UserDao {
-    public User findUser(Connection con, String login) throws DbException;
+public interface UserDao extends Dao<Long, User>{
 
+    int findRowsTotal(Connection con) throws SQLException;
+    User findByName(Connection con, String name) throws SQLException;
 }

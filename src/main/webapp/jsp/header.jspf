@@ -1,0 +1,40 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/locale.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"> <%-- Lekton | Metrophobic | Oxanium | Share Tech | Text Me One --%>
+    </head>
+
+    <body>
+        <title>
+            <fmt:message key="${title}"/>
+        </title>
+        <%@ include file="/jsp/locale.jspf" %>
+        <form id="controller_form" action="${pageContext.request.contextPath}/controller" method="post">
+            <div class="sideBar">
+                <div class="employee">
+                    ${employee.user.login} (${employee.user.role.name})
+                </div>
+                <br>
+                <br>
+                <c:forEach items="${employee.menuItems}" var="item">
+                    <button class="side_bar_button" type="submit" name="command" value="${item}" >
+                        <fmt:message key="${item}"/>
+                    </button>
+                    <br>
+                </c:forEach>
+                <br>
+                <br>
+                <button class="side_bar_button" type="submit" name="command" value="command.log_out" >
+                    <fmt:message key="command.log_out"/>
+                </button>
+            </div>
+    </body>
+</html>
