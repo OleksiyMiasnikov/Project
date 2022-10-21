@@ -54,7 +54,8 @@ public class ReportX implements Command {
         }
         req.getSession().setAttribute("pdf", filePDF);
         req.getSession().setAttribute("title", title);
-        employee.setMenuItems(List.of(PRINT_REPORT_COMMAND, SEND_REPORT_COMMAND, BACK_COMMAND));
+        employee.setMenuItems(List.of(FILL_EMAIL_COMMAND, BACK_COMMAND));
+        employee.setStackOfPages(req.getHeader("referer"));
         req.getSession().setAttribute("employee", employee);
         return PATH + "report_x.jsp";
     }

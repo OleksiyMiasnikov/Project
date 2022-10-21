@@ -27,7 +27,8 @@ public class SeniorCashier extends Employee{
                         DELETE_ORDER_PRODUCT_COMMAND,
                         X_REPORT_COMMAND,
                         Z_REPORT_COMMAND,
-                        SEND_REPORT_COMMAND,
+                        FILL_EMAIL_COMMAND,
+                        SEND_EMAIL_COMMAND,
                         MOVIES_COMMAND));
         logger.info("Senior Cashier created");
     }

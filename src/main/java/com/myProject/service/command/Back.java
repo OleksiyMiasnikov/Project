@@ -9,6 +9,8 @@ import org.apache.logging.log4j.core.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.myProject.util.Constants.PATH;
+
 /**
  * Implementation of BACK_COMMAND
  */
@@ -26,8 +28,12 @@ public class Back implements Command {
         logger.info("BACK_COMMAND executed");
         Employee employee = (Employee) req.getSession().getAttribute("employee");
         employee.popMenuItems();
-        req.getSession().removeAttribute("pdf");
+        String result = employee.popPage();
         req.getSession().setAttribute("employee", employee);
-        return "controller?command=" + employee.getStartCommand();
+        if ("controller?command=command.orders".equals(result)) {
+            req.getSession().removeAttribute("pdf");
+        }
+        //return "controller?command=" + employee.getStartCommand();
+        return result;
     }
 }

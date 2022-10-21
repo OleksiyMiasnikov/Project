@@ -9,10 +9,13 @@ import org.apache.logging.log4j.core.Logger;
 import java.io.Serializable;
 import java.util.*;
 
+import static com.myProject.util.Constants.PATH;
+
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
     private Deque<List<String>> stackOfMenuItems;
+    private Deque<String> stackOfPages;
     private List<String> availableCommands;
     private final String startCommand;
 
@@ -21,6 +24,7 @@ public abstract class Employee implements Serializable {
         this.startCommand = startCommand;
         stackOfMenuItems = new ArrayDeque<>();
         stackOfMenuItems.push(items);
+        stackOfPages = new ArrayDeque<>();
         this.availableCommands = availableCommands;
     }
 
@@ -35,7 +39,24 @@ public abstract class Employee implements Serializable {
     }
 
     public void setMenuItems(List<String> menuItems) {
-        this.stackOfMenuItems.push(menuItems);
+        stackOfMenuItems.push(menuItems);
+    }
+
+    public String getPage() {
+        return stackOfPages.peek();
+    }
+
+    public String popPage() {
+        return stackOfPages.pop();
+    }
+
+    public void setStackOfPages(String referer) {
+        String page = referer.substring(referer.lastIndexOf('/') + 1);
+        if (".jsp".equals(page.substring(page.length()-4))) {
+            stackOfPages.push(PATH + page);
+        } else {
+            stackOfPages.push(page);
+        }
     }
 
     public static Employee createEmployee(User user) throws DaoException {

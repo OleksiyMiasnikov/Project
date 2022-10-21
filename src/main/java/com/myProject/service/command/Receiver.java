@@ -38,7 +38,8 @@ public class Receiver {
         commandMap.put(ORDERS_COMMAND, new Orders());
         commandMap.put(PRINT_REPORT_COMMAND, new PrintReport());
         commandMap.put(REMAINS_COMMAND, new Remains());
-        commandMap.put(SEND_REPORT_COMMAND, new SendReport());
+        commandMap.put(FILL_EMAIL_COMMAND, new FillEmail());
+        commandMap.put(SEND_EMAIL_COMMAND, new SendEmail());
         commandMap.put(SERVE_ORDER_COMMAND, new ServeOrder());
         commandMap.put(SHOW_USERS_COMMAND, new ShowUsers());
         commandMap.put(UPDATE_USER_COMMAND, new UpdateUser());

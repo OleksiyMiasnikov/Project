@@ -19,12 +19,15 @@ import java.util.Properties;
 /**
  * Implementation of SEND_REPORT_COMMAND
  */
-public class SendReport1 implements Command {
-    private static final Logger logger = (Logger) LogManager.getLogger(SendReport1.class);
+public class SendEmail implements Command {
+    private static final Logger logger = (Logger) LogManager.getLogger(SendEmail.class);
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("SEND_REPORT_COMMAND executed");
         String filePDF = req.getServletContext().getRealPath((String) req.getSession().getAttribute("pdf"));
+        String toRecipient = req.getParameter("to_address_mail");
+        String subjectMail = req.getParameter("subject_mail");
+        String bodyMail = req.getParameter("body_mail");
         final String username = "oleksiymiasnikov@gmail.com";
         final String password = "fasgvwhmekiknkam";
         Properties prop = new Properties();
@@ -43,10 +46,10 @@ public class SendReport1 implements Command {
             message.setFrom(new InternetAddress("oleksiymiasnikov@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("oleksiymiasnikov@gmail.com"));
-            message.setSubject("Report");
+                    InternetAddress.parse(toRecipient));
+            message.setSubject(subjectMail);
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Mail Body");
+            messageBodyPart.setText(bodyMail);
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(new File(filePDF));
             Multipart multipart = new MimeMultipart();
@@ -57,6 +60,6 @@ public class SendReport1 implements Command {
         } catch (MessagingException | IOException e) {
             throw new AppException("Unable to send email", e);
         }
-        return req.getHeader("referer");
+        return "controller?command=command.back";
     }
 }

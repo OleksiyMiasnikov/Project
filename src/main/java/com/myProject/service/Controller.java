@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String address = PATH + "error_page.jsp";
         String commandName = req.getParameter("command");
-        logger.info(commandName);
+        logger.info("Command name: " + commandName);
         try {
             address = Receiver.runCommand(req, resp, commandName);
         } catch (DaoException | AppException e) {
@@ -32,7 +32,7 @@ public class Controller extends HttpServlet {
                 req.getSession().setAttribute("error_cause", e.getCause().getMessage());
             }
         }
-        logger.info(address);
+        logger.info("Address: " + address);
         String method = req.getMethod();
         if ("GET".equals(method)) {
             logger.info("GET");
