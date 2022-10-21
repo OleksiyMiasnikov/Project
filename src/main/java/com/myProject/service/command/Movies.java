@@ -21,8 +21,9 @@ public class Movies implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(Movies.class);
 
     /**
+     * prepares data for jsp page
      *
-     * @return
+     * @return address of 'orders_list.jsp'
      */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp)

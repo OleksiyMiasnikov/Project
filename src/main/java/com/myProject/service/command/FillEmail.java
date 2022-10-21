@@ -15,10 +15,16 @@ import static com.myProject.util.Constants.*;
 import static com.myProject.util.Constants.BACK_COMMAND;
 
 /**
- * Implementation of SEND_REPORT_COMMAND
+ * Implementation of FILL_EMAIL_COMMAND
  */
 public class FillEmail implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(FillEmail.class);
+
+    /**
+     * prepares data for jsp page
+     *
+     * @return address of 'send_report.jsp'
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("SEND_REPORT_COMMAND executed");

@@ -157,7 +157,6 @@ public class Constants {
     public static final String SERVE_ORDER_COMMAND = "command.serve_order";
     public static final String LOCALE_COMMAND = "change_locale";
     public static final String BACK_COMMAND = "command.back";
-    public static final String PRINT_REPORT_COMMAND = "command.print_report";
     public static final String FILL_EMAIL_COMMAND = "command.fill_email";
     public static final String SEND_EMAIL_COMMAND = "command.send_email";
 }

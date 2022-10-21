@@ -14,9 +14,15 @@ import java.util.Map;
 import static com.myProject.util.Constants.PATH;
 import static com.myProject.util.Constants.REMAINS_COMMAND;
 /**
- * Implementation of
+ * Implementation of REMAINS_COMMAND
  */
 public class Remains implements Command {
+
+    /**
+     * prepares data for jsp page
+     *
+     * @return address of 'warehouse_list.jsp'
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         HttpSession session = req.getSession();

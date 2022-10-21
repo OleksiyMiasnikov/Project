@@ -24,13 +24,19 @@ import java.util.List;
 
 import static com.myProject.util.Constants.*;
 /**
- * Implementation of
+ * Implementation of X_REPORT_COMMAND
  */
 public class ReportX implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ReportX.class);
+
+    /**
+     * prepares data for jsp page
+     *
+     * @return address of 'report_x.jsp'
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        logger.info("Starting preparing X report");
+        logger.info("X_REPORT_COMMAND started");
         String filePDF = (String) req.getSession().getAttribute("pdf");
         if (filePDF != null) {
             return PATH + "report_x.jsp";
@@ -60,6 +66,9 @@ public class ReportX implements Command {
         return PATH + "report_x.jsp";
     }
 
+    /**
+     * creates PDF file with data from instance 'Report'
+     */
     private String createPDF(HttpServletRequest req, Report report) throws IOException {
         logger.info("start creating report in pdf");
         String file;

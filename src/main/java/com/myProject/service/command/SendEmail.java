@@ -21,6 +21,11 @@ import java.util.Properties;
  */
 public class SendEmail implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(SendEmail.class);
+
+    /**
+     * gets data from jsp page
+     * and sends email with report
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("SEND_REPORT_COMMAND executed");

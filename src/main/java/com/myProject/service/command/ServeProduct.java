@@ -13,15 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.myProject.util.Constants.PATH;
 /**
- * Implementation of
+ * Implementation of NEW_PRODUCT_COMMAND
  */
-/**
- *  prepares data for 'product_details.jsp'
- *  read product from database if 'id' is not equal '0'
- *  else set default data
- */
+
 public class ServeProduct implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeProduct.class);
+
+    /**
+     *  prepares data for 'product_details.jsp'
+     *  reads product from the database if 'id' is not equal '0'
+     *  else set default data
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("Serve product");

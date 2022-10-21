@@ -14,13 +14,19 @@ import java.util.List;
 
 import static com.myProject.util.Constants.PATH;
 /**
- * Implementation of
+ * Implementation of SERVE_ORDER_COMMAND
  */
 public class ServeOrder implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ServeOrder.class);
+
+    /**
+     * prepares data for jsp page
+     *
+     * @return address of 'order.jsp'
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        logger.info("--- ServeOrder ---");
+        logger.info("SERVE_ORDER_COMMAND started");
         CashierManager manager =
                 (CashierManager) req.getServletContext()
                         .getAttribute("CashierManager");

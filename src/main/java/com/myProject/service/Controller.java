@@ -15,6 +15,12 @@ import java.io.IOException;
 
 import static com.myProject.util.Constants.PATH;
 
+/**
+ * main servlet gets command name from jsp pages,
+ * invokes the appropriate commands method
+ * and passes control to the page at the address returned from the commands method
+ * if an exception occurs control will pass to error_page.jsp
+ */
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger logger = (Logger) LogManager.getLogger(Controller.class);

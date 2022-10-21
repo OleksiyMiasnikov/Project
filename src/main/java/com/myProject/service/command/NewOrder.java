@@ -23,7 +23,7 @@ import java.util.List;
 import static com.myProject.util.Constants.*;
 
 /**
- * Implementation of
+ * Implementation of NEW_ORDER_COMMAND and NEW_INCOME_COMMAND
  */
 public class NewOrder implements Command {
     private Order currentOrder;
@@ -34,6 +34,9 @@ public class NewOrder implements Command {
     private String commandName;
     private static final Logger logger = (Logger) LogManager.getLogger(NewOrder.class);
 
+    /**
+     * makes control of order/income flows
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
         logger.info("NewOrder started. Current order: " + currentOrder);
@@ -80,6 +83,9 @@ public class NewOrder implements Command {
         }
     }
 
+    /**
+     * gets data from jsp page and passes it to the CashManager to store in database
+     */
     private void addOrderDetails(HttpServletRequest req) throws DaoException {
         if (currentOrder.getId() == 0) {
             currentOrder = cashierManager.createOrder(currentOrder, direction);
@@ -107,6 +113,9 @@ public class NewOrder implements Command {
         logger.info("Added order details: " + orderDetail);
     }
 
+    /**
+     * prepares data and shows order or income
+     */
     private void showOrder(HttpServletRequest req) throws DaoException {
         String strPage = req.getParameter("page");
         HttpSession session = req.getSession();

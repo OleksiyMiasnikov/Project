@@ -14,14 +14,19 @@ import java.util.List;
 import static com.myProject.util.Constants.PATH;
 import static com.myProject.util.Constants.SHOW_USERS_COMMAND;
 /**
- * Implementation of
+ * Implementation of SHOW_USERS_COMMAND
  */
 public class ShowUsers implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(ShowUsers.class);
 
+    /**
+     * prepares data for jsp page
+     *
+     * @return address of 'users_list.jsp'
+     */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        logger.info("Start execute command -ShowUsers-");
+        logger.info("SHOW_USERS_COMMAND started");
         UserManager manager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String strPage = req.getParameter("page");
         int currentPage = 1;
