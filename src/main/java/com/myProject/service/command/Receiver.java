@@ -47,7 +47,9 @@ public class Receiver {
     }
 
     /**
+     * checks if the requested command is allowed to the employee of the current session
      * @return instance of command implementation which the specified to parameter 'commandName'
+     * @throws AppException with the message "Unauthorised access attempt" if the command is not allowed
      */
     public static String runCommand(HttpServletRequest req, HttpServletResponse resp, String commandName)
             throws DaoException, AppException {

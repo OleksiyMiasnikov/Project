@@ -54,7 +54,6 @@ public class SendReport1 implements Command {
             multipart.addBodyPart(attachmentPart);
             message.setContent(multipart);
             Transport.send(message);
-            System.out.println("Done");
         } catch (MessagingException | IOException e) {
             throw new AppException("Unable to send email", e);
         }
