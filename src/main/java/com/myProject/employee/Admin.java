@@ -20,6 +20,7 @@ public class Admin extends Employee{
                         DELETE_USER_COMMAND,
                         LOGOUT_COMMAND,
                         SHOW_USERS_COMMAND,
+                        AUTHORIZATION_COMMAND,
                         UPDATE_USER_COMMAND));
         logger.info("Admin created");
     }

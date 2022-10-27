@@ -26,6 +26,7 @@ public class CommodityExpert extends Employee {
                         LOGOUT_COMMAND,
                         MOVIES_COMMAND,
                         LIST_OF_PRODUCT_COMMAND,
+                        AUTHORIZATION_COMMAND,
                         NEW_INCOME_COMMAND,
                         INCOMES_COMMAND,
                         REMAINS_COMMAND));

@@ -21,6 +21,7 @@ public class Cashier extends Employee{
                         LOGOUT_COMMAND,
                         NEW_ORDER_COMMAND,
                         ORDERS_COMMAND,
+                        AUTHORIZATION_COMMAND,
                         REMAINS_COMMAND,
                         MOVIES_COMMAND));
         logger.info("Cashier created");

@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.service.CommodityExpertManager;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.entitie.Product;
@@ -8,7 +9,6 @@ import com.myProject.employee.Employee;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
 import com.myProject.service.CashierManager;
-import com.myProject.service.CommodityExpertManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 

@@ -9,8 +9,6 @@ import org.apache.logging.log4j.core.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.myProject.util.Constants.PATH;
-
 /**
  * Implementation of BACK_COMMAND
  */

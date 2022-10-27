@@ -25,6 +25,7 @@ public class SeniorCashier extends Employee{
                         REMAINS_COMMAND,
                         DELETE_ORDER_COMMAND,
                         DELETE_ORDER_PRODUCT_COMMAND,
+                        AUTHORIZATION_COMMAND,
                         X_REPORT_COMMAND,
                         Z_REPORT_COMMAND,
                         FILL_EMAIL_COMMAND,

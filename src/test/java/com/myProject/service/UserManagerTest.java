@@ -6,8 +6,7 @@ import com.myProject.entitie.User;
 import com.myProject.service.exception.DaoException;
 import com.myProject.util.ConnectionPool;
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

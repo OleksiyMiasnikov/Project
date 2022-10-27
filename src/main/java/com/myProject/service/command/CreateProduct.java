@@ -1,10 +1,10 @@
 package com.myProject.service.command;
 
-import com.myProject.entitie.Product;
-import com.myProject.entitie.Unit;
 import com.myProject.service.CommodityExpertManager;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
+import com.myProject.entitie.Product;
+import com.myProject.entitie.Unit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
