@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.dto.UserDto;
 import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
 import com.myProject.service.UserManager;
@@ -30,37 +31,39 @@ public class AddUserDetails implements Command {
         logger.info("ADD_USER_DETAILS_COMMAND executed");
         UserManager userManager =
                 (UserManager) req.getServletContext().getAttribute("UserManager");
-        String login = req.getParameter("newLogin");
-        String email = req.getParameter("newEmail");
-        String role = req.getParameter("newRole");
-        String strId = req.getParameter("id");
-        String password = req.getParameter("oldPassword");
+        String password;
         if ("YES".equals(req.getParameter("isPasswordChanged"))) {
             password = EncryptPassword.encrypt(req.getParameter("newPassword"));
+        } else {
+            password = req.getParameter("oldPassword");
         }
-        long id = 0L;
-        if (strId != null && !strId.equals("")) {
-            id = Long.parseLong(strId);
-        }
-        User newUser = User.builder()
-                .id(id)
-                .login(login)
+        UserDto userDto = UserDto.builder()
+                .strId(req.getParameter("id"))
+                .login(req.getParameter("newLogin"))
                 .password(password)
-                .email(email)
+                .email(req.getParameter("newEmail"))
+                .role(req.getParameter("newRole"))
+                .build()
+                .isValid();
+        User newUser = User.builder()
+                .id(userDto.getId())
+                .login(userDto.getLogin())
+                .password(userDto.getPassword())
+                .email(userDto.getEmail())
                 .role(Role.builder()
-                        .id(userManager.getIdRole(role))
-                        .name(role)
+                        .id(userManager.getIdRole(userDto.getRole()))
+                        .name(userDto.getRole())
                         .build())
                 .build();
-        if (id == 0L) {
+        if (newUser.getId() == 0L) {
             if (userManager.addUser(newUser) != null) {
-                logger.info(login + " added");
+                logger.info(newUser.getLogin() + " added");
             } else {
-                logger.info("Unable to add user " + login);
+                logger.info("Unable to add user " + newUser.getLogin());
             }
         } else {
             userManager.updateUser(newUser);
-            logger.info(login + " updated");
+            logger.info(newUser.getLogin() + " updated");
         }
         return "controller?command=command.back";
     }

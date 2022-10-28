@@ -1,5 +1,7 @@
 package com.myProject.entitie;
 
+import com.myProject.dto.UserDto;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,6 +12,7 @@ public class User implements Serializable, Comparable<User> {
     private String email;
     private Role role;
 
+    public User() {  }
     public User(long id, String login, String password, String email, Role role) {
         this.id = id;
         this.login = login;
@@ -17,15 +20,16 @@ public class User implements Serializable, Comparable<User> {
         this.email = email;
         this.role = role;
     }
+
     public static UserBuilder builder() {
         return new UserBuilder();
     }
-
     public static class UserBuilder {
         private long id;
         private String login;
         private String password;
         private String email;
+
         private Role role;
 
         public UserBuilder() {
@@ -55,13 +59,11 @@ public class User implements Serializable, Comparable<User> {
             this.role = role;
             return this;
         }
-
         public User build() {
             return new User(id, login, password, email, role);
         }
-    }
 
-    public User() {  }
+    }
 
     public long getId() {
         return id;

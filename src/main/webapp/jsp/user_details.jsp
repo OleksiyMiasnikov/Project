@@ -46,12 +46,12 @@
                         <fmt:message key="data_role"/>
                     </span>
                     <select class="header_value" name="newRole" value="${user.role.name}">
-                    <option> ${user.role.name} </option>
-                    <c:forEach var="item" items="${roles }">
-                        <option value="${item.getName() }">
-                            ${item.getName() }
-                        </option>
-                    </c:forEach>
+                        <option> ${user.role.name} </option>
+                        <c:forEach var="item" items="${roles }">
+                            <option value="${item.getName() }">
+                                ${item.getName() }
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
                   <hr>
