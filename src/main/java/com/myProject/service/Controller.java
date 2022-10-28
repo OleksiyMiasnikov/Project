@@ -38,6 +38,9 @@ public class Controller extends HttpServlet {
                 req.getSession().setAttribute("error_cause", e.getCause().getMessage());
             }
         }
+        if (!"command.movies".equals(commandName)) {
+            req.getSession().setAttribute("previous_command", commandName);
+        }
         logger.info("Address: " + address);
         String method = req.getMethod();
         if ("GET".equals(method)) {

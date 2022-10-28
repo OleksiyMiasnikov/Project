@@ -114,7 +114,7 @@
                         style="width: 150px;"
                         disabled>
                 <button type="submit" name="button" value="Save">
-                    Save
+                    <fmt:message key="data_save"/>
                 </button>
                 <br>
                 <hr>
@@ -163,20 +163,8 @@
                     <%@ include file="/jsp/pagination.jspf" %>
                 </c:if>
                 <br>
-                <div class="submit_button">
-                    <input  name="command" value="command.new_order" hidden="hidden">
-                    <input  name="direction" value="${direction}" hidden="hidden">
-                    <button type="submit" name="button" value="Complete">
-                            <fmt:message key="button_submit_complete"/>
-                    </button>
-                    <br>
-                    <button style="margin-left: 20px;"
-                        type="submit"
-                        name="button"
-                        value="Cancel">
-                            <fmt:message key="button_submit_cancel"/>
-                    </button>
-                </div>
+                <input  name="direction" value="${direction}" hidden="hidden">
+                <input  name="command" value="command.new_order" hidden="hidden">
             </div>
         </form>
         <script src="${pageContext.request.contextPath}/js/new_order.js"></script>

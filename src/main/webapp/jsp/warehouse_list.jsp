@@ -1,5 +1,14 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
+    </head>
 <body>
         <%@ include file="/jsp/header.jspf" %>
         <script src=js/pagination.js></script>
@@ -28,25 +37,9 @@
                 <div class=table_header>
                     <span class=table_header style="width: 50px;">
                         <fmt:message key="data_id"/>
-                        <button type="submit"
-                                name="command"
-                                id="delete_button"
-                                value=""
-                                class="table_header"
-                                style="width: 10px; color: black; border:none;background-color: transparent;float: none;">
-                                <i class="fa fa-sort" style="width: 20px;"></i>
-                        </button>
                     </span>
                     <span class=table_header style="width: 200px;">
                         <fmt:message key="data_product_name"/>
-                        <button type="submit"
-                                name="command"
-                                id="delete_button"
-                                value=""
-                                class="table_header"
-                                style="width: 10px; color: black; border:none;background-color: transparent;float: none;">
-                                <i class="fa fa-sort" style="width: 20px;"></i>
-                        </button>
                     </span>
                     <span class=table_header style="width: 50px;">
                         <fmt:message key="data_unit"/>
@@ -66,9 +59,16 @@
                             ${item.id}
                         </span>
                         <span class=item style="width: 200px;text-align: center;">
-                            <a href="${pageContext.request.contextPath}/controller?command=command.new_product&selectedProduct=${item.id}">
-                                ${item.product.name}
-                            </a>
+                            <c:choose>
+                                <c:when test="${employee.user.role.name == 'commodity expert'}">
+                                    <a href="${pageContext.request.contextPath}/controller?command=command.new_product&selectedProduct=${item.id}">
+                                        ${item.product.name}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                     ${item.product.name}
+                                </c:otherwise>
+                            </c:choose>
                         </span>
                         <span class=item style="width: 50px;text-align: center;">
                             <fmt:message key="${item.product.unit}"/>

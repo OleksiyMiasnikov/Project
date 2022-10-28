@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Implementation of SEND_REPORT_COMMAND
+ * Implementation of SEND_EMAIL_COMMAND
  */
 public class SendEmail implements Command {
     private static final Logger logger = (Logger) LogManager.getLogger(SendEmail.class);
@@ -28,7 +28,7 @@ public class SendEmail implements Command {
      */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        logger.info("SEND_REPORT_COMMAND executed");
+        logger.info("SEND_EMAIL_COMMAND executed");
         String filePDF = req.getServletContext().getRealPath((String) req.getSession().getAttribute("pdf"));
         String toRecipient = req.getParameter("to_address_mail");
         String subjectMail = req.getParameter("subject_mail");

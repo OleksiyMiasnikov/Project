@@ -18,6 +18,8 @@ public class SeniorCashier extends Employee{
                         X_REPORT_COMMAND,
                         Z_REPORT_COMMAND),
                 List.of(BACK_COMMAND,
+                        CANCEL_ORDER_COMMAND,
+                        COMPLETE_ORDER_COMMAND,
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,
                         NEW_ORDER_COMMAND,
@@ -26,9 +28,10 @@ public class SeniorCashier extends Employee{
                         DELETE_ORDER_COMMAND,
                         DELETE_ORDER_PRODUCT_COMMAND,
                         AUTHORIZATION_COMMAND,
+                        SERVE_ORDER_COMMAND,
                         X_REPORT_COMMAND,
                         Z_REPORT_COMMAND,
-                        FILL_EMAIL_COMMAND,
+                        PREPARING_EMAIL_COMMAND,
                         SEND_EMAIL_COMMAND,
                         MOVIES_COMMAND));
         logger.info("Senior Cashier created");

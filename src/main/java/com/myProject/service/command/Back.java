@@ -28,10 +28,12 @@ public class Back implements Command {
         employee.popMenuItems();
         String result = employee.popPage();
         req.getSession().setAttribute("employee", employee);
-        if ("controller?command=command.orders".equals(result)) {
+        if ("command.orders".equals(result)) {
             req.getSession().removeAttribute("pdf");
         }
-        //return "controller?command=" + employee.getStartCommand();
-        return result;
+        req.getSession().removeAttribute("page");
+        req.getSession().removeAttribute("order");
+        req.getSession().removeAttribute("page_total");
+        return "controller?command=" + result;
     }
 }

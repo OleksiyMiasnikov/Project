@@ -4,6 +4,8 @@ import com.myProject.service.CommodityExpertManager;
 import com.myProject.entitie.Warehouse;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,7 @@ import static com.myProject.util.Constants.REMAINS_COMMAND;
  * Implementation of REMAINS_COMMAND
  */
 public class Remains implements Command {
-
+    private static final Logger logger = (Logger) LogManager.getLogger(Remains.class);
     /**
      * prepares data for jsp page
      *
@@ -25,6 +27,7 @@ public class Remains implements Command {
      */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
+        logger.info("REMAINS_COMMAND executed");
         HttpSession session = req.getSession();
         CommodityExpertManager manager =
                 (CommodityExpertManager) req

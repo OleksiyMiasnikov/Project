@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.entitie.Order;
 import com.myProject.entitie.OrderDetails;
 import com.myProject.service.CashierManager;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static com.myProject.util.Constants.PATH;
+import static com.myProject.util.Constants.*;
+
 /**
  * Implementation of SERVE_ORDER_COMMAND
  */

@@ -157,6 +157,8 @@ public class Constants {
     public static final String SERVE_ORDER_COMMAND = "command.serve_order";
     public static final String LOCALE_COMMAND = "change_locale";
     public static final String BACK_COMMAND = "command.back";
-    public static final String FILL_EMAIL_COMMAND = "command.fill_email";
+    public static final String PREPARING_EMAIL_COMMAND = "command.preparing_email";
     public static final String SEND_EMAIL_COMMAND = "command.send_email";
+    public static final String COMPLETE_ORDER_COMMAND = "command.complete_order";
+    public static final String CANCEL_ORDER_COMMAND = "command.cancel_order";
 }

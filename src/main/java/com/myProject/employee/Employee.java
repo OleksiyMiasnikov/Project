@@ -50,13 +50,8 @@ public abstract class Employee implements Serializable {
         return stackOfPages.pop();
     }
 
-    public void setStackOfPages(String referer) {
-        String page = referer.substring(referer.lastIndexOf('/') + 1);
-        if (".jsp".equals(page.substring(page.length()-4))) {
-            stackOfPages.push(PATH + page);
-        } else {
-            stackOfPages.push(page);
-        }
+    public void setStackOfPages(String commandName) {
+        stackOfPages.push(commandName);
     }
 
     public static Employee createEmployee(User user) throws DaoException {

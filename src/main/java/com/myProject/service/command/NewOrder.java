@@ -39,11 +39,12 @@ public class NewOrder implements Command {
      */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        logger.info("NewOrder started. Current order: " + currentOrder);
+        logger.info("NEW_ORDER_COMMAND. Current order: " + currentOrder);
         cashierManager
                 = (CashierManager) req.getServletContext().getAttribute("CashierManager");
         commodityExpertManager
                 = (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
+        currentOrder = (Order) req.getSession().getAttribute("order");
         String button = req.getParameter("button");
         direction = req.getParameter("direction");
         if (direction == null) {
@@ -127,6 +128,10 @@ public class NewOrder implements Command {
                     .user(((Employee) session.getAttribute("employee")).getUser())
                     .date(new Timestamp(new Date().getTime()))
                     .build();
+            Employee employee = (Employee) session.getAttribute("employee");
+            employee.setMenuItems(List.of(COMPLETE_ORDER_COMMAND, CANCEL_ORDER_COMMAND, BACK_COMMAND));
+            employee.setStackOfPages((String) session.getAttribute("previous_command"));
+            session.setAttribute("employee", employee);
             session.removeAttribute("order");
             session.removeAttribute("orderDetails");
         } else {
@@ -164,5 +169,6 @@ public class NewOrder implements Command {
         session.setAttribute("pcs", "шт");
         session.setAttribute("order", currentOrder);
         session.setAttribute("title", "command.new_" + operation);
+        currentOrder = null;
     }
 }

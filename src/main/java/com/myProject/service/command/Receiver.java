@@ -23,6 +23,8 @@ public class Receiver {
         commandMap.put(ADD_USER_DETAILS_COMMAND, new AddUserDetails());
         commandMap.put(AUTHORIZATION_COMMAND, new Authorization());
         commandMap.put(BACK_COMMAND, new Back());
+        commandMap.put(CANCEL_ORDER_COMMAND, new CancelOrder());
+        commandMap.put(COMPLETE_ORDER_COMMAND, new CompleteOrder());
         commandMap.put(CREATE_PRODUCT_COMMAND, new CreateProduct());
         commandMap.put(DELETE_ORDER_COMMAND, new DeleteOrder());
         commandMap.put(DELETE_ORDER_PRODUCT_COMMAND, new DeleteOrderedProduct());
@@ -37,7 +39,7 @@ public class Receiver {
         commandMap.put(NEW_PRODUCT_COMMAND, new ServeProduct());
         commandMap.put(ORDERS_COMMAND, new Orders());
         commandMap.put(REMAINS_COMMAND, new Remains());
-        commandMap.put(FILL_EMAIL_COMMAND, new FillEmail());
+        commandMap.put(PREPARING_EMAIL_COMMAND, new PreparingEmail());
         commandMap.put(SEND_EMAIL_COMMAND, new SendEmail());
         commandMap.put(SERVE_ORDER_COMMAND, new ServeOrder());
         commandMap.put(SHOW_USERS_COMMAND, new ShowUsers());

@@ -21,13 +21,17 @@ public class CommodityExpert extends Employee {
                         INCOMES_COMMAND,
                         REMAINS_COMMAND),
                 List.of(NEW_PRODUCT_COMMAND,
+                        CANCEL_ORDER_COMMAND,
+                        COMPLETE_ORDER_COMMAND,
                         BACK_COMMAND,
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,
                         MOVIES_COMMAND,
                         LIST_OF_PRODUCT_COMMAND,
                         AUTHORIZATION_COMMAND,
+                        SERVE_ORDER_COMMAND,
                         NEW_INCOME_COMMAND,
+                        NEW_ORDER_COMMAND,
                         INCOMES_COMMAND,
                         REMAINS_COMMAND));
         logger.info("Commodity Expert created");

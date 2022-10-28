@@ -17,11 +17,14 @@ public class Cashier extends Employee{
                         ORDERS_COMMAND,
                         REMAINS_COMMAND),
                 List.of(BACK_COMMAND,
+                        CANCEL_ORDER_COMMAND,
+                        COMPLETE_ORDER_COMMAND,
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,
                         NEW_ORDER_COMMAND,
                         ORDERS_COMMAND,
                         AUTHORIZATION_COMMAND,
+                        SERVE_ORDER_COMMAND,
                         REMAINS_COMMAND,
                         MOVIES_COMMAND));
         logger.info("Cashier created");
