@@ -62,6 +62,6 @@ public class AddUserDetails implements Command {
             userManager.updateUser(newUser);
             logger.info(login + " updated");
         }
-        return "controller?command=command.show_users";
+        return "controller?command=command.back";
     }
 }

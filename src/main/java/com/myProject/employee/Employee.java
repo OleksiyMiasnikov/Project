@@ -6,6 +6,7 @@ import com.myProject.service.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.*;
 
@@ -65,6 +66,13 @@ public abstract class Employee implements Serializable {
                 throw new DaoException("Role is incorrect");
             }
         }
+    }
+
+    public static void manuUp(HttpSession session, List<String> listOfCommand) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        employee.setMenuItems(listOfCommand);
+        employee.setStackOfPages((String) session.getAttribute("previous_command"));
+        session.setAttribute("employee", employee);
     }
 
     public String getStartCommand() {

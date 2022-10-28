@@ -19,7 +19,7 @@ public class Receiver {
 
     static {
         commandMap = new HashMap<>();
-        commandMap.put(ADD_USER_COMMAND, new AddUser());
+        commandMap.put(ADD_USER_COMMAND, new NewUser());
         commandMap.put(ADD_USER_DETAILS_COMMAND, new AddUserDetails());
         commandMap.put(AUTHORIZATION_COMMAND, new Authorization());
         commandMap.put(BACK_COMMAND, new Back());

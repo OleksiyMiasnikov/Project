@@ -132,33 +132,33 @@ public class Constants {
 
 
     // command constants
-    public static final String SHOW_USERS_COMMAND = "command.show_users";
     public static final String ADD_USER_COMMAND = "command.add_user";
     public static final String ADD_USER_DETAILS_COMMAND = "command.add_user_details";
-    public static final String UPDATE_USER_COMMAND = "command.update_user";
-    public static final String UPDATE_PRODUCT_COMMAND = "command.update_product";
+    public static final String AUTHORIZATION_COMMAND = "authorization";
+    public static final String BACK_COMMAND = "command.back";
+    public static final String CANCEL_ORDER_COMMAND = "command.cancel_order";
+    public static final String COMPLETE_ORDER_COMMAND = "command.complete_order";
     public static final String CREATE_DATABASE_COMMAND = "command.create_database";
-    public static final String DELETE_USER_COMMAND = "command.delete_user";
+    public static final String CREATE_PRODUCT_COMMAND = "command.create_product";
     public static final String DELETE_ORDER_COMMAND = "command.delete_order";
     public static final String DELETE_ORDER_PRODUCT_COMMAND = "command.delete_ordered_product";
+    public static final String DELETE_USER_COMMAND = "command.delete_user";
+    public static final String INCOMES_COMMAND = "command.incomes";
+    public static final String LIST_OF_PRODUCT_COMMAND = "command.list_of_products";
+    public static final String LOCALE_COMMAND = "change_locale";
+    public static final String LOGOUT_COMMAND = "command.log_out";
+    public static final String MOVIES_COMMAND = "command.movies";
+    public static final String NEW_INCOME_COMMAND = "command.new_income";
     public static final String NEW_ORDER_COMMAND = "command.new_order";
+    public static final String NEW_PRODUCT_COMMAND = "command.new_product";
+    public static final String ORDERS_COMMAND = "command.orders";
+    public static final String PREPARING_EMAIL_COMMAND = "command.preparing_email";
+    public static final String REMAINS_COMMAND = "command.remains";
+    public static final String SEND_EMAIL_COMMAND = "command.send_email";
+    public static final String SERVE_ORDER_COMMAND = "command.serve_order";
+    public static final String SHOW_USERS_COMMAND = "command.show_users";
+    public static final String UPDATE_PRODUCT_COMMAND = "command.update_product";
+    public static final String UPDATE_USER_COMMAND = "command.update_user";
     public static final String X_REPORT_COMMAND = "command.x_reports";
     public static final String Z_REPORT_COMMAND = "command.z_reports";
-    public static final String NEW_PRODUCT_COMMAND = "command.new_product";
-    public static final String CREATE_PRODUCT_COMMAND = "command.create_product";
-    public static final String LIST_OF_PRODUCT_COMMAND = "command.list_of_products";
-    public static final String NEW_INCOME_COMMAND = "command.new_income";
-    public static final String INCOMES_COMMAND = "command.incomes";
-    public static final String REMAINS_COMMAND = "command.remains";
-    public static final String ORDERS_COMMAND = "command.orders";
-    public static final String MOVIES_COMMAND = "command.movies";
-    public static final String AUTHORIZATION_COMMAND = "authorization";
-    public static final String LOGOUT_COMMAND = "command.log_out";
-    public static final String SERVE_ORDER_COMMAND = "command.serve_order";
-    public static final String LOCALE_COMMAND = "change_locale";
-    public static final String BACK_COMMAND = "command.back";
-    public static final String PREPARING_EMAIL_COMMAND = "command.preparing_email";
-    public static final String SEND_EMAIL_COMMAND = "command.send_email";
-    public static final String COMPLETE_ORDER_COMMAND = "command.complete_order";
-    public static final String CANCEL_ORDER_COMMAND = "command.cancel_order";
 }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static com.myProject.util.Constants.*;
@@ -32,6 +33,7 @@ public class ServeOrder implements Command {
         CashierManager manager =
                 (CashierManager) req.getServletContext()
                         .getAttribute("CashierManager");
+        HttpSession session = req.getSession();
         String operation = req.getParameter("operation");
         if ("orders".equals(operation)) {
             req.setAttribute("operation", "Order");
@@ -40,9 +42,17 @@ public class ServeOrder implements Command {
         }
         String strId = req.getParameter("id");
         long id = Long.parseLong(strId);
-        Order order = manager.read(id);
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            order = manager.read(id);
+            Employee.manuUp(session, List.of(BACK_COMMAND));
+            /*Employee employee = (Employee) session.getAttribute("employee");
+            employee.setMenuItems(List.of(BACK_COMMAND));
+            employee.setStackOfPages((String) session.getAttribute("previous_command"));
+            session.setAttribute("employee", employee);*/
+        }
         List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);
-        req.setAttribute("order", order);
+        session.setAttribute("order", order);
         req.setAttribute("orderDetails", orderDetailsList);
         return PATH + "order.jsp";
     }

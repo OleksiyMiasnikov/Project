@@ -94,9 +94,11 @@
                             <hr>
                     </c:forEach>
                 <br>
+<%--
                 <button type="submit" name="command" value='<fmt:message key="${operation}s"/>'>
                     <fmt:message key="button_submit_ok"/>
                 </button>
+--%>
                </div>
             </div>
         </form>

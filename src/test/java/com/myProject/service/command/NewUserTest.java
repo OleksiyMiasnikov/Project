@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class AddUserTest {
+class NewUserTest {
 
     @Test
     void addUserSuccessTest() throws DaoException, AppException {

@@ -33,7 +33,7 @@ public class DeleteOrderedProduct implements Command {
             CashierManager cashierManager =
                     (CashierManager) req.getServletContext().getAttribute("CashierManager");
             if (cashierManager.deleteProductsInOrder(strId, products)) {
-                return "controller?command=command.orders";
+                return "controller?command=command.back";
             }
         }
         return "controller?command=command.serve_order&id=" +

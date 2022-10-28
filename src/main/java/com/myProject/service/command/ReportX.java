@@ -16,6 +16,7 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -45,6 +46,7 @@ public class ReportX implements Command {
                 (CashierManager) req.getServletContext().getAttribute("CashierManager");
         Employee employee =
                 (Employee) req.getSession().getAttribute("employee");
+        HttpSession session = req.getSession();
         String typeOfReport = "X_report";
         String title = "command.x_reports";
         if ("YES".equals(req.getParameter("z_report"))) {
@@ -58,11 +60,12 @@ public class ReportX implements Command {
         } catch (IOException e) {
             throw new AppException("Unable to create PDF file", e);
         }
-        req.getSession().setAttribute("pdf", filePDF);
-        req.getSession().setAttribute("title", title);
-        employee.setMenuItems(List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
+        session.setAttribute("pdf", filePDF);
+        session.setAttribute("title", title);
+        Employee.manuUp(session, List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
+/*        employee.setMenuItems(List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
         employee.setStackOfPages((String) req.getSession().getAttribute("previous_command"));
-        req.getSession().setAttribute("employee", employee);
+        req.getSession().setAttribute("employee", employee);*/
         return PATH + "report_x.jsp";
     }
 

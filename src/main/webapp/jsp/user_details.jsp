@@ -31,7 +31,9 @@
                             onchange="isPasswordChanged.value='YES'"
                             type="password"
                             name="newPassword"
-                            value="****">
+                            value="1Aaa"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters">
                     <input name="oldPassword" value="${user.password}" hidden="hidden">
                     <input id="isPasswordChanged" name="isPasswordChanged" value="NO" hidden="hidden">
                     <br>
@@ -54,12 +56,14 @@
                 </div>
                   <hr>
                   <br>
+<%--
                   <button type="submit" name="command" value="command.add_user_details">
                         <fmt:message key="button_submit_ok"/>
                   </button>
                   <button type="submit" name="command" value="command.show_users">
                         <fmt:message key="button_submit_cancel"/>
                   </button>
+--%>
                </div>
             </form>
         </div>

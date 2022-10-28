@@ -128,10 +128,11 @@ public class NewOrder implements Command {
                     .user(((Employee) session.getAttribute("employee")).getUser())
                     .date(new Timestamp(new Date().getTime()))
                     .build();
-            Employee employee = (Employee) session.getAttribute("employee");
-            employee.setMenuItems(List.of(COMPLETE_ORDER_COMMAND, CANCEL_ORDER_COMMAND, BACK_COMMAND));
+            Employee.manuUp(session, List.of(COMPLETE_ORDER_COMMAND, CANCEL_ORDER_COMMAND));
+           /* Employee employee = (Employee) session.getAttribute("employee");
+            employee.setMenuItems(List.of(COMPLETE_ORDER_COMMAND, CANCEL_ORDER_COMMAND));
             employee.setStackOfPages((String) session.getAttribute("previous_command"));
-            session.setAttribute("employee", employee);
+            session.setAttribute("employee", employee);*/
             session.removeAttribute("order");
             session.removeAttribute("orderDetails");
         } else {

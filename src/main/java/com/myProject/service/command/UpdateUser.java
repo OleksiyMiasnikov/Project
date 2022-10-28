@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.service.exception.AppException;
 import com.myProject.entitie.Role;
 import com.myProject.entitie.User;
@@ -10,11 +11,13 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
-import static com.myProject.util.Constants.PATH;
+import static com.myProject.util.Constants.*;
+
 /**
- * Implementation of
+ * Implementation of UPDATE_USER_COMMAND
  */
 
 public class UpdateUser implements Command {
@@ -25,14 +28,16 @@ public class UpdateUser implements Command {
  */
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, AppException {
-        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         String userId = req.getParameter("selectedUser");
-        logger.info("Start updating user: " + userId);
+        logger.info("UPDATE_USER_COMMAND. Updating user with id: " + userId);
+        HttpSession session = req.getSession();
+        UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.read(Long.parseLong(userId));
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
+        Employee.manuUp(session, List.of(ADD_USER_DETAILS_COMMAND, BACK_COMMAND));
         req.setAttribute("user", user);
         req.setAttribute("roles", rolesList);
-        req.getSession().setAttribute("title", "command.update_user");
+        session.setAttribute("title", "command.update_user");
         return  PATH + "user_details.jsp";
     }
 }
