@@ -2,24 +2,24 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%--
-        <link rel="stylesheet" href="css/main.css">
-        --%>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
-    </head>
     <body>
-        [error_page.jsp]
-        <hr>
-        <c:if test="${!empty error_message}">
-            ${error_message}
-        </c:if>
-        <hr
-        <c:if test="${!empty error_cause}">
-            ${error_cause}
-        </c:if>
-        <hr>
+        <%@ include file="/jsp/header.jspf" %>
+            <div class="dataBox">
+                <span style="font-size: 8px;">
+                    [error_page.jsp]
+                </span>
+                <hr>
+                <div style="text-align: center;">
+                    <c:if test="${!empty error_message}">
+                        ${error_message}
+                    </c:if>
+                    <c:if test="${!empty error_cause}">
+                        ${error_cause}
+                    </c:if>
+                </div>
+                <hr>
+            </div>
+        </form>
+
     </body>
 </html>

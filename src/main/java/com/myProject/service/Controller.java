@@ -1,5 +1,6 @@
 package com.myProject.service;
 
+import com.myProject.employee.Employee;
 import com.myProject.service.command.Receiver;
 import com.myProject.service.exception.AppException;
 import com.myProject.service.exception.DaoException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
+import static com.myProject.util.Constants.BACK_COMMAND;
 import static com.myProject.util.Constants.PATH;
 
 /**
@@ -34,9 +37,11 @@ public class Controller extends HttpServlet {
             address = Receiver.runCommand(req, resp, commandName);
         } catch (DaoException | AppException e) {
             req.getSession().setAttribute("error_message", e.getMessage());
+            req.getSession().setAttribute("title", "data_error");
             if (e.getCause() != null) {
                 req.getSession().setAttribute("error_cause", e.getCause().getMessage());
             }
+            Employee.manuUp(req.getSession(), List.of(BACK_COMMAND));
         }
         if (!"command.movies".equals(commandName)) {
             req.getSession().setAttribute("previous_command", commandName);

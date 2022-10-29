@@ -1,4 +1,4 @@
-package com.myProject.validator;
+package com.myProject.dto;
 
 import com.myProject.service.exception.AppException;
 

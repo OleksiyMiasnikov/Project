@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"/>
     </head>
     <body>
-        [error_page.jsp]
+        [error_page_npe.jsp]
         <hr>
         Null pointer error !
         <hr>

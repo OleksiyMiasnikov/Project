@@ -75,6 +75,14 @@ public abstract class Employee implements Serializable {
         session.setAttribute("employee", employee);
     }
 
+    public static String manuDown(HttpSession session) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        employee.popMenuItems();
+        String result = employee.popPage();
+        session.setAttribute("employee", employee);
+        return result;
+    }
+
     public String getStartCommand() {
         return startCommand;
     }

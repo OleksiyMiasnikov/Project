@@ -1,7 +1,6 @@
 package com.myProject.dto;
 
 import com.myProject.service.exception.AppException;
-import com.myProject.validator.Validator;
 
 public class UserDto implements Validator<UserDto> {
 
