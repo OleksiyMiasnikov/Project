@@ -29,6 +29,7 @@ public class RoleDaoImplTest {
     @BeforeEach
     void setUp() throws SQLException {
         roleDao = (RoleDaoImpl) DaoFactoryImpl.getInstance().getRoleDao();
+        con.createStatement().executeUpdate(DROP_ROLE_TABLE);
         con.createStatement().executeUpdate(CREATE_ROLE_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ROLE_TABLE);
     }

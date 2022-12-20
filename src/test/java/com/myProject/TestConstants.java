@@ -19,7 +19,7 @@ public class TestConstants {
                     "(3, 'senior cashier')," +
                     "(4, 'commodity expert')";
 
-    public static final String DROP_ROLE_TABLE = "DROP TABLE role";
+    public static final String DROP_ROLE_TABLE = "DROP TABLE IF EXISTS role";
 
     public static final String CREATE_USER_TABLE =
             "CREATE TABLE IF NOT EXISTS `user` (" +
@@ -34,7 +34,7 @@ public class TestConstants {
                     "INDEX `fk_users_roles1_idx` (`role_id` ASC) VISIBLE, " +
                     "CONSTRAINT `fk_users_roles1` " +
                     "FOREIGN KEY (`role_id`) " +
-                    "REFERENCES `cash_register`.`role` (`id`) " +
+                    "REFERENCES `db_test`.`role` (`id`) " +
                     "ON DELETE NO ACTION " +
                     "ON UPDATE NO ACTION) " +
                     "ENGINE = InnoDB";
@@ -47,7 +47,7 @@ public class TestConstants {
                     "(3, 'Bob', 'b@b', '934b535800b1cba8f96a5d72f72f1611', 2)," +
                     "(4, 'Clode', 'c@c', '2be9bd7a3434f7038ca27d1918de58bd', 3)," +
                     "(5, 'Den', 'd@d', 'dbc4d84bfcfe2284ba11beffb853a8c4', 4)";
-    public static final String DROP_USER_TABLE = "DROP TABLE user";
+    public static final String DROP_USER_TABLE = "DROP TABLE IF EXISTS user";
 
     public static final String CREATE_ORDER_TABLE =
             "CREATE TABLE IF NOT EXISTS `order` (" +
@@ -61,7 +61,7 @@ public class TestConstants {
                     "  INDEX `fk_ordes_users1_idx` (`user_id` ASC) VISIBLE," +
                     "  CONSTRAINT `fk_ordes_users1`" +
                     "    FOREIGN KEY (`user_id`)" +
-                    "    REFERENCES `cash_register`.`user` (`id`)" +
+                    "    REFERENCES `db_test`.`user` (`id`)" +
                     "    ON DELETE NO ACTION " +
                     "    ON UPDATE NO ACTION) " +
                     "ENGINE = InnoDB";
@@ -75,7 +75,7 @@ public class TestConstants {
                     "( 4, 3, '2022-09-17 09:45:50', 10662.57, 'OUT', 0)," +
                     "( 5, 3, '2022-09-17 10:33:18', 348.63, 'OUT', 0)";
 
-    public static final String DROP_ORDER_TABLE = "DROP TABLE `order`";
+    public static final String DROP_ORDER_TABLE = "DROP TABLE IF EXISTS `order`";
 
     public static final String CREATE_ORDER_DETAILS_TABLE =
             "CREATE TABLE IF NOT EXISTS `order_details` (" +
@@ -89,12 +89,12 @@ public class TestConstants {
                     "  INDEX `fk_order_details_goods1_idx` (`product_id` ASC) VISIBLE," +
                     "  CONSTRAINT `fk_order_details_ordes1`" +
                     "    FOREIGN KEY (`order_id`)" +
-                    "    REFERENCES `cash_register`.`order` (`id`)" +
+                    "    REFERENCES `db_test`.`order` (`id`)" +
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION," +
                     "  CONSTRAINT `fk_order_details_goods1`" +
                     "    FOREIGN KEY (`product_id`)" +
-                    "    REFERENCES `cash_register`.`product` (`id`)" +
+                    "    REFERENCES `db_test`.`product` (`id`)" +
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION) " +
                     "ENGINE = InnoDB";
@@ -116,7 +116,7 @@ public class TestConstants {
                     "(12, 5,12, 1, 31.0)," +
                     "(13, 5,13, 2, 20.0)," +
                     "(14, 5,14, 1, 45.88)";
-    public static final String DROP_ORDER_DETAILS_TABLE = "DROP TABLE `order_details`";
+    public static final String DROP_ORDER_DETAILS_TABLE = "DROP TABLE IF EXISTS `order_details`";
 
     public static final String CREATE_PRODUCT_TABLE =
             "CREATE TABLE IF NOT EXISTS `product` (" +
@@ -146,7 +146,7 @@ public class TestConstants {
                     "(13,'сіль', 'KG', 20.0)," +
                     "(14,'олія Олейна 1,0 л', 'PCS', 60.35)," +
                     "(15,'шампунь', 'PCS', 45.88);";
-    public static final String DROP_PRODUCT_TABLE = "DROP TABLE `product`";
+    public static final String DROP_PRODUCT_TABLE = "DROP TABLE IF EXISTS `product`";
 
     public static final String CREATE_WAREHOUSE_TABLE =
             "CREATE TABLE IF NOT EXISTS `warehouse` (" +
@@ -157,7 +157,7 @@ public class TestConstants {
                     "  INDEX `fk_warehouse_goods1_idx` (`product_id` ASC) VISIBLE," +
                     "  CONSTRAINT `fk_warehouse_goods1`" +
                     "    FOREIGN KEY (`product_id`)" +
-                    "    REFERENCES `cash_register`.`product` (`id`)" +
+                    "    REFERENCES `db_test`.`product` (`id`)" +
                     "    ON DELETE NO ACTION" +
                     "    ON UPDATE NO ACTION)";
 
@@ -178,6 +178,6 @@ public class TestConstants {
                     "(12, 5, 12)," +
                     "(13, 40, 13)," +
                     "(14, 10, 14);";
-    public static final String DROP_WAREHOUSE_TABLE = "DROP TABLE `warehouse`";
+    public static final String DROP_WAREHOUSE_TABLE = "DROP TABLE IF EXISTS `warehouse`";
 
 }

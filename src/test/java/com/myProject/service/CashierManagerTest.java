@@ -41,16 +41,24 @@ class CashierManagerTest extends BeforeMockTests{
     @BeforeEach
     void setUp() throws SQLException {
         Connection con = DriverManager.getConnection(CONNECTION_URL);
+
+        con.createStatement().executeUpdate(DROP_ORDER_DETAILS_TABLE);
+        con.createStatement().executeUpdate(DROP_ORDER_TABLE);
+        con.createStatement().executeUpdate(DROP_USER_TABLE);
+        con.createStatement().executeUpdate(DROP_ROLE_TABLE);
+        con.createStatement().executeUpdate(DROP_WAREHOUSE_TABLE);
+        con.createStatement().executeUpdate(DROP_PRODUCT_TABLE);
+
         con.createStatement().executeUpdate(CREATE_ROLE_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ROLE_TABLE);
         con.createStatement().executeUpdate(CREATE_USER_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_USER_TABLE);
+        con.createStatement().executeUpdate(CREATE_PRODUCT_TABLE);
+        con.createStatement().executeUpdate(INSERT_DATA_IN_PRODUCT_TABLE);
         con.createStatement().executeUpdate(CREATE_ORDER_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ORDER_TABLE);
         con.createStatement().executeUpdate(CREATE_ORDER_DETAILS_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ORDER_DETAILS_TABLE);
-        con.createStatement().executeUpdate(CREATE_PRODUCT_TABLE);
-        con.createStatement().executeUpdate(INSERT_DATA_IN_PRODUCT_TABLE);
         con.createStatement().executeUpdate(CREATE_WAREHOUSE_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_WAREHOUSE_TABLE);
         con.close();
@@ -60,12 +68,12 @@ class CashierManagerTest extends BeforeMockTests{
     @AfterEach
     void tearDown() throws SQLException {
         Connection con = DriverManager.getConnection(CONNECTION_URL);
+        con.createStatement().executeUpdate(DROP_ORDER_DETAILS_TABLE);
+        con.createStatement().executeUpdate(DROP_ORDER_TABLE);
         con.createStatement().executeUpdate(DROP_USER_TABLE);
         con.createStatement().executeUpdate(DROP_ROLE_TABLE);
-        con.createStatement().executeUpdate(DROP_ORDER_TABLE);
-        con.createStatement().executeUpdate(DROP_ORDER_DETAILS_TABLE);
-        con.createStatement().executeUpdate(DROP_PRODUCT_TABLE);
         con.createStatement().executeUpdate(DROP_WAREHOUSE_TABLE);
+        con.createStatement().executeUpdate(DROP_PRODUCT_TABLE);
         con.close();
     }
 

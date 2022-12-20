@@ -64,6 +64,7 @@ class NewUserTest {
         when(req.getServletContext()).thenReturn(context);
         when(req.getSession()).thenReturn(session);
         when(req.getSession().getAttribute("employee")).thenReturn(employee);
+        when(req.getSession().getAttribute("previous_command")).thenReturn(employee.getStartCommand());
         when(req.getServletContext().getAttribute("UserManager")).thenReturn(manager);
         String result = Receiver.runCommand(req, resp,"command.add_user");
         assertEquals(result,"jsp/user_details.jsp");

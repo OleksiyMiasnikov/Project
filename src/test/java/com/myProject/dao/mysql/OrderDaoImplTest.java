@@ -42,19 +42,19 @@ public class OrderDaoImplTest {
         con.createStatement().executeUpdate(INSERT_DATA_IN_USER_TABLE);
         con.createStatement().executeUpdate(CREATE_ORDER_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_ORDER_TABLE);
-        con.createStatement().executeUpdate(CREATE_ORDER_DETAILS_TABLE);
-        con.createStatement().executeUpdate(INSERT_DATA_IN_ORDER_DETAILS_TABLE);
         con.createStatement().executeUpdate(CREATE_PRODUCT_TABLE);
         con.createStatement().executeUpdate(INSERT_DATA_IN_PRODUCT_TABLE);
+        con.createStatement().executeUpdate(CREATE_ORDER_DETAILS_TABLE);
+        con.createStatement().executeUpdate(INSERT_DATA_IN_ORDER_DETAILS_TABLE);
     }
 
     @AfterEach
     void tearDown() throws SQLException {
-        con.createStatement().executeUpdate(DROP_ROLE_TABLE);
-        con.createStatement().executeUpdate(DROP_USER_TABLE);
         con.createStatement().executeUpdate(DROP_ORDER_DETAILS_TABLE);
         con.createStatement().executeUpdate(DROP_ORDER_TABLE);
+        con.createStatement().executeUpdate(DROP_USER_TABLE);
         con.createStatement().executeUpdate(DROP_PRODUCT_TABLE);
+        con.createStatement().executeUpdate(DROP_ROLE_TABLE);
     }
 
     @Test
