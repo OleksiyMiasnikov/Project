@@ -23,6 +23,7 @@ public class SeniorCashier extends Employee{
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,
                         NEW_ORDER_COMMAND,
+                        NEW_MOVIES_COMMAND,
                         ORDERS_COMMAND,
                         REMAINS_COMMAND,
                         DELETE_ORDER_COMMAND,

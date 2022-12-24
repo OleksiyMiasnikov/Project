@@ -45,11 +45,7 @@ public class ServeOrder implements Command {
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
             order = manager.read(id);
-            Employee.manuUp(session, List.of(BACK_COMMAND));
-            /*Employee employee = (Employee) session.getAttribute("employee");
-            employee.setMenuItems(List.of(BACK_COMMAND));
-            employee.setStackOfPages((String) session.getAttribute("previous_command"));
-            session.setAttribute("employee", employee);*/
+            Employee.menuUp(session, List.of(BACK_COMMAND));
         }
         List<OrderDetails> orderDetailsList = manager.findAllOrderDetails(0, 1000, id);
         session.setAttribute("order", order);

@@ -164,7 +164,7 @@
                 </c:if>
                 <br>
                 <input  name="direction" value="${direction}" hidden="hidden">
-                <input  name="command" value="command.new_order" hidden="hidden">
+                <input  name="command" value="command.new_movies" hidden="hidden">
             </div>
         </form>
         <script src="${pageContext.request.contextPath}/js/new_order.js"></script>

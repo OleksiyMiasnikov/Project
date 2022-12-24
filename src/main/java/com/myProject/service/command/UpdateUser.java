@@ -34,7 +34,7 @@ public class UpdateUser implements Command {
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         User user = userManager.read(Long.parseLong(userId));
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
-        Employee.manuUp(session, List.of(ADD_USER_DETAILS_COMMAND, BACK_COMMAND));
+        Employee.menuUp(session, List.of(ADD_USER_DETAILS_COMMAND, BACK_COMMAND));
         req.setAttribute("user", user);
         req.setAttribute("roles", rolesList);
         session.setAttribute("title", "command.update_user");

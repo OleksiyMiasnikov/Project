@@ -36,6 +36,7 @@ public class Receiver {
         commandMap.put(MOVIES_COMMAND, new Movies());
         commandMap.put(NEW_INCOME_COMMAND, new NewIncome());
         commandMap.put(NEW_ORDER_COMMAND, new NewOrder());
+        commandMap.put(NEW_MOVIES_COMMAND, new NewMovies());
         commandMap.put(NEW_PRODUCT_COMMAND, new ServeProduct());
         commandMap.put(ORDERS_COMMAND, new Orders());
         commandMap.put(REMAINS_COMMAND, new Remains());
@@ -50,6 +51,7 @@ public class Receiver {
 
     /**
      * checks if the requested command is allowed to the employee of the current session
+     *
      * @return instance of command implementation which the specified to parameter 'commandName'
      * @throws AppException with the message "Unauthorised access attempt" if the command is not allowed
      */
@@ -57,7 +59,7 @@ public class Receiver {
             throws DaoException, AppException {
         Employee employee = (Employee) req.getSession().getAttribute("employee");
         if (employee == null && "authorization".equals(commandName) ||
-            employee != null && employee.getAvailableCommands().contains(commandName)) {
+                employee != null && employee.getAvailableCommands().contains(commandName)) {
             return commandMap.get(commandName).execute(req, resp);
         }
         throw new AppException("Unauthorised access attempt");

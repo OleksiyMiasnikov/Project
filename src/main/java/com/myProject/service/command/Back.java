@@ -24,11 +24,7 @@ public class Back implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp)
             throws DaoException, AppException {
         logger.info("BACK_COMMAND executed");
-/*        Employee employee = (Employee) req.getSession().getAttribute("employee");
-        employee.popMenuItems();
-        String result = employee.popPage();
-        req.getSession().setAttribute("employee", employee);*/
-        String result = Employee.manuDown(req.getSession());
+        String result = Employee.menuDown(req.getSession());
         if ("command.orders".equals(result)) {
             req.getSession().removeAttribute("pdf");
         }

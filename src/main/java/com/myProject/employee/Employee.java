@@ -10,8 +10,6 @@ import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.*;
 
-import static com.myProject.util.Constants.PATH;
-
 public abstract class Employee implements Serializable {
     private static final Logger logger = (Logger) LogManager.getLogger(ConnectionPool.class);
     private final User user;
@@ -68,14 +66,14 @@ public abstract class Employee implements Serializable {
         }
     }
 
-    public static void manuUp(HttpSession session, List<String> listOfCommand) {
+    public static void menuUp(HttpSession session, List<String> listOfCommand) {
         Employee employee = (Employee) session.getAttribute("employee");
         employee.setMenuItems(listOfCommand);
         employee.setStackOfPages((String) session.getAttribute("previous_command"));
         session.setAttribute("employee", employee);
     }
 
-    public static String manuDown(HttpSession session) {
+    public static String menuDown(HttpSession session) {
         Employee employee = (Employee) session.getAttribute("employee");
         employee.popMenuItems();
         String result = employee.popPage();

@@ -33,7 +33,7 @@ public class NewUser implements Command {
         UserManager userManager = (UserManager) req.getServletContext().getAttribute("UserManager");
         HttpSession session = req.getSession();
         List<Role> rolesList = userManager.findAllRoles(0, 1000);
-        Employee.manuUp(session, List.of(ADD_USER_DETAILS_COMMAND, BACK_COMMAND));
+        Employee.menuUp(session, List.of(ADD_USER_DETAILS_COMMAND, BACK_COMMAND));
         session.setAttribute("roles", rolesList);
         session.setAttribute("title", "command.add_user");
         return PATH + "user_details.jsp";

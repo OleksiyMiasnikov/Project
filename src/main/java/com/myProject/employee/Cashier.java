@@ -22,6 +22,7 @@ public class Cashier extends Employee{
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,
                         NEW_ORDER_COMMAND,
+                        NEW_MOVIES_COMMAND,
                         ORDERS_COMMAND,
                         AUTHORIZATION_COMMAND,
                         SERVE_ORDER_COMMAND,

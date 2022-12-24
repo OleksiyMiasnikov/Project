@@ -62,7 +62,7 @@ public class ReportX implements Command {
         }
         session.setAttribute("pdf", filePDF);
         session.setAttribute("title", title);
-        Employee.manuUp(session, List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
+        Employee.menuUp(session, List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
 /*        employee.setMenuItems(List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
         employee.setStackOfPages((String) req.getSession().getAttribute("previous_command"));
         req.getSession().setAttribute("employee", employee);*/

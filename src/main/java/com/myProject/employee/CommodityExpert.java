@@ -32,7 +32,7 @@ public class CommodityExpert extends Employee {
                         AUTHORIZATION_COMMAND,
                         SERVE_ORDER_COMMAND,
                         NEW_INCOME_COMMAND,
-                        NEW_ORDER_COMMAND,
+                        NEW_MOVIES_COMMAND,
                         INCOMES_COMMAND,
                         REMAINS_COMMAND));
         logger.info("Commodity Expert created");

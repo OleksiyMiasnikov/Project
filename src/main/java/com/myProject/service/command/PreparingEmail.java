@@ -34,7 +34,7 @@ public class PreparingEmail implements Command {
         session.setAttribute("from_address_mail", "oleksiymiasnikov@gmail.com");
         session.setAttribute("to_address_mail", employee.getUser().getEmail());
         session.setAttribute("subject_mail", "Report");
-        Employee.manuUp(session, List.of(SEND_EMAIL_COMMAND, BACK_COMMAND));
+        Employee.menuUp(session, List.of(SEND_EMAIL_COMMAND, BACK_COMMAND));
 /*        employee.setMenuItems(List.of(SEND_EMAIL_COMMAND, BACK_COMMAND));
         employee.setStackOfPages((String) session.getAttribute("previous_command"));
         session.setAttribute("employee", employee);*/

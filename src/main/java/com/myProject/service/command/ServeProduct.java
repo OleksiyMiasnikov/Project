@@ -47,7 +47,7 @@ public class ServeProduct implements Command {
                     .price(1d)
                     .build();
         }
-        Employee.manuUp(session, List.of(CREATE_PRODUCT_COMMAND, BACK_COMMAND));
+        Employee.menuUp(session, List.of(CREATE_PRODUCT_COMMAND, BACK_COMMAND));
         session.setAttribute("units", Unit.values());
         session.setAttribute("result", product);
         session.setAttribute("title", "command.update_product");

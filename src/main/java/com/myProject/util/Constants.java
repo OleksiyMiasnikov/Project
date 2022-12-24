@@ -150,6 +150,7 @@ public class Constants {
     public static final String MOVIES_COMMAND = "command.movies";
     public static final String NEW_INCOME_COMMAND = "command.new_income";
     public static final String NEW_ORDER_COMMAND = "command.new_order";
+    public static final String NEW_MOVIES_COMMAND = "command.new_movies";
     public static final String NEW_PRODUCT_COMMAND = "command.new_product";
     public static final String ORDERS_COMMAND = "command.orders";
     public static final String PREPARING_EMAIL_COMMAND = "command.preparing_email";

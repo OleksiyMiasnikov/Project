@@ -41,9 +41,9 @@ public class Controller extends HttpServlet {
             if (e.getCause() != null) {
                 req.getSession().setAttribute("error_cause", e.getCause().getMessage());
             }
-            Employee.manuUp(req.getSession(), List.of(BACK_COMMAND));
+            Employee.menuUp(req.getSession(), List.of(BACK_COMMAND));
         }
-        if (!"command.movies".equals(commandName)) {
+        if (!"command.movies".equals(commandName) && !"command.new_movies".equals(commandName)) {
             req.getSession().setAttribute("previous_command", commandName);
         }
         logger.info("Address: " + address);
