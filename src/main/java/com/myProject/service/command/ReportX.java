@@ -52,6 +52,8 @@ public class ReportX implements Command {
         if ("YES".equals(req.getParameter("z_report"))) {
             typeOfReport = "Z_report";
             title = "command.z_reports";
+        } else {
+            Employee.menuUp(session, List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
         }
         Report report = manager.createReport(typeOfReport);
         report.setSeniorCashier(employee.getUser().getLogin());
@@ -62,10 +64,6 @@ public class ReportX implements Command {
         }
         session.setAttribute("pdf", filePDF);
         session.setAttribute("title", title);
-        Employee.menuUp(session, List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
-/*        employee.setMenuItems(List.of(PREPARING_EMAIL_COMMAND, BACK_COMMAND));
-        employee.setStackOfPages((String) req.getSession().getAttribute("previous_command"));
-        req.getSession().setAttribute("employee", employee);*/
         return PATH + "report_x.jsp";
     }
 
@@ -93,7 +91,7 @@ public class ReportX implements Command {
             stream.setFont(font, 14);
             stream.setLeading(rowHeight);
             stream.newLineAtOffset(xCoordinate, yCoordinate);
-            stream.showText("*** Report X ***");
+            stream.showText("*** Report ***");
             yCoordinate -= rowHeight;
             stream.newLine();
             stream.showText("------------------------------------------------------------------------------");
