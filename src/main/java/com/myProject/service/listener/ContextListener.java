@@ -55,16 +55,4 @@ public class ContextListener implements ServletContextListener, ServletContextAt
 
         logger.info("locales: " + locales);
     }
-
-/*    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        // Close all resources
-        try {
-            DriverManager.deregisterDriver(DriverManager.getDrivers().nextElement());
-        } catch (SQLException e) {
-            logger.error("Can not deregister driver JDBC");
-        }
-        logger.info("Context is destroyed. Closing all resources");
-    }*/
-
 }
