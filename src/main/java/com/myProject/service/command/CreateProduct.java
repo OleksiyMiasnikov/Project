@@ -65,6 +65,6 @@ public class CreateProduct implements Command {
             commodityExpertManager.update(newProduct);
             logger.info(name + " updated");
         }
-        return "controller?command=command.list_of_products";
+        return "controller?command=command.back";
     }
 }

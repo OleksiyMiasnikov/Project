@@ -23,6 +23,7 @@ public class CommodityExpert extends Employee {
                 List.of(NEW_PRODUCT_COMMAND,
                         CANCEL_ORDER_COMMAND,
                         COMPLETE_ORDER_COMMAND,
+                        CREATE_PRODUCT_COMMAND,
                         BACK_COMMAND,
                         LOCALE_COMMAND,
                         LOGOUT_COMMAND,

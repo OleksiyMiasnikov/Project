@@ -1,5 +1,6 @@
 package com.myProject.service.command;
 
+import com.myProject.employee.Employee;
 import com.myProject.service.CommodityExpertManager;
 import com.myProject.entitie.Product;
 import com.myProject.entitie.Unit;
@@ -10,8 +11,12 @@ import org.apache.logging.log4j.core.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import static com.myProject.util.Constants.PATH;
+import java.util.List;
+
+import static com.myProject.util.Constants.*;
+
 /**
  * Implementation of NEW_PRODUCT_COMMAND
  */
@@ -29,6 +34,7 @@ public class ServeProduct implements Command {
         logger.info("Serve product");
         Product product;
         String strId = req.getParameter("selectedProduct");
+        HttpSession session = req.getSession();
         if (strId != null) {
             CommodityExpertManager manager =
                     (CommodityExpertManager) req.getServletContext().getAttribute("CommodityExpertManager");
@@ -41,9 +47,10 @@ public class ServeProduct implements Command {
                     .price(1d)
                     .build();
         }
-        req.getSession().setAttribute("units", Unit.values());
-        req.getSession().setAttribute("result", product);
-        req.getSession().setAttribute("title", "command.update_product");
+        Employee.manuUp(session, List.of(CREATE_PRODUCT_COMMAND, BACK_COMMAND));
+        session.setAttribute("units", Unit.values());
+        session.setAttribute("result", product);
+        session.setAttribute("title", "command.update_product");
         return PATH + "product_details.jsp";
     }
 }

@@ -36,17 +36,12 @@ public class UserDto implements Validator<UserDto> {
             } catch (NumberFormatException e) {
                 throw new AppException("Incorrect 'id'");
             }
-        } else {
-            id = 0L;
         }
         if ("".equals(login)) {
             throw new AppException("Incorrect 'login'");
         }
         if ("".equals(password)) {
             throw new AppException("Incorrect 'password'");
-        }
-        if ("".equals(email)) {
-            throw new AppException("Incorrect 'role'");
         }
         if ("".equals(role)) {
             throw new AppException("Incorrect 'role'");

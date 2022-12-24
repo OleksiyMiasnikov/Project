@@ -33,7 +33,7 @@
                             name="newPassword"
                             value="1Aaa"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
-                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters">
+                            title= "<fmt:message key='password_hint'/>">
                     <input name="oldPassword" value="${user.password}" hidden="hidden">
                     <input id="isPasswordChanged" name="isPasswordChanged" value="NO" hidden="hidden">
                     <br>

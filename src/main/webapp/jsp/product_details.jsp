@@ -50,6 +50,7 @@
                 <input class="header_value" name="newPrice" value=${result.price} pattern="^[0-9]+\.?[0-9]{0,2}$">
                 <br>
                 <hr>
+            <%--
                 <p>
                     <button class="submit_button" type="submit" name="command" value="command.create_product">
                         <fmt:message key="button_submit_ok"/>
@@ -58,6 +59,7 @@
                         <fmt:message key="button_submit_cancel"/>
                     </button>
                 </p>
+             --%>
             </div>
         </form>
     </body>
